@@ -24,7 +24,7 @@
 
             // Initialize the controller and a mock scope
             var ArticlesController,
-                scope,
+                $scope,
                 $httpBackend,
                 $routeParams,
                 $location;
@@ -34,7 +34,7 @@
             // with the same name as the service.
             beforeEach(inject(function($controller, $rootScope, _$location_, _$routeParams_, _$httpBackend_) {
 
-                scope = $rootScope.$new();
+                $scope = $rootScope.$new();
 
                 ArticlesController = $controller('ArticlesController', {
                     $scope: scope
@@ -58,7 +58,7 @@
                     }]);
 
                     // run controller
-                    scope.find();
+                    $scope.find();
                     $httpBackend.flush();
 
                     // test scope value
@@ -86,7 +86,7 @@
                     $httpBackend.expectGET(/articles\/([0-9a-fA-F]{24})$/).respond(testArticleData());
 
                     // run controller
-                    scope.findOne();
+                    $scope.findOne();
                     $httpBackend.flush();
 
                     // test scope value
@@ -116,14 +116,14 @@
                     };
 
                     // fixture mock form input values
-                    scope.title = 'An Article about MEAN';
-                    scope.content = 'MEAN rocks!';
+                    $scope.title = 'An Article about MEAN';
+                    $scope.content = 'MEAN rocks!';
 
                     // test post request is sent
                     $httpBackend.expectPOST('articles', postArticleData()).respond(responseArticleData());
 
                     // Run controller
-                    scope.create();
+                    $scope.create();
                     $httpBackend.flush();
 
                     // test form input(s) are reset
@@ -149,7 +149,7 @@
                 var article = new Articles(putArticleData());
 
                 // mock article in scope
-                scope.article = article;
+                $scope.article = article;
 
                 // test PUT happens correctly
                 $httpBackend.expectPUT(/articles\/([0-9a-fA-F]{24})$/).respond();
@@ -163,7 +163,7 @@
                 */
 
                 // run controller
-                scope.update();
+                $scope.update();
                 $httpBackend.flush();
 
                 // test URL location to new object
@@ -180,14 +180,14 @@
                     });
 
                     // mock rideshares in scope
-                    scope.articles = [];
-                    scope.articles.push(article);
+                    $scope.articles = [];
+                    $scope.articles.push(article);
 
                     // test expected rideshare DELETE request
                     $httpBackend.expectDELETE(/articles\/([0-9a-fA-F]{24})$/).respond(204);
 
                     // run controller
-                    scope.remove(article);
+                    $scope.remove(article);
                     $httpBackend.flush();
 
                     // test after successful delete URL location articles lis

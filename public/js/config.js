@@ -1,6 +1,5 @@
 //Setting up route
 angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
-
     $urlRouterProvider.otherwise(function($injector, $location){
         $injector.invoke(['$state', function($state) {
             $state.go('404');
@@ -18,7 +17,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('OpenReg',{
             url : '/openregistration',
-            templateUrl: 'views/OpenRegistration.html'
+            controller : 'RegistrationController',
+            templateUrl: 'views/admin/OpenRegistration.html'
         })
         .state('SignUp',{
             url : '/signup',
