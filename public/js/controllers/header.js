@@ -1,6 +1,5 @@
 angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', 'SignOut', '$state', function ($scope, Global, SignOut, $state) {
     $scope.global = Global;
-
     $scope.menu = [{
         "title": "Articles",
         "state": "articles"

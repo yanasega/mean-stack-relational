@@ -1,4 +1,12 @@
+// var myApp = angular.module('mean.system',[]);
+
+// myApp.controller('RegistrationController', ['$scope', 'Global',function($scope, Global) {
+//   $scope.global = Global;
+//   console.log("yep");
+// }]);
+
 angular.module('mean.system').controller('RegistrationController', ['$scope', 'Global', function ($scope, Global) {
+    
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.startdate = null;
@@ -6,7 +14,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', 'G
     $scope.semester = null;
     $scope.IsActive = null;
     $scope.status = null;
-    
+
     $scope.openRegistration = function () {
         console.log($scope.startdate);
         sequelize.sync().success(function () {
@@ -35,6 +43,5 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', 'G
         $scope.status = "Registration opened successfully.";
 
     }
-
 
 }]);

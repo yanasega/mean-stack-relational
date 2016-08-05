@@ -6,10 +6,14 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         }]);
     });
     $stateProvider
+        // .state('home',{
+        //     url : '/',
+        //     controller : 'IndexController',
+        //     templateUrl: 'views/index.html'
+        // })
         .state('home',{
             url : '/',
-            controller : 'IndexController',
-            templateUrl: 'views/index.html'
+            templateUrl: 'views/users/signin.html'
         })
         .state('SignIn',{
             url : '/signin',

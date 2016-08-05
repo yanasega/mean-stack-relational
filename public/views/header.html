@@ -1,21 +1,87 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav">
         <li>
+           <section>
+            <i class="fa fa-braille" aria-hidden="true"></i>
             <a class="brand" ui-sref="home">Architecture Data System</a>
+           </section>
         </li>
         <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a ui-sref="{{item.state}}">{{item.title}}</a>
         </li>
     </ul>
-    <ul class="nav pull-right" data-ng-hide="global.authenticated">
-        <li><a ui-sref="SignUp">Signup</a>
+    <ul class="nav pull-left" data-ng-hide="global.authenticated">
+    <i class="fa fa-braille" aria-hidden="true"></i>
+        <!--<li><a ui-sref="SignUp">Signup</a>
         </li>
         <li class="divider-vertical"></li>
-        <li><a ui-sref="SignIn">Signin</a>
-        <li><a ui-sref="OpenReg">Open Registration</a>
+        <li><a ui-sref="SignIn">Signin</a>-->
+        
+
+        <!--USERS-->
+
+        <!--Home-->
+        <li><a ui-sref="SignUp">Home</a></li>
+
+        <!--Insert assigment requests-->
+        <li><a ui-sref="SignUp">Insert assigment requests</a></li>
+        
+        <!--Degree calculator-->
+        <li><a ui-sref="SignUp">Degree calculator</a></li>
+
+        <!--ADMIN-->
+
+        <!--Registration-->
+        <li class="dropdown"> 
+            <a class="dropdown-toggle" data-toggle="dropdown">
+				Registration Managment <b class="caret"></b>
+			</a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="OpenReg">Open Registration</a></li>
+                <li><a ui-sref="OpenReg">Edit Registration</a></li>
+                <li><a ui-sref="OpenReg">Registration Status</a></li>
+            </ul>
         </li>
+
+        <!--User managment-->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+				User Managment <b class="caret"></b>
+			</a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="OpenReg">Add Users</a></li>
+                <li><a ui-sref="OpenReg">View/Edit user info</a></li>
+                <li><a ui-sref="OpenReg">Upload new users</a></li>
+            </ul>
+        </li>
+
+
+        <!--Assignment  managment-->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+				Assignment Managment <b class="caret"></b>
+			</a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="OpenReg">View past assignments</a></li>
+                <li><a ui-sref="OpenReg">Create new assignment</a></li>
+                <li><a ui-sref="OpenReg">Edit existing assignment</a></li>
+            </ul>
+        </li>
+
+        <!--Studio managment-->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+				Studio Managment <b class="caret"></b>
+			</a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="OpenReg">Add/Remove Studio</a></li>
+            </ul>
+        </li>
+
     </ul>
-    <ul class="nav pull-right" data-ng-show="global.authenticated">
+    
+
+    <!--<ul class="nav pull-right" data-ng-show="global.authenticated">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
 				{{global.user.name}} <b class="caret"></b>
@@ -25,5 +91,5 @@
                 </li>
             </ul>
         </li>
-    </ul>
+    </ul>-->
 </div>
