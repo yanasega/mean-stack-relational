@@ -1,12 +1,5 @@
-// var myApp = angular.module('mean.system',[]);
-
-// myApp.controller('RegistrationController', ['$scope', 'Global',function($scope, Global) {
-//   $scope.global = Global;
-//   console.log("yep");
-// }]);
-
-angular.module('mean.system').controller('RegistrationController', ['$scope', 'Global', function ($scope, Global) {
-    
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource' ,'Global', function ($scope, $resource ,Global) {
+    var Reg = $resource('/api/registrations');
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.startdate = null;
@@ -16,10 +9,16 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', 'G
     $scope.status = null;
 
     $scope.openRegistration = function () {
+        var reg = new Reg(); 
         console.log($scope.startdate);        
-        $scope.startdate = null;
-        $scope.enddate = null;
-        $scope.semester = null;
+        //$scope.startdate = null;
+        //$scope.enddate = null;
+        //$scope.semester = null;
+        reg.$save(function (result) {
+            $scope.startdate = null;
+            $scope.enddate = null;
+            $scope.semester = null;
+        });
         $scope.status = "Registration opened successfully.";
 
     }
