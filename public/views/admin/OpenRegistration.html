@@ -1,17 +1,22 @@
 <section>
     <form>
-  	<p>Open Registration:</p>
-  		Start Date:<br>
-  		<input type="date" ng-model="startdate"><br>
-		End Date:<br>
-  		<input type="date" ng-model="enddate"><br>
-		Semester:<br>
-  		<select type="string" ng-model="semester">
-		<option value="winter">Winter</option>
-		<option value="spring">Spring</option>
-  		</select>
-		<br>
-		<input type="submit" value="Submit" ng-click="openRegistration()">
-	<p ng-show="status != null"> <i class="fa fa-check" aria-hidden="true"></i> {{status}} </p>	  
+	<section ng-show="status == null">
+		<p >Open Registration:</p>
+		<hr>
+			Start Date:<br>
+			<input type="date" ng-model="startdate" required><br>
+			End Date:<br>
+			<input type="date" ng-model="enddate" required><br>
+			Semester:<br>
+			<select type="string" ng-model="semester" required>
+			<option value="winter">Winter</option>
+			<option value="spring">Spring</option>
+			</select>
+			<br>
+			<input type="submit" value="Submit" ng-click="openRegistration()">
+	</section>
+
+	<section><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  
+	
 	</form>
 </section>
