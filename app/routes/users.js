@@ -8,7 +8,7 @@ var passport = require('passport');
 module.exports = function(app) {
 // User Routes
 var users = require('../../app/controllers/users');
-var RegistrationController = require('../controllers/RegistrationController');
+//var RegistrationController = require('../controllers/RegistrationController');
 
 // User Routes
 app.get('/signout', users.signout);
@@ -17,7 +17,7 @@ app.get('/users/me', users.me);
 // Setting up the users api
 app.post('/users', users.create);
 
-app.post('/api/registrations', RegistrationController.create);
+//app.post('/api/registrations', RegistrationController.create);
 
 // Setting the local strategy route
 app.post('/users/session', passport.authenticate('local', {
