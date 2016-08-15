@@ -1,0 +1,41 @@
+<div>
+	<br>
+		<p style = "font-size:20px">Edit/Remove existing registrations</p>
+		<hr>
+</div>
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg == false"></i>
+<div id = "registrations" ng-show = "showreg == true">
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Semester</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="reg in registrations">
+        <tr>
+        <td>{{reg.startdate | date : "dd.MM.y"}}</td>
+        <td>{{reg.enddate | date : "dd.MM.y"}}</td>
+        <td>{{reg.semester}}</td>
+        <!--yana:check:-->
+        <td>{{reg.enddate == Date.now()}}</td> 
+        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        </tr>
+     </tbody>
+
+   </table>
+
+</div>
+
+<div>
+	<br>
+		<p style = "font-size:20px">Registration Statistics:</p>
+		<hr>
+       <p></p>
+       <p></p>
+</div>
