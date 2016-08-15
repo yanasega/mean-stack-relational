@@ -2,4 +2,5 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.router', 'ui.bootstrap', 
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
+//angular.module('mean.registrations', []); //yana:maybe create one?
 angular.module('mean.auth', []);
