@@ -1,13 +1,9 @@
-// angular.module('mean.registrations').factory("Registrations", ['$resource', function($resource) {
-//     return $resource('articles/:articleId', {
-//         articleId: '@id'
-//     }, {
-//         update: {
-//             method: 'PUT'
-//         }
-//     });
-// }]);
-
-angular.module('mean.system').service("Registrations", ['$resource', function($resource) {
-    return $resource('/registrations');
+angular.module('mean.system').factory("Registrations", ['$resource', function($resource) {
+    return $resource('registrations/:registrationId', {
+        registrationId: '@id'
+    }, {
+        update: {
+            method: 'PUT'
+        }
+    });
 }]);

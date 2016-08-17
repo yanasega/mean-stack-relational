@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'Global', '$window',function ($scope, $resource , Registrations,Global,$window) {
+ngular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'Global', '$window',function ($scope, $resource , Registrations,Global,$window) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -28,15 +28,16 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.remove = function(registration) {
         if (registration) {
             registration.$remove();  
-            for (var i in $scope.registrations) {
-                if ($scope.registrations[i] === registration) {
-                    $scope.registrations.splice(i, 1);
-                }
-            }
+
+            // for (var i in $scope.registrations) {
+            //     if ($scope.registrations[i] === registration) {
+            //         $scope.registrations.splice(i, 1);
+            //     }
+            // }
         }
         else {
             $scope.registration.$remove();
-            $state.go('registrations'); //yana: test
+            //$state.go('articles');
         }
     };
   
