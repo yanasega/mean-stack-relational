@@ -19,9 +19,11 @@
     "postinstall": "bower install && cp config/env/development.json5.sample config/env/development.json5 && cp config/env/production.json5.sample config/env/production.json5 && node node_modules/grunt-cli/bin/grunt copy"
   },
   "dependencies": {
+    "angular-chart.js": "^1.0.0",
     "async": "latest",
     "body-parser": "^1.14.1",
     "bower": "latest",
+    "chart.js": "^2.2.1",
     "compression": "^1.6.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",

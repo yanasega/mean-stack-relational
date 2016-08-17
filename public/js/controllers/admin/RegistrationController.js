@@ -4,7 +4,9 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.showreg = false;
     $scope.status = null;
     
+
     $scope.openRegistration = function() {
+        //yana:change all students - lift by year.
         var reg = new Registrations({
             startdate: $scope.startdate,
             enddate: $scope.enddate,
@@ -19,6 +21,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     };
  
      $scope.find = function() {
+         //yana:update status registration if active.
         Registrations.query(function(registrations) {
             $scope.registrations = registrations; //yana: check if data relavent?
             $scope.showreg = true;
@@ -29,15 +32,15 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         if (registration) {
             registration.$remove();  
 
-            // for (var i in $scope.registrations) {
-            //     if ($scope.registrations[i] === registration) {
-            //         $scope.registrations.splice(i, 1);
-            //     }
-            // }
+            for (var i in $scope.registrations) {
+                if ($scope.registrations[i] === registration) {
+                    $scope.registrations.splice(i, 1);
+                }
+            }
         }
         else {
             $scope.registration.$remove();
-            //$state.go('articles');
+            $state.go('registrations'); //yana: test
         }
     };
   
