@@ -11,19 +11,19 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-// exports.article = function(req, res, next, id) {
-//     console.log('id => ' + id);
-//     db.Article.find({where: {id: id}, include: [{model:db.User, attributes:['id', 'username', 'name']}]}).then(function(article){
-//         if(!article) {
-//             return next(new Error('Failed to load article ' + id));
-//         } else {
-//             req.article = article;
-//             return next();            
-//         }
-//     }).catch(function(err){
-//         return next(err);
-//     });
-// };
+exports.registration = function(req, res, next, id) {
+    console.log('id => ' + id);
+    db.Registration.find({where: {id: id}}).then(function(registration){
+        if(!registration) {
+            return next(new Error('Failed to load registration ' + id));
+        } else {
+            req.registration = registration;
+            return next();            
+        }
+    }).catch(function(err){
+        return next(err);
+    });
+};
 
 /**
  * Create a registration
@@ -34,7 +34,7 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object. 
     db.Registration.create(req.body).then(function(registration){
         if(!registration){
-            return res.send('users/signup', {errors: new StandardError('Registration could not be created')});
+            return res.send('users/signup', {errors: new StandardError('Registration could not be created')}); //yana:change the landing page.
         } else {
             return res.jsonp(registration);
         }

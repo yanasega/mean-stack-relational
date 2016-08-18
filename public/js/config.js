@@ -6,18 +6,22 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         }]);
     });
     $stateProvider
-        // .state('home',{
-        //     url : '/',
-        //     controller : 'IndexController',
-        //     templateUrl: 'views/index.html'
-        // })
         .state('home',{
             url : '/',
-            templateUrl: 'views/users/signin.html'
+            controller : 'IndexController',
+            templateUrl: 'views/index.html'
         })
+        // .state('home',{
+        //     url : '/',
+        //     templateUrl: 'views/users/signin.html'
+        // })
         .state('SignIn',{
             url : '/signin',
             templateUrl: 'views/users/signin.html'
+        })
+        .state('SignUp',{
+            url : '/signup',
+            templateUrl: 'views/users/signup.html'
         })
         .state('OpenReg',{
             url : '/openregistration',
@@ -29,9 +33,10 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/ViewRegistration.html'
         })
-        .state('SignUp',{
-            url : '/signup',
-            templateUrl: 'views/users/signup.html'
+        .state('InsertPref',{
+            url : '/insertpreferences',
+            controller : 'InsertPreferencesController',
+            templateUrl: 'views/users/InsertPreferences.html'
         })
         .state('articles',{
             url : '/articles',
