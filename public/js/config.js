@@ -6,15 +6,15 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         }]);
     });
     $stateProvider
-        .state('home',{
-            url : '/',
-            controller : 'IndexController',
-            templateUrl: 'views/index.html'
-        })
         // .state('home',{
         //     url : '/',
-        //     templateUrl: 'views/users/signin.html'
+        //     controller : 'IndexController',
+        //     templateUrl: 'views/index.html'
         // })
+        .state('home',{
+            url : '/',
+            templateUrl: 'views/users/signin.html'
+        })
         .state('SignIn',{
             url : '/signin',
             templateUrl: 'views/users/signin.html'
@@ -32,6 +32,21 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/viewregistration',
             controller : 'RegistrationController',
             templateUrl: 'views/admin/ViewRegistration.html'
+        })
+        .state('ViewStud',{
+            url : '/viewstudents',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/ViewStudents.html'
+        })
+        .state('UpStud',{
+            url : '/uploadstudents',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/UploadStudents.html'
+        })
+        .state('ViewStudio',{
+            url : '/viewstudios',
+            controller : 'StudioController',
+            templateUrl: 'views/admin/ViewStudios.html'
         })
         .state('InsertPref',{
             url : '/insertpreferences',
