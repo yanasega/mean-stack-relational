@@ -1,1 +1,32 @@
-<h1 ng-show="alisa == true">hello world!</h1>
+	<br>
+		<p style = "font-size:20px">DegreeCalculator</p>
+		<hr>
+</div>
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
+<div id = "DegreeCalculator" ng-show = "showcourse == true">
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>Course Name</th>
+            <th>Course Number</th>
+            <th>CreditPoints</th>
+            <th>Grade</th>
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in Courses">
+        <tr>
+        <td>{{course.Course Name}}</td>
+        <td>{{course.Course Number}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td>{{course.Grade}}</td>
+       
+        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        </tr>
+     </tbody>
+
+   </table>
+
+</div>
