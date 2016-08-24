@@ -5,7 +5,8 @@
  */
 var express     = require('express');
 var fs          = require('fs');
-
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
