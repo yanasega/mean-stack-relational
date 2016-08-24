@@ -1,0 +1,49 @@
+<div>
+	<br>
+		<p style = "font-size:20px">Manage System Students</p>
+		<hr>
+</div>
+
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showuser == false"></i>
+<div id = "registrations" ng-show = "showuser == true">
+  <input ng-model = "query" type="text" placeholder="Search...">
+
+  <select type="string" data-ng-model="year" required>
+  <option value="" disabled selected>Filter by year...</option>
+  <option value="all">All</option>
+  <option value="c">4th</option>
+  <option value="d">5th</option>
+  <option value="e">6th</option>
+  </select>
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Current Year</th>
+            <th>Semester</th>
+            <th></th> 
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="stud in students | filter:query">
+        <tr>
+        <td>{{stud.Id}}</td>
+        <td>{{stud.name}}</td>
+        <td>{{stud.surname}}</td>
+        <td>{{stud.email}}</td>
+        <td>{{stud.gender}}</td>
+        <td>{{stud.currentyear}}</td>  
+        <td>{{stud.semester}}</td>  
+        <td><a href="">View More</a></td>
+        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        </tr>
+     </tbody>
+
+   </table>
