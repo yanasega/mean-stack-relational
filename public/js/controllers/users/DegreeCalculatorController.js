@@ -1,31 +1,30 @@
-angular.module('mean.system').controller('DegreeCalculatorController', ['$scope', '$resource' ,'Courses','Global', '$window',function ($scope, $resource ,Courses,Global,$window) {
+angular.module('mean.system').controller('DegreeCalculatorController', ['$scope', '$resource' ,'DegreeCalculators','Global', '$window',function ($scope, $resource ,DegreeCalculators,Global,$window) {
     console.log("DegreeCalculatorController");
     $scope.global = Global;
     $scope.showcourse = true;
     $scope.status = null;
     
      $scope.addCourse = function() {
-        var reg = new Courses({
-            course: $scope.course,
+        var cors = new DegreeCalculators({
+            coursename: $scope.coursename,
             coursenumber: $scope.coursenumber,
             creditpoints: $scope.creditpoints,
             grade: $scope.grade
            
         });
-
-        reg.$save(function(response) {
+        cors.$save(function(response) {
             //yana: add check if response valid?
         });
         $scope.status = "Course added successfully.";
 
 };
  
-     $scope.find = function() {
-        Courses.query(function(courses) {
-            $scope.courses = courses; //yana: check if data relavent?
-            $scope.showreg = true;
-        });
-    };
+    //  $scope.find = function() {
+    //     DegreeCalculators.query(function(courses) {
+    //         $scope.courses = courses; //yana: check if data relavent?
+    //         $scope.showreg = true;
+    //     });
+    // };
 
     $scope.remove = function(course) {
         if (course) {
@@ -44,6 +43,6 @@ angular.module('mean.system').controller('DegreeCalculatorController', ['$scope'
     };
   
   
-    $scope.find();
+    // $scope.find();
 
  }]);
