@@ -6,10 +6,11 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
     $scope.addStudio = function() {
         var studio = new Studios({
-			Name: $scope.name,
+			Id_s: $scope.Id_s,
+            Name: $scope.name,
 			Instructor: $scope.instructor,
-            Description:$scope.description,
-            Relevant_years:$scope.relevantyears,
+            Description: $scope.description,
+            Relevant_years: $scope.relevantyears,
             Semester: $scope.semester,
             IsActive: $scope.isactive,
             LinkSylabus:$scope.sylabus
@@ -54,6 +55,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         $scope.semester = null;
         $scope.isactive = null;
         $scope.sylabus = null;
+        $scope.Id_s = null;
     };
 
     $scope.filterYearOptions = {

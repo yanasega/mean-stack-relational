@@ -5,8 +5,7 @@
  */
 var express     = require('express');
 var fs          = require('fs');
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -31,6 +30,7 @@ require('./config/express')(app, passport);
 //Start the app by listening on <port>
 app.listen(config.PORT);
 winston.info('Express app started on port ' + config.PORT);
+
 
 //expose app
 module.exports = app;

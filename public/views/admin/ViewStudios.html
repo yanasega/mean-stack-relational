@@ -17,7 +17,7 @@
    <table class = "table">
       <thead>
          <tr>
-            <!--<th>ID</th> yana:this is related to the course-->
+            <th>Course ID</th>
             <th>Name</th>
             <th>Instructor</th>
             <th>Description</th>
@@ -31,7 +31,7 @@
       </thead>
      <tbody ng-repeat="studio in studios | filter:query | filter:yearFilter | filter:semesterFilter">
         <tr>
-        <!--<td>{{studio.Id}}</td>-->
+        <td>{{studio.Id_s}}</td>
         <td>{{studio.Name}}</td>
         <td>{{studio.Instructor}}</td>
         <td>{{studio.Description}}</td>
@@ -52,6 +52,11 @@
     <form class="form-horizontal" data-ng-submit="addStudio()">
 	<br>
 		<div class="control-group">
+            <label class="control-label" for="Id_s">Course ID</label>
+			<div class="controls">
+				<input type="text" data-ng-model="Id_s" id="Id_s" required>
+			</div>
+            <br>
 			<label class="control-label" for="name">Name</label>
 			<div class="controls">
 				<input type="text" data-ng-model="name" id="name" required>
@@ -86,10 +91,6 @@
 			</div>
             <br>
             <label class="control-label" for="sylabus">Upload Sylabus</label>
-            <form method="post" enctype="multipart/form-data">
-               <input type="file" name = "sylabusFile">
-              <input type="submit" name = "submit" value = "submit">
-            </form>
 			<!--<div class="controls">
 				<input type="text" data-ng-model="sylabus" id="sylabus" required>
                 <form action="demo_form.asp">
@@ -98,6 +99,10 @@
                 </form>
 			</div>-->
 		</div>
+            <form method="post" enctype="multipart/form-data">
+               <input type="file" name = "sylabusFile">
+              <input type="submit" name = "submit" value = "submit">
+            </form>
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn">

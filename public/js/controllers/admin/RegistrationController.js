@@ -3,8 +3,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.global = Global;
     $scope.showreg = false;
     $scope.status = null;
-    $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-    $scope.data = [300, 500, 100];
+    // $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    // $scope.data = [300, 500, 100];
 
     $scope.openRegistration = function() {
         //yana:change all students - lift by year.
