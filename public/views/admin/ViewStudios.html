@@ -91,6 +91,10 @@
 			</div>
             <br>
             <label class="control-label" for="sylabus">Upload Sylabus</label>
+            <form method="post" enctype="multipart/form-data">
+               <input type="file" name = "sylabusFile" data-ng-model = sylabus>
+              <input type="submit" name = "submit" value = "submit">
+            </form>
 			<!--<div class="controls">
 				<input type="text" data-ng-model="sylabus" id="sylabus" required>
                 <form action="demo_form.asp">
@@ -99,10 +103,6 @@
                 </form>
 			</div>-->
 		</div>
-            <form method="post" enctype="multipart/form-data">
-               <input type="file" name = "sylabusFile">
-              <input type="submit" name = "submit" value = "submit">
-            </form>
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn">

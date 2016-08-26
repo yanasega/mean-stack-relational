@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'Global', '$window',function ($scope, $resource , Registrations,Global,$window) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window',function ($scope, $resource , Registrations,$stateParams,Global,$window) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -17,7 +17,6 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         reg.$save(function(response) {
             //yana: add check if response valid?
         });
-        
         $scope.startdate = null;
         $scope.enddate = null;
         $scope.semester = null;
@@ -34,10 +33,28 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         });
     };
 
+    $scope.findOne = function() {
+        Registrations.get({
+            registrationId: $stateParams.registrationId
+        }, function(registration) {
+            $scope.registration = registration;
+        });
+    };
+
+    $scope.update = function() {
+        var registration = $scope.registration;
+        if (!registration.updated) {
+            registration.updated = [];
+        }
+        registration.updated.push(new Date().getTime());
+        registration.$update(function() {
+            $state.go('viewReg',{registrationId : registration.id})
+
+        });
+    };
     $scope.remove = function(registration) {
         if (registration) {
             registration.$remove();  
-
             for (var i in $scope.registrations) {
                 if ($scope.registrations[i] === registration) {
                     $scope.registrations.splice(i, 1);
@@ -49,7 +66,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             $state.go('registrations'); //yana: test
         }
     };
-  
+
     $scope.find();
 
 }]);

@@ -9,8 +9,11 @@ var upload = multer({
     limits: {fileSize: 1000000, files:1},
  })
 
-app.post('/upload', upload.any(), function (req, res, next) {
+app.route('/upload').post(upload.any(), function (req, res, next) {
     res.send(req.files);
 })
+
+// app.route('/upload/:uploadId')
+//     .get('/uploads/:uploadId');
 
 };

@@ -3,7 +3,7 @@
 		<p style = "font-size:20px">Edit/Remove existing registrations</p>
 		<hr>
 </div>
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg == false"></i>
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>
 <div id = "registrations" ng-show = "showreg == true">
    <table class = "table">
       <thead>
@@ -23,7 +23,7 @@
         <td>{{reg.semester}}</td>
         <!--yana:check:-->
         <td>{{reg.enddate == Date.now()}}</td> 
-        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>
         <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>

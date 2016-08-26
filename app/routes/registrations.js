@@ -12,9 +12,9 @@ app.route('/registrations')
     .get(registrations.all)
     .post(users.requiresLogin, registrations.create);
 app.route('/registrations/:registrationId')
-    .delete(users.requiresLogin, registrations.destroy);
-
-    // .get(articles.show)
+    .delete(users.requiresLogin, registrations.destroy)
+    .get(registrations.show)
+    .put(users.requiresLogin, registrations.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
 // Finish with setting up the articleId param

@@ -1,6 +1,7 @@
 angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location',function ($scope, $resource ,Global,$window,Upload,$location) {
     console.log("StudentsController");
     $scope.status = null;
+    $scope.showuser = false;
     $scope.create = function(token) {
         $scope.upload = Upload.upload({
             url: '/upload',
@@ -9,16 +10,17 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             file: token           
         }).success(function (response, status) {
                 // Redirect after save
-                //$location.path('uploads/' + response[0].filename);
-                $scope.path = 'uploads/' + response[0].filename;
+                $location.path('upload/' + response[0].filename);
+                $scope.path = 'upload/' + response[0].filename;
                 console.log($scope.path);
                 $scope.status = "Upload finished successfully.";
                 // Clear form fields
-                $scope.name = '';
-                $scope.token = '';
+                        $scope.name = '';
+                        $scope.token = '';
             }
         ).error(function (errorResponse) {
                $scope.error = errorResponse.data;
+               $scope.status = "There was an error. File could not be uploaded.";
             }
         );
     };
