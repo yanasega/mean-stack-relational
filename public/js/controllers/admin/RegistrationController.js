@@ -20,6 +20,9 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
 
         reg.$save(function(response) {
             //yana: add check if response valid?
+            // if(response.status === 'success'){
+            //     $window.location.href = '/';
+            // }
         });
         $scope.startdate = null;
         $scope.enddate = null;

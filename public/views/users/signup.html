@@ -2,35 +2,58 @@
 <div ng-controller="signUp">
     <form ng-submit="signUp(user)"  class="signup form-horizontal">
         <div class="control-group">
+            <label for="id" class="control-label">ID</label>
+            <div class="controls">
+                <input id="id" type="text" name="id" placeholder="ID" ng-model="user.id" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="name" class="control-label">First name</label>
+            <div class="controls">
+                <input id="firstname" type="text" name="firstname" placeholder="First name" ng-model="user.firstname" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="lastname" class="control-label">Last name</label>
+            <div class="controls">
+                <input id="lastname" type="text" name="lastname" placeholder="Last name" ng-model="user.lastname" required>
+            </div>
+        </div>
+        <!--<div class="control-group">
             <label for="name" class="control-label">Full name</label>
             <div class="controls">
                 <input id="name" type="text" name="name" placeholder="Full name" ng-model="user.name" required>
             </div>
-        </div>
+        </div>-->
         <!--added-->
         <div class="control-group">
             <label for="gender" class="control-label">Gender</label>
-            <div class="controls">
-                <input id="gender" type="password" name="gender" placeholder="Gender" ng-model="user.gender" required>
+            <div class="controls" ng-model="user.gender" required>
+                <!--<input id="gender" type="password" name="gender" placeholder="Gender" ng-model="user.gender" required>-->
+                <input type="radio" name="gender" value="male" > Male<br>
+                <input type="radio" name="gender" value="female" checked> Female<br>
             </div>
         </div>
         <div class="control-group">
-            <label for="gender" class="control-label">Current Year</label>
+            <!--<label for="currentyear" class="control-label">Current Year</label>
             <div class="controls">
                 <input id="currentyear" type="password" name="currentyear" placeholder="Current Year" ng-model="user.currentyear" required>
-            </div>
+            </div-->
+            
+            <label class="control-label" for="currentyear" id="currentyear">Current Year</label>
+			<div class="controls">
+				<select type="string" data-ng-model="user.currentyear" required>
+					<option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+					<option value="5th">5th</option>
+				</select>
+			</div>
         </div> 
         <!--added-->
         <div class="control-group">
             <label for="email" class="control-label">Email</label>
             <div class="controls">
                 <input id="email" type="text" name="email" placeholder="Email" ng-model="user.email" required>
-            </div>
-        </div>
-        <div class="control-group">
-            <label for="username" class="control-label">Username</label>
-            <div class="controls">
-                <input id="username" type="text" name="username" placeholder="Username" ng-model="user.userName" required>
             </div>
         </div>
         <div class="control-group">
