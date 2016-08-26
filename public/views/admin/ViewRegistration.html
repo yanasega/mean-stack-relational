@@ -18,11 +18,11 @@
       </thead>
      <tbody ng-repeat="reg in registrations">
         <tr>
-        <td>{{reg.startdate | date : "dd.MM.y"}}</td>
-        <td>{{reg.enddate | date : "dd.MM.y"}}</td>
-        <td>{{reg.semester}}</td>
+        <td>{{reg.Start_date | date : "dd.MM.y"}}</td>
+        <td>{{reg.End_date | date : "dd.MM.y"}}</td>
+        <td>{{reg.Semester}}</td>
         <!--yana:check:-->
-        <td>{{reg.enddate == Date.now()}}</td> 
+        <td>{{reg.IsActive}}</td> 
         <td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>
         <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>

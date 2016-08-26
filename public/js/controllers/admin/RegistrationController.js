@@ -1,17 +1,21 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window',function ($scope, $resource , Registrations,$stateParams,Global,$window) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state) {
     console.log("RegistrationController");
     $scope.global = Global;
-    $scope.showreg = false;
+    $scope.showreg = true;
     $scope.status = null;
+    $scope.IsActive = null;
     // $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
     // $scope.data = [300, 500, 100];
 
     $scope.openRegistration = function() {
-        //yana:change all students - lift by year.
+        
+        $scope.checkIsActive();
+        
         var reg = new Registrations({
-            startdate: $scope.startdate,
-            enddate: $scope.enddate,
-            semester: $scope.semester
+            Start_date: $scope.startdate,
+            End_date: $scope.enddate,
+            Semester: $scope.semester,
+            IsActive: $scope.IsActive
         });
 
         reg.$save(function(response) {
@@ -21,15 +25,13 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         $scope.enddate = null;
         $scope.semester = null;
         $scope.status = "Registration opened successfully.";
-
-
     };
  
      $scope.find = function() {
          //yana:update status registration if active.
         Registrations.query(function(registrations) {
             $scope.registrations = registrations; //yana: check if data relavent?
-            $scope.showreg = true;
+            // $scope.showreg = true;
         });
     };
 
@@ -38,20 +40,25 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             registrationId: $stateParams.registrationId
         }, function(registration) {
             $scope.registration = registration;
+            $scope.registration.Start_date = new Date($scope.registration.Start_date);
+            $scope.registration.End_date = new Date($scope.registration.End_date);
         });
     };
 
     $scope.update = function() {
+        $scope.registration.startdate =  new Date($scope.registration.startdate);
+        $scope.registration.enddate =  new Date($scope.registration.enddate);
         var registration = $scope.registration;
         if (!registration.updated) {
             registration.updated = [];
         }
         registration.updated.push(new Date().getTime());
         registration.$update(function() {
-            $state.go('viewReg',{registrationId : registration.id})
+            $state.go('ViewReg',{registrationId : registration.id})
 
         });
     };
+   
     $scope.remove = function(registration) {
         if (registration) {
             registration.$remove();  
@@ -66,6 +73,15 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             $state.go('registrations'); //yana: test
         }
     };
+
+    $scope.checkIsActive = function(){
+        if ($scope.startdate < Date.now() && $scope.enddate > Date.now()){
+            $scope.IsActive = true;
+        }
+        else{
+            $scope.IsActive = false;
+        }
+    }
 
     $scope.find();
 
