@@ -10,10 +10,20 @@ module.exports = function(sequelize, DataTypes) {
 
 	var User = sequelize.define('User', 
 		{
-			name: DataTypes.STRING,
-			email: DataTypes.STRING,
-			username: DataTypes.STRING,
-			hashedPassword: DataTypes.STRING,
+			// name: DataTypes.STRING,
+			// email: DataTypes.STRING,
+			// username: DataTypes.STRING,
+			// hashedPassword: DataTypes.STRING,
+			firstname: DataTypes.STRING,
+            lastname: DataTypes.STRING,
+            email:DataTypes.STRING,
+			id: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			},			
+            gender: DataTypes.STRING,
+            hashedPassword: DataTypes.STRING,
+            currentyear : DataTypes.STRING,
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING, 
 			facebookUserId: DataTypes.INTEGER,

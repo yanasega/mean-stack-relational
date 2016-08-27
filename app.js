@@ -31,5 +31,6 @@ require('./config/express')(app, passport);
 app.listen(config.PORT);
 winston.info('Express app started on port ' + config.PORT);
 
+
 //expose app
 module.exports = app;
