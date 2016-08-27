@@ -10,10 +10,9 @@
 
   <select type="string" data-ng-model="year" required>
   <option value="" disabled selected>Filter by year...</option>
-  <option value="all">All</option>
-  <option value="c">4th</option>
-  <option value="d">5th</option>
-  <option value="e">6th</option>
+  <option value="c">3rd</option>
+  <option value="d">4th</option>
+  <option value="e">5th</option>
   </select>
 
    <table class = "table">
@@ -25,7 +24,6 @@
             <th>Email</th>
             <th>Gender</th>
             <th>Current Year</th>
-            <th>Semester</th>
             <th></th> 
             <th></th>
             <th></th>
@@ -33,17 +31,18 @@
       </thead>
      <tbody ng-repeat="stud in students | filter:query">
         <tr>
-        <td>{{stud.Id}}</td>
-        <td>{{stud.name}}</td>
-        <td>{{stud.surname}}</td>
+        <td>{{stud.id}}</td>
+        <td>{{stud.firstname}}</td>
+        <td>{{stud.lastname}}</td>
         <td>{{stud.email}}</td>
         <td>{{stud.gender}}</td>
-        <td>{{stud.currentyear}}</td>  
-        <td>{{stud.semester}}</td>  
+        <td>{{stud.currentyear}}</td>   
         <td><a href="">View More</a></td>
-        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
         <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>
 
    </table>
+    <hr>
+    <p>{{"Total: " +students.length}}</p>

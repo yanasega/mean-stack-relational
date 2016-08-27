@@ -3,6 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Studio = sequelize.define('Studio', {
+			Id_s: DataTypes.INTEGER,
 			Name: DataTypes.STRING,
 			Instructor: DataTypes.STRING,
             Description:DataTypes.STRING,

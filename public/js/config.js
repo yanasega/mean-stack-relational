@@ -33,7 +33,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/ViewRegistration.html'
         })
-
+        .state('editReg',{
+            url : '/registrations/{registrationId}/edit',
+            controller : 'RegistrationController',
+            templateUrl: 'views/admin/EditRegistration.html'
+        })
         .state('ViewStud',{
             url : '/viewstudents',
             controller : 'StudentsController',
