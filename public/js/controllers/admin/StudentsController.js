@@ -1,7 +1,8 @@
-angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location',function ($scope, $resource ,Global,$window,Upload,$location) {
+angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location','Students',function ($scope, $resource ,Global,$window,Upload,$location,Students) {
     console.log("StudentsController");
     $scope.status = null;
-    $scope.showuser = false;
+    $scope.showuser = true;
+    
     $scope.create = function(token) {
         $scope.upload = Upload.upload({
             url: '/upload',
@@ -24,16 +25,16 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }
         );
     };
-// $scope.create = function(token){
-//             Upload.upload({
-//             url: 'upload',
-//             data: {file: token}
-//         }).then(function (resp) {
-//             console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + resp.data);
-//             console.log(resp.data);
-//         });
-//         $scope.name = '';
-//         $scope.token = '';
-// }
+
+     $scope.find = function() {
+         //yana:update status registration if active.
+        Students.query(function(students) {
+            $scope.students = students; //yana: check if data relavent?
+            // $scope.showreg = true;
+        });
+    };
+
+    $scope.find();
+
 
 }]);

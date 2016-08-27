@@ -28,10 +28,10 @@
         <!--added-->
         <div class="control-group">
             <label for="gender" class="control-label">Gender</label>
-            <div class="controls" ng-model="user.gender" required>
+            <div class="controls"  required>
                 <!--<input id="gender" type="password" name="gender" placeholder="Gender" ng-model="user.gender" required>-->
-                <input type="radio" name="gender" value="male" > Male<br>
-                <input type="radio" name="gender" value="female" checked> Female<br>
+                <input type="radio" ng-model="user.gender" name="gender" value="male" > Male<br>
+                <input type="radio" ng-model="user.gender" name="gender" value="female" checked> Female<br>
             </div>
         </div>
         <div class="control-group">
