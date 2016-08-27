@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-	var DegreeCalculator = sequelize.define('DegreeCalculator', {
+	var Course = sequelize.define('Course', {
             coursename: DataTypes.STRING,
             coursenumber: DataTypes.INTEGER,
             creditpoints: DataTypes.INTEGER,
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	);
 
-	return DegreeCalculator;
+	return Course;
 };

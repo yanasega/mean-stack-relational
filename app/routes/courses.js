@@ -4,7 +4,7 @@
 * Module dependencies.
 */
 var users = require('../../app/controllers/users'),
-courses = require('../../app/controllers/DegreeCalculatorController');
+courses = require('../../app/controllers/CourseController');
 
 module.exports = function(app) {
 // Article Routes

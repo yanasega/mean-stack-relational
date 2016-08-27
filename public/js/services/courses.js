@@ -8,6 +8,6 @@
 //     });
 // }]);
 
-angular.module('mean.system').service("DegreeCalculators", ['$resource', function($resource) {
+angular.module('mean.system').service("Courses", ['$resource', function($resource) {
     return $resource('/courses');
 }]);

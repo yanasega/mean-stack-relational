@@ -31,8 +31,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('DegCalc',{
             url : '/degreecalculator',
-            controller : 'DegreeCalculatorController',
-            templateUrl: 'views/users/DegreeCalculator.html'
+            controller : 'CourseController',
+            templateUrl: 'views/users/Course.html'
         })
         .state('SignUp',{
             url : '/signup',
