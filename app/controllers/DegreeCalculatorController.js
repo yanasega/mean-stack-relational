@@ -97,17 +97,16 @@ exports.destroy = function(req, res) {
 /**
  * List of Articles
  */
-// alisa
-// exports.all = function(req, res) {
-//     db.DegreeCalculator.findAll().then(function(course){
-//         return res.jsonp(course);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err,
-//             status: 500
-//         });
-//     });
-// };
+exports.all = function(req, res) {
+    db.GradeInCourse.findAll().then(function(course){
+        return res.jsonp(course);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err,
+            status: 500
+        });
+    });
+};
 
 /**
  * Article authorizations routing middleware

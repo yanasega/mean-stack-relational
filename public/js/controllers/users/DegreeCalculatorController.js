@@ -19,12 +19,12 @@ angular.module('mean.system').controller('DegreeCalculatorController', ['$scope'
 
 };
  
-    //  $scope.find = function() {
-    //     GradeInCourse.query(function(courses) {
-    //         $scope.courses = courses; //yana: check if data relavent?
-    //         $scope.showreg = true;
-    //     });
-    // };
+     $scope.find = function() {
+        GradeInCourse.query(function(courses) {
+            $scope.courses = courses; //yana: check if data relavent?
+            $scope.showcourse = true;
+        });
+    };
 
     $scope.remove = function(course) {
         if (course) {
