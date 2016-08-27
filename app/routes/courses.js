@@ -9,7 +9,7 @@ courses = require('../../app/controllers/DegreeCalculatorController');
 module.exports = function(app) {
 // Article Routes
 app.route('/courses')
-// .get(courses.all)
+    .get(courses.all)
     .post(users.requiresLogin, courses.create);
 // app.route('/articles/:articleId')
 //     .get(articles.show)

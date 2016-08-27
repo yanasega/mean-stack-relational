@@ -45,9 +45,9 @@
 		<p style = "font-size:20px">DegreeCalculator</p>
 		<hr>
 </div>
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcors == false"></i>
 
-<div id = "GradeInCourse" ng-show = "showcourse == true">
+<div id = "courses" ng-show = "showcors == true">
    <table class = "table">
       <thead>
          <tr>
@@ -59,15 +59,15 @@
             <th></th>
          </tr>
       </thead>
-     <tbody ng-repeat="course in GradeInCourse">
+     <tbody ng-repeat="cors in courses">
         <tr>
-        <td>{{course.cousename}}</td>
-        <td>{{course.coursenumber}}</td>
-        <td>{{course.creditpoints}}</td>
-        <td>{{cocourse.grade}}</td>
+        <td>{{cors.coursename}}</td>
+        <td>{{cors.coursenumber}}</td>
+        <td>{{cors.creditpoints}}</td>
+        <td>{{cors.grade}}</td>
        
         <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
-        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(cors)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>
 

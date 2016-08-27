@@ -98,7 +98,7 @@ exports.destroy = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    db.GradeInCourse.findAll().then(function(course){
+    db.DegreeCalculator.findAll().then(function(course){
         return res.jsonp(course);
     }).catch(function(err){
         return res.render('error', {
