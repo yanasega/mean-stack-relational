@@ -3,7 +3,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     $scope.global = Global;
     $scope.showcors = false;
     $scope.status = null;
-    
+  
      $scope.addCourse = function() {
         var cors = new Courses({
             coursename: $scope.coursename,
