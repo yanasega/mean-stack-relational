@@ -1,0 +1,78 @@
+<div>
+	<br>
+		<p style = "font-size:20px">Manage Courses</p>
+		<hr>
+</div>
+
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
+<div id = "studios" ng-show = "showcourse == true">
+  <input ng-model = "query" type="text" placeholder="Search...">
+
+  <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
+  </select>
+
+  <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
+  </select>
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>Course ID</th>
+            <th>Name</th>
+            <th>Number Of Credit Points</th>
+            <th>Mandatory?</th>
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter">
+        <tr>
+        <td>{{course.Id}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td>{{course.IsMandatory}}</td>
+        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        </tr>
+     </tbody>
+   </table>
+</div>
+
+<div>
+    <br>
+    <p style = "font-size:20px">Add New Course</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="addCourse()">
+	<br>
+		<div class="control-group">
+            <label class="control-label" for="id">Course ID</label>
+			<div class="controls">
+				<input type="text" data-ng-model="id" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" for="creditpoints">Number Of Credit Points</label>
+			<div class="controls">
+				<input type="text" data-ng-model="creditpoints" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="ismandatory" id="ismandatory">Mandatory?</label>
+			<div class="controls">
+				<select type="string" data-ng-model="ismandatory" required>
+					<option value="Yes">Yes</option>
+					<option value="No">No</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+</div>
