@@ -49,8 +49,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     };
 
     $scope.update = function() {
-        $scope.registration.startdate =  new Date($scope.registration.startdate);
-        $scope.registration.enddate =  new Date($scope.registration.enddate);
+        // $scope.registration.Start_date =  new Date($scope.registration.Start_date);
+        // $scope.registration.End_date =  new Date($scope.registration.End_date);
         var registration = $scope.registration;
         if (!registration.updated) {
             registration.updated = [];
