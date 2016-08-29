@@ -62,15 +62,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/insertpreferences',
             controller : 'InsertPreferencesController',
             templateUrl: 'views/users/InsertPreferences.html'
+        })
         .state('DegCalc',{
             url : '/degreecalculator',
             controller : 'GradeInCourseController',
             templateUrl: 'views/users/GradeInCourse.html'
-        })
-        .state('SignUp',{
-            url : '/signup',
-            templateUrl: 'views/users/signup.html'
-
         })
         .state('articles',{
             url : '/articles',
