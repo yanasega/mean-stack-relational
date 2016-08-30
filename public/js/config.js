@@ -19,6 +19,10 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/signin',
             templateUrl: 'views/users/signin.html'
         })
+        .state('SignUp',{
+            url : '/signup',
+            templateUrl: 'views/users/signup.html'
+        })
         .state('OpenReg',{
             url : '/openregistration',
             controller : 'RegistrationController',
@@ -29,9 +33,40 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/ViewRegistration.html'
         })
-        .state('SignUp',{
-            url : '/signup',
-            templateUrl: 'views/users/signup.html'
+        .state('editReg',{
+            url : '/registrations/{registrationId}/edit',
+            controller : 'RegistrationController',
+            templateUrl: 'views/admin/EditRegistration.html'
+        })
+        .state('ViewStud',{
+            url : '/viewstudents',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/ViewStudents.html'
+        })
+        .state('UpStud',{
+            url : '/uploadstudents',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/UploadStudents.html'
+        })
+        .state('ViewStudio',{
+            url : '/viewstudios',
+            controller : 'StudioController',
+            templateUrl: 'views/admin/ViewStudios.html'
+        })
+        .state('ViewCourse',{
+            url : '/viewcourses',
+            controller : 'CourseController',
+            templateUrl: 'views/admin/ViewCourses.html'
+        })
+        .state('InsertPref',{
+            url : '/insertpreferences',
+            controller : 'InsertPreferencesController',
+            templateUrl: 'views/users/InsertPreferences.html'
+        })
+        .state('DegCalc',{
+            url : '/degreecalculator',
+            controller : 'GradeInCourseController',
+            templateUrl: 'views/users/GradeInCourse.html'
         })
         .state('articles',{
             url : '/articles',

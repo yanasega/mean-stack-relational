@@ -7,17 +7,18 @@ var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
 /**
- * Find registration by id
+ * Find course by id
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-exports.registration = function(req, res, next, id) {
+exports.course = function(req, res, next, id) {
+    console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log('id => ' + id);
-    db.Registration.find({where: {id: id}}).then(function(registration){
-        if(!registration) {
-            return next(new Error('Failed to load registration ' + id));
+    db.Course.find({where: {id: id}}).then(function(course){
+        if(!course) {
+            return next(new Error('Failed to load course ' + id));
         } else {
-            req.registration = registration;
+            req.course = course;
             return next();            
         }
     }).catch(function(err){
@@ -26,17 +27,19 @@ exports.registration = function(req, res, next, id) {
 };
 
 /**
- * Create a registration
+ * Create a course
  */
 exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.Registration.create(req.body).then(function(registration){
-        if(!registration){
-            return res.send('users/signup', {errors: new StandardError('Registration could not be created')}); //yana:change the landing page.
+        console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+    db.Course.create(req.body).then(function(course){
+        if(!course){
+            return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
         } else {
-            return res.jsonp(registration);
+            return res.jsonp(course);
         }
     }).catch(function(err){
         return res.send('users/signup', { 
@@ -49,35 +52,34 @@ exports.create = function(req, res) {
 /**
  * Update a registration
  */
-exports.update = function(req, res) {
+// exports.update = function(req, res) {
 
-    // create a new variable to hold the article that was placed on the req object.
-    var registration = req.registration;
-    registration.updateAttributes({
-        Start_date: req.body.Start_date,
-        End_date: req.body.End_date,
-        Semester: req.body.Semester,
-        IsActive: req.body.IsActive
-    }).then(function(a){
-        return res.jsonp(a);
-    }).catch(function(err){
-        return res.render('error', {
-            error: err, 
-            status: 500
-        });
-    });
-};
+//     // create a new variable to hold the article that was placed on the req object.
+//     var registration = req.registration;
 
-/**
- * Delete an article
- */
+//     registration.updateAttributes({
+//         startdate: req.body.startdate,
+//         enddate: req.body.enddate,
+//         semester: req.body.semester
+//     }).then(function(a){
+//         return res.jsonp(a);
+//     }).catch(function(err){
+//         return res.render('error', {
+//             error: err, 
+//             status: 500
+//         });
+//     });
+// };
+
+// /**
+//  * Delete an article
+//  */
 exports.destroy = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
-    var registration = req.registration;
-
-    registration.destroy().then(function(){
-        return res.jsonp(registration);
+    var course = req.course;
+    course.destroy().then(function(){
+        return res.jsonp(course);
     }).catch(function(err){
         return res.render('error', {
             error: err,
@@ -86,21 +88,21 @@ exports.destroy = function(req, res) {
     });
 };
 
-/**
- * Show a registration
- */
+// /**
+//  * Show a registration
+//  */
 exports.show = function(req, res) {
     // Sending down the registration that was just preloaded by the registrations.registration function
     // and saves registration on the req object.
-    return res.jsonp(req.registration);
+    return res.jsonp(req.course);
 };
 
-/**
- * List of Articles
- */
+// /**
+//  * List of Articles
+//  */
 exports.all = function(req, res) {
-    db.Registration.findAll().then(function(registration){
-        return res.jsonp(registration);
+    db.Course.findAll().then(function(course){
+        return res.jsonp(course);
     }).catch(function(err){
         return res.render('error', {
             error: err,

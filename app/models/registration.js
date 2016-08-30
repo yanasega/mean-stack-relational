@@ -3,9 +3,10 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Registration = sequelize.define('Registration', {
-			startdate: DataTypes.DATE,
-			enddate: DataTypes.DATE,
-            semester:DataTypes.STRING
+			Start_date: DataTypes.DATE,
+			End_date: DataTypes.DATE,
+            Semester:DataTypes.STRING,
+			IsActive: DataTypes.BOOLEAN
 		}
 	);
 
