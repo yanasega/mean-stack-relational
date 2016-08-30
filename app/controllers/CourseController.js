@@ -12,6 +12,7 @@ var db = require('../../config/sequelize');
  * Its purpose is to preload the article on the req object then call the next function. 
  */
 exports.course = function(req, res, next, id) {
+    console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log('id => ' + id);
     db.Course.find({where: {id: id}}).then(function(course){
         if(!course) {
@@ -32,9 +33,8 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    console.log("meeeeeeeeeeeeeeeeeeeee");
-    console.log(req.body);
-    console.log("meeeeeeeeeeeeeeeeeeeee");
+        console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
     db.Course.create(req.body).then(function(course){
         if(!course){
             return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
@@ -74,43 +74,42 @@ exports.create = function(req, res) {
 // /**
 //  * Delete an article
 //  */
-// exports.destroy = function(req, res) {
+exports.destroy = function(req, res) {
 
-//     // create a new variable to hold the article that was placed on the req object.
-//     var registration = req.registration;
-
-//     registration.destroy().then(function(){
-//         return res.jsonp(registration);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err,
-//             status: 500
-//         });
-//     });
-// };
+    // create a new variable to hold the article that was placed on the req object.
+    var course = req.course;
+    course.destroy().then(function(){
+        return res.jsonp(course);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err,
+            status: 500
+        });
+    });
+};
 
 // /**
 //  * Show a registration
 //  */
-// exports.show = function(req, res) {
-//     // Sending down the registration that was just preloaded by the registrations.registration function
-//     // and saves registration on the req object.
-//     return res.jsonp(req.registration);
-// };
+exports.show = function(req, res) {
+    // Sending down the registration that was just preloaded by the registrations.registration function
+    // and saves registration on the req object.
+    return res.jsonp(req.course);
+};
 
 // /**
 //  * List of Articles
 //  */
-// exports.all = function(req, res) {
-//     db.Registration.findAll().then(function(registration){
-//         return res.jsonp(registration);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err,
-//             status: 500
-//         });
-//     });
-// };
+exports.all = function(req, res) {
+    db.Course.findAll().then(function(course){
+        return res.jsonp(course);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err,
+            status: 500
+        });
+    });
+};
 
 /**
  * Article authorizations routing middleware
