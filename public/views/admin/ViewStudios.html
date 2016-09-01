@@ -37,7 +37,8 @@
         <td>{{studio.Description}}</td>
         <td>{{studio.Relevant_years}}</td>
         <td>{{studio.Semester}}</td>  
-        <td><a href="">{{studio.LinkSylabus}}</a></td>
+        <td><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"Sylabus"}}</a></td>
+        <!--<td><a ui-sref="ViewPdf({ pdfId: studio.LinkSylabus})" ng-href="{{studio.LinkSylabus}}">{{"Sylabus"}}</a></td>-->
         <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
         <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
@@ -91,10 +92,12 @@
 			</div>
             <br>
             <label class="control-label" for="sylabus">Upload Sylabus</label>
-            <form method="post" enctype="multipart/form-data">
-               <input type="file" name = "sylabusFile" data-ng-model = sylabus>
-              <input type="submit" name = "submit" value = "submit">
-            </form>
+            <div class="controls">
+            <input type="file" name = "sylabus" ngf-select ng-model="sylabus">
+            </div>
+            <!--<form method="post" enctype="multipart/form-data">-->
+              <!--<input type="submit" name = "submit" value = "submit">-->
+            <!--</form>-->
 			<!--<div class="controls">
 				<input type="text" data-ng-model="sylabus" id="sylabus" required>
                 <form action="demo_form.asp">
