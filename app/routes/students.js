@@ -5,16 +5,16 @@ students = require('../../app/controllers/StudentController');
 
 module.exports = function(app) {
 
-var multer  = require('multer')
+// var multer  = require('multer')
 
-var upload = multer({ 
-    dest: 'uploads/',
-    limits: {fileSize: 1000000, files:1},
- })
+// var upload = multer({ 
+//     dest: 'uploads/',
+//     limits: {fileSize: 1000000, files:1},
+//  })
 
-app.route('/upload').post(upload.any(), function (req, res, next) {
-    res.send(req.files);
-});
+// app.route('/upload').post(upload.any(), function (req, res, next) {
+//     res.send(req.files);
+// });
 
 // Article Routes
 app.route('/students')
