@@ -6,11 +6,6 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         }]);
     });
     $stateProvider
-        // .state('home',{
-        //     url : '/',
-        //     controller : 'IndexController',
-        //     templateUrl: 'views/index.html'
-        // })
         .state('home',{
             url : '/',
             templateUrl: 'views/users/signin.html'
@@ -18,6 +13,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         .state('SignIn',{
             url : '/signin',
             templateUrl: 'views/users/signin.html'
+        })
+        .state('ViewPdf',{
+            url : '/uploads/:pdfId'
         })
         .state('SignUp',{
             url : '/signup',

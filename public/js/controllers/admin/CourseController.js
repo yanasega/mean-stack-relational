@@ -5,48 +5,48 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
 
     $scope.addCourse = function() {
         var course = new Courses({
-			Id: $scope.id,
+			Id_c: $scope.id,
             Name: $scope.name,
-			CreditPoints: $scope.creditpoints,
-            IsMandatory: $scope.ismandatory //yana: change to bool
+			CreditPoints: $scope.creditpoints
         });
         course.$save(function(response) {
-            // $scope.find();
+            $scope.find();
             //yana: add check if response valid?
         });
         $scope.clear();
     };
 
-    //  $scope.find = function() {
-    //      //yana:update status registration if active.
-    //     Studios.query(function(studios) {
-    //         $scope.studios = studios; //yana: check if data relavent?
-    //         $scope.showstud = true;
-    //     });
-    // };
+     $scope.find = function() {
+         //yana:update status registration if active.
+        Courses.query(function(courses) {
+            $scope.courses = courses; //yana: check if data relavent?
+            $scope.showcourse = true;
+        });
+    };
 
-    // $scope.remove = function(studio) {
-    //     if (studio) {
-    //         studio.$remove();  
+    $scope.remove = function(course) {
+        console.log(course);
+        if (course) {
+            course.$remove();  
 
-    //         for (var i in $scope.studios) {
-    //             if ($scope.studios[i] === studio) {
-    //                 $scope.studios.splice(i, 1);
-    //             }
-    //         }
-    //     }
-    //     else {
-    //         $scope.studio.$remove();
-    //         $state.go('studios'); //yana: test
-    //     }
-    //     $scope.clear();
-    // };
+            for (var i in $scope.courses) {
+                if ($scope.courses[i] === course) {
+                    $scope.courses.splice(i, 1);
+                }
+            }
+        }
+        else {
+            $scope.course.$remove();
+            $state.go('courses'); //yana: test
+        }
+        $scope.clear();
+    };
 
     $scope.clear = function(){
         $scope.id = null;
         $scope.name = null;
         $scope.creditpoints = null;
-        $scope.ismandatory = null;
+        // $scope.ismandatory = null;
     };
 
     // $scope.filterYearOptions = {
@@ -93,5 +93,5 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     //     }
     // }; 
 
-    // $scope.find();
+    $scope.find();
 }]);
