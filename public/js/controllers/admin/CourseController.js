@@ -17,7 +17,6 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     };
 
      $scope.find = function() {
-         //yana:update status registration if active.
         Courses.query(function(courses) {
             $scope.courses = courses; //yana: check if data relavent?
             $scope.showcourse = true;
@@ -25,7 +24,6 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     };
 
     $scope.remove = function(course) {
-        console.log(course);
         if (course) {
             course.$remove();  
 

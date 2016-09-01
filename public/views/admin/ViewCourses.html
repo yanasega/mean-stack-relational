@@ -5,14 +5,14 @@
 </div>
 
 <i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
-<div id = "studios" ng-show = "showcourse == true">
+<div id = "courses" ng-show = "showcourse == true">
   <input ng-model = "query" type="text" placeholder="Search...">
 
-  <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
+  <!--<select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
   </select>
 
   <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
-  </select>
+  </select>-->
 
    <table class = "table">
       <thead>
@@ -55,7 +55,7 @@
 				<input type="text" data-ng-model="name" id="name" required>
 			</div>
             <br>
-			<label class="control-label" for="creditpoints">Number Of Credit Points</label>
+			<label class="control-label" for="creditpoints">Credit Points</label>
 			<div class="controls">
 				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
 			</div>
