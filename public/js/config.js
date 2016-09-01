@@ -36,11 +36,6 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/EditRegistration.html'
         })
-        .state('DegCalc',{
-            url : '/degreecalculator',
-            controller : 'GradeInCourseController',
-            templateUrl: 'views/users/GradeInCourse.html'
-        })
          .state('editCors',{
             url : '/gradeincourses/{gradeincourseId}/edit',
             controller : 'GradeInCourseController',
