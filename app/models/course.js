@@ -2,22 +2,16 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-	var Course = sequelize.define('Course', {
-
-            Id: {
-				type: DataTypes.UUID,
-				primaryKey: true,
-
+ var Course = sequelize.define('Course', {
             Id_c: {
-				type: DataTypes.INTEGER,
-				unique: true,
-
-			},
+    type: DataTypes.INTEGER,
+    unique: true
+   },
             Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER,
+            CreditPoints : DataTypes.INTEGER
             //IsMandatory : DataTypes.STRING //yana change to bool
-		}
-	);
+  }
+ );
 
-	return Course;
+ return Course;
 };
