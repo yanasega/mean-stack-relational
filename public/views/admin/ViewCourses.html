@@ -20,7 +20,7 @@
             <th>Course ID</th>
             <th>Name</th>
             <th>Number Of Credit Points</th>
-            <th>Mandatory?</th>
+            <!--<th>Mandatory?</th>-->
             <th></th>
             <th></th>
          </tr>
@@ -28,9 +28,10 @@
      <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter">
         <tr>
         <td>{{course.Id}}</td>
+        <td>{{course.Id_c}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
-        <td>{{course.IsMandatory}}</td>
+        <!--<td>{{course.IsMandatory}}</td>-->
         <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
         <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
@@ -57,10 +58,10 @@
             <br>
 			<label class="control-label" for="creditpoints">Credit Points</label>
 			<div class="controls">
-				<input type="text" data-ng-model="creditpoints" id="creditpoints" required>
+				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
 			</div>
 		</div>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<label class="control-label" for="ismandatory" id="ismandatory">Mandatory?</label>
 			<div class="controls">
 				<select type="string" data-ng-model="ismandatory" required>
@@ -68,7 +69,7 @@
 					<option value="No">No</option>
 				</select>
 			</div>
-		</div>
+		</div>-->
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn">

@@ -1,25 +1,43 @@
-angular.module('mean.system').controller('StudioController', ['$scope', '$resource' ,'Global', 'Studios','$window',function ($scope, $resource ,Global ,Studios ,$window) {
+angular.module('mean.system').controller('StudioController', ['$scope', '$resource' ,'Global', 'Studios','$window','Upload',function ($scope, $resource ,Global ,Studios ,$window,Upload) {
     console.log("StudioController");
     $scope.global = Global;
     $scope.showstud = false;    
     $scope.isactive = true;
 
     $scope.addStudio = function() {
-        var studio = new Studios({
-			Id_s: $scope.Id_s,
-            Name: $scope.name,
-			Instructor: $scope.instructor,
-            Description: $scope.description,
-            Relevant_years: $scope.relevantyears,
-            Semester: $scope.semester,
-            IsActive: $scope.isactive,
-            LinkSylabus:$scope.sylabus
-        });
-        studio.$save(function(response) {
-            $scope.find();
-            //yana: add check if response valid?
-        });
-        $scope.clear();
+        $scope.upload = Upload.upload({
+            url: '/upload',
+            method: 'POST',
+            headers: {'Content-Type': 'multipart/form-data'},
+            file: $scope.sylabus           
+        }).success(function (response, status) {
+                // Redirect after save
+                // $location.path('uploads/' + response[0].filename);
+                // $scope.path = 'uploads/' + response[0].filename;
+                // console.log($scope.path);
+                $scope.sylabus = response[0].filename;
+                var studio = new Studios({
+                    Id_s: $scope.Id_s,
+                    Name: $scope.name,
+                    Instructor: $scope.instructor,
+                    Description: $scope.description,
+                    Relevant_years: $scope.relevantyears,
+                    Semester: $scope.semester,
+                    IsActive: $scope.isactive,
+                    LinkSylabus: $scope.sylabus
+                });
+                studio.$save(function(response) {
+                    $scope.find();
+                    //yana: add check if response valid?
+                });
+                $scope.clear();
+            }
+        ).error(function (errorResponse) {
+               $scope.error = errorResponse.data;
+               $scope.status = "There was an error. File could not be uploaded.";
+            }
+        );
+
     };
 
      $scope.find = function() {
@@ -58,6 +76,9 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         $scope.Id_s = null;
     };
 
+    $scope.openPdf = function(link){
+        $window.open('uploads/' +link);
+    }
     $scope.filterYearOptions = {
         stores: [
         {id : 2, name : 'Filter by year...', years: 'Filter by year...' },

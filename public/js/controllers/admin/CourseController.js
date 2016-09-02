@@ -5,10 +5,11 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
 
     $scope.addCourse = function() {
         var course = new Courses({
+
 			Id: $scope.id,
+			Id_c: $scope.id,
             Name: $scope.name,
-			CreditPoints: $scope.creditpoints,
-            IsMandatory: $scope.ismandatory //yana: change to bool
+			CreditPoints: $scope.creditpoints
         });
         course.$save(function(response) {
             $scope.find();
@@ -45,7 +46,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         $scope.id = null;
         $scope.name = null;
         $scope.creditpoints = null;
-        $scope.ismandatory = null;
+        // $scope.ismandatory = null;
     };
 
     // $scope.filterYearOptions = {
