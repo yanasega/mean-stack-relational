@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Course = sequelize.define('Course', {
-            id: {
+            Id: {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
