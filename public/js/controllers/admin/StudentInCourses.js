@@ -2,7 +2,73 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     console.log("StudentInCourseController");
     $scope.global = Global;
     $scope.showcourse = true;    
+// angular.module("mainModule", [])
+//   .controller("mainController", function ($scope)
+//   {
+    // Initialization
+    $scope.areAllPeopleSelected = false;
 
+    $scope.people = [
+      {Id_c: "1", Name: "A", CreditPoints: "3"},
+      {Id_c: "2", Name: "B", CreditPoints: "4"}
+    ];
+
+    $scope.selectablePeople = [
+    {Id_c: "1", Name: "A", CreditPoints: "3", isSelected: false},
+      {Id_c: "2", Name: "B", CreditPoints: "4", isSelected: false}
+    ];
+
+    $scope.stringsArray = [];
+    var currStringIndex = 0;
+
+    // Utility functions
+    $scope.updatePeopleSelection = function (peopleArray, selectionValue) {
+      for (var i = 0; i < peopleArray.length; i++)
+      {
+        peopleArray[i].isSelected = selectionValue;
+      }
+    };
+
+    // $scope.getPersonPositionDesc = function(isFirst, isMiddle, isLast, isEven, isOdd) {
+    //   var result = "";
+
+    //   if (isFirst)
+    //   {
+    //     result = "(first";
+    //   }
+    //   else if (isMiddle)
+    //   {
+    //     result = "(middle";
+    //   }
+    //   else if (isLast)
+    //   {
+    //     result = "(last";
+    //   }
+
+    //   if (isEven)
+    //   {
+    //     result += "-even)";
+    //   }
+    //   else if (isOdd)
+    //   {
+    //     result += "-odd)";
+    //   }
+
+    //   return result;
+    // };
+
+    // $scope.addStringToArray = function () {
+    //   $scope.stringsArray.push("Item " + currStringIndex);
+    //   currStringIndex++;
+    // };
+
+    // $scope.removeStringFromArray = function (stringIndex) {
+    //   if (stringIndex >= 0 && stringIndex < $scope.stringsArray.length)
+    //   {
+    //     $scope.stringsArray.splice(stringIndex, 1);
+    //   }
+    // };
+  //  });
     $scope.addCourse = function() {
         var course = new StudentInCourses({
 			Id_c: $scope.id,
@@ -130,71 +196,6 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
 //    });
 // });
 
-angular.module("mainModule", [])
-  .controller("mainController", function ($scope)
-  {
-    // Initialization
-    $scope.areAllPeopleSelected = false;
 
-    $scope.people = [
-      {Id_c: "1", Name: "A", CreditPoints: "3"},
-      {Id_c: "2", Name: "B", CreditPoints: "4"}
-    ];
 
-    $scope.selectablePeople = [
-    {Id_c: "1", Name: "A", CreditPoints: "3", isSelected: false},
-      {Id_c: "2", Name: "B", CreditPoints: "4", isSelected: false}
-    ];
-
-    $scope.stringsArray = [];
-    var currStringIndex = 0;
-
-    // Utility functions
-    $scope.updatePeopleSelection = function (peopleArray, selectionValue) {
-      for (var i = 0; i < peopleArray.length; i++)
-      {
-        peopleArray[i].isSelected = selectionValue;
-      }
-    };
-
-    $scope.getPersonPositionDesc = function(isFirst, isMiddle, isLast, isEven, isOdd) {
-      var result = "";
-
-      if (isFirst)
-      {
-        result = "(first";
-      }
-      else if (isMiddle)
-      {
-        result = "(middle";
-      }
-      else if (isLast)
-      {
-        result = "(last";
-      }
-
-      if (isEven)
-      {
-        result += "-even)";
-      }
-      else if (isOdd)
-      {
-        result += "-odd)";
-      }
-
-      return result;
-    };
-
-    $scope.addStringToArray = function () {
-      $scope.stringsArray.push("Item " + currStringIndex);
-      currStringIndex++;
-    };
-
-    $scope.removeStringFromArray = function (stringIndex) {
-      if (stringIndex >= 0 && stringIndex < $scope.stringsArray.length)
-      {
-        $scope.stringsArray.splice(stringIndex, 1);
-      }
-    };
-//   });
 }]);
