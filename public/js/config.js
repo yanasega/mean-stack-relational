@@ -66,6 +66,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'CourseController',
             templateUrl: 'views/admin/ViewCourses.html'
         })
+        .state('StudCourse',{
+            url : '/studentincourse',
+            controller : 'StudentInCourseController',
+            templateUrl: 'views/admin/StudentInCourse.html'
+        })
         .state('InsertPref',{
             url : '/insertpreferences',
             controller : 'InsertPreferencesController',
