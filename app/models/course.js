@@ -3,9 +3,9 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Course = sequelize.define('Course', {
-            Id_c: {
-				type: DataTypes.INTEGER,
-				unique: true
+            id: {
+				type: DataTypes.UUID,
+				primaryKey: true
 			},
             Name : DataTypes.STRING,
             CreditPoints : DataTypes.INTEGER
