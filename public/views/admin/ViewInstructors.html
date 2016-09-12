@@ -1,0 +1,61 @@
+<div>
+	<br>
+		<p style = "font-size:20px">Manage Instructors</p>
+		<hr>
+</div>
+
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>
+<div id = "instructors" ng-show = "showinstr == true">
+  <input ng-model = "query" type="text" placeholder="Search...">
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>Instructor ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="instructor in instructors | filter:query">
+        <tr>
+        <td>{{instructor.id}}</td>
+        <td>{{instructor.First_name}}</td>
+        <td>{{instructor.Last_name}}</td>
+        </tr>
+     </tbody>
+   </table>
+</div>
+
+<div>
+    <br>
+    <p style = "font-size:20px">Add New Instructor</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="addInstructor()">
+	<br>
+		<div class="control-group">
+			<label class="control-label" for="firstname">First Name</label>
+			<div class="controls">
+				<input type="text" data-ng-model="firstname" id="firstname" required>
+			</div>
+            <br>
+			<label class="control-label" for="lastname">Last Name</label>
+			<div class="controls">
+				<input type="text" data-ng-model="lastname" id="lastname" required>
+			</div>
+		</div>
+		<!--<div class="control-group">
+			<label class="control-label" for="ismandatory" id="ismandatory">Mandatory?</label>
+			<div class="controls">
+				<select type="string" data-ng-model="ismandatory" required>
+					<option value="Yes">Yes</option>
+					<option value="No">No</option>
+				</select>
+			</div>
+		</div>-->
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+</div>
