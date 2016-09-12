@@ -74,7 +74,7 @@
 </head>
 
 <body ng-app="mainModule">
-  <div ng-controller="mainController">
+  <div>
     <h3>Degree Final Form</h3>
     <table>
       <thead>
@@ -94,18 +94,18 @@
 
 
 
-      <!--<tr ng-repeat="course in selectablePeople">
+      <tr ng-repeat="course in courses">
         <td><input type="checkbox" ng-model="course.isSelected" /></td>
-        <td>{{course.Id_c}}</td>
+        <td>{{course.id}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
-      </tr>-->
+      </tr>
       
-        <td><input type="checkbox" ng-model="course.isSelected" /></td>
+        <!--<td><input type="checkbox" ng-model="course.isSelected" /></td>
         <td>105</td>
         <td>a</td>
         <td>3</td>
-         </tr>
+         </tr>-->
       </tbody>
     </table>
     <br />

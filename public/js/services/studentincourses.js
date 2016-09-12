@@ -2,8 +2,8 @@
 //     return $resource('/courses');
 // }]);
 angular.module('mean.system').factory("StudentInCourses", ['$resource', function($resource) {
-    return $resource('studentincourse/:courseId', {
-        courseId: '@id'
+    return $resource('studentincourses/:studentincourseId', {
+        studentincourseId: '@id'
     }, {
         update: {
             method: 'PUT'

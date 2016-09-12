@@ -11,14 +11,14 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-exports.course = function(req, res, next, id) {
+exports.studentincourse = function(req, res, next, id) {
     console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log('id => ' + id);
-    db.StudentInCourse.find({where: {Id: id}}).then(function(course){
-        if(!course) {
+    db.StudentInCourse.find({where: {id: id}}).then(function(studentincourse){
+        if(!studentincourse) {
             return next(new Error('Failed to load course ' + id));
         } else {
-            req.course = course;
+            req.studentincourse = studentincourse;
             return next();            
         }
     }).catch(function(err){
@@ -33,11 +33,11 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.StudentInCourse.create(req.body).then(function(course){
-        if(!course){
+    db.StudentInCourse.create(req.body).then(function(studentincourse){
+        if(!studentincourse){
             return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
         } else {
-            return res.jsonp(course);
+            return res.jsonp(studentincourse);
         }
     }).catch(function(err){
         return res.send('users/signup', { 
@@ -75,9 +75,9 @@ exports.create = function(req, res) {
 exports.destroy = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
-    var course = req.course;
-    course.destroy().then(function(){
-        return res.jsonp(course);
+    var studentincourse = req.studentincourse;
+    studentincourse.destroy().then(function(){
+        return res.jsonp(studentincourse);
     }).catch(function(err){
         return res.render('error', {
             error: err,
@@ -92,15 +92,15 @@ exports.destroy = function(req, res) {
 exports.show = function(req, res) {
     // Sending down the registration that was just preloaded by the registrations.registration function
     // and saves registration on the req object.
-    return res.jsonp(req.course);
+    return res.jsonp(req.studentincourse);
 };
 
 // /**
 //  * List of Articles
 //  */
 exports.all = function(req, res) {
-    db.StudentInCourse.findAll().then(function(course){
-        return res.jsonp(course);
+    db.StudentInCourse.findAll().then(function(studentincourse){
+        return res.jsonp(studentincourse);
     }).catch(function(err){
         return res.render('error', {
             error: err,
