@@ -65,7 +65,10 @@
             <br>
 			<label class="control-label" for="instructor">Instructor</label>
 			<div class="controls">
-				<input type="text" data-ng-model="instructor" id="instructor" required>
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="instructor" ng-options="instructor.First_name +' '+ instructor.Last_name for instructor in instructors" required>
+					<option value="">Select Instructor</option>
+				</select>
 			</div>
             <br>
             <label class="control-label" for="description">Description</label>

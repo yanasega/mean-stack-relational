@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('StudioController', ['$scope', '$resource' ,'Global', 'Studios','$window','Upload',function ($scope, $resource ,Global ,Studios ,$window,Upload) {
+angular.module('mean.system').controller('StudioController', ['$scope', '$resource' ,'Global', 'Studios','$window','Upload','Instructors',function ($scope, $resource ,Global ,Studios ,$window,Upload,Instructors) {
     console.log("StudioController");
     $scope.global = Global;
     $scope.showstud = false;    
@@ -11,10 +11,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             headers: {'Content-Type': 'multipart/form-data'},
             file: $scope.sylabus           
         }).success(function (response, status) {
-                // Redirect after save
-                // $location.path('uploads/' + response[0].filename);
-                // $scope.path = 'uploads/' + response[0].filename;
-                // console.log($scope.path);
+                console.log($scope.instructor);
                 $scope.sylabus = response[0].filename;
                 var studio = new Studios({
                     Id_s: $scope.Id_s,
@@ -46,6 +43,11 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             $scope.studios = studios; //yana: check if data relavent?
             $scope.showstud = true;
         });
+
+        Instructors.query(function(instructors) {
+            $scope.instructors = instructors; //yana: check if data relavent?
+        });
+
     };
 
     $scope.remove = function(studio) {
