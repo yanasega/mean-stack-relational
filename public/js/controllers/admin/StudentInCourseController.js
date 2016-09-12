@@ -84,7 +84,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
 
      $scope.find = function() {
         Courses.query(function(courses) {
-            console.log(courses);
+            // console.log(courses);
             $scope.courses = courses; //yana: check if data relavent?
             $scope.showcourse = true;
         });
