@@ -99,7 +99,7 @@ exports.show = function(req, res) {
 //  * List of Articles
 //  */
 exports.all = function(req, res) {
-    db.StudentInCourse.findAll().then(function(studentincourse){
+    db.StudentInCourse.findAll({include: [{model:db.User, attributes: ['id', 'firstname', 'lastname']}]}).then(function(studentincourse){
         return res.jsonp(studentincourse);
     }).catch(function(err){
         return res.render('error', {

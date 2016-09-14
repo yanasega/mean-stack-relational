@@ -98,7 +98,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    db.Article.findAll({include: [{model:db.User, attributes: ['id', 'username', 'name']}]}).then(function(articles){
+    db.Article.findAll({include: [{model:db.User, attributes: ['id', 'firstname', 'lastname']}]}).then(function(articles){
         return res.jsonp(articles);
     }).catch(function(err){
         return res.render('error', {
