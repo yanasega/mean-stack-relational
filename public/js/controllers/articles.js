@@ -1,6 +1,5 @@
 angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', 'Global', 'Articles', '$state', function ($scope, $stateParams, Global, Articles, $state) {
     $scope.global = Global;
-
     $scope.create = function() {
         var article = new Articles({
             title: this.title,
@@ -54,11 +53,6 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
             articleId: $stateParams.articleId
         }, function(article) {
             $scope.article = article;
-        });
-    };
-    $scope.find = function() {
-        Articles.query(function(articles) {
-            $scope.articles = articles;
         });
     };
 

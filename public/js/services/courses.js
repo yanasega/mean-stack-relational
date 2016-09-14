@@ -7,6 +7,10 @@ angular.module('mean.system').factory("Courses", ['$resource', function($resourc
     }, {
         update: {
             method: 'PUT'
+        },
+       save: {
+           method: 'POST',
+           params:{courseId:''}
         }
     });
 
