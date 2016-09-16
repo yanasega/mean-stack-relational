@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 
 			},
             Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER,
+            CreditPoints : DataTypes.INTEGER
             //IsMandatory : DataTypes.STRING //yana change to bool
 		}
 	);
