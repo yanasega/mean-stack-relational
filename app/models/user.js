@@ -20,7 +20,8 @@ module.exports = function(sequelize, DataTypes) {
 			id: {
 				type: DataTypes.UUID,
 				primaryKey: true
-			},			
+			},
+			Semester: DataTypes.STRING,			
             Gender: DataTypes.STRING,
             hashedPassword: DataTypes.STRING,
             CurrentYear : DataTypes.INTEGER,

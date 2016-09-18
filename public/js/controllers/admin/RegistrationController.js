@@ -3,13 +3,13 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.global = Global;
     $scope.showreg = true;
     $scope.status = null;
-    $scope.IsActive = null;
+    $scope.IsActive = true;
     // $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
     // $scope.data = [300, 500, 100];
 
     $scope.openRegistration = function() {
         
-        $scope.checkIsActive();
+        // $scope.checkIsActive();
         
         var reg = new Registrations({
             StartDate: $scope.startdate,
@@ -75,14 +75,14 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         }
     };
 
-    $scope.checkIsActive = function(){
-        if ($scope.startdate < Date.now() && $scope.enddate > Date.now()){
-            $scope.IsActive = true;
-        }
-        else{
-            $scope.IsActive = false;
-        }
-    }
+    // $scope.checkIsActive = function(){
+    //     if ($scope.startdate < Date.now() && $scope.enddate > Date.now()){
+    //         $scope.IsActive = true;
+    //     }
+    //     else{
+    //         $scope.IsActive = false;
+    //     }
+    // }
 
     $scope.find();
 

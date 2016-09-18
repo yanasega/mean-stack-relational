@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location','Students',function ($scope, $resource ,Global,$window,Upload,$location,Students) {
+angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location','Students','Studios',function ($scope, $resource ,Global,$window,Upload,$location,Students,Studios) {
     console.log("StudentsController");
     $scope.status = null;
     $scope.showuser = true;
