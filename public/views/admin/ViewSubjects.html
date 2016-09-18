@@ -1,0 +1,46 @@
+<div>
+	<br>
+		<p style = "font-size:20px">Manage Studio Subjects</p>
+		<hr>
+</div>
+
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>
+<div id = "instructors" ng-show = "showsubj == true">
+  <input ng-model = "query" type="text" placeholder="Search...">
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>Subject ID</th>
+            <th>Subject Name</th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="subject in subjects | filter:query">
+        <tr>
+        <td>{{subject.id}}</td>
+        <td>{{subject.Subject}}</td>
+        </tr>
+     </tbody>
+   </table>
+</div>
+
+<div>
+    <br>
+    <p style = "font-size:20px">Add New Subject</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="addSubject()">
+	<br>
+		<div class="control-group">
+			<label class="control-label" for="subjectname">Subject Name</label>
+			<div class="controls">
+				<input type="text" data-ng-model="subjectname" id="subjectname" required>
+			</div>
+            <br>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+</div>

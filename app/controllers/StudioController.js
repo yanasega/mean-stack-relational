@@ -47,28 +47,34 @@ exports.create = function(req, res) {
 };
 
 /**
- * Update a article
+ * Update a studio
  */
-// exports.update = function(req, res) {
-
-//     // create a new variable to hold the article that was placed on the req object.
-//     var article = req.article;
-
-//     article.updateAttributes({
-//         title: req.body.title,
-//         content: req.body.content
-//     }).then(function(a){
-//         return res.jsonp(a);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err, 
-//             status: 500
-//         });
-//     });
-// };
+exports.update = function(req, res) {
+    console.log("meee");
+    console.log(req.studio);
+    // create a new variable to hold the studio that was placed on the req object.
+    var studio = req.studio;
+    studio.updateAttributes({
+        IdC: req.body.IdC,
+        Name: req.body.Name,
+        Instructor: req.body.Instructor,
+        Subject: req.body.Subject,
+        Semester: req.body.Semester,
+        IsActive: req.body.IsActive,
+        LinkSylabus:req.body.LinkSylabus,
+        RelevantYears:req.body.RelevantYears
+    }).then(function(a){
+        return res.jsonp(a);
+    }).catch(function(err){
+        return res.render('500', {
+            error: err, 
+            status: 500
+        });
+    });
+};
 
 /**
- * Delete an article
+ * Delete an studio
  */
 exports.destroy = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
@@ -85,13 +91,13 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show an article
+ * Show an studio
  */
-// exports.show = function(req, res) {
-//     // Sending down the article that was just preloaded by the articles.article function
-//     // and saves article on the req object.
-//     return res.jsonp(req.registration);
-// };
+exports.show = function(req, res) {
+    // Sending down the studio that was just preloaded by the studios.studio.article function
+    // and saves article on the req object.
+    return res.jsonp(req.studio);
+};
 
 /**
  * List of Articles
