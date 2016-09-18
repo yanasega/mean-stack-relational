@@ -32,11 +32,11 @@
      <tbody ng-repeat="stud in students | filter:query">
         <tr>
         <td>{{stud.id}}</td>
-        <td>{{stud.firstname}}</td>
-        <td>{{stud.lastname}}</td>
-        <td>{{stud.email}}</td>
-        <td>{{stud.gender}}</td>
-        <td>{{stud.currentyear}}</td>   
+        <td>{{stud.FirstName}}</td>
+        <td>{{stud.LastName}}</td>
+        <td>{{stud.Email}}</td>
+        <td>{{stud.Gender}}</td>
+        <td>{{stud.CurrentYear}}</td>   
         <td><a href="">View More</a></td>
         <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
         <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>

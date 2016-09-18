@@ -1,18 +1,47 @@
 <section>
-	<form class="form-horizontal" >
+	<p style = "font-size:20px" ng-show="RegOpen == false">The preference registration is not open yet.</p>
+	<div>
+	<form class="form-horizontal" ng-show="RegOpen == true" data-ng-submit="updateStudent()">
 	<br>
 		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
+		<p style = "font-size:15px">Please update your information before proceeding.</p>
 		<hr>
-		<label class="control-label" for="avrage">Average Grade:</label>
+		<label class="control-label" for="average">Average Grade:</label>
 		<div class="controls">
-			<input type="text" data-ng-model="avrage" id="avgage" required>
+			<input type="number" step="any" data-ng-model="average" id="average" required>
+		</div>
+		<br>
+		<label class="control-label" for="studioaverage">Average Studio Grade:</label>
+		<div class="controls">
+			<input type="number" step="any" data-ng-model="studioaverage" id="studioaverage" required>
 		</div>
 	<br>
-		<label class="control-label" for="year">Year:</label>
+		<label class="control-label" for="currentyear" id="currentyear">Current Year:</label>
 		<div class="controls">
-			<input type="text" data-ng-model="year" id="year" required>
+			<select type="string" data-ng-model="currentyear" required>
+				<option value="" disabled selected>Select your current year...</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
 		</div>
-	<br>
+		<br>
+		<label class="control-label" for="semester" id="semester">Relevant Semester: </label>
+		<div class="controls">
+			<select type="string" data-ng-model="semester" required>
+				<option value="" disabled selected>Select your semester...</option>
+				<option value="winter">Winter</option>
+				<option value="sprint">Spring</option>
+			</select>
+		</div>		
+		<br>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>
+	<form class="form-horizontal" ng-show="doneUpdate == true" data-ng-submit="insertPreferences()">
 		<div class="control-group">
 			<label class="control-label" for="options" id="op1">1.</label>
 			<div class="controls">
@@ -49,8 +78,7 @@
 			</div>
 		</div>
 	</form>
-
+		</div>
 </section> 
 
-</section>
 

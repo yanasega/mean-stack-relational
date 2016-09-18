@@ -12,8 +12,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         $scope.checkIsActive();
         
         var reg = new Registrations({
-            Start_date: $scope.startdate,
-            End_date: $scope.enddate,
+            StartDate: $scope.startdate,
+            EndDate: $scope.enddate,
             Semester: $scope.semester,
             IsActive: $scope.IsActive
         });
@@ -43,8 +43,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             registrationId: $stateParams.registrationId
         }, function(registration) {
             $scope.registration = registration;
-            $scope.registration.Start_date = new Date($scope.registration.Start_date);
-            $scope.registration.End_date = new Date($scope.registration.End_date);
+            $scope.registration.StartDate = new Date($scope.registration.StartDate);
+            $scope.registration.EndDate = new Date($scope.registration.EndDate);
         });
     };
 

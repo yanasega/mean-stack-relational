@@ -5,13 +5,16 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
     $scope.signUp = function(user) {
 
         var signUp = new SignUp({
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
+            FirstName: user.firstname,
+            LastName: user.lastname,
+            Email: user.email,
             id : user.id,
-            gender: user.gender,
+            Gender: user.gender,
+            IsValid: false,
+            Generalaverage: user.generalaverage,
+            LastStudioGrade: user. laststudiograde,
             password : user.password,
-            currentyear : user.currentyear
+            CurrentYear : user.currentyear
         });
 
         signUp.$save(function(response) {

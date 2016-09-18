@@ -75,6 +75,7 @@
             <ul class="dropdown-menu">
                 <li><a ui-sref="ViewStudio">Add/Remove Studio</a></li>
                 <li><a ui-sref="ViewInstr">Instructors</a></li>
+                <li><a ui-sref="ViewSubj">Subjects</a></li>            
             </ul>
         </li>
 
@@ -93,7 +94,7 @@
     <ul class="nav pull-right" data-ng-show="global.authenticated">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				{{global.user.firstname}} <b class="caret"></b>
+				{{global.user.FirstName}} <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
                 <li><a ng-click="SignOut()">Signout</a>

@@ -3,15 +3,17 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Studio = sequelize.define('Studio', {
-			Id_s: DataTypes.INTEGER,
+			IdC: DataTypes.INTEGER,
 			Name: DataTypes.STRING,
-			Instructor: DataTypes.STRING,
-            Description:DataTypes.STRING,
-            Relevant_years:DataTypes.STRING,
+			Instructor: DataTypes.INTEGER,
+			Subject: DataTypes.INTEGER,
             Semester: DataTypes.STRING,
             IsActive: DataTypes.BOOLEAN,
-            LinkSylabus:DataTypes.STRING
+            LinkSylabus:DataTypes.STRING,
+            RelevantYears:DataTypes.STRING
 
+		},{
+			freezeTableName: true
 		}
 	);
 

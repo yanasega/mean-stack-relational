@@ -5,9 +5,9 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
 
     $scope.addInstructor = function() {
         var instructors = new Instructors({
-			id: $scope.id,
-            First_name: $scope.firstname,
-			Last_name: $scope.lastname
+			// id: $scope.id,
+            FirstName: $scope.firstname,
+			LastName: $scope.lastname
         });
         instructors.$save(function(response) {
             $scope.find();
@@ -25,7 +25,7 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
 
 
     $scope.clear = function(){
-        $scope.id = null;
+        // $scope.id = null;
         $scope.firstname = null;
         $scope.lastname = null;
     };

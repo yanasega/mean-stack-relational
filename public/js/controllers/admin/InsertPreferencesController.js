@@ -2,8 +2,17 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     console.log("InsertPreferencesController");
     $scope.global = Global;
     $scope.RegOpen = true;
+    $scope.doneUpdate = false;
     
+    $scope.checkReg = function(){
+        Registrations.query(function(registrations) {
+            registrations.forEach(function(registration) {
+                if (registration.)
+            }, this);
+        });
+    }
 
+    $scope.checkReg();
 }]);
 
 
