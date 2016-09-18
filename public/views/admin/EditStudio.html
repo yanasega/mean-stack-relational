@@ -1,0 +1,68 @@
+<section data-ng-init="findOne()">
+    <br>
+    <p style = "font-size:20px">Edit Studio</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="update()">
+	<br>
+		<div class="control-group">
+            <label class="control-label" for="Id_s">Course ID</label>
+			<div class="controls">
+				<input type="text" data-ng-model="studio.IdC" id="Id_s" required>
+			</div>
+            <br>
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<input type="text" data-ng-model="studio.Name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" for="instructor">Instructor</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="studio.instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
+					<option value="">Select Instructor</option>
+				</select>
+			</div>
+            <br>
+            <!--<label class="control-label" for="description">Description</label>
+			<div class="controls">
+				<input type="text" data-ng-model="description" id="description" required>
+			</div>
+            <br>-->
+            <label class="control-label" for="subject">Subject</label>
+			<div class="controls">
+                <select type="string" data-ng-model="studio.subject" ng-options="subject.Subject for subject in subjects" required>
+					<option value="">Select Subject</option>
+				</select>
+			</div>
+		</div>
+        <br>
+		<div class="control-group">
+			<label class="control-label" for="relevantyears" id="relevantyears">Relevant Years</label>
+			<div class="controls">
+				<select type="string" data-ng-model="studio.RelevantYears" required>
+					<option value="3,4">3,4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+            <br>
+            <label class="control-label" for="semester" id="semester">Semester</label>
+			<div class="controls">
+				<select type="string" data-ng-model="studio.Semester" required>
+					<option value="winter">Winter</option>
+					<option value="spring">Spring</option>
+				</select>
+			</div>
+            <br>
+            <label class="control-label" ng-show="studio.LinkSylabus == null" for="sylabus">Upload New Sylabus</label>
+            <div class="controls" ng-show="studio.LinkSylabus == null">
+            <input type="file" name = "sylabus" ngf-select ng-model="sylabus">
+            </div>
+            <label class="control-label" ng-show="studio.LinkSylabus != null" ><a style="margin: -168px" href="" ng-click="removeSylabus()">Delete Existing Sylabus</a></label>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+</section>
