@@ -4,7 +4,8 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.RegOpen = false;
     $scope.doneUpdate = false;
     $scope.NotValid = false;
-    
+    $scope.studios = [];
+
     $scope.checkReg = function(){
         Registrations.query(function(registrations) {
             registrations.forEach(function(registration) {
@@ -25,22 +26,19 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
 
     $scope.getStudios = function(){
         Studios.query(function(studios) {
-            $scope.studios = studios;
+            // $scope.studios = studios;
             if ($scope.student.CurrentYear == '5'){
-                $scope.studios.forEach(function(studio) {
-                    if(studio.RelevantYears === '3,4'){
-                        // $scope.studios.splice(studio.id, 1);
-                    }
-                    if (studio.Semester != $scope.student.Semester){
-                        $scope.studios.splice(studio.id, 1);
+                studios.forEach(function(studio) {
+                    if(studio.RelevantYears === '5' && studio.Semester == $scope.student.Semester){
+                        $scope.studios.push(studio);
                     }
                 }, this);
             }
             else{
                 studios.forEach(function(studio) {
-                    if(studio.RelevantYears == '5'){
-                        $scope.studios.splice(studio.id, 1);
-                    }
+                    if(studio.RelevantYears == '3,4'&& studio.Semester == $scope.student.Semester){
+                        $scope.studios.push(studio);
+                    }                  
                 }, this);
             }
             console.log($scope.studios);
