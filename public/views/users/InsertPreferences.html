@@ -1,43 +1,70 @@
 <section>
-	<form class="form-horizontal" >
+	<p style = "font-size:20px" ng-show="RegOpen == false">The preference registration is not open yet.</p>
+	<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. if you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>
+	<div>
+	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false" data-ng-submit="updateStudent()">
 	<br>
 		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
+		<p style = "font-size:15px">Please update your information before proceeding.</p>
 		<hr>
-		<label class="control-label" for="avrage">Average Grade:</label>
+		<label class="control-label" for="average">Average Grade:</label>
 		<div class="controls">
-			<input type="text" data-ng-model="avrage" id="avgage" required>
+			<input type="number" step="any" data-ng-model="average" id="average" required>
+		</div>
+		<br>
+		<label class="control-label" for="studioaverage">Average Studio Grade:</label>
+		<div class="controls">
+			<input type="number" step="any" data-ng-model="studioaverage" id="studioaverage" required>
 		</div>
 	<br>
-		<label class="control-label" for="year">Year:</label>
+		<label class="control-label" for="currentyear" id="currentyear">Current Year:</label>
 		<div class="controls">
-			<input type="text" data-ng-model="year" id="year" required>
+			<select type="string" data-ng-model="currentyear" required>
+				<option value="" disabled selected>Select your current year...</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
 		</div>
-	<br>
+		<br>
+		<label class="control-label" for="semester" id="semester">Relevant Semester: </label>
+		<div class="controls">
+			<select type="string" data-ng-model="semester" required>
+				<option value="" disabled selected>Select your semester...</option>
+				<option value="winter">Winter</option>
+				<option value="sprint">Spring</option>
+			</select>
+		</div>		
+		<br>
 		<div class="control-group">
-			<label class="control-label" for="options" id="op1">1.</label>
 			<div class="controls">
-
-				<select type="string" data-ng-model="firstOption" required>
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>
+	<form class="form-horizontal" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
+		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
+		<hr>
+		<div class="control-group" ng-repeat="studio in studios">
+			<label class="control-label" for="options" id="studio.id">{{$index +1 + "."}}</label>
+			<div class="controls">
+				<select type="string"  required>
                     <option value="" disabled selected>Select your option...</option>
-					<option value="a">Studio 1</option>
-					<option value="b">Studio 2</option>
+					<option value="studio.id" ng-repeat="studio in studios">{{studio.Name}}</option>
 				</select>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="options" id="op2">2.</label>
-			<div class="controls">
-				<select type="string" data-ng-model="secondOption" required>
-                    <option value="" disabled selected>Select your option...</option>
-					<option value="c">Studio 1</option>
-					<option value="d">Studio 2</option>
-				</select>
-			</div>
-		</div>
+		<!--<div class="control-group" ng-repeat="studio in studios">
+			<select class="form-control input-lg" 
+					ng-model="studios[$index]"
+					required="required" 
+					ng-options="studio.Name as studio.Name for studio in studios">
+			</select> 
+		</div>-->
 		<div class="control-group">
 			<label class="control-label" for="requests">Special Requests</label>
 			<div class="controls">
-				<textarea data-ng-model="requests" id="requests" cols="30" rows="10" placeholder="Special Requests..."></textarea>
+				<textarea data-ng-model="requests" id="requests" cols="30" rows="5" placeholder="Special Requests..."></textarea>
 			</div>
 		</div>
 		<div class="control-group">
@@ -49,8 +76,7 @@
 			</div>
 		</div>
 	</form>
-
+		</div>
 </section> 
 
-</section>
 

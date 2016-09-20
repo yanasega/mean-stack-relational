@@ -29,5 +29,23 @@
           </form>
       </div>
   </div>
+  <div class="container">
+      <p style = "font-size:20px" >Upload Manualy</p>
+      <hr>
+      <div class="container">
+          <form class="form-horizontal" data-ng-submit="create()" novalidate>
+            <label class="control-label" for="tz">Enter User ID:</label>
+            <div class="controls">
+                <input type="number" step="any" data-ng-model="tz" id="tz" required>
+            </div>
+            <br>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn">
+                </div>
+		    </div>
+          </form>
+      </div>
+  </div>
   <!--<a href="path">image</a>-->
   <section><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  

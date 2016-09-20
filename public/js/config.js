@@ -6,11 +6,6 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         }]);
     });
     $stateProvider
-        // .state('home',{
-        //     url : '/',
-        //     controller : 'IndexController',
-        //     templateUrl: 'views/index.html'
-        // })
         .state('home',{
             url : '/',
             templateUrl: 'views/users/signin.html'
@@ -18,6 +13,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         .state('SignIn',{
             url : '/signin',
             templateUrl: 'views/users/signin.html'
+        })
+        .state('ViewPdf',{
+            url : '/uploads/:pdfId'
         })
         .state('SignUp',{
             url : '/signup',
@@ -53,6 +51,21 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'StudioController',
             templateUrl: 'views/admin/ViewStudios.html'
         })
+        .state('editStudio',{
+            url : '/studios/{studioId}/edit',
+            controller : 'StudioController',
+            templateUrl: 'views/admin/EditStudio.html'
+        })
+        .state('ViewInstr',{
+            url : '/ViewInstructors',
+            controller : 'InstructorController',
+            templateUrl: 'views/admin/ViewInstructors.html'
+        })
+        .state('ViewSubj',{
+            url : '/ViewSubjects',
+            controller : 'SubjectController',
+            templateUrl: 'views/admin/ViewSubjects.html'
+        })          
         .state('ViewCourse',{
             url : '/viewcourses',
             controller : 'CourseController',
