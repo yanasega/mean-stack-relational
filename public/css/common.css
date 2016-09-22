@@ -106,3 +106,24 @@ text-align: center;
     float:right;
 }
 
+ /*<style>
+    table
+    {
+      border-collapse: collapse;
+    }
+
+    table, th, td
+    {
+      border: 1px solid #e1e1e1;
+    }
+
+    th, td
+    {
+      padding: 6px;
+    }
+
+    thead
+    {
+      background-color: #fcfcfc;
+    }
+  </style>*/
