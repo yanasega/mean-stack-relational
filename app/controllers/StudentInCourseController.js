@@ -33,6 +33,8 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
+    console.log("alisa2");
+    console.log(studentincourse);
     db.StudentInCourse.create(req.body).then(function(studentincourse){
         if(!studentincourse){
             return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
@@ -50,24 +52,25 @@ exports.create = function(req, res) {
 /**
  * Update a registration
  */
-// exports.update = function(req, res) {
+exports.update = function(req, res) {
+    console.log("alisa3");
 
-//     // create a new variable to hold the article that was placed on the req object.
-//     var registration = req.registration;
+    // create a new variable to hold the article that was placed on the req object.
+    var studentincourse = req.studentincourse;
 
-//     registration.updateAttributes({
-//         startdate: req.body.startdate,
-//         enddate: req.body.enddate,
-//         semester: req.body.semester
-//     }).then(function(a){
-//         return res.jsonp(a);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err, 
-//             status: 500
-//         });
-//     });
-// };
+    studentincourse.updateAttributes({
+        id: req.body.id,
+        Name: req.body.Name,
+        CreditPoints: req.body.CreditPoints
+    }).then(function(a){
+        return res.jsonp(a);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err, 
+            status: 500
+        });
+    });
+};
 
 // /**
 //  * Delete an article
@@ -99,14 +102,14 @@ exports.show = function(req, res) {
 //  * List of Articles
 //  */
 exports.all = function(req, res) {
-    db.StudentInCourse.findAll().then(function(studentincourse){
-        return res.jsonp(studentincourse);
-    }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
-    });
+    // db.StudentInCourse.findAll().then(function(studentincourse){
+    //     return res.jsonp(studentincourse);
+    // }).catch(function(err){
+    //     return res.render('error', {
+    //         error: err,
+    //         status: 500
+    //     });
+    // });
 };
 
 /**

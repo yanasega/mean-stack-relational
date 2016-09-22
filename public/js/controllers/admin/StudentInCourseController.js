@@ -4,11 +4,11 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.showcourse = true;    
 
 //     // Initialization
-    $scope.areAllPeopleSelected = false;
-    $scope.updatePeopleSelection = function (peopleArray, selectionValue) {
-      for (var i = 0; i < peopleArray.length; i++)
+    $scope.areAllCoursesSelected = false;
+    $scope.updateCourseSelection = function (courseArray, selectionValue) {
+      for (var i = 0; i < courseArray.length; i++)
       {
-        peopleArray[i].isSelected = selectionValue;
+        courseArray[i].isSelected = selectionValue;
       }
     };
 
@@ -35,9 +35,9 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             //     $window.location.href = '/';
             // }
         });
-        $scope.id = null;
-        $scope.Name = null;
-        $scope.CreditPoints = null;
+        // $scope.id = null;
+        // $scope.Name = null;
+        // $scope.CreditPoints = null;
         $scope.status = "Selection saved successfully.";
     }
 
