@@ -21,7 +21,6 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     };
 
     $scope.updateForm = function(){
-        console.log("alisa");
         
         var sic = new StudentInCourses({
             id: $scope.id,
@@ -35,9 +34,9 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             //     $window.location.href = '/';
             // }
         });
-        // $scope.id = null;
-        // $scope.Name = null;
-        // $scope.CreditPoints = null;
+        $scope.id = null;
+        $scope.Name = null;
+        $scope.CreditPoints = null;
         $scope.status = "Selection saved successfully.";
     }
 

@@ -13,7 +13,7 @@ var db = require('../../config/sequelize');
  */
 exports.studentincourse = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.StudentInCourse.find({where: {id: id}}).then(function(studentincourse){
+    db.StudentInCourses.find({where: {id: id}}).then(function(studentincourse){
         if(!studentincourse) {
             return next(new Error('Failed to load' + id));
         } else {
@@ -32,12 +32,13 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.StudentInCourse.create(req.body).then(function(studentincourse){
+    db.StudentInCourses.create(req.body).then(function(studentincourse){
 
-        console.log(studentincourse)
+        // // console.log(studentincourse)
 
         if(!studentincourse){
-            return res.send('users/signup', {errors: new StandardError('StudenInCourse could not be created')}); //yana:change the landing page.
+            console.log("alisa")
+            return res.send('users/signup', {errors: new StandardError('StudentInCourse could not be created')}); //yana:change the landing page.
         } else {
             return res.jsonp(studentincourse);
         }
@@ -59,7 +60,7 @@ exports.update = function(req, res) {
     studentincourse.updateAttributes({
         id: req.body.id,
         Name: req.body.Name,
-        CredintPoints: req.body.CreditPoints,
+        CredintPoints: req.body.CreditPoints
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
@@ -101,7 +102,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    // db.StudenInCourse.findAll().then(function(studentincourse){
+    // db.StudenInCourses.findAll().then(function(studentincourse){
     //     return res.jsonp(studentincourse);
     // }).catch(function(err){
     //     return res.render('error', {
