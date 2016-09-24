@@ -1,16 +1,28 @@
-angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations' ,'Global', '$window','Students','Studios',function ($scope, $resource , Registrations,Global,$window,Students,Studios) {
+angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios) {
     console.log("InsertPreferencesController");
     $scope.global = Global;
     $scope.RegOpen = false;
     $scope.doneUpdate = false;
     $scope.NotValid = false;
     $scope.studios = [];
+    $scope.registration = null;
+    $scope.choosenPrefs = {};
+    $scope.general = {};
+    $scope.doneInsert = false;
 
     $scope.checkReg = function(){
         Registrations.query(function(registrations) {
             registrations.forEach(function(registration) {
                 if (registration.IsActive == true){
+                    $scope.registration = registration.id;
                     $scope.RegOpen = true;
+                    Preferences.query(function(preferences){
+                        preferences.forEach(function(pref) {
+                            if (pref.idR == $scope.registration)
+                            $scope.doneInsert = true;
+                            $scope.message = "You have already inserted preferences for this semester.";
+                        }, this);
+                    });
                 }
             }, this);
         });
@@ -41,8 +53,28 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                     }                  
                 }, this);
             }
-            console.log($scope.studios);
         });
+    }
+
+    $scope.updatePref= function(studioId, index){
+        var allPrefs = [];
+        var vals = Object.keys($scope.choosenPrefs).map(function (key) {
+            return $scope.choosenPrefs[key]
+        });
+        
+        if (vals.indexOf(studioId) != -1){
+            delete $scope.choosenPrefs[index+1];
+            delete $scope.general.studio[index];
+            alert('Choosing the same studio is not allowed. please choose each studio only one time.');
+            
+        }
+        
+        $scope.choosenPrefs[index+1] = studioId;
+        
+    }
+    
+    $scope.IsInPref = function(stud){
+        return true;
     }
 
     $scope.updateStudent = function(){      
@@ -67,6 +99,21 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     }
 
     $scope.insertPreferences = function(){
+        angular.forEach($scope.choosenPrefs,function(value,key){
+            var pref = new Preferences({
+                id: $scope.student.id,
+                idS: $scope.choosenPrefs[key],
+                idR: $scope.registration,
+                StudentYear: $scope.currentyear,
+                Semester: $scope.semester,
+                Rate : key
+            });
+
+            pref.$save(function(response) {
+                $scope.doneInsert = true;
+                $scope.message = "Preferences saved successfully!";
+            });
+        });         
 
     }
 

@@ -1,19 +1,41 @@
-<div>
-	<br>
-		<p style = "font-size:20px">Edit/Remove existing registrations</p>
-		<hr>
-</div>
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>
-<div id = "registrations" ng-show = "showreg == true">
+	
+<form class="form" ng-show = "RegEmpty == true" data-ng-submit="openRegistration()">
+  <br>
+    <p style = "font-size:20px" >Open Registration</p>
+    <hr>
+   <p>There are currently no open registrations...</p>
+    <div class="control-group">
+      <label class="control-label" for="semester" id="semester">Semester</label>
+      <div class="controls">
+        <select type="string" data-ng-model="semester" required>
+          <option value="winter">Winter</option>
+          <option value="spring">Spring</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <input type="submit" class="btn">
+      </div>
+    </div>
+</form>
+
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>-->
+<div id = "registrations" ng-show = "RegEmpty == false">
+  <div>
+    <br>
+      <p style = "font-size:20px">Manage Registrations</p>
+      <hr>
+  </div>
    <table class = "table">
       <thead>
          <tr>
-            <th>Start date</th>
-            <th>End date</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th>Semester</th>
             <th>Status</th>
             <th></th>
-            <th></th>
+            <!--<th></th>-->
          </tr>
       </thead>
      <tbody ng-repeat="reg in registrations">
@@ -22,9 +44,10 @@
         <td>{{reg.EndDate | date : "dd.MM.y"}}</td>
         <td>{{reg.Semester}}</td>
         <!--yana:check:-->
-        <td>{{reg.IsActive}}</td> 
-        <td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>
-        <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td ng-show="reg.IsActive == true">{{"Active"}}</td> 
+        <td ng-show="reg.IsActive ==false">{{"Closed"}}</td> 
+        <!--<td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>-->
+        <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> Close Registration</a></td>
         </tr>
      </tbody>
 
@@ -32,13 +55,13 @@
 
 </div>
 
-<div>
+<!--<div>
 	<br>
 		<p style = "font-size:20px">Registration Statistics:</p>
 		<hr>
        <p></p>
        <p></p>
-       <!--<canvas id="pie" class="chart chart-pie"
+       <canvas id="pie" class="chart chart-pie"
         chart-data="data" chart-labels="labels" chart-options="options">
-      </canvas> -->
-</div>
+      </canvas> 
+</div>-->
