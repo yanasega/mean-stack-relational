@@ -88,14 +88,6 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
     $scope.findOne = function() {
 
-        // Instructors.query(function(instructors) {
-        //     $scope.instructors = instructors; //yana: add error
-        // });
-
-        // SubjectMap.query(function(subjects) {
-        //     $scope.subjects = subjects; //yana: add error
-        // });
-
         Studios.get({
             studioId: $stateParams.studioId
         }, function(studio) {

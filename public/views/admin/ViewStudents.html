@@ -7,13 +7,15 @@
 <i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showuser == false"></i>
 <div id = "registrations" ng-show = "showuser == true">
   <input ng-model = "query" type="text" placeholder="Search...">
-
-  <select type="string" data-ng-model="year" required>
-  <option value="" disabled selected>Filter by year...</option>
-  <option value="c">3rd</option>
-  <option value="d">4th</option>
-  <option value="e">5th</option>
+  
+  <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
   </select>
+  <!--<select type="string" data-ng-model="year" required>
+  <option value="" disabled selected>Filter by year...</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  </select>-->
 
    <table class = "table">
       <thead>
@@ -24,22 +26,24 @@
             <th>Email</th>
             <th>Gender</th>
             <th>Current Year</th>
+            <th>Graduation Form</th>
             <th></th> 
             <th></th>
             <th></th>
          </tr>
       </thead>
-     <tbody ng-repeat="stud in students | filter:query">
+     <tbody ng-repeat="stud in students | filter:query | filter:yearFilter">
         <tr>
         <td>{{stud.id}}</td>
         <td>{{stud.FirstName}}</td>
         <td>{{stud.LastName}}</td>
         <td>{{stud.Email}}</td>
         <td>{{stud.Gender}}</td>
-        <td>{{stud.CurrentYear}}</td>   
-        <td><a href="">View More</a></td>
+        <td>{{stud.CurrentYear}}</td>
+        <td>{{stud.IsValid}}</td>    
+        <td><a href="" ui-sref = "StudentInfo({studentId : stud.id})" >View More</a></td>
         <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
-        <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>
 

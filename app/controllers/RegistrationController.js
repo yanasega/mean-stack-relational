@@ -54,9 +54,7 @@ exports.update = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
     var registration = req.registration;
     registration.updateAttributes({
-        Start_date: req.body.Start_date,
-        End_date: req.body.End_date,
-        Semester: req.body.Semester,
+        EndDate: req.body.EndDate,
         IsActive: req.body.IsActive
     }).then(function(a){
         return res.jsonp(a);

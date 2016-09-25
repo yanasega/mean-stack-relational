@@ -1,6 +1,6 @@
-<section>
+<section ng-show = "doneInsert == false">
 	<p style = "font-size:20px" ng-show="RegOpen == false">The preference registration is not open yet.</p>
-	<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. if you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>
+	<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. If you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>
 	<div>
 	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false" data-ng-submit="updateStudent()">
 	<br>
@@ -45,30 +45,14 @@
 	<form class="form-horizontal" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
 		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
 		<hr>
-		<div class="control-group" ng-repeat="studio in studios">
-			<label class="control-label" for="options" id="op1">1.</label>
+		<div class="control-group" ng-repeat="stud in studios">
+			<label class="control-label" for="options">{{$index +1 + "."}}</label>
 			<div class="controls">
-				<select type="string"  required>
+				<select type="string" ng-model = "general.studio[$index]" ng-options = "studio.Name for studio in studios | filter:IsInPref" ng-change ="updatePref(general.studio[$index].id, $index) " required>
                     <option value="" disabled selected>Select your option...</option>
-					<option value="studio.id" ng-repeat="studio in studios">{{studio.Name}}</option>
 				</select>
-				<!--<select type="string" data-ng-model="firstOption" required>
-                    <option value="" disabled selected>Select your option...</option>
-					<option value="a">Studio 1</option>
-					<option value="b">Studio 2</option>
-				</select>-->
 			</div>
 		</div>
-		<!--<div class="control-group">
-			<label class="control-label" for="options" id="op2">2.</label>
-			<div class="controls">
-				<select type="string" data-ng-model="secondOption" required>
-                    <option value="" disabled selected>Select your option...</option>
-					<option value="c">Studio 1</option>
-					<option value="d">Studio 2</option>
-				</select>
-			</div>
-		</div>-->
 		<div class="control-group">
 			<label class="control-label" for="requests">Special Requests</label>
 			<div class="controls">
@@ -80,11 +64,14 @@
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn">
-				<a href="">View preferences</a>
 			</div>
 		</div>
 	</form>
 		</div>
+</section>
+<section ng-show = "doneInsert == true">
+	<p><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{message}} </p>
+	<a href="">View preferences</a>
 </section> 
 
 

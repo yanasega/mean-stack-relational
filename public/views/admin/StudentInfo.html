@@ -1,0 +1,96 @@
+<div data-ng-init="findOne()">
+	<br>
+		<p style = "font-size:20px">Manage Student Information: {{student.FirstName + " " + student.LastName}}</p>
+		<hr>
+</div>
+
+<table class = "table">
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Current Year</th>
+        <th>General Average</th>
+        <th>Studio Average</th>
+        <th>Graduation Form</th>
+        <th></th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="stud in students | filter:query | filter:yearFilter">
+    <tr>
+    <td>{{student.id}}</td>
+    <td>{{student.FirstName}}</td>
+    <td>{{student.LastName}}</td>
+    <td>{{student.Email}}</td>
+    <td>{{student.Gender}}</td>
+    <td>{{student.CurrentYear}}</td>
+    <td>{{student.Generalaverage}}</td>  
+    <td>{{student.LastStudioGrade}}</td>  
+    <td>{{student.IsValid}}</td>    
+    <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+    <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div >
+	<br>
+		<p style = "font-size:20px">Past Assignments</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>Studio</th>
+                <th>Instructor</th>
+                <th>Date</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sis in studentinstudio">
+            <tr>
+            <td>{{sis.Studio}}</td>
+            <td>{{sis.Instructor}}</td>
+            <td>{{sis.createdAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+</div>
+
+<div >
+	<br>
+		<p style = "font-size:20px">Graduation Form Info</p>
+		<hr>
+</div>
+
+<div >
+	<br>
+		<p style = "font-size:20px">Preference History</p>
+		<hr>
+    <table class = "table">
+        <thead>
+            <tr>
+            <th>Year</th>
+            <th>Date</th>
+            <th>Semester</th>
+            <th>Studio</th>
+            <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="pref in preferences">
+        <tr>
+        <td>{{pref.StudentYear}}</td>
+        <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
+        <td>{{pref.Semester}}</td>
+        <td>{{pref.idS}}</td>
+        <td>{{pref.Rate}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>

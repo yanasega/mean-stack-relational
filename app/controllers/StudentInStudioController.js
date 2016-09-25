@@ -11,13 +11,13 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-exports.studio = function(req, res, next, id) {
+exports.studentinstudio = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.Studio.find({where: {id: id}}).then(function(studio){
-        if(!studio) {
-            return next(new Error('Failed to load studio ' + id));
+    db.StudentInStudio.find({where: {id: id}}).then(function(studentinstudio){
+        if(!studentinstudio) {
+            return next(new Error('Failed to load studentinstudio ' + id));
         } else {
-            req.studio = studio;
+            req.studentinstudio = studentinstudio;
             return next();            
         }
     }).catch(function(err){
@@ -32,11 +32,11 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.Studio.create(req.body).then(function(studio){
-        if(!studio){
-            return res.send('users/signup', {errors: new StandardError('Studio could not be created')}); //yana:change the landing page.
+    db.StudentInStudio.create(req.body).then(function(studentinstudio){
+        if(!studentinstudio){
+            return res.send('users/signup', {errors: new StandardError('studentinstudio could not be created')}); //yana:change the landing page.
         } else {
-            return res.jsonp(studio);
+            return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
         return res.send('users/signup', { 
@@ -50,17 +50,11 @@ exports.create = function(req, res) {
  * Update a studio
  */
 exports.update = function(req, res) {
-    // create a new variable to hold the studio that was placed on the req object.
-    var studio = req.studio;
-    studio.updateAttributes({
-        IdC: req.body.IdC,
-        Name: req.body.Name,
-        Instructor: req.body.Instructor,
-        Subject: req.body.Subject,
-        Semester: req.body.Semester,
-        IsActive: req.body.IsActive,
-        LinkSylabus:req.body.LinkSylabus,
-        RelevantYears:req.body.RelevantYears
+    // create a new variable to hold the studentinstudio that was placed on the req object.
+    var studentinstudio = req.studentinstudio;
+    studentinstudio.updateAttributes({
+        Studio: req.body.Studio,
+        Instructor: req.body.Instructor
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
@@ -76,10 +70,10 @@ exports.update = function(req, res) {
  */
 exports.destroy = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
-    var studio = req.studio;
+    var studentinstudio = req.studentinstudio;
 
-    studio.destroy().then(function(){
-        return res.jsonp(studio);
+    studentinstudio.destroy().then(function(){
+        return res.jsonp(studentinstudio);
     }).catch(function(err){
         return res.render('error', {
             error: err,
@@ -89,20 +83,20 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show an studio
+ * Show an studentinstudio
  */
 exports.show = function(req, res) {
-    // Sending down the studio that was just preloaded by the studios.studio.article function
+    // Sending down the studentinstudio that was just preloaded by the studentinstudios.studentinstudio.article function
     // and saves article on the req object.
-    return res.jsonp(req.studio);
+    return res.jsonp(req.studentinstudio);
 };
 
 /**
  * List of Articles
  */
 exports.all = function(req, res) {
-    db.Studio.findAll().then(function(studio){
-        return res.jsonp(studio);
+    db.StudentInStudio.findAll().then(function(studentinstudio){
+        return res.jsonp(studentinstudio);
     }).catch(function(err){
         return res.render('error', {
             error: err,
