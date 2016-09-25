@@ -20,7 +20,8 @@
             <th>Course ID</th>
             <th>Name</th>
             <th>Instructor</th>
-            <th>Description</th>
+            <!--<th>Description</th>-->
+            <th>Subject</th>
             <th>Relevant Years</th>
             <th>Semester</th>
             <th>Sylabus</th>
@@ -31,15 +32,16 @@
       </thead>
      <tbody ng-repeat="studio in studios | filter:query | filter:yearFilter | filter:semesterFilter">
         <tr>
-        <td>{{studio.Id_s}}</td>
+        <td>{{studio.IdC}}</td>
         <td>{{studio.Name}}</td>
         <td>{{studio.Instructor}}</td>
-        <td>{{studio.Description}}</td>
-        <td>{{studio.Relevant_years}}</td>
+        <!--<td>{{studio.Description}}</td>-->
+        <td>{{studio.Subject}}</td>
+        <td>{{studio.RelevantYears}}</td>
         <td>{{studio.Semester}}</td>  
-        <td><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"Sylabus"}}</a></td>
-        <!--<td><a ui-sref="ViewPdf({ pdfId: studio.LinkSylabus})" ng-href="{{studio.LinkSylabus}}">{{"Sylabus"}}</a></td>-->
-        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"Sylabus"}}</a></td>
+        <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
+        <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> Edit</a></td>
         <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>
@@ -65,12 +67,23 @@
             <br>
 			<label class="control-label" for="instructor">Instructor</label>
 			<div class="controls">
-				<input type="text" data-ng-model="instructor" id="instructor" required>
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
+					<option value="">Select Instructor</option>
+				</select>
 			</div>
             <br>
-            <label class="control-label" for="description">Description</label>
+            <!--<label class="control-label" for="description">Description</label>
 			<div class="controls">
 				<input type="text" data-ng-model="description" id="description" required>
+			</div>
+            <br>-->
+            <label class="control-label" for="subject">Subject</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="subject" ng-options="subject.Subject for subject in subjects" required>
+					<option value="">Select Subject</option>
+				</select>
 			</div>
 		</div>
         <br>
@@ -78,16 +91,16 @@
 			<label class="control-label" for="relevantyears" id="relevantyears">Relevant Years</label>
 			<div class="controls">
 				<select type="string" data-ng-model="relevantyears" required>
-					<option value="3rd-4th">3rd-4th</option>
-					<option value="5th">5th</option>
+					<option value="3,4">3,4</option>
+					<option value="5">5</option>
 				</select>
 			</div>
             <br>
             <label class="control-label" for="semester" id="semester">Semester</label>
 			<div class="controls">
 				<select type="string" data-ng-model="semester" required>
-					<option value="Winter">Winter</option>
-					<option value="Spring">Spring</option>
+					<option value="winter">Winter</option>
+					<option value="spring">Spring</option>
 				</select>
 			</div>
             <br>
@@ -95,16 +108,6 @@
             <div class="controls">
             <input type="file" name = "sylabus" ngf-select ng-model="sylabus">
             </div>
-            <!--<form method="post" enctype="multipart/form-data">-->
-              <!--<input type="submit" name = "submit" value = "submit">-->
-            <!--</form>-->
-			<!--<div class="controls">
-				<input type="text" data-ng-model="sylabus" id="sylabus" required>
-                <form action="demo_form.asp">
-                    <input type="file" name="pic" accept="image/*">
-                    <input type="submit">
-                </form>
-			</div>-->
 		</div>
 		<div class="control-group">
 			<div class="controls">

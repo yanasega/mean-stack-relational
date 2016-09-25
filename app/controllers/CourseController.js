@@ -12,9 +12,8 @@ var db = require('../../config/sequelize');
  * Its purpose is to preload the article on the req object then call the next function. 
  */
 exports.course = function(req, res, next, id) {
-    console.log("meeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log('id => ' + id);
-    db.Course.find({where: {Id: id}}).then(function(course){
+    db.Course.find({where: {id: id}}).then(function(course){
         if(!course) {
             return next(new Error('Failed to load course ' + id));
         } else {
@@ -33,6 +32,7 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
+    console.log("meeeeeeeeeee");
     db.Course.create(req.body).then(function(course){
         if(!course){
             return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
