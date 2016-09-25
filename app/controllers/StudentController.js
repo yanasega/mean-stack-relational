@@ -30,3 +30,45 @@ exports.all = function(req, res) {
         });
     });
 };
+
+exports.update = function(req, res) {
+    // create a new variable to hold the article that was placed on the req object.
+    var student = req.student;
+    student.updateAttributes({
+        Semester: req.body.Semester,
+        CurrentYear: req.body.CurrentYear,
+        Generalaverage: req.body.Generalaverage,
+        LastStudioGrade: req.body.LastStudioGrade
+    }).then(function(a){
+        return res.jsonp(a);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err, 
+            status: 500
+        });
+    });
+};
+
+exports.show = function(req, res) {
+    // Sending down the registration that was just preloaded by the registrations.registration function
+    // and saves registration on the req object.
+    return res.jsonp(req.student);
+};
+
+/**
+ * Delete an student
+ */
+exports.destroy = function(req, res) {
+
+    // create a new variable to hold the article that was placed on the req object.
+    var student = req.student;
+
+    student.destroy().then(function(){
+        return res.jsonp(student);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err,
+            status: 500
+        });
+    });
+};

@@ -1,6 +1,6 @@
 angular.module('mean.system').factory("Students", ['$resource', function($resource) {
     return $resource('students/:studentId', {
-        registrationId: '@id'
+        studentId: '@id'
     }, {
         update: {
             method: 'PUT'

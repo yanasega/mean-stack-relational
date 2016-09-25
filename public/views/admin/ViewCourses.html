@@ -21,17 +21,17 @@
             <th>Name</th>
             <th>Number Of Credit Points</th>
             <!--<th>Mandatory?</th>-->
-            <th></th>
+            <!--<th></th>-->
             <th></th>
          </tr>
       </thead>
      <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter">
         <tr>
-        <td>{{course.Id_c}}</td>
+        <td>{{course.id}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
         <!--<td>{{course.IsMandatory}}</td>-->
-        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+        <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
         <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
         </tr>
      </tbody>
@@ -47,7 +47,7 @@
 		<div class="control-group">
             <label class="control-label" for="id">Course ID</label>
 			<div class="controls">
-				<input type="text" data-ng-model="id" id="id" required>
+				<input type="number" data-ng-model="id" id="id" required>
 			</div>
             <br>
 			<label class="control-label" for="name">Name</label>
