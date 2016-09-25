@@ -1,15 +1,11 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = true;
     $scope.status = null;
     $scope.RegEmpty = true;
-    // $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-    // $scope.data = [300, 500, 100];
 
     $scope.openRegistration = function() {
-        
-        // $scope.checkIsActive();
         
         var reg = new Registrations({
             StartDate: new Date(),
@@ -20,17 +16,38 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
 
         reg.$save(function(response) {
             $scope.find();
+            //update all studios of the same semester as the registration to active.
+            Studios.query(function(studios){
+                studios.forEach(function(studio) {
+                    if ($scope.semester == studio.Semester){
+                        studio.IsActive = true;
+                        if (!studio.updated) {
+                            studio.updated = [];
+                        }
+                        studio.updated.push(new Date().getTime());
+                        studio.$update(function() {
+                        });
+                    }
+                    else{
+                        studio.IsActive = false;
+                        if (!studio.updated) {
+                            studio.updated = [];
+                        }
+                        studio.updated.push(new Date().getTime());
+                        studio.$update(function() {
+                        });
+                    }
+                }, this);
+            });
             //yana: add check if response valid?
             // if(response.status === 'success'){
             //     $window.location.href = '/';
             // }
         });
         $scope.status = "Registration opened successfully.";
-        // $scope.RegEmpty = false;
     };
  
      $scope.find = function() {
-         //yana:update status registration if active.
         Registrations.query(function(registrations) {
             $scope.registrations = registrations;
             if(registrations.length != 0){
@@ -40,7 +57,6 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                     }
                 }, this);
             }
-            // $scope.showreg = true;
         });
     };
 
@@ -84,14 +100,6 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         }
     };
 
-    // $scope.checkIsActive = function(){
-    //     if ($scope.startdate < Date.now() && $scope.enddate > Date.now()){
-    //         $scope.IsActive = true;
-    //     }
-    //     else{
-    //         $scope.IsActive = false;
-    //     }
-    // }
 
     $scope.find();
 

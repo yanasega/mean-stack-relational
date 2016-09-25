@@ -50,8 +50,6 @@ exports.create = function(req, res) {
  * Update a studio
  */
 exports.update = function(req, res) {
-    console.log("meee");
-    console.log(req.studio);
     // create a new variable to hold the studio that was placed on the req object.
     var studio = req.studio;
     studio.updateAttributes({
