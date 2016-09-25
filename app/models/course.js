@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = function(sequelize, DataTypes) {
 
 	var Course = sequelize.define('Course', {
@@ -15,5 +14,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	);
 
-	return Course;
+ return Course;
 };
