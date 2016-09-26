@@ -1,16 +1,20 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
 
-	var StudentInCourses = sequelize.define('StudentInCourses', {
-            id: {
+	var StudentInCourse = sequelize.define('StudentInCourse', {
+            IdStudent: {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
-            Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER
+            IdCourse: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			},
+            IsDone : DataTypes.BOOLEAN
+            // Name : DataTypes.STRING
             //IsMandatory : DataTypes.STRING //yana change to bool
   }
  );
 
- return StudentInCourses;
+ return StudentInCourse;
 };
