@@ -7,6 +7,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.status = null;
     $scope.studios = [];
 
+
     $scope.models = {
         studioLists : {},
         selected: null
