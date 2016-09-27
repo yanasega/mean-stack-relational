@@ -5,7 +5,7 @@
  */
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
-
+var exec = require('child_process').execFile;
 
 /**
  * Create a Instructor
@@ -14,6 +14,15 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
+
+    console.log("algo startttttttttttttttttttttttttttttttttttttttttt");
+    
+    exec('algoritm.py',['3','winter'], function (err, data) {                
+        console.log(data);                  
+    });
+
+    console.log("algo startttttttttttttttttttttttttttttttttttttttttt");
+    
     console.log(req.body);
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
@@ -52,4 +61,5 @@ exports.all = function(req, res) {
         });
     });
 };
+
 
