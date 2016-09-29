@@ -10,7 +10,11 @@
     <div class ="col-md-3">
       <div class="control-group">
         <div class="dropdown">
+<<<<<<< HEAD
             <select ng-model="ChosenYear">
+=======
+            <select ng-model="ChosenYear" ng-change="init()">
+>>>>>>> refs/remotes/origin/development
              <option ng-repeat="x in year">{{x}}</option>
             </select>
         </div>
@@ -31,8 +35,8 @@
   <div class="row" style="padding-top:30px">
     <div class ="col-md-6" style="float:right">
     <div class = "assinmentBtn" role="group" aria-label="...">
-      <button type="button" class="btn btn-info">Auto Assinment</button>
-      <button type="button" class="btn btn-danger">clear Assinment</button>
+      <button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>
+      <button type="button" class="btn btn-danger">Clear Assinment</button>
       <button type="button" class="btn btn-success">Approve Assinment</button>
    </div>
   </div>
@@ -44,18 +48,19 @@
 <div class="container" id = thirdFourth ng-if = "ChosenYear == '3rd-4th'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
-          <div class = "col-sm-6"  ng-repeat= "list in models.listsA34">
-             <h5 style="text-align:right; padding-right:40px"><b> {{studio.studio.Name}}</b></h5>
+          <div class = "col-sm-6"  ng-repeat= "studio in studios">
+             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-		              <ul dnd-list="list" >
-                         <li ng-repeat="item in list "
+		              <ul dnd-list="models.studioLists[studio.id]" >
+                         <li ng-repeat="item in models.studioLists[studio.id]"
                             dnd-draggable="item"
-                            dnd-moved="item.splice($index, 1)"
+                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                            {{item.student.firstname + " " + item.student.lastname}}
+                            {{item.FirstName + " " + item.LastName}}
+
                          </li>
                       </ul>
 	                 </div>
@@ -83,22 +88,23 @@
                  </br>
     </div>
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">students</h3>
+      <h3 style="margin-top:0px">Students</h3>
           <div style= "overflow:hidden; overflow-y:scroll; height:600px">
-                    <div class="simpleDemo">
-		              <ul dnd-list="models.listsB34">
-                         <li ng-repeat="item in models.listsB34"
+            <div class="simpleDemo">
+		              <ul dnd-list="models.studioLists[0]">
+                         <li ng-repeat="item in models.studioLists[0]"
                             dnd-draggable="item"
-                            dnd-moved="models.listsB34.splice($index, 1)"
+                            dnd-moved="models.studioLists[0].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.student.firstname + " " + item.student.lastname}}
+                           {{item.FirstName + " " + item.LastName}}
+
                          </li>
-                      </ul>
-	                 </div>
-                 </div>
+                   </ul>
+	            </div>
+          </div>
     </div>
   </div>
 </div>
@@ -117,7 +123,7 @@
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.student.firstname + " " + item.student.lastname}}
+                           {{item.student.FirstName + " " + item.student.LastName}}
                          </li>
                       </ul>
 	                 </div>
@@ -146,7 +152,7 @@
     </div>
     
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">students</h3>
+      <h3 style="margin-top:0px">Students</h3>
           <div style= "overflow:hidden; overflow-y:scroll; height:600px">
                     <div class="simpleDemo">
 		              <ul dnd-list="models.listsB5">
@@ -157,7 +163,7 @@
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.student.firstname + " " + item.student.lastname}}
+                           {{item.student.FirstName + " " + item.student.LastName}}
                          </li>
                       </ul>
 	                 </div>

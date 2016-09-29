@@ -6,7 +6,21 @@
       <p style = "font-size:20px" >Upload ID Files</p>
       <hr>
       <div class="container">
-          <form class="form-horizontal" data-ng-submit="create(token)" novalidate>
+              <form class="form-horizontal" data-ng-submit="addIds()">
+	<br>
+		<div class="control-group">
+            <label class="control-label" for="Ids">Upload Student ID File</label>
+            <div class="controls">
+            <input type="file" name = "Ids" ngf-select ng-model="Ids">
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+          <!--<form class="form-horizontal" data-ng-submit="create(token)" novalidate>
               <fieldset>
                   <div class="form-group">
                       <label class="control-label" for="token">Upload File</label>
@@ -26,7 +40,7 @@
                       </div>
                   </div>
               </fieldset>
-          </form>
+          </form>-->
       </div>
   </div>
   <div class="container">
@@ -49,3 +63,4 @@
   </div>
   <!--<a href="path">image</a>-->
   <section><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  
+  <section><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:20px" aria-hidden="true"></i> {{error}} </p></section>

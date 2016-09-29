@@ -1,6 +1,6 @@
 angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global','$state', 'SignUp', function ($scope, $window, Global, $state, SignUp) {
     $scope.global = Global;
-
+    $scope.status = null;
 
     $scope.signUp = function(user) {
 
@@ -13,7 +13,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
             Semester: user.semester,
             IsValid: false,
             Generalaverage: user.generalaverage,
-            LastStudioGrade: user. laststudiograde,
+            LastStudioGrade: user.laststudiograde,
             password : user.password,
             CurrentYear : user.currentyear
         });
@@ -21,6 +21,19 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
         signUp.$save(function(response) {
             if(response.status === 'success'){
                 $window.location.href = '/';
+            }
+            else{
+                user.firstname = null;
+                user.lastname = null;
+                user.email = null;
+                user.id = null;
+                user.gender = null;
+                user.semester = null;
+                user.generalaverage = null;
+                user.laststudiograde = null;
+                user.password = null;
+                user.currentyear = null;
+                $scope.status = "Could not insert user - id not in database.";           
             }
         });
     };
