@@ -98,14 +98,15 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         // console.log($scope.preferences);
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
-                if (preference.id == $stateParams.studentId){
+                if (preference.Id == $stateParams.studentId){
                     $scope.preferences.push(preference); //yana: check if data relavent?
                 }    
             }, this);
             $scope.preferences.forEach(function(preference) {
                 $scope.studios.forEach(function(studio) {
-                    if(studio.id == preference.idS){
-                        preference.idS = studio.Name;
+                        console.log(preference);
+                    if(studio.id == preference.IdS){
+                        preference.IdS = studio.Name;
                     }
                 }, this);
             }, this);
