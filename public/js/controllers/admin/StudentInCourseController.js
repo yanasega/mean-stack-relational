@@ -45,6 +45,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
  
                 sic.$save(function(response) {
                      $scope.status = "Selection saved successfully.";
+                     
                 });
             }
             else{
@@ -64,6 +65,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         // $scope.Name = null;
         // $scope.CreditPoints = null;
         $scope.status = "Selection saved successfully.";
+        console.log("$scope.status");
     }
 
    
