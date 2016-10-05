@@ -5,25 +5,24 @@
  */
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
-var exec = require('child_process').execFile;
+
+// var exec = require('child_process').exec;
+// var fs = require('fs'),
+//     path = require('path');
+// var PythonShell = require('python-shell');
+// var escapeJSON = require('escape-json-node');
+
+exports.path = function(req, res, next, id) {
+    req.csv_path = id;    
+    return next();
+};
 
 /**
- * Create a Instructor
+ * Create a tz
  */
 exports.create = function(req, res) {
     // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
-
-    console.log("algo startttttttttttttttttttttttttttttttttttttttttt");
-    
-    exec('algoritm.py',['3','winter'], function (err, data) {                
-        console.log(data);                  
-    });
-
-    console.log("algo startttttttttttttttttttttttttttttttttttttttttt");
-    
-    console.log(req.body);
+    //req.body.UserId = req.user.id;    
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
             return res.send('users/signup', {errors: new StandardError('Tz could not be created')}); //yana:change the landing page.
@@ -38,6 +37,27 @@ exports.create = function(req, res) {
     });
 };
 
+exports.insertTz = function (req, res){
+    
+    var dirString = path.dirname(fs.realpathSync(__filename));
+
+    var csv_path = req.csv_path;
+    var options = {
+        mode: 'text',
+        pythonPath: 'python.exe',
+        // pythonOptions: ['-u'],
+        scriptPath: dirString + '//..//algo',
+        args: [dirString + '//..//..//public/uploads/' + csv_path]
+    };
+
+    PythonShell.run('readfile.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        // results = results.toString().replace(/\\/g, "");
+        return res.jsonp(results);
+
+    });
+}
 
 /**
  * Show a registration

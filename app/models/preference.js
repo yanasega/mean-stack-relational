@@ -3,15 +3,15 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Preference = sequelize.define('Preference', {
-            id: {
+            Id: {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
-            idS:{
+            IdS:{
                 type: DataTypes.UUID,
 				primaryKey: true               
             },
-            idR:{
+            IdR:{
                 type: DataTypes.UUID,
 				primaryKey: true               
             },

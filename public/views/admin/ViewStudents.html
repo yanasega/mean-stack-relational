@@ -40,7 +40,8 @@
         <td>{{stud.Email}}</td>
         <td>{{stud.Gender}}</td>
         <td>{{stud.CurrentYear}}</td>
-        <td>{{stud.IsValid}}</td>    
+        <td ng-if="stud.IsValid == false">{{"incomplete"}}</td>
+        <td ng-if="stud.IsValid == true">{{"complete"}}</td>       
         <td><a href="" ui-sref = "StudentInfo({studentId : stud.id})" >View More</a></td>
         <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
         <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>

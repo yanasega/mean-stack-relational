@@ -1,6 +1,6 @@
 angular.module('mean.system').factory("Preferences", ['$resource', function($resource) {
     return $resource('preferences/:preferenceId', {
-        preferenceId: '@id'
+        preferenceId: '@Id'
     }, {
         update: {
             method: 'PUT'
