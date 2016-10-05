@@ -1,0 +1,40 @@
+<section data-ng-init="findStudent()">
+    <br>
+    <p style = "font-size:20px">{{"Edit Student: " + student.FirstName + " " + student.LastName}} </p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="update()">
+	<br>
+		<div class="control-group">
+			<label class="control-label" for="currentyear">Current Year</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="number" data-ng-model="student.CurrentYear" ng-options="year for year in years" required>
+					<option value="">Select Year</option>
+				</select>
+			</div>
+            <br>
+			<label class="control-label" for="generalaverage">General Average</label>
+			<div class="controls">
+				<input type="number" data-ng-model="student.Generalaverage" id="generalaverage" required>
+			</div>
+            <br>
+            <label class="control-label" for="laststudiograde">Last Studio Grade</label>
+			<div class="controls">
+				<input type="number" data-ng-model="student.LastStudioGrade" id="laststudiograde" required>
+			</div>
+            <br>
+			<label class="control-label" for="graduationform">Graduation Form Status</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="student.IsValid" ng-options="status for status in statuses" required>
+					<option value="">Select Status</option>
+				</select>
+			</div>
+            <br>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>     
+</section>

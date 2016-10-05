@@ -372,9 +372,9 @@ class Algorithm:
 
             # target function
             target_function = pulp.lpSum([coeff_preferences_of_students[j][i-1] * x[i,j] for j in students for i in studios])
-            pprint.pprint(general_average)
-            pprint.pprint(studio_average)
-            pprint.pprint(target_function)
+            #pprint.pprint(general_average)
+            #pprint.pprint(studio_average)
+            #pprint.pprint(target_function)
 
             # initialize constraints
             # each student need to be in exactly 1 studio
@@ -439,7 +439,7 @@ class Algorithm:
 
             prob.writeLP("SchedulingProblem.lp")
             prob.solve()
-            print("Status:", LpStatus[prob.status])
+            #print("Status:", LpStatus[prob.status])
 
             temp_solution = {}
             for v in prob.variables():

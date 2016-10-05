@@ -30,8 +30,9 @@
     <td>{{student.CurrentYear}}</td>
     <td>{{student.Generalaverage}}</td>  
     <td>{{student.LastStudioGrade}}</td>  
-    <td>{{student.IsValid}}</td>    
-    <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
+    <td ng-if="student.IsValid == false">{{"incomplete"}}</td>
+    <td ng-if="student.IsValid == true">{{"complete"}}</td>     
+    <td><a class="btn btn-default btn-sm" ui-sref="editStudent({studentId : student.id})"><i class="fa fa-pencil"></i> Edit</a></td>
     <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
     </tr>
     </tbody>
@@ -86,7 +87,7 @@
         <td>{{pref.StudentYear}}</td>
         <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
         <td>{{pref.Semester}}</td>
-        <td>{{pref.idS}}</td>
+        <td>{{pref.IdS}}</td>
         <td>{{pref.Rate}}</td>
         </tr>
         </tbody>

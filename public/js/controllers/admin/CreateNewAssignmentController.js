@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students','Studios',function ($scope, $resource,Global,$window,Students,Studios) {
+angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students',
+'Studios','$http',function ($scope, $resource,Global,$window,Students,Studios,$http) {
     console.log("CreateNewAssignmentController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -63,6 +64,21 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.$watch('models', function(model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
+
+    $scope.runAlgo = function(){
+        if ($scope.ChosenYear == "5th"){
+            $scope.algoYear = "5";
+        }
+        else{
+            $scope.algoYear = "3";
+        }
+        $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
+            console.log(respData);
+            $scope.status = "Algorithem run finished succesfully.";
+        }).error(function () {
+               $scope.status = "There was an error while running the algorithem.";
+        });
+    }
 
     // // on load set lists of info
     // Students.query(function(students) {

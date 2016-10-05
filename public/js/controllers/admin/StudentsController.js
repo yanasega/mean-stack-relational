@@ -1,12 +1,13 @@
 angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location','Students','Studios','$stateParams',
-'Preferences','StudentInStudio','Instructors','Tzs',function ($scope, $resource ,Global,$window,Upload,$location,Students,Studios,$stateParams,Preferences,StudentInStudio,Instructors,Tzs) {
+'Preferences','StudentInStudio','Instructors','Tzs','$state','$http',function ($scope, $resource ,Global,$window,Upload,$location,Students,Studios,$stateParams,Preferences,StudentInStudio,Instructors,Tzs,$state,$http) {
     console.log("StudentsController");
     $scope.status = null;
     $scope.error = null;
     $scope.showuser = true;
     $scope.preferences = [];
     $scope.studentinstudio = [];
-
+    $scope.years = {"3": 3, "4":4, "5":5};
+    $scope.statuses = {"true": true, "false":false};
     // $scope.create = function(token) {
     //     $scope.upload = Upload.upload({
     //         url: '/upload',
@@ -49,16 +50,39 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 url: '/upload',
                 method: 'POST',
                 headers: {'Content-Type': 'multipart/form-data'},
-                file: $scope.sylabus           
+                file: $scope.Ids           
             }).success(function (response, status) {
                     $scope.TzFile = response[0].filename;
+                    $http.get('/insertTz/' + $scope.TzFile).success(function(respData){ //yana: do I need to set the config.server????
+                        if (respData == 'done'){
+                            $scope.error = null;
+                            $scope.status = "File uploaded successfully.";
+                            $scope.Ids = null;
+                        }
+                        else{
+                            $scope.Ids = null;
+                            $scope.status = null;
+                            $scope.error = "There was an error. File could not be uploaded.";                          
+                        }
+                        console.log(respData);
+                    })
                     //yana: complete when there is algotrithem.
                 }
             ).error(function (errorResponse) {
-                $scope.error = errorResponse.data;
-                $scope.status = "There was an error. File could not be uploaded.";
+                // $scope.error = errorResponse.data;
+                $scope.Ids = null;
+                $scope.status = null;
+                $scope.error = "There was an error. File could not be uploaded.";
                 }
             );
+    }
+
+    $scope.findStudent = function() {
+        Students.get({
+            studentId: $stateParams.studentId
+        }, function(student) {
+            $scope.student = student;
+        });
     }
 
     $scope.findOne = function() {
@@ -104,7 +128,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }, this);
             $scope.preferences.forEach(function(preference) {
                 $scope.studios.forEach(function(studio) {
-                        console.log(preference);
                     if(studio.id == preference.IdS){
                         preference.IdS = studio.Name;
                     }
@@ -118,6 +141,18 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         Students.query(function(students) {
             $scope.students = students; //yana: check if data relavent?
             // $scope.showreg = true;
+        });
+    };
+
+    $scope.update = function() {
+        var student = $scope.student;
+        if (!student.updated) {
+            student.updated = [];
+        }
+        student.updated.push(new Date().getTime());
+        student.$update(function() {
+        $state.go('StudentInfo',{studentId : student.id})
+
         });
     };
 
