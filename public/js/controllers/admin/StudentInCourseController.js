@@ -44,7 +44,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                 });
  
                 sic.$save(function(response) {
-                    //להכניס כאן סטטוס שמח
+                     $scope.status = "Selection saved successfully.";
                 });
             }
             else{
@@ -55,7 +55,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                 });
 
                 sic.$save(function(response) {
-                    //להכניס כאן סטטוס שמח
+                     $scope.status = "Selection saved successfully.";
                 });               
             }
         }, this);
