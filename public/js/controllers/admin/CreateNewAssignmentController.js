@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students','Studios',function ($scope, $resource,Global,$window,Students,Studios) {
+angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students',
+'Studios','$http',function ($scope, $resource,Global,$window,Students,Studios,$http) {
     console.log("CreateNewAssignmentController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -116,33 +117,47 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     }, true);
 
 
+
     $scope.UpdateStudentsData = function(){
-    console.log("hi");
-    studioLists.forEach(function(studio) {
-        studio.forEach(function(student) {
-            $scope.count +=1;
-            $scope.GAvarage += student.GeneralAvarage;
-            $scope.SAvarage += student.LastStudioGrade;
-           if(student.Gender == 'female')
-           {
-                 $scope.female +=1;
-           }  
-            else{
-                $scope.Male+=1;
-            }
-            
+        console.log("hi");
+        studioLists.forEach(function(studio) {
+            studio.forEach(function(student) {
+                $scope.count +=1;
+                $scope.GAvarage += student.GeneralAvarage;
+                $scope.SAvarage += student.LastStudioGrade;
+            if(student.Gender == 'female')
+            {
+                    $scope.female +=1;
+            }  
+                else{
+                    $scope.Male+=1;
+                }
+                
+            }, this);
+            $scope.GAvarage = $scope.GAvarage/$scope.count;
+            $scope.SAvarage = $scope.SAvarage/$scope.count;
+            $scope.female = $scope.female/$scope.count;
+            $scope.Male = $scope.male/$scope.count;
         }, this);
-        $scope.GAvarage = $scope.GAvarage/$scope.count;
-        $scope.SAvarage = $scope.SAvarage/$scope.count;
-        $scope.female = $scope.female/$scope.count;
-        $scope.Male = $scope.male/$scope.count;
-    }, this);
 
     }
 
-    $scope.ClearAssinment = function(){
-        
-     }
+    $scope.runAlgo = function(){
+        if ($scope.ChosenYear == "5th"){
+            $scope.algoYear = "5";
+        }
+        else{
+            $scope.algoYear = "3";
+        }
+        $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
+            console.log(respData);
+            $scope.status = "Algorithem run finished succesfully.";
+        }).error(function () {
+               $scope.status = "There was an error while running the algorithem.";
+        });
+    }
+ 
+
 
     
     

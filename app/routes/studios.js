@@ -25,7 +25,8 @@ var upload = multer({ storage: storage});
 app.route('/upload').post(upload.any(), function (req, res, next) {
     res.send(req.files);
 });
-// Article Routes
+
+// Studios Routes
 app.route('/studios')
     .get(studios.all)
     .post(users.requiresLogin, studios.create);
