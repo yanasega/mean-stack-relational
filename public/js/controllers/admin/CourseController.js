@@ -5,7 +5,9 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
 
     $scope.addCourse = function() {
         var course = new Courses({
-			id: $scope.id,
+
+			Id: $scope.id,
+			Id_c: $scope.id,
             Name: $scope.name,
 			CreditPoints: $scope.creditpoints
         });
