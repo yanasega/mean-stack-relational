@@ -47,29 +47,27 @@ exports.create = function(req, res) {
 };
 
 /**
- * Update a article
+ * Update a course
  */
-// exports.update = function(req, res) {
+exports.update = function(req, res) {
 
-//     // create a new variable to hold the article that was placed on the req object.
-//     var article = req.article;
+    // create a new variable to hold the article that was placed on the req object.
+    var gradeincourse = req.gradeincourse;
 
-//     article.updateAttributes({
-//         title: req.body.title,
-//         content: req.body.content
-//     }).then(function(a){
-//         return res.jsonp(a);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err, 
-//             status: 500
-//         });
-//     });
-// };
-
-/**
- * Delete an article
- */
+    gradeincourse.updateAttributes({
+        coursename: req.body.coursename,
+        coursenumber: req.body.coursenumber,
+        creditpoints: req.body.creditpoints,
+        grade: req.body.grade
+    }).then(function(a){
+        return res.jsonp(a);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err, 
+            status: 500
+        });
+    });
+};
 exports.destroy = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
