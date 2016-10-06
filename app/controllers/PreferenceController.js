@@ -7,17 +7,17 @@ var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
 /**
- * Find article by id
+ * Find registration by id
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-exports.studio = function(req, res, next, id) {
+exports.preference = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.Studio.find({where: {id: id}}).then(function(studio){
-        if(!studio) {
-            return next(new Error('Failed to load studio ' + id));
+    db.Preference.find({where: {id: id}}).then(function(preference){
+        if(!preference) {
+            return next(new Error('Failed to load preference ' + id));
         } else {
-            req.studio = studio;
+            req.preference = preference;
             return next();            
         }
     }).catch(function(err){
@@ -26,17 +26,17 @@ exports.studio = function(req, res, next, id) {
 };
 
 /**
- * Create a registration
+ * Create a preference
  */
 exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.Studio.create(req.body).then(function(studio){
-        if(!studio){
-            return res.send('users/signup', {errors: new StandardError('Studio could not be created')}); //yana:change the landing page.
+    db.Preference.create(req.body).then(function(preference){
+        if(!preference){
+            return res.send('users/signup', {errors: new StandardError('Preference could not be created')}); //yana:change the landing page.
         } else {
-            return res.jsonp(studio);
+            return res.jsonp(preference);
         }
     }).catch(function(err){
         return res.send('users/signup', { 
@@ -47,24 +47,18 @@ exports.create = function(req, res) {
 };
 
 /**
- * Update a studio
+ * Update a registration
  */
 exports.update = function(req, res) {
-    // create a new variable to hold the studio that was placed on the req object.
-    var studio = req.studio;
-    studio.updateAttributes({
-        IdC: req.body.IdC,
-        Name: req.body.Name,
-        Instructor: req.body.Instructor,
-        Subject: req.body.Subject,
-        Semester: req.body.Semester,
-        IsActive: req.body.IsActive,
-        LinkSylabus:req.body.LinkSylabus,
-        RelevantYears:req.body.RelevantYears
+
+    // create a new variable to hold the article that was placed on the req object.
+    var preference = req.preference;
+    preference.updateAttributes({
+        Rate: req.body.Rate
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        return res.render('500', {
+        return res.render('error', {
             error: err, 
             status: 500
         });
@@ -72,14 +66,15 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an studio
+ * Delete an article
  */
 exports.destroy = function(req, res) {
-    // create a new variable to hold the article that was placed on the req object.
-    var studio = req.studio;
 
-    studio.destroy().then(function(){
-        return res.jsonp(studio);
+    // create a new variable to hold the article that was placed on the req object.
+    var preference = req.preference;
+
+    preference.destroy().then(function(){
+        return res.jsonp(preference);
     }).catch(function(err){
         return res.render('error', {
             error: err,
@@ -89,20 +84,20 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show an studio
+ * Show a preference
  */
 exports.show = function(req, res) {
-    // Sending down the studio that was just preloaded by the studios.studio.article function
-    // and saves article on the req object.
-    return res.jsonp(req.studio);
+    // Sending down the preference that was just preloaded by the preferences.preference function
+    // and saves preference on the req object.
+    return res.jsonp(req.preference);
 };
 
 /**
  * List of Articles
  */
 exports.all = function(req, res) {
-    db.Studio.findAll().then(function(studio){
-        return res.jsonp(studio);
+    db.Preference.findAll().then(function(preference){
+        return res.jsonp(preference);
     }).catch(function(err){
         return res.render('error', {
             error: err,
