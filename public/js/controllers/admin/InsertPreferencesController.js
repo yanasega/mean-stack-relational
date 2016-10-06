@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios) {
+angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios','StudentInStudio',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,StudentInStudio) {
     console.log("InsertPreferencesController");
     $scope.global = Global;
     $scope.RegOpen = false;
@@ -9,6 +9,8 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.choosenPrefs = {};
     $scope.general = {};
     $scope.doneInsert = false;
+    $scope.preferences = [];
+    $scope.studentinstudio = [];
 
     $scope.checkReg = function(){
         Registrations.query(function(registrations) {
@@ -18,7 +20,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                     $scope.RegOpen = true;
                     Preferences.query(function(preferences){
                         preferences.forEach(function(pref) {
-                            if (pref.idR == $scope.registration)
+                            if (pref.IdR == $scope.registration && pref.Id == $scope.global.user.id)
                             $scope.doneInsert = true;
                             $scope.message = "You have already inserted preferences for this semester.";
                         }, this);
@@ -27,6 +29,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             }, this);
         });
     }
+
 
     $scope.findOne = function() {
         Students.get({
@@ -101,9 +104,9 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.insertPreferences = function(){
         angular.forEach($scope.choosenPrefs,function(value,key){
             var pref = new Preferences({
-                id: $scope.student.id,
-                idS: $scope.choosenPrefs[key],
-                idR: $scope.registration,
+                Id: $scope.student.id,
+                IdS: $scope.choosenPrefs[key],
+                IdR: $scope.registration,
                 StudentYear: $scope.currentyear,
                 Semester: $scope.semester,
                 Rate : key
@@ -119,6 +122,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
 
     $scope.checkReg();
     $scope.findOne();
+
 }]);
 
 

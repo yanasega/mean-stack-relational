@@ -1,5 +1,4 @@
 import math
-import json
 import pprint
 import mysql.connector
 import sys
@@ -139,7 +138,7 @@ class Algorithm:
                          " where IdStudent in (select IdStudent from Students" + \
                                             " where CurrentYear in " + str(year) + " )"
 
-                query2 = " select Instructor, id, Subject from Studio " + \
+                query2 = " select Instructor, IdS, Subject from Studio " + \
                          " where IsActive = True and RelevantYears = '3,4' "
 
                 cur1.execute(query1)
@@ -209,12 +208,12 @@ class Algorithm:
                 query1 = " select IdStudent, Studio, Subject from StudentInStudio SIS, Studio S " + \
                          " where SIS.IdStudent in (select IdStudent from Students" + \
                                             "      where CurrentYear = 5 and IsValid = True " + \
-                         " and SIS.Studio = S.id " + \
+                         " and SIS.Studio = S.IdS " + \
                          " and S.RelevantYears = '3,4' "
 
                 # get all the groups in the project course
                 # for each group - his subject
-                query2 = " select id, Subject from Studio " + \
+                query2 = " select IdS, Subject from Studio " + \
                          " where IsActive = True and RelevantYears = '5'"
 
                 cur1.execute(query1)
@@ -275,11 +274,11 @@ class Algorithm:
             # need to take only from specific year and semester( date.today) in field where
             # IsActive = true
             if year == (3,4) :
-                query = " select id from Studio " + \
+                query = " select IdS from Studio " + \
                         " where RelevantYears = '3,4' and Semester ='" + str(semester) + "' and IsActive = true "
 
             if year == 5:
-                query = " select id from Studio " + \
+                query = " select IdS from Studio " + \
                         " where RelevantYears = '5' and Semester ='" + str(semester) + "' and IsActive = true "
 
             cur.execute(query)
@@ -460,7 +459,7 @@ class Algorithm:
             # write the solution to json format
             # when every studio have the following information: ids, average grade,
             # average studio grade, number of female, number of male
-            final_solution = []
+            final_solution = {}
             for studio, list_info in temp_solution.iteritems():
                 sum_average      = 0
                 sum_studio_grade = 0
@@ -479,15 +478,15 @@ class Algorithm:
                     else:
                         num_male += 1
 
-                total_average        = float(sum_average / total_in_studio)
-                total_studio_average = float(sum_studio_grade / total_in_studio)
+                total_average        = sum_average / total_in_studio
+                total_studio_average = sum_studio_grade / total_in_studio
 
-                final_solution.append({"studio": studio, "id list": list_id_student, "general average": total_average,
+                final_solution[studio] = {"studio": studio, "id list": list_id_student, "general average": total_average,
                                           "studio average": total_studio_average, "female": num_female, "male": num_male,
-                                          "total in studio": total_in_studio})
+                                          "total in studio": total_in_studio}
 
-            print json.dumps(final_solution)
-            return json.dumps(final_solution)
+            pprint.pprint(final_solution)
+            return final_solution
 
         except Exception as e:
             print e
