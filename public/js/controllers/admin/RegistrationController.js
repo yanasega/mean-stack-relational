@@ -16,8 +16,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             End_date: $scope.enddate,
             Semester: $scope.semester,
             IsActive: $scope.IsActive
-        });
-
+        }); 
         reg.$save(function(response) {
             //yana: add check if response valid?
             // if(response.status === 'success'){

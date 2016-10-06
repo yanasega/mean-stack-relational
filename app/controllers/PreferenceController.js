@@ -11,13 +11,13 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
-exports.studentincourse = function(req, res, next, id) {
+exports.preference = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.StudentInCourse.find({where: {IdStudent: id}}).then(function(studentincourse){
-        if(!studentincourse) {
-            return next(new Error('Failed to load' + id));
+    db.Preference.find({where: {id: id}}).then(function(preference){
+        if(!preference) {
+            return next(new Error('Failed to load preference ' + id));
         } else {
-            req.studentincourse = studentincourse;
+            req.preference = preference;
             return next();            
         }
     }).catch(function(err){
@@ -26,20 +26,17 @@ exports.studentincourse = function(req, res, next, id) {
 };
 
 /**
- * Create a registration
+ * Create a preference
  */
 exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    db.StudentInCourse.create(req.body).then(function(studentincourse){
-
-        // // console.log(studentincourse)
-
-        if(!studentincourse){
-            return res.send('users/signup', {errors: new StandardError('StudentInCourse could not be created')}); //yana:change the landing page.
+    db.Preference.create(req.body).then(function(preference){
+        if(!preference){
+            return res.send('users/signup', {errors: new StandardError('Preference could not be created')}); //yana:change the landing page.
         } else {
-            return res.jsonp(studentincourse);
+            return res.jsonp(preference);
         }
     }).catch(function(err){
         return res.send('users/signup', { 
@@ -55,9 +52,9 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
-    var studentincourse = req.studentincourse;
-    studentincourse.updateAttributes({
-        IsDone: req.body.IsDone
+    var preference = req.preference;
+    preference.updateAttributes({
+        Rate: req.body.Rate
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
@@ -74,10 +71,10 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
-    var studentincourse = req.studentincourse;
+    var preference = req.preference;
 
-    studentincourse.destroy().then(function(){
-        return res.jsonp(studentincourse);
+    preference.destroy().then(function(){
+        return res.jsonp(preference);
     }).catch(function(err){
         return res.render('error', {
             error: err,
@@ -87,20 +84,20 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show a registration
+ * Show a preference
  */
 exports.show = function(req, res) {
-    // Sending down the registration that was just preloaded by the registrations.registration function
-    // and saves registration on the req object.
-    return res.jsonp(req.studentincourse);
+    // Sending down the preference that was just preloaded by the preferences.preference function
+    // and saves preference on the req object.
+    return res.jsonp(req.preference);
 };
 
 /**
  * List of Articles
  */
 exports.all = function(req, res) {
-    db.StudentInCourse.findAll().then(function(studentincourse){
-        return res.jsonp(studentincourse);
+    db.Preference.findAll().then(function(preference){
+        return res.jsonp(preference);
     }).catch(function(err){
         return res.render('error', {
             error: err,

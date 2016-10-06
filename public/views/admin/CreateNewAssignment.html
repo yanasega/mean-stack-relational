@@ -7,25 +7,35 @@
   <p style="font-size:20px">New Assignment</p>
   	<hr>
     <div class="row">
-    <div class ="col-md-6">
+    <div class ="col-md-3">
       <div class="control-group">
         <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSemester" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="setYear()">
-                Choose year...
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownSemester">
-              <li ng-repeat="action in actions">
-                <a ng-click="setAction(action)">{{action.name}}</a>
-              </li>
-            </ul>
+            <select ng-model="ChosenYear">
+             <option ng-repeat="x in year">{{x}}</option>
+            </select>
         </div>
    </div>
-    </div>
-    <div class ="col-md-6">
+  </div>
+     <div class ="col-md-3">
+      <div class="control-group">
+        <div class="dropdown">
+            <select ng-model="ChosenSemester">
+             <option >choose Semester ..</option>
+             <option >winter</option>
+             <option >spring</option>
+            </select>
+        </div>
+   </div>
+  </div>
+  <div class ="col-md-3">
+  <button type="button" class="btn btn-default" ng-click="init()">get info</button>
+  </div>
+  </div>
+  <div class="row" style="padding-top:30px">
+    <div class ="col-md-6" style="float:right">
     <div class = "assinmentBtn" role="group" aria-label="...">
-      <button type="button" class="btn btn-info">Auto Assinment</button>
-      <button type="button" class="btn btn-danger">clear Assinment</button>
+      <button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>
+      <button type="button" class="btn btn-danger" ng-click="ClearAssinment()">Clear Assinment</button>
       <button type="button" class="btn btn-success">Approve Assinment</button>
    </div>
   </div>
@@ -34,142 +44,134 @@
 </br>
 </br>
   
-<div class="container" id = thirdFourth ng-if="angular.element('#selectedAction') == third/fourth">
+<div class="container" id = thirdFourth ng-if = "ChosenYear == '3rd-4th'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
-          <div class = "col-sm-2" ng-repeat="list in models.listsA">
-             <h5><b>Studio</b></h5>
-                  <div class="simpleDemo">
-		              <ul dnd-list="list">
-                         <li ng-repeat="item in list"
+          <div class = "col-sm-6"  ng-repeat= "studio in studios">
+             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
+                <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+		              <ul dnd-list="models.studioLists[studio.id]">
+                         <li ng-repeat="item in models.studioLists[studio.id]"
                             dnd-draggable="item"
-                            dnd-moved="list.splice($index, 1)"
+                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
+                            ng-change="UpdateStudentsData()"
+                            ng-model="item"
                              >
-                           {{item.label}}
+                            {{item.FirstName + " " + item.LastName}}
+
                          </li>
                       </ul>
 	                 </div>
                    </br>
-                 <table id= infoTable style=" border: 1px solid gray">
-                   <tr>
-                     <td>
-                       <h10>Average Grade:</h10>
-                     </td>
-                     <td>
-                       <input class="data_box1" type="text" id="AverageGrade" value="99">
-                     </td>
-                   </tr>
-                   <tr>
-                     <td>
-                       <h10>Female %:</h10>
-                     </td>
-                       <td>
-                       <input class="data_box1" type="text" id="Female" value="50">
-                     </td>
-                   </tr>
-                    <tr>
-                     <td>
-                       <h10>Male</br> %:</h10>
-                     </td>
-                       <td>
-                       <input class="data_box1" type="text" id="Male" value="50">
-                     </td>
-                   </tr>
-                 </table>
+                <table id = "infoTable" class="table table-hover" style= "width:300px">
+                    <thead>
+                      <tr>
+                        <th>Average Grade</th>
+                        <th>Average Grade in studio</th>
+                        <th>Female %</th>
+                        <th>male %</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id = "AverageGrade" >{{Sdata.GAvarage}}</td>
+                        <td id = "AverageGradeinstudio">{{Sdata.SAvarage}}</td>
+                        <td id = "female">{{Sdata.female}}</td>
+                        <td id = "male">{{Sdata.male}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                  </div>
                  </br>
                  </br>
     </div>
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">students</h3>
-          <div ng-repeat="list in models.listsB" style= "overflow:hidden; overflow-y:scroll; height:600px">
-                    <div class="simpleDemo">
-		              <ul dnd-list="list">
-                         <li ng-repeat="item in list"
+      <h3 style="margin-top:0px">Students</h3>
+          <div style= "overflow:hidden; overflow-y:scroll; height:600px">
+            <div class="simpleDemo">
+		              <ul dnd-list="models.studioLists[0]">
+                         <li ng-repeat="item in models.studioLists[0]"
                             dnd-draggable="item"
-                            dnd-moved="list.splice($index, 1)"
+                            dnd-moved="models.studioLists[0].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.label}}
+                           {{item.FirstName + " " + item.LastName}}
+
                          </li>
-                      </ul>
-	                 </div>
-                 </div>
+                   </ul>
+	            </div>
+          </div>
     </div>
   </div>
 </div>
 
-<div class="container" id = fifth ng-if="angular.element('#selectedAction') == fifth">
+<div class="container" id =fifth ng-if = "ChosenYear == '5th'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
-          <div class = "col-sm-2" ng-repeat="list in models.listsA">
-             <h5><b>Studio</b></h5>
-                  <div class="simpleDemo">
-		              <ul dnd-list="list">
-                         <li ng-repeat="item in list"
+          <div class = "col-sm-6"  ng-repeat= "studio in studios">
+             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+		              <ul dnd-list="models.studioLists[studio.id]" >
+                         <li ng-repeat="item in models.studioLists[studio.id] track by models.studioLists[studio.id]"
                             dnd-draggable="item"
-                            dnd-moved="list.splice($index, 1)"
+                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
+                              ng-change="UpdateStudentsData()"
+                            ng-model="models.studioLists[studio.id]"
                              >
-                           {{item.label}}
+                            {{item.FirstName + " " + item.LastName}}
+
                          </li>
                       </ul>
 	                 </div>
                    </br>
-                 <table id= infoTable style=" border: 1px solid gray">
-                   <tr>
-                     <td>
-                       <h10>Average Grade:</h10>
-                     </td>
-                     <td>
-                       <input class="data_box1" type="text" id="AverageGrade" value="99">
-                     </td>
-                   </tr>
-                   <tr>
-                     <td>
-                       <h10>Female %:</h10>
-                     </td>
-                       <td>
-                       <input class="data_box1" type="text" id="Female" value="50">
-                     </td>
-                   </tr>
-                    <tr>
-                     <td>
-                       <h10>Male</br> %:</h10>
-                     </td>
-                       <td>
-                       <input class="data_box1" type="text" id="Male" value="50">
-                     </td>
-                   </tr>
-                 </table>
+                <table id = "infoTable" class="table table-hover" style= "width:300px">
+                    <thead>
+                      <tr>
+                        <th>Average Grade</th>
+                        <th>Average Grade in studio</th>
+                        <th>Female %</th>
+                        <th>male %</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id = "AverageGrade" >{{Sdata.GAvarage}}</td>
+                        <td id = "AverageGradeinstudio">{{Sdata.SAvarage}}</td>
+                        <td id = "female">{{Sdata.female}}</td>
+                        <td id = "male">{{Sdata.male}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                  </div>
                  </br>
                  </br>
     </div>
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">students</h3>
-          <div ng-repeat="list in models.listsB" style= "overflow:hidden; overflow-y:scroll; height:600px">
-                    <div class="simpleDemo">
-		              <ul dnd-list="list">
-                         <li ng-repeat="item in list"
+      <h3 style="margin-top:0px">Students</h3>
+          <div style= "overflow:hidden; overflow-y:scroll; height:600px">
+            <div class="simpleDemo">
+		              <ul dnd-list="models.studioLists[0]">
+                         <li ng-repeat="item in models.studioLists[0]"
                             dnd-draggable="item"
-                            dnd-moved="list.splice($index, 1)"
+                            dnd-moved="models.studioLists[0].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.label}}
+                           {{item.FirstName + " " + item.LastName}}
+
                          </li>
-                      </ul>
-	                 </div>
-                 </div>
+                   </ul>
+	            </div>
+          </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,22 @@
+<div >
+	<br>
+		<p style = "font-size:20px">Past Assignments</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>Studio</th>
+                <th>Instructor</th>
+                <th>Date</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sis in studentinstudio">
+            <tr>
+            <td>{{sis.Studio}}</td>
+            <td>{{sis.Instructor}}</td>
+            <td>{{sis.createdAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+</div>

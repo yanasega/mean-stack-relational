@@ -52,21 +52,41 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'StudentsController',
             templateUrl: 'views/admin/ViewStudents.html'
         })
+        .state('StudentInfo',{
+            url : '/viewstudents/{studentId}',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/StudentInfo.html'
+        })
         .state('UpStud',{
             url : '/uploadstudents',
             controller : 'StudentsController',
             templateUrl: 'views/admin/UploadStudents.html'
+        })
+        .state('editStudent',{
+            url : '/students/{studentId}/edit',
+            controller : 'StudentsController',
+            templateUrl: 'views/admin/EditStudent.html'
         })
         .state('ViewStudio',{
             url : '/viewstudios',
             controller : 'StudioController',
             templateUrl: 'views/admin/ViewStudios.html'
         })
+        .state('editStudio',{
+            url : '/studios/{studioId}/edit',
+            controller : 'StudioController',
+            templateUrl: 'views/admin/EditStudio.html'
+        })
         .state('ViewInstr',{
             url : '/ViewInstructors',
             controller : 'InstructorController',
             templateUrl: 'views/admin/ViewInstructors.html'
         })
+        .state('ViewSubj',{
+            url : '/ViewSubjects',
+            controller : 'SubjectController',
+            templateUrl: 'views/admin/ViewSubjects.html'
+        })          
         .state('ViewCourse',{
             url : '/viewcourses',
             controller : 'CourseController',
@@ -81,6 +101,16 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/insertpreferences',
             controller : 'InsertPreferencesController',
             templateUrl: 'views/users/InsertPreferences.html'
+        })
+        .state('ViewPref',{
+            url : '/viewpreferences',
+            controller : 'ViewPreferencesController',
+            templateUrl: 'views/users/ViewPreferences.html'
+        })
+        .state('ViewAssignments',{
+            url : '/viewassignments',
+            controller : 'ViewAssignmentsController',
+            templateUrl: 'views/users/ViewAssignments.html'
         })
         .state('articles',{
             url : '/articles',

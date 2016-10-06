@@ -25,14 +25,15 @@ var upload = multer({ storage: storage});
 app.route('/upload').post(upload.any(), function (req, res, next) {
     res.send(req.files);
 });
-// Article Routes
+
+// Studios Routes
 app.route('/studios')
     .get(studios.all)
     .post(users.requiresLogin, studios.create);
 app.route('/studios/:studioId')
-    .delete(users.requiresLogin, studios.destroy);
-    // .get(articles.show)
-    // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
+    .delete(users.requiresLogin, studios.destroy)
+    .get(studios.show)
+    .put(users.requiresLogin, studios.update);
 // Finish with setting up the articleId param
 // Note: the registrations.registration function will be called everytime then it will call the next function.
 app.param('studioId', studios.studio);

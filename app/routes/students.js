@@ -20,15 +20,12 @@ module.exports = function(app) {
 app.route('/students')
     .get(students.all);
     // .post(users.requiresLogin, students.create);
-// app.route('/students/:studentId')
-//     .delete(users.requiresLogin, students.destroy);
-    // .get(articles.show)
-    // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
+app.route('/students/:studentId')
+    .delete(users.requiresLogin, students.destroy)
+    .get(students.show)
+    .put(users.requiresLogin, students.update);
 
-// Note: the registrations.registration function will be called everytime then it will call the next function.
-// app.param('studentId', students.student);
-
-// app.route('/upload/:uploadId')
-//     .get('/uploads/:uploadId');
+// Note: the students.student function will be called everytime then it will call the next function.
+app.param('studentId', students.student);
 
 };
