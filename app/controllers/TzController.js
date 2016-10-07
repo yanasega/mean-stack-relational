@@ -6,10 +6,10 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
-// var exec = require('child_process').exec;
-// var fs = require('fs'),
-//     path = require('path');
-// var PythonShell = require('python-shell');
+var exec = require('child_process').exec;
+var fs = require('fs'),
+    path = require('path');
+var PythonShell = require('python-shell');
 // var escapeJSON = require('escape-json-node');
 
 exports.path = function(req, res, next, id) {
@@ -42,6 +42,7 @@ exports.insertTz = function (req, res){
     var dirString = path.dirname(fs.realpathSync(__filename));
 
     var csv_path = req.csv_path;
+        console.log(csv_path);
     var options = {
         mode: 'text',
         pythonPath: 'python.exe',

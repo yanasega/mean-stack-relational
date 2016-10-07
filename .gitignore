@@ -26,6 +26,7 @@ public/lib
 test/coverage/
 migrations/
 app/algo
+public/uploads
 
 # Configuration Files
 /config/env/development.json5

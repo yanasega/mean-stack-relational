@@ -8,28 +8,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.studentinstudio = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
-    // $scope.create = function(token) {
-    //     $scope.upload = Upload.upload({
-    //         url: '/upload',
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'multipart/form-data'},
-    //         file: token           
-    //     }).success(function (response, status) {
-    //             // Redirect after save
-    //             $location.path('upload/' + response[0].filename);
-    //             $scope.path = 'upload/' + response[0].filename;
-    //             console.log($scope.path);
-    //             $scope.status = "Upload finished successfully.";
-    //             // Clear form fields
-    //                     $scope.name = '';
-    //                     $scope.token = '';
-    //         }
-    //     ).error(function (errorResponse) {
-    //            $scope.error = errorResponse.data;
-    //            $scope.status = "There was an error. File could not be uploaded.";
-    //         }
-    //     );
-    // };
     
     $scope.create = function(){
         var tz = new Tzs({
@@ -54,7 +32,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }).success(function (response, status) {
                     $scope.TzFile = response[0].filename;
                     $http.get('/insertTz/' + $scope.TzFile).success(function(respData){ //yana: do I need to set the config.server????
-                        if (respData == 'done'){
+                        if (respData[0].indexOf('done') !== -1){
                             $scope.error = null;
                             $scope.status = "File uploaded successfully.";
                             $scope.Ids = null;
@@ -62,14 +40,11 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                         else{
                             $scope.Ids = null;
                             $scope.status = null;
-                            $scope.error = "There was an error. File could not be uploaded.";                          
+                            $scope.error = "There was an error. Files could not be inserted to the database.";                          
                         }
-                        console.log(respData);
                     })
-                    //yana: complete when there is algotrithem.
                 }
             ).error(function (errorResponse) {
-                // $scope.error = errorResponse.data;
                 $scope.Ids = null;
                 $scope.status = null;
                 $scope.error = "There was an error. File could not be uploaded.";

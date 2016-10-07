@@ -73,98 +73,12 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.algoYear = "3";
         }
         $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
-            console.log(respData);
+            console.log(respData[0]);
             $scope.status = "Algorithem run finished succesfully.";
         }).error(function () {
                $scope.status = "There was an error while running the algorithem.";
         });
     }
-
-    // // on load set lists of info
-    // Students.query(function(students) {
-    //        $scope.students = students; 
-    //        students.forEach(function(student) {
-    //         if(student.CurrentYear =='3'|| student.CurrentYear =='4'){ 
-    //             $scope.models.listsB34.push({student});
-    //             $scope.count34 += 1;
-    //         }   
-    //         else {
-    //             $scope.models.listsB5.push({student});
-    //             $scope.count5 += 1;
-    //         }
-    //        }, this);
-    // })
-    // Studios.query(function(studios) {
-    //        $scope.studios = studios; 
-    //       console.log($scope.studios);
-    //         studios.forEach(function(studio) {
-    //             //  if(studio.IsActive == true){ 
-    //                  if(studio.RelevantYears == '3,4'){   
-    //                      $scope.models.studio34.push({studio});
-    //                      $scope.models.listsA34.push(studio);
-    //                     // //  for(i=0; i<$scope.count34; ++i){
-    //                     // //  $scope.models.listsA34.list.push({});
-    //                     // //  }  
-                      
-    //                  }
-    //                   else{
-                         
-    //                      $scope.models.studio5.push({studio});
-    //                      $scope.models.listsA5.push(studio);
-    //                     //  listsA5.forEach(function(list) {
-    //                     // //  for(i=0; i<$scope.count5; ++i){
-    //                     // //  $scope.models.listsA5.list.push({});
-    //                     // //  }  
-    //                     //  }, this);
-    //                  }
-     
-                 
-    //           })
-    //             // console.log($scope.models.listsA34);
-    //             //     // console.log($scope.models.listsA5);
-    //             //      $scope.models.listsA34.forEach(function(list) {
-    //             //             for(i=0; i<$scope.count34; ++i){
-    //             //             //  console.log(i);
-    //             //              list.push({});
-    //             //             //  console.log(list);
-    //             //         }
-    //             //      }, this);
-                     
-    //             //        $scope.models.listsA5.forEach(function(list) {
-    //             //          console.log(333);
-    //             //             for(i=0; i<$scope.count5; ++i){
-    //             //             console.log(i);
-    //             //              list.push({});
-    //             //         }
-    //             //      }, this);
-    // })     
-       
-
-    $scope.uploadData = function(){
-        
-    }
-
-    // $scope.UpdateStudentsData = function(){
-    //     $scope.count = 0,
-    //     $scope.Male = 0,
-    //     $scope.female= 0,
-    //     $scope.GAvarage= 0,
-    //     $scope.SAvarage= 0
-    //   $scope.models.listsA34.forEach(function(list) {
-    //      list.forEach(function(item) {
-    //        $scope.count +=1;
-    //        $scope.GAvarage += item.GeneralAvarage;
-    //        $scope.SAvarage += item.LastStudioGrade;
-    //        if(item.Gender == 'female')
-    //        {
-    //         $scope.female +=1;
-    //        }  
-    //        else{
-    //        $scope.Male+=1;
-    //        }
-    //      }, this);
-    //  }, this);
-    // }
     
 
 }]);
