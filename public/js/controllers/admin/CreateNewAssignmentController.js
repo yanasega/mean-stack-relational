@@ -150,16 +150,12 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.algoYear = "3";
         }
         $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
-            console.log(respData);
+            console.log(respData[0]);
             $scope.status = "Algorithem run finished succesfully.";
         }).error(function () {
                $scope.status = "There was an error while running the algorithem.";
         });
     }
- 
-
-
-    
     
 
 }]);
