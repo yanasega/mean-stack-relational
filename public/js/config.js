@@ -36,6 +36,7 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/EditRegistration.html'
         })
+
         .state('DegCalc',{
             url : '/degreecalculator',
             controller : 'GradeInCourseController',
@@ -92,7 +93,7 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/admin/ViewCourses.html'
         })
         .state('StudCourse',{
-            url : '/studentincourse',
+            url : '/studentincourses',
             controller : 'StudentInCourseController',
             templateUrl: 'views/admin/StudentInCourse.html'
         })

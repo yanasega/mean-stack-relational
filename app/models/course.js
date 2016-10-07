@@ -1,18 +1,24 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
 
 	var Course = sequelize.define('Course', {
-            id: {
+
+            Id: {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
+
+            Id_c: {
+				type: DataTypes.INTEGER,
+				unique: true
+
+			},
             Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER,
-            IsMandatory : DataTypes.BOOLEAN //yana change to bool
-		},{
-			freezeTableName: true
+            CreditPoints : DataTypes.INTEGER
+            //IsMandatory : DataTypes.STRING //yana change to bool
 		}
 	);
 
- return Course;
+	return Course;
 };

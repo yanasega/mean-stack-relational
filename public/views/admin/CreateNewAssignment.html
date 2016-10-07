@@ -10,7 +10,7 @@
     <div class ="col-md-3">
       <div class="control-group">
         <div class="dropdown">
-            <select ng-model="ChosenYear" ng-change="init()">
+            <select ng-model="ChosenYear">
              <option ng-repeat="x in year">{{x}}</option>
             </select>
         </div>
@@ -26,6 +26,9 @@
             </select>
         </div>
    </div>
+  </div>
+  <div class ="col-md-3">
+  <button type="button" class="btn btn-default" ng-click="init()">get info</button>
   </div>
   </div>
   <div class="row" style="padding-top:30px">
@@ -46,16 +49,19 @@
     <div class="col-sm-8" style="padding-bottom:10px">
           <div class = "col-sm-6"  ng-repeat= "studio in studios">
              <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
-                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-		              <ul dnd-list="models.studioLists[studio.id]" >
+                <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+		              <ul dnd-list="models.studioLists[studio.id]">
                          <li ng-repeat="item in models.studioLists[studio.id]"
                             dnd-draggable="item"
                             dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
+                            ng-change="UpdateStudentsData()"
+                            ng-model="item"
                              >
                             {{item.FirstName + " " + item.LastName}}
+
                          </li>
                       </ul>
 	                 </div>
@@ -64,11 +70,11 @@
                     <thead>
                       <tr>
                         <th>Average Grade</th>
-                        <th>Average Studio Grade</th>
+                        <th>Average Grade in studio</th>
                         <th>Female %</th>
-                        <th>Male %</th>
+                        <th>male %</th>
                       </tr>
-                    </thead> 
+                    </thead>
                     <tbody>
                       <tr>
                         <td id = "AverageGrade" >{{Sdata.GAvarage}}</td>
@@ -95,6 +101,7 @@
                             ng-class="{'selected': models.selected === item}"
                              >
                            {{item.FirstName + " " + item.LastName}}
+
                          </li>
                    </ul>
 	            </div>
@@ -103,21 +110,24 @@
   </div>
 </div>
 
-<div class="container" id = fifth ng-if = "ChosenYear == '5th'">
+<div class="container" id =fifth ng-if = "ChosenYear == '5th'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
-          <div class = "col-sm-6" ng-repeat="studio in models.studio5">
-           <h5 style="text-align:right; padding-right:40px"><b> {{studio.studio.Name}}</b></h5>
+          <div class = "col-sm-6"  ng-repeat= "studio in studios">
+             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-		              <ul ng-repeat= "list in models.listsA5" dnd-list="list"  >
-                         <li ng-repeat="item in list"
+		              <ul dnd-list="models.studioLists[studio.id]" >
+                         <li ng-repeat="item in models.studioLists[studio.id] track by models.studioLists[studio.id]"
                             dnd-draggable="item"
-                            dnd-moved="list.item.splice($index, 1)"
+                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
+                              ng-change="UpdateStudentsData()"
+                            ng-model="models.studioLists[studio.id]"
                              >
-                           {{item.student.FirstName + " " + item.student.LastName}}
+                            {{item.FirstName + " " + item.LastName}}
+
                          </li>
                       </ul>
 	                 </div>
@@ -133,10 +143,10 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>99</td>
-                        <td>90</td>
-                        <td>80</td>
-                        <td>20</td>
+                        <td id = "AverageGrade" >{{Sdata.GAvarage}}</td>
+                        <td id = "AverageGradeinstudio">{{Sdata.SAvarage}}</td>
+                        <td id = "female">{{Sdata.female}}</td>
+                        <td id = "male">{{Sdata.male}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -144,24 +154,24 @@
                  </br>
                  </br>
     </div>
-    
     <div class="col-sm-4">
       <h3 style="margin-top:0px">Students</h3>
           <div style= "overflow:hidden; overflow-y:scroll; height:600px">
-                    <div class="simpleDemo">
-		              <ul dnd-list="models.listsB5">
-                         <li ng-repeat="item in models.listsB5"
+            <div class="simpleDemo">
+		              <ul dnd-list="models.studioLists[0]">
+                         <li ng-repeat="item in models.studioLists[0]"
                             dnd-draggable="item"
-                            dnd-moved="models.listsB5.splice($index, 1)"
+                            dnd-moved="models.studioLists[0].splice($index, 1)"
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
                              >
-                           {{item.student.FirstName + " " + item.student.LastName}}
+                           {{item.FirstName + " " + item.LastName}}
+
                          </li>
-                      </ul>
-	                 </div>
-                 </div>
+                   </ul>
+	            </div>
+          </div>
     </div>
   </div>
 </div>

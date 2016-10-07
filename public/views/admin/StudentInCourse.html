@@ -1,54 +1,3 @@
-<!--<h3><a > Degree Final Form</a></h3>
-<a >Select Required courses</a>
-<hr><br>
-    -->
-<form id="frm-example" action="/path/to/your/script" method="POST">
-    
-<!--<table id="example" class="display select" cellspacing="0" width="100%">
-   <thead>
-      <tr>
-         <th><input name="select_all" value="1" type="checkbox"></th>
-            <th>Course ID</th>
-            <th>Name</th>
-            <th>Number Of Credit Points</th>
-      </tr>
-   </thead>
-   <tfoot>
-      <tr>
-         <th></th>
-        <th>124</th>
-        <th>ספרות</th>
-        <th>3</th>
-        
-      </tr>
-   </tfoot>
-    <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter">
-        <tr>
-        <td>{{course.Id_c}}</td>
-        <td>{{course.Name}}</td>
-        <td>{{course.CreditPoints}}</td>
-        <!--<td>{{course.IsMandatory}}</td>-->
-        <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
-        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
-        </tr>
-     </tbody>
-</table>
-<hr>
-
-<div class="control-group">
-			<div class="controls">
-				<input type="submit" class="btn">
-			</div>
-</div>
-
-</pre>
-</form>-->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <script src="angular.js"></script>
-  <script src="script.js"></script>
 
   <style>
     table
@@ -71,17 +20,16 @@
       background-color: #fcfcfc;
     }
   </style>
-</head>
 
-<body ng-app="mainModule">
-  <div ng-controller="mainController">
+<form class="form-horizontal" data-ng-submit="updateForm()">
+  <div>
     <h3>Degree Final Form</h3>
     <table>
       <thead>
       <tr>
         <th>
-          <input type="checkbox" ng-model="areAllPeopleSelected"
-                 ng-change="updatePeopleSelection(selectablePeople, areAllPeopleSelected)" />
+          <input type="checkbox" ng-model="areAllCoursesSelected"
+                 ng-change="updateCourseSelection(courses, areAllCoursesSelected)" />
         </th>
             <th>Course ID</th>
             <th>Name</th>
@@ -90,22 +38,12 @@
       </thead>
       <tbody>
     <!--<tr ng-repeat="course in courses">-->
-
-
-
-
-      <!--<tr ng-repeat="course in selectablePeople">
+      <tr ng-repeat="course in courses">
         <td><input type="checkbox" ng-model="course.isSelected" /></td>
-        <td>{{course.Id_c}}</td>
+        <td>{{course.id}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
-      </tr>-->
-      
-        <td><input type="checkbox" ng-model="course.isSelected" /></td>
-        <td>105</td>
-        <td>a</td>
-        <td>3</td>
-         </tr>
+      </tr>
       </tbody>
     </table>
     <br />
@@ -122,5 +60,5 @@
 				<input type="submit" class="btn">
 			</div>
 </div>
-</body>
-</html>
+
+</form>
