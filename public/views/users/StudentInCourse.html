@@ -1,0 +1,69 @@
+
+  <style>
+    table
+    {
+      border-collapse: collapse;
+    }
+
+    table, th, td
+    {
+      border: 1px solid #e1e1e1;
+    }
+
+    th, td
+    {
+      padding: 6px;
+    }
+
+    thead
+    {
+      background-color: #fcfcfc;
+    }
+  </style>
+<div class="container">
+    <p style = "font-size:20px" >Degree Final Form</p>
+    <p style = "font-size:15px">Here you can keep up with your degree obligations.</p>
+		<hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm()">
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(courses, areAllCoursesSelected)" />
+          </th>
+              <th>Course ID</th>
+              <th>Name</th>
+              <th>Number Of Credit Points</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in courses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+          </table>
+          <td><input type="checkbox" /></td>
+          <td>מצהיר/ה שאישרתי את כל הנקודות שעשיתי במסגרת חילופי סטודנטים/ לא עשיתי חילופי סטודנטים </td>
+        </tr>
+      </table>
+      <br />
+      </table>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="submit" class="btn">
+        </div>
+  </div>
+
+  </form>
+ <div>
+  <p ng-show = !showcourse>{{status}}</p>
+ </div>
+</div>

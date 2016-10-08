@@ -36,17 +36,6 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/EditRegistration.html'
         })
-
-        .state('DegCalc',{
-            url : '/degreecalculator',
-            controller : 'GradeInCourseController',
-            templateUrl: 'views/users/GradeInCourse.html'
-        })
-         .state('editCors',{
-            url : '/gradeincourses/{gradeincourseId}/edit',
-            controller : 'GradeInCourseController',
-            templateUrl: 'views/users/EditGradeInCourse.html'
-        })
         .state('ViewStud',{
             url : '/viewstudents',
             controller : 'StudentsController',
@@ -93,9 +82,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/admin/ViewCourses.html'
         })
         .state('StudCourse',{
-            url : '/studentincourses',
+            url : '/viewstudentincourse',
             controller : 'StudentInCourseController',
-            templateUrl: 'views/admin/StudentInCourse.html'
+            templateUrl: 'views/users/StudentInCourse.html'
         })
         .state('InsertPref',{
             url : '/insertpreferences',
