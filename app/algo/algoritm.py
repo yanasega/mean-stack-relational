@@ -12,7 +12,7 @@ class Algorithm:
         # connection to sql
         self.db = mysql.connector.connect(host="127.0.0.1",    # your host, usually localhost
                                          user="root",         # your username
-                                         password="Password1",  # your password
+                                         password="02575734",  # your password
                                          database="sakila")        # name of the data base
 
 
@@ -482,9 +482,9 @@ class Algorithm:
                 total_average        = float(sum_average / total_in_studio)
                 total_studio_average = float(sum_studio_grade / total_in_studio)
 
-                final_solution.append({"studio": studio, "id list": list_id_student, "general average": total_average,
-                                          "studio average": total_studio_average, "female": num_female, "male": num_male,
-                                          "total in studio": total_in_studio})
+                final_solution.append({"studio": studio, "id_list": list_id_student, "general_average": total_average,
+                                          "studio_average": total_studio_average, "female": num_female, "male": num_male,
+                                          "total_in_studio": total_in_studio})
 
             print json.dumps(final_solution)
             return json.dumps(final_solution)
