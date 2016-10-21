@@ -48,9 +48,9 @@
         </tbody>
       </table>
       <br />
-          </table>
-          <td><input type="checkbox" /></td>
-          <td>מצהיר/ה שאישרתי את כל הנקודות שעשיתי במסגרת חילופי סטודנטים/ לא עשיתי חילופי סטודנטים </td>
+      </table>
+        <td><input type="checkbox" ng-model = exchange ng-checked = exchange></td>
+        <td>מצהיר/ה שאישרתי את כל הנקודות שעשיתי במסגרת חילופי סטודנטים/ לא עשיתי חילופי סטודנטים </td>
         </tr>
       </table>
       <br />
@@ -64,6 +64,6 @@
 
   </form>
  <div>
-  <p ng-show = !showcourse>{{status}}</p>
+  <p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i>{{"  " +status}}</p>
  </div>
 </div>

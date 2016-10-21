@@ -75,16 +75,24 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     // create a new variable to hold the studentinstudio that was placed on the req object.
-    var studentincourse = req.studentincourse;
-    studentincourse.updateAttributes({
-        IsDone: req.body.IsDone
-    }).then(function(a){
-        return res.jsonp(a);
+    db.StudentInCourse.find({where: {IdStudent: req.body.IdStudent, IdCourse : req.body.IdCourse}}).then(function(studentincourse){
+        if(!studentincourse) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+            return res.jsonp(null);
+        } else {
+            studentincourse.updateAttributes({
+                IsDone: req.body.IsDone
+            }).then(function(a){
+                return res.jsonp(a);
+            }).catch(function(err){
+                return res.render('500', {
+                    error: err, 
+                    status: 500
+                });
+            });     
+        }
     }).catch(function(err){
-        return res.render('500', {
-            error: err, 
-            status: 500
-        });
+        return next(err);
     });
 };
 

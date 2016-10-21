@@ -10,7 +10,8 @@ module.exports = function(app) {
 // Article Routes
 app.route('/studentincourse')
     .get(studentincourse.all)
-    .post(users.requiresLogin, studentincourse.create);
+    .post(users.requiresLogin, studentincourse.create)
+    .put(users.requiresLogin, studentincourse.update);
 // app.route('/studentincourse/:studentincourseId')
 //     .delete(users.requiresLogin, studentincourse.destroy)
 //     .get(studentincourse.show)
