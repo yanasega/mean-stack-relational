@@ -3,16 +3,11 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var StudentInStudio = sequelize.define('StudentInStudio', {
-			IdStudent: {
-				type: DataTypes.UUID,
-				primaryKey: true
-			},
-			Studio: {
-				type: DataTypes.UUID,
-				primaryKey: true
-			},
+			IdStudent: DataTypes.INTEGER,
+			Studio: DataTypes.INTEGER,
 			Instructor: DataTypes.INTEGER,
-			AId: DataTypes.INTEGER
+			AId:DataTypes.INTEGER
+			
 		},{
 			freezeTableName: true
 		}

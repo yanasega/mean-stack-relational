@@ -52,11 +52,26 @@
 </div>
 
 <div ng-show="!assign" style = "text-align:center">
-  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> The assignment was savd successfuly.</p>
+  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> The assignment was saved successfuly.</p>
   <a ui-sref="ViewPref">View Past assigmentes</a>
 </div>
 
-<div ng-show = loading>
+
+  <div style ="padding-left:700px" ng-show = "addstudflag">
+     <form class="form-vertical" data-ng-submit="AddStudent()">
+            <div class="controls">
+              <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
+            </div>
+            <div class="control-group">
+            <div class="controls">
+              <input type="submit" class="btn">
+            </div>
+            </div>
+      </form>
+        <p ng-show="missingStatus">{{"This student already exists!"}}</p>
+  </div>
+
+<div ng-show = "loading">
   <div class="container" id = thirdFourth  ng-if = "myBtn == true && ChosenYear == '3,4'" ng-show = "assign">
     <div class="row">
       <div class="col-sm-8" style="padding-bottom:10px">
@@ -121,6 +136,7 @@
     </div>
   </div>
 </div>
+     
 
 <div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
   <div class="row">
