@@ -11,10 +11,10 @@ module.exports = function(sequelize, DataTypes) {
 				primaryKey: true
 			},
             IsDone : DataTypes.BOOLEAN
-            // Name : DataTypes.STRING
-            //IsMandatory : DataTypes.STRING //yana change to bool
-  }
- );
+            },{
+			freezeTableName: true
+		    }
+    );
 
  return StudentInCourse;
 };

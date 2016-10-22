@@ -38,7 +38,8 @@ exports.update = function(req, res) {
         Semester: req.body.Semester,
         CurrentYear: req.body.CurrentYear,
         Generalaverage: req.body.Generalaverage,
-        LastStudioGrade: req.body.LastStudioGrade
+        LastStudioGrade: req.body.LastStudioGrade,
+        IsValid:req.body.IsValid
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
