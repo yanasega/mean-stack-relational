@@ -64,34 +64,53 @@
 
 <div >
 	<br>
-		<p style = "font-size:20px">Graduation Form Info</p>
+		<p style = "font-size:20px">Graduation Form Status</p>
 		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>Course Id</th>
+                <th>Course Name</th>
+                <th>Status</th>
+                <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sic in studentincourse">
+            <tr>
+            <td>{{sic.IdCourse}}</td>
+            <td>{{sic.CourseName}}</td>
+            <td>{{sic.IsDone}}</td>
+            <td>{{sic.updatedAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
 </div>
 
 <div >
 	<br>
 		<p style = "font-size:20px">Preference History</p>
 		<hr>
-    <table class = "table">
-        <thead>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>Year</th>
+                <th>Date</th>
+                <th>Semester</th>
+                <th>Studio</th>
+                <th>Rate</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="pref in preferences">
             <tr>
-            <th>Year</th>
-            <th>Date</th>
-            <th>Semester</th>
-            <th>Studio</th>
-            <th>Rate</th>
+            <td>{{pref.StudentYear}}</td>
+            <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
+            <td>{{pref.Semester}}</td>
+            <td>{{pref.IdS}}</td>
+            <td>{{pref.Rate}}</td>
             </tr>
-        </thead>
-        <tbody ng-repeat="pref in preferences">
-        <tr>
-        <td>{{pref.StudentYear}}</td>
-        <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
-        <td>{{pref.Semester}}</td>
-        <td>{{pref.IdS}}</td>
-        <td>{{pref.Rate}}</td>
-        </tr>
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
 
 </div>

@@ -32,6 +32,7 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
+    console.log(req.body);
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
             return res.send('users/signup', {errors: new StandardError('studentinstudio could not be created')}); //yana:change the landing page.

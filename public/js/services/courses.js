@@ -1,9 +1,7 @@
-// angular.module('mean.system').service("Courses", ['$resource', function($resource) {
-//     return $resource('/courses');
-// }]);
+
 angular.module('mean.system').factory("Courses", ['$resource', function($resource) {
     return $resource('courses/:courseId', {
-        courseId: '@id'
+        courseId: '@Id'
     }, {
         update: {
             method: 'PUT'
@@ -16,7 +14,5 @@ angular.module('mean.system').factory("Courses", ['$resource', function($resourc
     });
 
 }]);
-// angular.module('mean.system').service("Courses", ['$resource', function($resource) {
-//     return $resource('/courses');
-// }]);
+
 

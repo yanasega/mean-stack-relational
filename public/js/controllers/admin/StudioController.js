@@ -49,7 +49,6 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             });
             studio.$save(function(response) {
                 $scope.find();
-                //yana: add check if response valid?
             });
             $scope.clear();
         }

@@ -77,7 +77,9 @@ module.exports = function(app, passport) {
     });
 
     app.get('*',  function (req, res, next) {
-            res.render('index');
+            res.render('index', {
+                user: req.user ? JSON.stringify(req.user) : "null"
+            });
     });
 
     app.use('*',function(req, res){

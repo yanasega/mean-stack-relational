@@ -36,17 +36,6 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'RegistrationController',
             templateUrl: 'views/admin/EditRegistration.html'
         })
-
-        .state('DegCalc',{
-            url : '/degreecalculator',
-            controller : 'GradeInCourseController',
-            templateUrl: 'views/users/GradeInCourse.html'
-        })
-         .state('editCors',{
-            url : '/gradeincourses/{gradeincourseId}/edit',
-            controller : 'GradeInCourseController',
-            templateUrl: 'views/users/EditGradeInCourse.html'
-        })
         .state('ViewStud',{
             url : '/viewstudents',
             controller : 'StudentsController',
@@ -93,9 +82,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/admin/ViewCourses.html'
         })
         .state('StudCourse',{
-            url : '/studentincourses',
+            url : '/viewstudentincourse',
             controller : 'StudentInCourseController',
-            templateUrl: 'views/admin/StudentInCourse.html'
+            templateUrl: 'views/users/StudentInCourse.html'
         })
         .state('InsertPref',{
             url : '/insertpreferences',
@@ -108,9 +97,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/users/ViewPreferences.html'
         })
         .state('ViewAssignments',{
-            url : '/viewassignments',
+            url : '/viewstudentassignments',
             controller : 'ViewAssignmentsController',
-            templateUrl: 'views/users/ViewAssignments.html'
+            templateUrl: 'views/users/ViewStudentAssignments.html'
         })
         .state('articles',{
             url : '/articles',
@@ -136,6 +125,16 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/CreateNewAssignment',
             controller : 'CreateNewAssignmentController',
             templateUrl: 'views/admin/CreateNewAssignment.html'
+        })
+        .state('ViewPreviousAssignment',{
+            url : '/ViewPreviousAssignment',
+            controller : 'CreateNewAssignmentController',
+            templateUrl: 'views/admin/ViewPreviousAssignment.html'
+        })
+        .state('editAssignment',{
+            url : '/assignments/{assignmentId}/edit',
+            controller : 'CreateNewAssignmentController',
+            templateUrl: 'views/admin/EditAssignment.html'
         })
         .state('404',{
             templateUrl: 'views/404.html'
