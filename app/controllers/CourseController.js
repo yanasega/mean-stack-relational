@@ -13,7 +13,7 @@ var db = require('../../config/sequelize');
  */
 exports.course = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.Course.find({where: {id: id}}).then(function(course){
+    db.Course.find({where: {Id: id}}).then(function(course){
         if(!course) {
             return next(new Error('Failed to load course ' + id));
         } else {
@@ -32,7 +32,6 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    console.log("meeeeeeeeeee");
     db.Course.create(req.body).then(function(course){
         if(!course){
             return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
@@ -47,33 +46,11 @@ exports.create = function(req, res) {
     });
 };
 
-/**
- * Update a registration
- */
-// exports.update = function(req, res) {
-
-//     // create a new variable to hold the article that was placed on the req object.
-//     var registration = req.registration;
-
-//     registration.updateAttributes({
-//         startdate: req.body.startdate,
-//         enddate: req.body.enddate,
-//         semester: req.body.semester
-//     }).then(function(a){
-//         return res.jsonp(a);
-//     }).catch(function(err){
-//         return res.render('error', {
-//             error: err, 
-//             status: 500
-//         });
-//     });
-// };
 
 // /**
 //  * Delete an article
 //  */
 exports.destroy = function(req, res) {
-
     // create a new variable to hold the article that was placed on the req object.
     var course = req.course;
     course.destroy().then(function(){

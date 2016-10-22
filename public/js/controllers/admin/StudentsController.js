@@ -1,11 +1,13 @@
 angular.module('mean.system').controller('StudentsController', ['$scope', '$resource' ,'Global', '$window','Upload','$location','Students','Studios','$stateParams',
-'Preferences','StudentInStudio','Instructors','Tzs','$state','$http',function ($scope, $resource ,Global,$window,Upload,$location,Students,Studios,$stateParams,Preferences,StudentInStudio,Instructors,Tzs,$state,$http) {
+'Preferences','StudentInStudio','Instructors','Tzs','$state','$http','StudentInCourse','Courses'
+,function ($scope, $resource ,Global,$window,Upload,$location,Students,Studios,$stateParams,Preferences,StudentInStudio,Instructors,Tzs,$state,$http,StudentInCourse,Courses) {
     console.log("StudentsController");
     $scope.status = null;
     $scope.error = null;
     $scope.showuser = true;
     $scope.preferences = [];
     $scope.studentinstudio = [];
+    $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
     // $scope.create = function(token) {
@@ -96,6 +98,10 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             $scope.studios = studios;
         })
 
+        Courses.query(function (courses) {
+            $scope.courses = courses;
+        })
+
         Instructors.query(function (instructors) {
             $scope.instructors = instructors;
         })
@@ -118,8 +124,20 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
 
         });
 
+        StudentInCourse.query(function(studentincourse) {
+            studentincourse.forEach(function(sic) {
+                if (sic.IdStudent == $stateParams.studentId){
+	                $scope.courses.forEach(function(course) {
+                        if(course.Id == sic.IdCourse){
+                            sic.CourseName = course.Name;
+                        }
+                    }, this);                    
+                    $scope.studentincourse.push(sic);
+                }              
+            }, this);
+            console.log($scope.studentincourse);
+        });        
 
-        // console.log($scope.preferences);
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
                 if (preference.Id == $stateParams.studentId){

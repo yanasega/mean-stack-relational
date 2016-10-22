@@ -196,6 +196,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         });
     }
 
+
     $scope.SaveAssinment = function(){
         var assignment = new Assignments({
             Year: $scope.ChosenYear,
@@ -269,6 +270,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
               });       
             }, this);  
         })
+
         $scope.loading = true;
     }
 
