@@ -47,6 +47,20 @@
   <a ui-sref="ViewPref">View Past assigmentes</a>
 </div>
 
+  <div style ="padding-left:700px" >
+     <form class="form-vertical" data-ng-submit="AddStudent()">
+            <div class="controls">
+              <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
+            </div>
+            <div class="control-group">
+            <div class="controls">
+              <input type="submit" class="btn">
+            </div>
+            </div>
+      </form>
+        <p ng-show="missingStatus">{{"This student already exists!"}}</p>
+  </div>
+
 <div ng-show = loading>
   <div class="container" id = thirdFourth  ng-if = "ChosenYear == '3,4'" >
     <div class="row">

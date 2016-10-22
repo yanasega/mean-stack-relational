@@ -3,7 +3,8 @@ angular.module('mean.system').factory("StudentInStudio", ['$resource', function(
         studentinstudioId: '@IdStudent'
     }, {
         update: {
-            method: 'PUT'
+            method: 'PUT',
+            params:{studentinstudioId:''}
         },
         save: {
            method: 'POST',

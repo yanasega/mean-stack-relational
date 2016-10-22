@@ -8,7 +8,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.myBtn = false;
     $scope.loading = true;
     $scope.assign = true;
+    $scope.addstudflag = false;
     $scope.assignments = null;
+    $scope.missingStatus = false;
 
 
     $scope.studios = [];
@@ -21,6 +23,44 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.emptyStudio = function (){
     $scope.studios = [];
 }
+
+  $scope.getStudios = function(){
+             Studios.query(function(studios){
+            studios.forEach(function(studio) {
+                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
+                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }
+                }
+                else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+
+                  else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
+                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+
+                   else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+                else{
+                    $scope.models.studioLists = {};
+                }
+            }, this);
+        });
+    }
+
+
     $scope.init = function (){
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose Semester .." ){
@@ -58,41 +98,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             }, this);
         });
 
-        Studios.query(function(studios){
-            studios.forEach(function(studio) {
-                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
-                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }
-                }
-                else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-
-                  else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-
-                   else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-                else{
-                    $scope.models.studioLists = {};
-                }
-            }, this);
-        });
-
+        $scope.getStudios();
+        $scope.addstudflag = true;
     }
+
 
     $scope.findAssignments = function (){
         Assignments.query(function(assignments) {
@@ -209,26 +218,98 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                         });
                         }
                     }, this);
-                }, this); 
+            }, this); 
             $scope.assign = false;
         });
     }
 
-    //this is th edit section
+    $scope.AddStudent= function(){
+        $scope.missingStatus = false;
+        Students.get({
+            studentId:$scope.MissingStudent
+        },function(student){
+            $scope.models.studioLists[0].forEach(function(obj) {
+                if (student.id == obj.id){
+                    $scope.missingStatus = true;
+                }
+            }, this);
+            $scope.studios.forEach(function(studio) {
+                $scope.models.studioLists[studio.id].forEach(function(obj) {
+                    if (student.id == obj.id){
+                        $scope.missingStatus = true;
+                    }
+                }, this);
+            }, this);
+            if(!$scope.missingStatus){
+                $scope.models.studioLists[0].push(student);
+            }
+        })
+        $scope.MissingStudent = "";
+    }
+
+    //this is the edit section
     $scope.Load = function(){
         $scope.loading = false;
+        $scope.emptyStudio();
+        $scope.models.studioLists[0] = [];
         Assignments.get({
             assignmentId: $stateParams.assignmentId
         }, function(assignment) {
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
         });
-        StudentInStudio.get({
-            
+        $scope.getStudios();
+        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){
+            console.log(respData);
+            respData.forEach(function(studentinstudio) {
+                Students.get({
+                    studentId: studentinstudio.IdStudent
+                }, function(student) {
+                   $scope.models.studioLists[studentinstudio.Studio].unshift(student); 
+              });       
+            }, this);  
         })
-            
-
         $scope.loading = true;
+    }
+
+    $scope.UpdateAssinment = function(){
+        $scope.studios.forEach(function(studio) {
+            $scope.models.studioLists[studio.id].forEach(function(student) {
+                    if (student.length != 0){
+                        $http.get('/getstudentinstudio/' + $stateParams.assignmentId + "/" + student.id).success(function(respData){
+                            if (respData.length){
+                                var studentinstudio = new StudentInStudio({
+                                    IdStudent: respData[0].IdStudent,
+                                    Studio: respData.Studio,
+                                    Instructor: respData.Instructor,
+                                    AId: respData[0].AId
+                                });
+                                studentinstudio.Instructor = studio.Instructor;
+                                studentinstudio.Studio = studio.id;
+                                if (!studentinstudio.updated) {
+                                    studentinstudio.updated = [];
+                                }
+                                studentinstudio.updated.push(new Date().getTime());
+                                    studentinstudio.$update(function() {
+                                        console.log("success");
+                                }); 
+                            }
+                            else{
+                                var studentinstudio = new StudentInStudio({
+                                    IdStudent: student.id,
+                                    Studio: studio.id,
+                                    Instructor: studio.Instructor,
+                                    AId: $stateParams.assignmentId
+                                });
+                                studentinstudio.$save(function(response) {
+                                    console.log('success');
+                                });
+                            }
+                        })
+                    }
+                }, this);
+        }, this);    
+               
     }
     //this is the view section
 }]);

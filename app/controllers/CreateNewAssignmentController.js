@@ -23,6 +23,17 @@ exports.setParams = function(req, res, next, value) {
     return next();
 };
 
+exports.setStudentId = function(req, res, next, id) {  
+    req.StudentId = id;
+    return next();  
+};
+
+exports.setAssignmentId = function(req, res, next, id) {  
+    req.AssignmentId = id;
+    return next();  
+};
+
+
 /**
  * Create a runAlgorithem
  */
@@ -42,6 +53,35 @@ exports.runAlgorithem = function(req, res) {
     });
 
 };
+
+exports.getByAssignmentId = function(req, res, next) {
+     db.StudentInStudio.findAll({where: {AId: req.AssignmentId}}).then(function(studentinstudio){
+         console.log(studentinstudio);
+        if(!studentinstudio) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(studentinstudio);          
+        }
+    }).catch(function(err){
+        return next(err);
+    });   
+};
+
+exports.getByAssignmentIdandStudentId = function(req, res, next) {
+     db.StudentInStudio.findAll({where: {AId: req.AssignmentId, IdStudent: req.StudentId }}).then(function(studentinstudio){
+         console.log(studentinstudio);
+        if(!studentinstudio) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(studentinstudio);          
+        }
+    }).catch(function(err){
+        return next(err);
+    });   
+};
+
 
 
 
