@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
 				primaryKey: true
 			},
 			Instructor: DataTypes.INTEGER,
+			AId: DataTypes.INTEGER
 		},{
 			freezeTableName: true
 		}

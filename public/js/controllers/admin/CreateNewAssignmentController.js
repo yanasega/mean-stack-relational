@@ -1,12 +1,14 @@
 angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students',
-'Studios','$http',function ($scope, $resource,Global,$window,Students,Studios,$http) {
+'Studios','$http','StudentInStudio','Assignments','$stateParams',function 
+($scope, $resource,Global,$window,Students,Studios,$http,StudentInStudio,Assignments,$stateParams) {
     console.log("CreateNewAssignmentController");
     $scope.global = Global;
     $scope.status = null;
    //hide btn 
     $scope.myBtn = false;
     $scope.loading = true;
-
+    $scope.assign = true;
+    $scope.assignments = null;
 
 
     $scope.studios = [];
@@ -20,7 +22,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.studios = [];
 }
     $scope.init = function (){
-        console.log("init");
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose Semester .." ){
          alert("please choose relevant year and Semester");
@@ -31,24 +32,22 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.students = students;
             $scope.models.studioLists[0] = [];
             students.forEach(function(student) {
-                if ($scope.ChosenYear == "3rd-4th" && $scope.ChosenSemester == "winter"){
+                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
                     if ((student.CurrentYear =='3'|| student.CurrentYear =='4') && student.Semester == "winter"){
                         $scope.models.studioLists[0].push(student);
                     }
                 }
-                else if ($scope.ChosenYear == "3rd-4th" && $scope.ChosenSemester == "spring"){
+                else if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
                     if ((student.CurrentYear =='3'|| student.CurrentYear =='4') && student.Semester == "spring"){
                         $scope.models.studioLists[0].push(student);
                     }
                 }
-                else if ($scope.ChosenYear == "5th" && $scope.ChosenSemester == "winter"){
-                    console.log(5);
+                else if ($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
                     if (student.CurrentYear =='5' && student.Semester == "winter"){
                         $scope.models.studioLists[0].push(student);
                     }
                 }
-                else if ($scope.ChosenYear == "5th" && $scope.ChosenSemester == "spring"){
-                 console.log(5);
+                else if ($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
                     if (student.CurrentYear =='5' && student.Semester == "spring"){
                     $scope.models.studioLists[0].push(student);
                 }
@@ -61,27 +60,27 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
         Studios.query(function(studios){
             studios.forEach(function(studio) {
-                if ($scope.ChosenYear == "3rd-4th" && $scope.ChosenSemester == "winter"){
+                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
                     if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }
                 }
-                else if($scope.ChosenYear == "5th" && $scope.ChosenSemester == "winter"){
+                else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
                      if (studio.RelevantYears == '5' && studio.Semester == "winter"){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
-                  else if($scope.ChosenYear == "3rd-4th" && $scope.ChosenSemester == "spring"){
+                  else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
                      if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
-                   else if($scope.ChosenYear == "5th" && $scope.ChosenSemester == "spring"){
+                   else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
                      if (studio.RelevantYears == '5' && studio.Semester == "spring"){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
@@ -95,9 +94,13 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     }
 
-
+    $scope.findAssignments = function (){
+        Assignments.query(function(assignments) {
+            $scope.assignments = assignments; 
+        });
+    }
    //default value for drop down list
-    $scope.year = ["choose year..","3rd-4th", "5th"];
+    $scope.year = ["choose year..","3,4", "5"];
     $scope.ChosenYear = "choose year..";
     $scope.ChosenSemester = "choose Semester ..";
 
@@ -121,7 +124,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             GAverage = 0;
             SAverage = 0;
          $scope.models.studioLists[studio.id] .forEach(function(student){
-            console.log(student.id); 
             if(student.id != undefined){
                 count +=1;
                 GAverage += student.Generalaverage;
@@ -154,7 +156,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     $scope.runAlgo = function(){
         $scope.loading = false;
-        if ($scope.ChosenYear == "5th"){
+        if ($scope.ChosenYear == "5"){
             $scope.algoYear = "5";
         }
         else{
@@ -185,6 +187,50 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         });
     }
 
+    $scope.SaveAssinment = function(){
+        var assignment = new Assignments({
+            Year: $scope.ChosenYear,
+            Semester: $scope.ChosenSemester
+        })
+        assignment.$save(function(response){
+            var ass = response;
+            $scope.studios.forEach(function(studio) {
+                $scope.models.studioLists[studio.id].forEach(function(student) {
+                        if (student.length != 0){
+                        var studentinstudio = new StudentInStudio({
+                            IdStudent:student.id,
+                            Studio:studio.id,
+                            Instructor:studio.Instructor,
+                            AId: ass.id
+                            
+                        })
+                        studentinstudio.$save(function(response) {
+                            console.log('success');
+                        });
+                        }
+                    }, this);
+                }, this); 
+            $scope.assign = false;
+        });
+    }
+
+    //this is th edit section
+    $scope.Load = function(){
+        $scope.loading = false;
+        Assignments.get({
+            assignmentId: $stateParams.assignmentId
+        }, function(assignment) {
+            $scope.ChosenYear = assignment.Year;
+            $scope.ChosenSemester = assignment.Semester;
+        });
+        StudentInStudio.get({
+            
+        })
+            
+
+        $scope.loading = true;
+    }
+    //this is the view section
 }]);
 
 
