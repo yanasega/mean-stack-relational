@@ -97,9 +97,9 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/users/ViewPreferences.html'
         })
         .state('ViewAssignments',{
-            url : '/viewassignments',
+            url : '/viewstudentassignments',
             controller : 'ViewAssignmentsController',
-            templateUrl: 'views/users/ViewAssignments.html'
+            templateUrl: 'views/users/ViewStudentAssignments.html'
         })
         .state('articles',{
             url : '/articles',
@@ -125,6 +125,16 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/CreateNewAssignment',
             controller : 'CreateNewAssignmentController',
             templateUrl: 'views/admin/CreateNewAssignment.html'
+        })
+        .state('ViewPreviousAssignment',{
+            url : '/ViewPreviousAssignment',
+            controller : 'CreateNewAssignmentController',
+            templateUrl: 'views/admin/ViewPreviousAssignment.html'
+        })
+        .state('editAssignment',{
+            url : '/assignments/{assignmentId}/edit',
+            controller : 'CreateNewAssignmentController',
+            templateUrl: 'views/admin/EditAssignment.html'
         })
         .state('404',{
             templateUrl: 'views/404.html'
