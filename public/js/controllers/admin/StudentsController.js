@@ -135,7 +135,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                     $scope.studentincourse.push(sic);
                 }              
             }, this);
-            console.log($scope.studentincourse);
         });        
 
         Preferences.query(function(preferences) {
