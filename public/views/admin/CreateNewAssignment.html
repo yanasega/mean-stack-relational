@@ -57,15 +57,15 @@
 </div>
 
 
-  <div style ="padding-left:700px" ng-show = "addstudflag">
+  <div class= "row" style ="float:right" ng-show = "addstudflag">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls">
-              <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
-            </div>
-            <div class="control-group">
-            <div class="controls">
-              <input type="submit" class="btn">
-            </div>
+              <div class="col-md-12">
+                <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
+              </div>
+              <div class="control-group;col-md-12">
+                <input type="submit" class="btn">
+             </div>
             </div>
       </form>
         <p ng-show="missingStatus">{{"This student already exists!"}}</p>
