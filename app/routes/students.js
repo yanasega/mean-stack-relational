@@ -18,8 +18,8 @@ module.exports = function(app) {
 
 // Article Routes
 app.route('/students')
-    .get(students.all);
-    // .post(users.requiresLogin, students.create);
+    .get(students.all)
+    .post(users.requiresLogin, students.create);
 app.route('/students/:studentId')
     .delete(users.requiresLogin, students.destroy)
     .get(students.show)

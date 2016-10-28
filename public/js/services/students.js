@@ -4,6 +4,10 @@ angular.module('mean.system').factory("Students", ['$resource', function($resour
     }, {
         update: {
             method: 'PUT'
+        },
+        save: {
+           method: 'POST',
+           params:{studentId:''}
         }
     });
 

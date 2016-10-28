@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	var User = sequelize.define('User', 
 		{
+			//old base definitions:
 			// name: DataTypes.STRING,
 			// email: DataTypes.STRING,
 			// username: DataTypes.STRING,
@@ -21,13 +22,8 @@ module.exports = function(sequelize, DataTypes) {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
-			Semester: DataTypes.STRING,			
-            Gender: DataTypes.STRING,
+			IsAdmin:{ type: DataTypes.BOOLEAN, defaultValue: false},
             hashedPassword: DataTypes.STRING,
-            CurrentYear : DataTypes.INTEGER,
-			IsValid : DataTypes.BOOLEAN,
-			Generalaverage: DataTypes.DOUBLE,
-			LastStudioGrade: DataTypes.DOUBLE,
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING, 
 			facebookUserId: DataTypes.INTEGER,
