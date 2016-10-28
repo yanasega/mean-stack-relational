@@ -11,6 +11,33 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
+
+exports.setStudentId = function(req, res, next, id) {  
+    req.StudentId = id;
+    return next();  
+};
+
+exports.setStudioId = function(req, res, next, id) {  
+    req.StudioId = id;
+    return next();  
+};
+
+exports.getPreferenceByStudentId = function(req, res, next) {
+    console.log(req.StudioId);
+    console.log(req.StudentId);
+     db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId }}).then(function(preference){
+        if(!preference) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(preference);          
+        }
+    }).catch(function(err){
+        return next(err);
+    });   
+};
+
+
 exports.preference = function(req, res, next, id) {
     console.log('id => ' + id);
     db.Preference.find({where: {id: id}}).then(function(preference){

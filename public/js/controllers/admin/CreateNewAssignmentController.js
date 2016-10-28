@@ -151,12 +151,14 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             studio.SAverage = SAverage/count;
             studio.female = parseInt((female/count)*100);
             studio.male = parseInt((Male/count)*100);
+            studio.count = count;
             }
             else{
             studio.GAverage = "";
             studio.SAverage = "";
             studio.female = "";
-            studio.male = "";  
+            studio.male = ""; 
+            studio.count = ""; 
             }
            
         }, this);
@@ -186,8 +188,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 }, this)
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
-                studio.female = (studio.female/studio.total_in_studio)*100;
-                studio.male = (studio.male/studio.total_in_studio)*100;
+                studio.female = ((studio.female/studio.total_in_studio)*100);
+                studio.male = ((studio.male/studio.total_in_studio)*100);
+                studio.count = studio.total_in_studio;
             }, this);
             $scope.loading = true;
         }).error(function (respData) {
@@ -250,7 +253,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     //this is the edit section
     $scope.Load = function(){
-        $scope.loading = false;
+        $scope.loading = true;
         $scope.emptyStudio();
         $scope.models.studioLists[0] = [];
         Assignments.get({
@@ -261,17 +264,21 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         });
         $scope.getStudios();
         $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){
-            console.log(respData);
             respData.forEach(function(studentinstudio) {
                 Students.get({
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
-                   $scope.models.studioLists[studentinstudio.Studio].unshift(student); 
+                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
+                    if (preference){
+                        student.preference = preference.Rate;
+                        $scope.models.studioLists[studentinstudio.Studio].unshift(student);
+                    }
+                })
               });       
             }, this);  
         })
-
-        $scope.loading = true;
+        console.log("done");
+        $scope.loading = false;
     }
 
     $scope.UpdateAssinment = function(){
