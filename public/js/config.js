@@ -21,6 +21,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/signup',
             templateUrl: 'views/users/signup.html'
         })
+        .state('ViewDetails',{
+            url : '/viewdetails',
+            controller : 'ViewDetailsController',
+            templateUrl: 'views/users/ViewDetails.html'
+        })
         .state('OpenReg',{
             url : '/openregistration',
             controller : 'RegistrationController',
