@@ -25,7 +25,7 @@
         <!--Insert assigment requests-->
 
         <!--<li><a ui-sref="InsertPref">Insert Preferences</a></li>-->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="!global.user.IsAdmin">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Preferences <b class="caret"></b>
 			</a>
@@ -36,12 +36,12 @@
             </ul>
         </li>
         <!--Degree calculator-->
-        <li><a ui-sref="StudCourse">Graduation Form</a></li>
+        <li><a ui-sref="StudCourse" ng-show="!global.user.IsAdmin">Graduation Form</a></li>
 
         <!--ADMIN-->
 
         <!--Registration-->
-        <li><a ui-sref="ViewReg">Registration Managment</a></li>
+        <li><a ui-sref="ViewReg" ng-show="global.user.IsAdmin">Registration Managment</a></li>
         <!--<li class="dropdown"> 
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Registration Managment <b class="caret"></b>
@@ -53,7 +53,7 @@
         </li>-->
 
         <!--User managment-->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="global.user.IsAdmin">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Student Managment <b class="caret"></b>
 			</a>
@@ -66,7 +66,7 @@
 
 
         <!--Assignment  managment-->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="global.user.IsAdmin">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Assignment Managment <b class="caret"></b>
 			</a>
@@ -78,7 +78,7 @@
         </li>
 
         <!--Studio managment-->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="global.user.IsAdmin">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Studio Managment <b class="caret"></b>
 			</a>
@@ -90,7 +90,7 @@
         </li>
 
         <!--Course managment-->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="global.user.IsAdmin">
             <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
 				Course Managment <b class="caret"></b>
 			</a>
