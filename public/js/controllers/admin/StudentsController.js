@@ -10,28 +10,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
-    // $scope.create = function(token) {
-    //     $scope.upload = Upload.upload({
-    //         url: '/upload',
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'multipart/form-data'},
-    //         file: token           
-    //     }).success(function (response, status) {
-    //             // Redirect after save
-    //             $location.path('upload/' + response[0].filename);
-    //             $scope.path = 'upload/' + response[0].filename;
-    //             console.log($scope.path);
-    //             $scope.status = "Upload finished successfully.";
-    //             // Clear form fields
-    //                     $scope.name = '';
-    //                     $scope.token = '';
-    //         }
-    //     ).error(function (errorResponse) {
-    //            $scope.error = errorResponse.data;
-    //            $scope.status = "There was an error. File could not be uploaded.";
-    //         }
-    //     );
-    // };
     
     $scope.create = function(){
         var tz = new Tzs({
@@ -66,7 +44,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                             $scope.status = null;
                             $scope.error = "There was an error. File could not be uploaded.";                          
                         }
-                        console.log(respData);
                     })
                     //yana: complete when there is algotrithem.
                 }
@@ -104,6 +81,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
 
         Instructors.query(function (instructors) {
             $scope.instructors = instructors;
+            console.log(instructors);
         })
 
         StudentInStudio.query(function(studentinstudio) {
@@ -115,7 +93,9 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                         }
                     }, this);
                     $scope.instructors.forEach(function(instructor) {
-                        sis.Instructor = instructor.FirstName + " " + instructor.LastName;
+                        if(sis.Instructor == instructor.id){
+                            sis.Instructor = instructor.FirstName + " " + instructor.LastName;
+                        }
                     }, this);
 
                     $scope.studentinstudio.push(sis);
@@ -135,7 +115,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                     $scope.studentincourse.push(sic);
                 }              
             }, this);
-            console.log($scope.studentincourse);
         });        
 
         Preferences.query(function(preferences) {
@@ -203,8 +182,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     }
 
     $scope.yearFilter = function (data) {
-        // console.log(data.CurrentYear);
-        // console.log(data.CurrentYear === 3);
         if (parseInt(data.CurrentYear) === $scope.filterYear.store.years) {
             return true;
         } else if ($scope.filterYear.store.years === 'Filter by year...') {
