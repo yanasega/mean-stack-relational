@@ -1,81 +1,38 @@
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "loading"></i>
+<section data-ng-init="Load()"> 
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
   
-<div class="jumbotron text-left">
-  <p style="font-size:20px">New Assignment</p>
+<div ng-show = "!loading" class="jumbotron text-left" style="height:200px">
+  <p style="font-size:20px">View Assignment</p>
   	<hr>
     <div class="row">
-    <div class ="col-md-3">
-      <div class="control-group">
-        <div class="dropdown">
-            <select ng-model="ChosenYear">
-             <option ng-repeat="x in year">{{x}}</option>
-            </select>
+      <div class ="col-md-3">
+        <div class="control-group">
+          <div>
+              <input style="height:30px" type="text" disabled ng-model="ChosenYear" disabled>
+          </div>
         </div>
-   </div>
-  </div>
+      </div>
      <div class ="col-md-3">
-      <div class="control-group">
-        <div class="dropdown">
-            <select ng-model="ChosenSemester">
-             <option >choose Semester ..</option>
-             <option >winter</option>
-             <option >spring</option>
-            </select>
+        <div class="control-group">
+          <div>
+              <input style="height:30px"  type="text" ng-model="ChosenSemester" disabled>
+          </div>
         </div>
-   </div>
+    </div>
   </div>
-  <div class ="col-md-3">
-  <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">Generate Assigment</button>
-  </div>
-  </div>
-  <div  class="row" style="padding-top:30px">
-    <div class ="col-md-6" style="float:right">
-    <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
-      <button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>
-      <button type="button" class="btn btn-danger" ng-click="init()">Clear Assinment</button>
-      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">Approve Assinment</button>
-
-   </div>
-  </div>
-</div>
 </div>
 </br>
 </br>
 
 
-<!--spinner while witing for algo-->
-<div class="row" ng-if = "loading == false" style="padding-left:550px">
-   <i class="fa fa-spinner fa-spin fa-3x fa-fw" ></i>
-</div>
-
-<div ng-show="!assign" style = "text-align:center">
-  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> The assignment was saved successfuly.</p>
-  <a ui-sref="ViewPref">View Past assigmentes</a>
-</div>
-
-
-  <div class= "row" style ="float:right" ng-show = "addstudflag">
-     <form class="form-vertical" data-ng-submit="AddStudent()">
-            <div class="controls">
-              <div class="col-md-12">
-                <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
-              </div>
-              <div class="control-group;col-md-12">
-                <input type="submit" class="btn">
-             </div>
-            </div>
-      </form>
-        <p ng-show="missingStatus">{{"This student already exists!"}}</p>
-  </div>
-
-<div ng-show = "loading">
-  <div class="container" id = thirdFourth  ng-if = "myBtn == true && ChosenYear == '3,4'" ng-show = "assign">
+<div ng-show = "!loading">
+  <div class="container" id = thirdFourth  ng-if = "ChosenYear == '3,4'" >
     <div class="row">
-      <div class="col-sm-8" style="padding-bottom:10px">
-            <div class = "col-sm-6"  ng-repeat= "studio in studios">
+            <div class = "col-sm-4"  ng-repeat= "studio in studios">
               <div class ="row">
                 <div class="col-sm-2" style="padding-top:7px; padding-left:45px">
                   <span class="badge" >{{studio.count}}</span><br>
@@ -93,7 +50,7 @@
                               dnd-selected="models.selected = item"
                               ng-class="{'selected': models.selected === item}"      
                               >
-                              {{item.FirstName + " " + item.LastName}}
+                              {{item.FirstName + " " + item.LastName  + " " + item.preference}}
 
                           </li>
                         </ul>
@@ -110,8 +67,8 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage | number:1}}</td>
-                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage | number:1}}</td>
+                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage| number:1}}</td>
+                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage| number:1}}</td>
                           <td id = "female" ng-init="">{{studio.female}}</td>
                           <td id = "male" ng-init="">{{studio.male}}</td>
                         </tr>
@@ -120,32 +77,11 @@
                   </div>
                   </br>
                   </br>
-      </div>
-      <div class="col-sm-4">
-        <h3 style="margin-top:0px">Students</h3>
-            <div style= "overflow:hidden; overflow-y:scroll; height:600px">
-              <div class="simpleDemo">
-                    <ul dnd-list="models.studioLists[0]">
-                          <li ng-repeat="item in models.studioLists[0]"
-                              dnd-draggable="item"
-                              dnd-moved="models.studioLists[0].splice($index, 1)"
-                              dnd-effect-allowed="move"
-                              dnd-selected="models.selected = item"
-                              ng-class="{'selected': models.selected === item}"
-                              >
-                            {{item.FirstName + " " + item.LastName}}
-
-                          </li>
-                    </ul>
-                </div>
-            </div>
-      </div>
     </div>
   </div>
 </div>
-     
 
-<div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
+<div class="container" id =fifth  ng-if = "ChosenYear == '5'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
           <div class = "col-sm-6"  ng-repeat= "studio in studios">
@@ -161,7 +97,7 @@
                               ng-change="UpdateStudentsData()"
                             ng-model="models.studioLists[studio.id]"
                              >
-                            {{item.FirstName + " " + item.LastName + "" + item.preference}}
+                            {{item.FirstName + " " + item.LastName}}
 
                          </li>
                       </ul>

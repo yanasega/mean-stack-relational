@@ -17,7 +17,7 @@
             <td>{{ass.createdAt | date : "dd.MM.y"}}</td>
             <td>{{ass.Year}}</td>
             <td>{{ass.Semester}}</td>
-            <td><a class="btn btn-info" ng-click=load(ass)><i class="fa fa-eye"></i> Load</a>
+            <td><a class="btn btn-info" ui-sref="viewFullAssignment({assignmentId : ass.id})"><i class="fa fa-eye"></i> Load</a>
             <a class="btn btn-default btn-sm" ui-sref="editAssignment({assignmentId : ass.id})"><i class="fa fa-pencil"></i> Edit</a></td>
             </tr>
             </tbody>
