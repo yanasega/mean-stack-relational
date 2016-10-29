@@ -87,8 +87,17 @@ exports.destroy = function(req, res) {
 
     // create a new variable to hold the article that was placed on the req object.
     var student = req.student;
-
     student.destroy().then(function(){
+        db.User.find({where: {id: student.id}}).then(function(user){
+            if(user) {
+                user.destroy().then(function(){});
+            }
+        }).catch(function(err){
+            return res.render('error', {
+            error: err,
+            status: 500
+            });
+        });        
         return res.jsonp(student);
     }).catch(function(err){
         return res.render('error', {
