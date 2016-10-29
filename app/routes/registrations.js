@@ -17,7 +17,6 @@ app.route('/registrations/:registrationId')
     .put(users.requiresLogin, registrations.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
-
 // Note: the registrations.registration function will be called everytime then it will call the next function.
 app.param('registrationId', registrations.registration);
 };
