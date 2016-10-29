@@ -11,7 +11,7 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
 
         logIn.$save(function(response) {
             if(response.status === 'success'){
-                $window.location.href = '/';
+                $window.location.href = '/home';
             }
         });
     };
