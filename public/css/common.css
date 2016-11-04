@@ -12,7 +12,13 @@ body{
     margin-left:0;
     float: right;
 }
-
+.btn-primary{
+  font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
 .content {
     margin-top:50px;
     width:100%;
