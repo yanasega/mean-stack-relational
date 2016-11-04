@@ -116,9 +116,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     // Generate initial model
     // Model to JSON for demo purpose
-    $scope.$watch('models', function(model) {
-        $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
+    // $scope.$watch('models', function(model) {
+    //     $scope.modelAsJson = angular.toJson(model, true);
+    // }, true);
 
     $scope.$watch('models.studioLists', function (model) {
          var count = 0;
@@ -269,6 +269,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
                 $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
+                    console.log("got");
                     if (preference){
                         student.preference = preference.Rate;
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
