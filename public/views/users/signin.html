@@ -4,17 +4,16 @@
     <br>
     <form ng-submit="signIn(user)" class="signin form-horizontal" name="signInForm" style="width: 580px;">
         <div class="control-group" >
-            <label for="email" class="control-label">דוא"ל</label>
-
-            <div class="controls">
-                <input id="email" type="text" name="email" placeholder="דואר אלקטרוני" ng-model="user.email" required>
+            <label for="email" class="col-md-4 control-label" style="float: right; font-size:18px">דוא"ל</label>
+            
+            <div class="col-md-4" >
+                <input id="email"  style="margin-right: -100px;" type="text" name="email" placeholder="דואר אלקטרוני" ng-model="user.email" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="password" class="control-label">סיסמא</label>
-
-            <div class="controls">
-                <input id="password" type="password" name="password" placeholder="סיסמא" ng-model="user.password" required>
+            <label for="password" class="col-md-4 control-label" style="float: right; font-size:18px">סיסמא</label>
+            <div class="col-md-4">
+                <input id="password" style="margin-right: -100px;" type="password" name="password" placeholder="סיסמא" ng-model="user.password" required>
             </div>
         </div>
         <div class="form-actions" style="width: 580px;font-size:18px">
