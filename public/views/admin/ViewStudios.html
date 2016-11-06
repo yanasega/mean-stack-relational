@@ -55,17 +55,17 @@
     <form class="form-horizontal" data-ng-submit="addStudio()">
 	<br>
 		<div class="control-group">
-            <label class="control-label" for="Id_s">מזהה קורס</label>
+            <label class="control-label" style="float: right" for="Id_s">מזהה קורס</label>
 			<div class="controls">
 				<input type="text" data-ng-model="Id_s" id="Id_s" required>
 			</div>
             <br>
-			<label class="control-label" for="name">שם הסטודיו</label>
+			<label class="control-label" style="float: right" for="name">שם הסטודיו</label>
 			<div class="controls">
 				<input type="text" data-ng-model="name" id="name" required>
 			</div>
             <br>
-			<label class="control-label" for="instructor">מנחה</label>
+			<label class="control-label" style="float: right" for="instructor">מנחה</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
@@ -78,7 +78,7 @@
 				<input type="text" data-ng-model="description" id="description" required>
 			</div>
             <br>-->
-            <label class="control-label" for="subject">נושא</label>
+            <label class="control-label" style="float: right" for="subject">נושא</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="subject" ng-options="subject.Subject for subject in subjects" required>
@@ -86,9 +86,9 @@
 				</select>
 			</div>
 		</div>
-        <br>
+
 		<div class="control-group">
-			<label title = "שנים בהן מועבר הסטודיו" class="control-label" for="relevantyears" id="relevantyears" >שנים</label>
+			<label title = "שנים בהן מועבר הסטודיו" style="float: right" style="float: right" class="control-label" for="relevantyears" id="relevantyears" >שנים</label>
 			<div class="controls">
 				<select type="string" data-ng-model="relevantyears" required>
 					<option value="3,4">3,4</option>
@@ -96,7 +96,7 @@
 				</select>
 			</div>
             <br>
-            <label title = "סמסטר בו מועבר הסטודיו" class="control-label" for="semester" id="semester">סמסטר</label>
+            <label title = "סמסטר בו מועבר הסטודיו" class="control-label" style="float: right" for="semester" id="semester">סמסטר</label>
 			<div class="controls">
 				<select type="string" data-ng-model="semester" required>
 					<option value="winter">חורף</option>
@@ -104,9 +104,9 @@
 				</select>
 			</div>
             <br>
-            <label class="control-label" for="sylabus">העלה סילבוס למערכת</label>
+            <label class="control-label" style="float: right" for="sylabus">העלה סילבוס למערכת</label>
             <div class="controls" >
-                <input type="file" name = "sylabus" ngf-select ng-model="sylabus" >
+                <input type="file" name = "sylabus"  ngf-select ng-model="sylabus" >
             </div>
 		</div>
 		<div class="control-group">

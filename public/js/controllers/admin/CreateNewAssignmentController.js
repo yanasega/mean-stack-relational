@@ -111,7 +111,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
    //default value for drop down list
     $scope.year = ["choose year..","3,4", "5"];
     $scope.ChosenYear = "choose year..";
-    $scope.ChosenSemester = "choose Semester ..";
+    $scope.ChosenSemester = "choose Semester..";
 
 
     // Generate initial model

@@ -20,6 +20,13 @@ body{
 .td{
     float: right;
 }
+.btn{
+    font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;  
+}
 .btn-primary{
   font-family: "Alef Hebrew",
                “Helvetica Neue”,

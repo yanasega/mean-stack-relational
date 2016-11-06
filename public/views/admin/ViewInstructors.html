@@ -1,19 +1,19 @@
 <div>
 	<br>
-		<p style = "font-size:20px">Manage Instructors</p>
+		<p style = "font-size:20px">ניהול המידע אודות מנחים</p>
 		<hr>
 </div>
 
 <i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>
 <div id = "instructors" ng-show = "showinstr == true">
-  <input ng-model = "query" type="text" placeholder="Search...">
+  <input ng-model = "query" type="text" placeholder="חיפוש...">
 
    <table class = "table">
       <thead>
          <tr>
-            <th>Instructor ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>מספר מזהה</th>
+            <th>שם פרטי</th>
+            <th>שם משפחה</th>
          </tr>
       </thead>
      <tbody ng-repeat="instructor in instructors | filter:query">
@@ -28,17 +28,17 @@
 
 <div>
     <br>
-    <p style = "font-size:20px">Add New Instructor</p>
+    <p style = "font-size:20px">הוספת מנחה חדש</p>
     <hr>
     <form class="form-horizontal" data-ng-submit="addInstructor()">
 	<br>
 		<div class="control-group">
-			<label class="control-label" for="firstname">First Name</label>
+			<label class="control-label" style="float: right" for="firstname">שם פרטי</label>
 			<div class="controls">
 				<input type="text" data-ng-model="firstname" id="firstname" required>
 			</div>
             <br>
-			<label class="control-label" for="lastname">Last Name</label>
+			<label class="control-label" style="float: right" for="lastname">שם משפחה</label>
 			<div class="controls">
 				<input type="text" data-ng-model="lastname" id="lastname" required>
 			</div>
@@ -54,7 +54,7 @@
 		</div>-->
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>     
