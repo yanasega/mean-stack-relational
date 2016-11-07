@@ -1,14 +1,14 @@
 <div>
 	<br>
-		<p style = "font-size:20px">Manage Studios</p>
+		<p style = "font-size:20px">ניהול קבוצות סטודיו במערכת</p>
 		<hr>
 </div>
 
 <i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showstud == false"></i>
 <div id = "studios" ng-show = "showstud == true">
-  <input ng-model = "query" type="text" placeholder="Search...">
+  <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
 
-  <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
+  <select style="margin-left: 10px;" ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
   </select>
 
   <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
@@ -17,14 +17,14 @@
    <table class = "table">
       <thead>
          <tr>
-            <th>Course ID</th>
-            <th>Name</th>
-            <th>Instructor</th>
+            <th>מזהה קורס משוייך</th>
+            <th>שם הסטודיו</th>
+            <th>מנחה</th>
             <!--<th>Description</th>-->
-            <th>Subject</th>
-            <th>Relevant Years</th>
-            <th>Semester</th>
-            <th>Sylabus</th>
+            <th>נושא</th>
+            <th>שנים</th>
+            <th>סמסטר</th>
+            <th>סילבוס</th>
             <th></th> 
             <th></th>
             <th></th>
@@ -39,10 +39,10 @@
         <td>{{studio.Subject}}</td>
         <td>{{studio.RelevantYears}}</td>
         <td>{{studio.Semester}}</td>  
-        <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"Sylabus"}}</a></td>
+        <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
         <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
-        <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> Edit</a></td>
-        <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
         </tr>
      </tbody>
    </table>
@@ -50,26 +50,26 @@
 
 <div>
     <br>
-    <p style = "font-size:20px">Add New Studio</p>
+    <p style = "font-size:20px">הוספת סטודיו חדש</p>
     <hr>
     <form class="form-horizontal" data-ng-submit="addStudio()">
 	<br>
 		<div class="control-group">
-            <label class="control-label" for="Id_s">Course ID</label>
+            <label class="control-label" style="float: right" for="Id_s">מזהה קורס</label>
 			<div class="controls">
 				<input type="text" data-ng-model="Id_s" id="Id_s" required>
 			</div>
             <br>
-			<label class="control-label" for="name">Name</label>
+			<label class="control-label" style="float: right" for="name">שם הסטודיו</label>
 			<div class="controls">
 				<input type="text" data-ng-model="name" id="name" required>
 			</div>
             <br>
-			<label class="control-label" for="instructor">Instructor</label>
+			<label class="control-label" style="float: right" for="instructor">מנחה</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
-					<option value="">Select Instructor</option>
+					<option value="">בחר מנחה...</option>
 				</select>
 			</div>
             <br>
@@ -78,17 +78,17 @@
 				<input type="text" data-ng-model="description" id="description" required>
 			</div>
             <br>-->
-            <label class="control-label" for="subject">Subject</label>
+            <label class="control-label" style="float: right" for="subject">נושא</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="subject" ng-options="subject.Subject for subject in subjects" required>
-					<option value="">Select Subject</option>
+					<option value="">בחר נושא...</option>
 				</select>
 			</div>
 		</div>
-        <br>
+
 		<div class="control-group">
-			<label class="control-label" for="relevantyears" id="relevantyears">Relevant Years</label>
+			<label title = "שנים בהן מועבר הסטודיו" style="float: right" style="float: right" class="control-label" for="relevantyears" id="relevantyears" >שנים</label>
 			<div class="controls">
 				<select type="string" data-ng-model="relevantyears" required>
 					<option value="3,4">3,4</option>
@@ -96,22 +96,22 @@
 				</select>
 			</div>
             <br>
-            <label class="control-label" for="semester" id="semester">Semester</label>
+            <label title = "סמסטר בו מועבר הסטודיו" class="control-label" style="float: right" for="semester" id="semester">סמסטר</label>
 			<div class="controls">
 				<select type="string" data-ng-model="semester" required>
-					<option value="winter">Winter</option>
-					<option value="spring">Spring</option>
+					<option value="winter">חורף</option>
+					<option value="spring">אביב</option>
 				</select>
 			</div>
             <br>
-            <label class="control-label" for="sylabus">Upload Sylabus</label>
-            <div class="controls">
-            <input type="file" name = "sylabus" ngf-select ng-model="sylabus">
+            <label class="control-label" style="float: right" for="sylabus">העלה סילבוס למערכת</label>
+            <div class="controls" >
+                <input type="file" name = "sylabus"  ngf-select ng-model="sylabus" >
             </div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>     

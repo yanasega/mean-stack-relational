@@ -1,26 +1,26 @@
 
 <span ng-include="'../views/users/auth.html'"></span>
 <span ng-controller="signIn">
-    <form ng-submit="signIn(user)" class="signin form-horizontal" name="signInForm">
-        <div class="control-group">
-            <label for="email" class="control-label">Email</label>
-
-            <div class="controls">
-                <input id="email" type="text" name="email" placeholder="Email" ng-model="user.email" required>
+    <br>
+    <form ng-submit="signIn(user)" class="signin form-horizontal" name="signInForm" style="width: 580px;">
+        <div class="control-group" >
+            <label for="email" class="col-md-4 control-label" style="float: right; font-size:18px">דוא"ל</label>
+            
+            <div class="col-md-4" >
+                <input id="email"  style="margin-right: -100px;" type="text" name="email" placeholder="דואר אלקטרוני" ng-model="user.email" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="password" class="control-label">Password</label>
-
-            <div class="controls">
-                <input id="password" type="password" name="password" placeholder="Password" ng-model="user.password" required>
+            <label for="password" class="col-md-4 control-label" style="float: right; font-size:18px">סיסמא</label>
+            <div class="col-md-4">
+                <input id="password" style="margin-right: -100px;" type="password" name="password" placeholder="סיסמא" ng-model="user.password" required>
             </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Sign in&nbsp;</button>
-            or&nbsp;<a ui-sref="SignUp" class="show-signup">Sign up</a>
+        <div class="form-actions" style="width: 580px;font-size:18px">
+            <button type="submit" class="btn btn-primary" style="font-size:18px">הכנס&nbsp;</button>
+            או&nbsp;<a ui-sref="SignUp" class="show-signup">הירשם</a>
             <!--yana implement-->
-            or&nbsp;<a href="" class="show-signup">Forgotten Password?</a>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="" class="show-signup">שכחת את הסיסמא?</a>
         </div>
     </form>
 </span>

@@ -1,39 +1,39 @@
 <section data-ng-init="findStudent()">
     <br>
-    <p style = "font-size:20px">{{"Edit Student: " + student.FirstName + " " + student.LastName}} </p>
+    <p style = "font-size:20px">{{"עריכת סטודנט: " + student.FirstName + " " + student.LastName}} </p>
     <hr>
     <form class="form-horizontal" data-ng-submit="update()">
 	<br>
 		<div class="control-group">
-			<label class="control-label" for="currentyear">Current Year</label>
+			<label class="control-label" style="float: right" for="currentyear">שנה נוכחית</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="number" data-ng-model="student.CurrentYear" ng-options="year for year in years" required>
-					<option value="">Select Year</option>
+					<option value="">בחר שנה</option>
 				</select>
 			</div>
             <br>
-			<label class="control-label" for="generalaverage">General Average</label>
+			<label class="control-label" style="float: right" for="generalaverage">ממוצע ציונים</label>
 			<div class="controls">
 				<input type="number" data-ng-model="student.Generalaverage" id="generalaverage" required>
 			</div>
             <br>
-            <label class="control-label" for="laststudiograde">Last Studio Grade</label>
+            <label class="control-label" style="float: right" for="laststudiograde">ממוצע סטודיו</label>
 			<div class="controls">
 				<input type="number" data-ng-model="student.LastStudioGrade" id="laststudiograde" required>
 			</div>
             <br>
-			<label class="control-label" for="graduationform">Graduation Form Status</label>
+			<label class="control-label" style="float: right" for="graduationform">מצב טופס סיום</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="student.IsValid" ng-options="status for status in statuses" required>
-					<option value="">Select Status</option>
+					<option value="">בחר סטאטוס</option>
 				</select>
 			</div>
             <br>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value=	"שמור">
 			</div>
 		</div>
 	</form>     
