@@ -168,6 +168,17 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         }
     };
 
+    $scope.removeView = function(student) {
+        if (student) {
+            student.$remove();  
+            $state.go('ViewStud');
+        }
+        else {
+            $scope.student.$remove();
+            $state.go('ViewStud'); //yana: test
+        }
+    };
+
     $scope.filterYearOptions = {
         stores: [
         {id : 2, name : 'Filter by year...', years: 'Filter by year...' },

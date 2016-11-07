@@ -1,0 +1,62 @@
+<section data-ng-init="findOne()">
+	<div>
+	<form class="form-horizontal" data-ng-submit="updateStudent()">
+	<br>
+		<p style = "font-size:20px" >Personal Details</p>
+        <p style = "font-size:15px">Here you can view and edit your details.</p>
+		<hr>
+        
+        <label for="name" class="control-label">First name</label>
+        <div class="controls">
+            <input id="firstname" type="text" name="firstname" placeholder="First name" ng-model="student.FirstName" required>
+        </div>
+        <br>
+        <label for="lastname" class="control-label">Last name</label>
+        <div class="controls">
+            <input id="lastname" type="text" name="lastname" placeholder="Last name" ng-model="student.LastName" required>
+        </div>
+        <br>
+        <label for="email" class="control-label">Email</label>
+        <div class="controls">
+            <input id="email" type="text" name="email" placeholder="Email" ng-model="student.Email" required>
+        </div>
+        <br>
+		<label class="control-label" for="average">Average Grade:</label>
+		<div class="controls">
+			<input type="number" step="any" data-ng-model="student.Generalaverage" id="average" required>
+		</div>
+		<br>
+		<label class="control-label" for="studioaverage">Average Studio Grade:</label>
+		<div class="controls">
+			<input type="number" step="any" data-ng-model="student.LastStudioGrade" id="studioaverage" required>
+		</div>
+	    <br>
+		<label class="control-label" for="currentyear" id="currentyear">Current Year:</label>
+		<div class="controls">
+            <select type="number" data-ng-model="student.CurrentYear" ng-options="year for year in years" required>
+                <option value="">Select Year...</option>
+            </select>
+		</div>
+		<br>
+		<label class="control-label" for="semester" id="semester">Relevant Semester: </label>
+		<div class="controls">
+			<select type="string" data-ng-model="student.Semester" required>
+				<option value="" disabled selected>Select your semester...</option>
+				<option value="winter">Winter</option>
+				<option value="sprint">Spring</option>
+			</select>
+		</div>		
+		<br>
+		<div class="control-group">
+			<div class="controls">
+               <section>
+				<input type="submit" class="btn" value="Update" style="margin-bottom: 10px">
+                <i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:30px; padding-left: 10px" aria-hidden="true"></i>
+                </section>
+			</div>
+		</div>
+	</form>
+	</div>
+</section>
+
+
