@@ -181,7 +181,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
 
     $scope.filterYearOptions = {
         stores: [
-        {id : 2, name : 'Filter by year...', years: 'Filter by year...' },
+        {id : 2, name : 'סנן לפי שנה...', years: 'סנן לפי שנה...' },
         {id : 3, name : '3', years: 3 },
         {id : 4, name : '4', years: 4 },
         {id : 5, name : '5', years: 5 }
@@ -195,7 +195,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.yearFilter = function (data) {
         if (parseInt(data.CurrentYear) === $scope.filterYear.store.years) {
             return true;
-        } else if ($scope.filterYear.store.years === 'Filter by year...') {
+        } else if ($scope.filterYear.store.years === 'סנן לפי שנה...') {
             return true;
         } else {
             return false;

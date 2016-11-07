@@ -1,21 +1,21 @@
 	
 <form class="form" ng-show = "RegEmpty == true" data-ng-submit="openRegistration()">
   <br>
-    <p style = "font-size:20px" >Open Registration</p>
+    <p style = "font-size:20px" >פתיחת הרשמה</p>
     <hr>
-   <p>There are currently no open registrations...</p>
+   <p>כרגע אין הרשמות פתוחות...</p>
     <div class="control-group">
-      <label class="control-label" for="semester" id="semester">Semester</label>
+      <label class="control-label" for="semester" style="float: right" id="semester">סמסטר</label>
       <div class="controls">
         <select type="string" data-ng-model="semester" required>
-          <option value="winter">Winter</option>
-          <option value="spring">Spring</option>
+          <option value="winter">חורף</option>
+          <option value="spring">אביב</option>
         </select>
       </div>
     </div>
     <div class="control-group">
       <div class="controls">
-        <input type="submit" class="btn">
+        <input type="submit" class="btn btn-success" value="שמור">
       </div>
     </div>
 </form>
@@ -24,16 +24,16 @@
 <div id = "registrations" ng-show = "RegEmpty == false">
   <div>
     <br>
-      <p style = "font-size:20px">Manage Registrations</p>
+      <p style = "font-size:20px">ניהול הרשמה</p>
       <hr>
   </div>
    <table class = "table">
       <thead>
          <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Semester</th>
-            <th>Status</th>
+            <th>תאריך פתיחה</th>
+            <th>תאריך סגירה</th>
+            <th>סמסטר</th>
+            <th> סטאטוס הרשמה</th>
             <th></th>
             <!--<th></th>-->
          </tr>
@@ -44,10 +44,10 @@
         <td>{{reg.EndDate | date : "dd.MM.y"}}</td>
         <td>{{reg.Semester}}</td>
         <!--yana:check:-->
-        <td ng-show="reg.IsActive == true">{{"Active"}}</td> 
-        <td ng-show="reg.IsActive ==false">{{"Closed"}}</td> 
+        <td ng-show="reg.IsActive == true">{{"פעילה"}}</td> 
+        <td ng-show="reg.IsActive ==false">{{"סגורה"}}</td> 
         <!--<td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>-->
-        <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> Close Registration</a></td>
+        <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> סגירת הרשמה</a></td>
         </tr>
      </tbody>
 

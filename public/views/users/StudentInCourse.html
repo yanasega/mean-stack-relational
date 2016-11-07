@@ -21,8 +21,8 @@
     }
   </style>
 <div class="container">
-    <p style = "font-size:20px" >Degree Final Form</p>
-    <p style = "font-size:15px">Here you can keep up with your degree obligations.</p>
+    <p style = "font-size:20px" >טופס סיום תואר</p>
+    <p style = "font-size:15px">כאן תוכל לנהל את טופס סיום התואר שלך</p>
 		<hr>
   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm()">
     <div>
@@ -33,9 +33,9 @@
             <input type="checkbox" ng-model="areAllCoursesSelected"
                   ng-change="updateCourseSelection(courses, areAllCoursesSelected)" />
           </th>
-              <th>Course ID</th>
-              <th>Name</th>
-              <th>Number Of Credit Points</th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +58,7 @@
     </div>
     <div class="control-group">
         <div class="controls">
-          <input type="submit" class="btn">
+          <input type="submit" class="btn btn-success" value="שמור">
         </div>
   </div>
 

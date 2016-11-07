@@ -1,96 +1,97 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
-    <ul class="nav">
-       <li>
-           <i class="fa fa-braille" style = "font-size: 30px; color: grey; padding: 5px" aria-hidden="true"></i>
-       </li>
+    <ul class="nav pull-right">
         <li>
-            <a class="brand" ui-sref="userhome" style="padding: 9px; color: grey">Architecture Data System</a>
+            <a class="brand" ui-sref="userhome" style="padding: 9px; color: white;font-size: 25px;padding-top: 20px;">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
         </li>
+       <li>
+           <!--<i class="fa fa-braille" style = "font-size: 30px; color: grey; padding: 5px" aria-hidden="true"></i>-->
+           <img src="img/icons/Eng_Ver_Blue-Recovered1.png" style="height: 50px;padding-bottom: 5px;padding-top: 5px">
+       </li>
        <!--<li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a ui-sref="{{item.state}}">{{item.title}}</a>
         </li>-->
     </ul>
-    <ul class="nav pull-left" data-ng-show="global.authenticated">
+    <ul class="nav pull-right" data-ng-show="global.authenticated" style="font-size: 15px;padding-top: 12px;">
         
         <!--USERS-->
 
         <!--<li><a ui-sref="InsertPref">Insert Preferences</a></li>-->
-        <li class="dropdown" ng-show="!global.user.IsAdmin">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				Preferences <b class="caret"></b>
+        <li class="dropdown " ng-show="!global.user.IsAdmin">
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
+				ניהול העדפות <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
-                <li><a ui-sref="InsertPref">Insert Preferences</a></li>
-                <li><a ui-sref="ViewPref">View Past Preferences</a></li>
-                <li><a ui-sref="ViewAssignments">View Assignments</a></li>
+                <li><a ui-sref="InsertPref">הזנת העדפות</a></li>
+                <li><a ui-sref="ViewPref">צפייה בהעדפות קודמות</a></li>
+                <li><a ui-sref="ViewAssignments">צפייה בשיבוצים</a></li>
             </ul>
         </li>
         <!--Degree calculator-->
-        <li><a ui-sref="StudCourse" ng-show="!global.user.IsAdmin">Graduation Form</a></li>
+        <li><a ui-sref="StudCourse" ng-show="!global.user.IsAdmin" style="color: white;">מילוי טופס גמר</a></li>
 
         <!--ADMIN-->
 
         <!--Registration-->
-        <li><a ui-sref="ViewReg" ng-show="global.user.IsAdmin">Registration Managment</a></li>
+        <li><a ui-sref="ViewReg" ng-show="global.user.IsAdmin" style="color: white;">ניהול הרשמה</a></li>
 
         <!--User managment-->
         <li class="dropdown" ng-show="global.user.IsAdmin">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				Student Managment <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
+				  סטודנטים <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
                 <!--<li><a ui-sref="OpenReg">Add Users</a></li>-->
-                <li><a ui-sref="ViewStud">View/Edit Student Info</a></li>
-                <li><a ui-sref="UpStud">Upload new student</a></li>
+                <li><a ui-sref="ViewStud">צפה/ערוך סטודנט</a></li>
+                <li><a ui-sref="UpStud">טען סטודנטים חדשים</a></li>
             </ul>
         </li>
 
 
         <!--Assignment  managment-->
         <li class="dropdown" ng-show="global.user.IsAdmin">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				Assignment Managment <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;color: white;cursor:pointer">
+				  שיבוץ <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
                 <!--<li><a ui-sref="OpenReg">View past assignments</a></li>-->
-                <li><a ui-sref="CreateNewAssignment">Create new assignment</a></li>
-                <li><a ui-sref="ViewPreviousAssignment">View previous assignment</a></li>
+                <li><a ui-sref="CreateNewAssignment">יצירת שיבוץ חדש</a></li>
+                <li><a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קודמים</a></li>
             </ul>
         </li>
 
         <!--Studio managment-->
         <li class="dropdown" ng-show="global.user.IsAdmin">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				Studio Managment <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
+				קבוצות סטודיו <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
-                <li><a ui-sref="ViewStudio">Add/Remove Studio</a></li>
-                <li><a ui-sref="ViewInstr">Instructors</a></li>
-                <li><a ui-sref="ViewSubj">Subjects</a></li>            
+                <li><a ui-sref="ViewStudio">הוסף/הסר סטודיו</a></li>
+                <li><a ui-sref="ViewInstr">מנחים</a></li>
+                <li><a ui-sref="ViewSubj">נושאי סטודיו</a></li>            
             </ul>
         </li>
 
         <!--Course managment-->
         <li class="dropdown" ng-show="global.user.IsAdmin">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				Course Managment <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
+				קורסים <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
-                <li><a ui-sref="ViewCourse">Add/Remove Courses</a></li>
+                <li><a ui-sref="ViewCourse">נהל קורסי טופס גמר</a></li>
             </ul>
         </li>
 
     </ul>
     
-    <ul class="nav pull-right" data-ng-show="global.authenticated">
+    <ul class="nav pull-left" data-ng-show="global.authenticated" style="padding-top: 12px;">
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
-				{{global.user.FirstName}} <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
+				 {{global.user.FirstName}} <b class="caret"></b> 
 			</a>
             <ul class="dropdown-menu">
-                <li><a ng-click="SignOut()">Signout</a>
+                <li><a ng-click="SignOut()">התנתק</a>
                 </li>
-                <li><a ui-sref="ViewDetails">View Personal Details</a>
+                <li><a ui-sref="ViewDetails">שינוי פרטים</a>
                 </li>
             </ul>
         </li>

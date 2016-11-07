@@ -3,8 +3,8 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
   
-<div class="jumbotron text-left">
-  <p style="font-size:20px">New Assignment</p>
+<div class="jumbotron ">
+  <p style="font-size:20px">יצירת שיבוץ חדש</p>
   	<hr>
     <div class="row">
     <div class ="col-md-3">
@@ -20,7 +20,7 @@
       <div class="control-group">
         <div class="dropdown">
             <select ng-model="ChosenSemester">
-             <option >choose Semester ..</option>
+             <option >choose Semester..</option>
              <option >winter</option>
              <option >spring</option>
             </select>
@@ -28,15 +28,15 @@
    </div>
   </div>
   <div class ="col-md-3">
-  <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">Generate Assigment</button>
+  <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">המשך</button>
   </div>
   </div>
   <div  class="row" style="padding-top:30px">
     <div class ="col-md-6" style="float:right">
     <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
-      <button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>
-      <button type="button" class="btn btn-danger" ng-click="init()">Clear Assinment</button>
-      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">Approve Assinment</button>
+      <button class="btn btn-info" ng-click="runAlgo()">שיבוץ אוטומטי</button>
+      <button type="button" class="btn btn-danger" ng-click="init()">נקה שיבוץ</button>
+      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">שמור שיבוץ</button>
 
    </div>
   </div>
@@ -52,8 +52,8 @@
 </div>
 
 <div ng-show="!assign" style = "text-align:center">
-  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> The assignment was saved successfuly.</p>
-  <a ui-sref="ViewPref">View Past assigmentes</a>
+  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> השיבוץ נשמר בהצלחה</p>
+  <a ui-sref="ViewPref">צפייה בשיבוצים קיימים</a>
 </div>
 
 
@@ -61,14 +61,14 @@
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls">
               <div class="col-md-12">
-                <input type="text" data-ng-model="MissingStudent" id="title" placeholder="Add Missing Student" required>
+                <input type="text" data-ng-model="MissingStudent" id="title" placeholder="הוסף ידנית סטודנט" required>
               </div>
               <div class="control-group;col-md-12">
                 <input type="submit" class="btn">
              </div>
             </div>
       </form>
-        <p ng-show="missingStatus">{{"This student already exists!"}}</p>
+        <p ng-show="missingStatus">{{"סטודנט זה כבר קיים"}}</p>
   </div>
 
 <div ng-show = "loading">
@@ -190,7 +190,7 @@
                  </br>
     </div>
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">Students</h3>
+      <h3 style="margin-top:0px">סטודנטים</h3>
           <div style= "overflow:hidden; overflow-y:scroll; height:600px">
             <div class="simpleDemo">
 		              <ul dnd-list="models.studioLists[0]">
