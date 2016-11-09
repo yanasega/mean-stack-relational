@@ -8,6 +8,13 @@ body{
                sans-serif;
   direction: rtl;
 }
+div{
+      font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
 .navbar .nav>li>a.brand {
     padding-left:20px;
     margin-left:0;
