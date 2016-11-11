@@ -5,33 +5,43 @@
 </head>
   
 <div class="jumbotron text-left">
-  <p style="font-size:20px">עריכת שיבוץ קיים</p>
+  <p style="font-size:20px;float: right;">עריכת שיבוץ קיים</p>
+  <br>
+  <br>
   	<hr>
     <div class="row">
-    <div class ="col-md-3">
-      <div class="control-group">
-        <div>
-            <input style="height:30px" type="text" disabled ng-model="ChosenYear" disabled>
+      <div  style="float:right">
+        <div class="control-group" style="margin-right: 15px;">
+          <div style="width: 60%;">
+              <input style="height:30px" type="text" disabled ng-model="ChosenYear" disabled>
+          </div>
         </div>
-   </div>
-  </div>
-     <div class ="col-md-3">
-      <div class="control-group">
-        <div>
-            <input style="height:30px"  type="text" ng-model="ChosenSemester" disabled>
+      </div>
+     <div style="float:right;width: 0;">
+        <div class="control-group" style="margin-right: 15px;">
+          <div  ng-if = "ChosenSemester == 'winter'">
+              <input style="height:30px"  type="text" value="חורף" disabled>
+          </div>
+          <div  ng-if = "ChosenSemester != 'winter'">
+              <input style="height:30px"  type="text" value="אביב" disabled>
+          </div>
         </div>
-   </div>
+    </div>
+
+    <div >
+      <div class = "assinmentBtn" role="group" aria-label="..." >
+        <button  style ="margin-right: 700px;" type="button" class="btn btn-success" ng-click="UpdateAssinment()">אשר שיבוץ</button>
+      </div>
+    </div>
+
   </div>
-  </div>
-  <div  class="row" style="padding-top:30px">
+  <!--<div  class="row" style="padding-top:30px">
     <div class ="col-md-6" style="float:right">
-    <div class = "assinmentBtn" role="group" aria-label="..." >
-      <!--<button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>-->
-      <!--<button type="button" class="btn btn-danger" ng-click="init()">Clear Assinment</button>-->
-      <button type="button" class="btn btn-success" ng-click="UpdateAssinment()">אשר שיבוץ</button>
-   </div>
-  </div>
-</div>
+      <div class = "assinmentBtn" role="group" aria-label="..." >
+        <button type="button" class="btn btn-success" ng-click="UpdateAssinment()">אשר שיבוץ</button>
+      </div>
+    </div>
+  </div>-->
 </div>
 </br>
 </br>
