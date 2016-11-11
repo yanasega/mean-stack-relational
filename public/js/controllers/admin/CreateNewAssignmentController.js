@@ -63,7 +63,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     $scope.init = function (){
      //check if all drop d is Chosen 
-     if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose Semester .." ){
+     if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
          alert("please choose relevant year and Semester");
          return;
      }
@@ -109,9 +109,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         });
     }
    //default value for drop down list
-    $scope.year = ["choose year..","3,4", "5"];
+    // $scope.year = ["choose year..","3,4", "5"];
     $scope.ChosenYear = "choose year..";
-    $scope.ChosenSemester = "choose Semester..";
+    $scope.ChosenSemester = "choose semester..";
 
 
     // Generate initial model
@@ -182,7 +182,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 studio.id_list.forEach(function(student) {
                     $scope.students.forEach(function(obj) {
                        if (obj.id == student[0]){
-                        $scope.models.studioLists[studio.studio].unshift(obj); 
+                            obj.Preference = student[1];
+                            $scope.models.studioLists[studio.studio].unshift(obj); 
                        } 
                     }, this);
                 }, this)
