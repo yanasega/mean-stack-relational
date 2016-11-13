@@ -108,17 +108,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.assignments = assignments; 
         });
     }
-   //default value for drop down list
-    // $scope.year = ["choose year..","3,4", "5"];
+
     $scope.ChosenYear = "choose year..";
     $scope.ChosenSemester = "choose semester..";
-
-
-    // Generate initial model
-    // Model to JSON for demo purpose
-    // $scope.$watch('models', function(model) {
-    //     $scope.modelAsJson = angular.toJson(model, true);
-    // }, true);
 
     $scope.$watch('models.studioLists', function (model) {
          var count = 0;
@@ -164,6 +156,22 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, this);
     }, true);
 
+    $scope.changePrefrence =  function(moved_student,studio) {
+        $scope.studios.forEach(function(studio) {
+            $scope.models.studioLists[studio.id] .forEach(function(student){
+                if(student.id == moved_student.id){
+                    $http.get('/getstudentpreference/' + student.id + '/' + studio.id).success(function(preference){
+                        if (preference){
+                            student.Preference = preference.Rate;
+                            console.log("me");
+                            // $scope.models.studioLists[studentinstudio.Studio].unshift(student);
+                        }
+                    })                 
+                }
+            }, this);
+           
+        }, this);       
+    }
 
     $scope.runAlgo = function(){
         $scope.loading = false;
