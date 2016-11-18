@@ -5,17 +5,17 @@
     <form class="form-horizontal" data-ng-submit="update()">
 	<br>
 		<div class="control-group">
-            <label class="control-label" for="Id_s">מזהה קורס</label>
+            <label class="control-label" for="Id_s" style="float:right">מזהה קורס</label>
 			<div class="controls">
 				<input type="text" data-ng-model="studio.IdC" id="Id_s" required>
 			</div>
             <br>
-			<label class="control-label" for="name">שם הסטודיו</label>
+			<label class="control-label" for="name" style="float:right">שם הסטודיו</label>
 			<div class="controls">
 				<input type="text" data-ng-model="studio.Name" id="name" required>
 			</div>
             <br>
-			<label class="control-label" for="instructor">מנחה</label>
+			<label class="control-label" for="instructor" style="float:right">מנחה</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
                 <select type="string" data-ng-model="studio.instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
@@ -28,16 +28,16 @@
 				<input type="text" data-ng-model="description" id="description" required>
 			</div>
             <br>-->
-            <label class="control-label" for="subject">נושא</label>
+            <label class="control-label" for="subject" style="float:right">נושא</label>
 			<div class="controls">
                 <select type="string" data-ng-model="studio.subject" ng-options="subject.Subject for subject in subjects" required>
 					<option value="">בחר נושא...</option>
 				</select>
 			</div>
 		</div>
-        <br>
+
 		<div class="control-group">
-			<label class="control-label" for="relevantyears" id="relevantyears">שנים</label>
+			<label class="control-label" for="relevantyears" id="relevantyears" style="float:right">שנים</label>
 			<div class="controls">
 				<select type="string" data-ng-model="studio.RelevantYears" required>
 					<option value="3,4">3,4</option>
@@ -45,7 +45,7 @@
 				</select>
 			</div>
             <br>
-            <label class="control-label" for="semester" id="semester">סמסטר</label>
+            <label class="control-label" for="semester" id="semester" style="float:right">סמסטר</label>
 			<div class="controls">
 				<select type="string" data-ng-model="studio.Semester" required>
 					<option value="winter">חורף</option>
@@ -53,7 +53,7 @@
 				</select>
 			</div>
             <br>
-            <label class="control-label" ng-show="studio.LinkSylabus == null" for="sylabus">טען סילבוס חדש</label>
+            <label class="control-label" ng-show="studio.LinkSylabus == null" for="sylabus" style="float:right">טען סילבוס חדש</label>
             <div class="controls" ng-show="studio.LinkSylabus == null">
             <input type="file" name = "sylabus" ngf-select ng-model="sylabus">
             </div>
@@ -61,7 +61,7 @@
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value= "שמוק">
 			</div>
 		</div>
 	</form>     

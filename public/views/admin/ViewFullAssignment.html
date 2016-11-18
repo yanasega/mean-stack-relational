@@ -6,20 +6,26 @@
 </head>
   
 <div ng-show = "!loading" class="jumbotron text-left" style="height:200px">
-  <p style="font-size:20px">צפייה בשיבוץ</p>
-  	<hr>
+  <p style="font-size:20px;float: right;">צפייה בשיבוץ</p>
+  	<br>
+    <br>
+    <hr>
     <div class="row">
-      <div class ="col-md-3">
+
+      <div class ="col-md-3" style="float:right">
         <div class="control-group">
-          <div>
-              <input style="height:30px" type="text" disabled ng-model="ChosenYear" disabled>
+          <div style="width: 60%;">
+              <input style="height:30px;" type="text" disabled ng-model="ChosenYear" disabled>
           </div>
         </div>
       </div>
-     <div class ="col-md-3">
+     <div class ="col-md-3" style="float:right;width: 0;">
         <div class="control-group">
-          <div>
-              <input style="height:30px"  type="text" ng-model="ChosenSemester" disabled>
+          <div  ng-if = "ChosenSemester == 'winter'">
+              <input style="height:30px"  type="text" value="חורף" disabled>
+          </div>
+          <div  ng-if = "ChosenSemester != 'winter'">
+              <input style="height:30px"  type="text" value="אביב" disabled>
           </div>
         </div>
     </div>

@@ -15,6 +15,12 @@ div{
                Arial,
                sans-serif;
 }
+th{
+    text-align: right !important;
+}
+td{
+    text-align: right !important
+}
 .navbar .nav>li>a.brand {
     padding-left:20px;
     margin-left:0;
