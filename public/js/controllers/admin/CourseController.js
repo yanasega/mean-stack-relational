@@ -46,52 +46,8 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         $scope.id = null;
         $scope.name = null;
         $scope.creditpoints = null;
-        // $scope.ismandatory = null;
     };
-
-    // $scope.filterYearOptions = {
-    //     stores: [
-    //     {id : 2, name : 'Filter by year...', years: 'Filter by year...' },
-    //     {id : 3, name : '3rd-4th', years: '3rd-4th' },
-    //     {id : 4, name : '5th', years: '5th' }
-    //     ]
-    // };
-
-    // $scope.filterYear = {
-    //     store: $scope.filterYearOptions.stores[0]
-    // }
-
-    // $scope.yearFilter = function (data) {
-    //     if (data.Relevant_years === $scope.filterYear.store.years) {
-    //         return true;
-    //     } else if ($scope.filterYear.store.years === 'Filter by year...') {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }; 
-
-    // $scope.filterSemesterOptions = {
-    //     stores: [
-    //     {id : 2, name : 'Filter by semester...', semesters: 'Filter by semester...' },
-    //     {id : 3, name : 'Winter', semesters: 'Winter' },
-    //     {id : 4, name : 'Spring', semesters: 'Spring' }
-    //     ]
-    // };
-
-    // $scope.filterSemester = {
-    //     store: $scope.filterSemesterOptions.stores[0]
-    // }
-
-    // $scope.semesterFilter = function (data) {
-    //     if (data.Semester === $scope.filterSemester.store.semesters) {
-    //         return true;
-    //     } else if ($scope.filterSemester.store.semesters === 'Filter by semester...') {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }; 
+ 
 
     $scope.find();
 }]);
