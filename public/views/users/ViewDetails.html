@@ -5,54 +5,56 @@
 		<p style = "font-size:20px" >פרטים אישיים</p>
         <p style = "font-size:15px">כאן תוכל לערוך את פרטיך</p>
 		<hr>
-        
-        <label for="name" class="control-label" style="float:right">שם פרטי</label>
-        <div class="controls">
-            <input id="firstname" type="text" name="firstname" placeholder="שם פרטי" ng-model="student.FirstName" required>
-        </div>
-        <br>
-        <label for="lastname" class="control-label" style="float:right">שם משפחה</label>
-        <div class="controls">
-            <input id="lastname" type="text" name="lastname" placeholder="שם משפחה" ng-model="student.LastName" required>
-        </div>
-        <br>
-        <label for="email" class="control-label" style="float:right">דוא"ל</label>
-        <div class="controls">
-            <input id="email" type="email" name="email" placeholder="דוא''ל" ng-model="student.Email" required>
-        </div>
-        <br>
-		<label class="control-label" for="average" style="float:right">ציון ממוצע:</label>
-		<div class="controls">
-			<input type="number" step="any" data-ng-model="student.Generalaverage" placeholder = "ציון סטודנט ממוצע" id="average" required>
-		</div>
-		<br>
-		<label class="control-label" for="studioaverage" style="float:right">ציון סטודיו ממוצע:</label>
-		<div class="controls">
-			<input type="number" step="any" data-ng-model="student.LastStudioGrade" placeholder = "ציון סטודיו ממוצע" id="studioaverage" required>
-		</div>
-	    <br>
-		<label class="control-label" for="currentyear" id="currentyear" style="float:right">שנה נוכחית:</label>
-		<div class="controls">
-            <select type="number" data-ng-model="student.CurrentYear" ng-options="year for year in years" required>
-                <option value="">בחר שנה...</option>
-            </select>
-		</div>
-		<br>
-		<label class="control-label" for="semester" id="semester" style="float:right"	>סמסטר: </label>
-		<div class="controls">
-			<select type="string" data-ng-model="student.Semester" required>
-				<option value="" disabled selected>בחר את הסמסטר בו אתה נמצא...</option>
-				<option value="winter">חורף</option>
-				<option value="sprint">אביב</option>
-			</select>
-		</div>		
-		<br>
-		<div class="control-group">
+		<!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showdet == false"></span>-->
+		<div>
+			<label for="name" class="control-label" style="float:right">שם פרטי</label>
 			<div class="controls">
-               <section>
-				<input type="submit" class="btn btn-success" value="עדכון" style="margin-bottom: 10px">
-                <i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:30px; padding-left: 10px" aria-hidden="true"></i>
-                </section>
+				<input id="firstname" type="text" name="firstname" placeholder="שם פרטי" ng-model="student.FirstName" required>
+			</div>
+			<br>
+			<label for="lastname" class="control-label" style="float:right">שם משפחה</label>
+			<div class="controls">
+				<input id="lastname" type="text" name="lastname" placeholder="שם משפחה" ng-model="student.LastName" required>
+			</div>
+			<br>
+			<label for="email" class="control-label" style="float:right">דוא"ל</label>
+			<div class="controls">
+				<input id="email" type="email" name="email" placeholder="דוא''ל" ng-model="student.Email" required>
+			</div>
+			<br>
+			<label class="control-label" for="average" style="float:right">ציון ממוצע:</label>
+			<div class="controls">
+				<input type="number" step="any" data-ng-model="student.Generalaverage" placeholder = "ציון סטודנט ממוצע" id="average" required>
+			</div>
+			<br>
+			<label class="control-label" for="studioaverage" style="float:right">ציון סטודיו ממוצע:</label>
+			<div class="controls">
+				<input type="number" step="any" data-ng-model="student.LastStudioGrade" placeholder = "ציון סטודיו ממוצע" id="studioaverage" required>
+			</div>
+			<br>
+			<label class="control-label" for="currentyear" id="currentyear" style="float:right">שנה נוכחית:</label>
+			<div class="controls">
+				<select type="number" data-ng-model="student.CurrentYear" ng-options="year for year in years" required>
+					<option value="">בחר שנה...</option>
+				</select>
+			</div>
+			<br>
+			<label class="control-label" for="semester" id="semester" style="float:right"	>סמסטר: </label>
+			<div class="controls">
+				<select type="string" data-ng-model="student.Semester" required>
+					<option value="" disabled selected>בחר את הסמסטר בו אתה נמצא...</option>
+					<option value="winter">חורף</option>
+					<option value="sprint">אביב</option>
+				</select>
+			</div>		
+			<br>
+			<div class="control-group">
+				<div class="controls">
+				<section>
+					<input type="submit" class="btn btn-success" value="עדכון" style="margin-bottom: 10px">
+					<i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:30px; padding-left: 10px" aria-hidden="true"></i>
+					</section>
+				</div>
 			</div>
 		</div>
 	</form>
