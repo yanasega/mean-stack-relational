@@ -1,7 +1,17 @@
 angular.module('mean.system').controller('CourseController', ['$scope', '$resource' ,'Global', 'Courses','$window',function ($scope, $resource ,Global ,Courses ,$window) {
     console.log("CourseController");
     $scope.global = Global;
-    $scope.showcourse = true;    
+    $scope.showcourse = false;    
+
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
 
     $scope.addCourse = function() {
         var course = new Courses({
@@ -21,6 +31,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
      $scope.find = function() {
         Courses.query(function(courses) {
             $scope.courses = courses; //yana: check if data relavent?
+            sleep(2000);
             $scope.showcourse = true;
         });
     };

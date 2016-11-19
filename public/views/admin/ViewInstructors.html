@@ -4,7 +4,8 @@
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showinstr == false"></span>
 <div id = "instructors" ng-show = "showinstr == true">
   <input ng-model = "query" type="text" placeholder="חיפוש...">
 
@@ -26,7 +27,7 @@
    </table>
 </div>
 
-<div>
+<div ng-show = "showinstr == true">
     <br>
     <p style = "font-size:20px">הוספת מנחה חדש</p>
     <hr>

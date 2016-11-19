@@ -4,13 +4,23 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     console.log("StudentsController");
     $scope.status = null;
     $scope.error = null;
-    $scope.showuser = true;
+    $scope.showuser = false;
     $scope.preferences = [];
     $scope.studentinstudio = [];
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
-    
+
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+            break;
+            }
+        }
+    }
+        
     $scope.create = function(){
         var tz = new Tzs({
             id : $scope.tz
@@ -143,8 +153,9 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
 
      $scope.find = function() {
         Students.query(function(students) {
-            $scope.students = students; 
-            // $scope.showreg = true;
+            $scope.students = students;
+            sleep(2500); 
+            $scope.showuser = true;
         });
         Tzs.query(function(tzs) {
             $scope.tzs = tzs; 
