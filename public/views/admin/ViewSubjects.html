@@ -4,7 +4,8 @@
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showsubj == false"></span>
 <div id = "instructors" ng-show = "showsubj == true">
   <input ng-model = "query" type="text" placeholder="Search...">
 
@@ -24,7 +25,7 @@
    </table>
 </div>
 
-<div>
+<div ng-show = "showsubj == true">
     <br>
     <p style = "font-size:20px">הוספת נושא חדש</p>
     <hr>

@@ -4,14 +4,10 @@
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showcourse == false"></span>
 <div id = "courses" ng-show = "showcourse == true">
   <input ng-model = "query" type="text" placeholder="חפש...">
-
-  <!--<select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
-  </select>
-  <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
-  </select>-->
 
    <table class = "table">
       <thead>
@@ -37,7 +33,7 @@
    </table>
 </div>
 
-<div>
+<div ng-show = "showcourse == true">
     <br>
     <p style = "font-size:20px">הוספת קורס חדש למערכת</p>
     <hr>
@@ -59,15 +55,6 @@
 				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
 			</div>
 		</div>
-		<!--<div class="control-group">
-			<label class="control-label" for="ismandatory" id="ismandatory">Mandatory?</label>
-			<div class="controls">
-				<select type="string" data-ng-model="ismandatory" required>
-					<option value="Yes">Yes</option>
-					<option value="No">No</option>
-				</select>
-			</div>
-		</div>-->
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">

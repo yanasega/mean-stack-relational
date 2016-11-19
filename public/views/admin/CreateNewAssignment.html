@@ -62,7 +62,7 @@
 
 <div ng-show="!assign" style = "text-align:center">
   <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> השיבוץ נשמר בהצלחה</p>
-  <a ui-sref="ViewPref">צפייה בשיבוצים קיימים</a>
+  <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קיימים</a>
 </div>
 
 
@@ -100,7 +100,8 @@
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item"
-                              ng-class="{'selected': models.selected === item}"      
+                              ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"      
                               >
                               {{item.FirstName + " " + item.LastName + " " + item.Preference}}
 
@@ -141,6 +142,7 @@
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item"
                               ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"
                               >
                             {{item.FirstName + " " + item.LastName}}
 
@@ -167,7 +169,7 @@
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
-                              ng-change="UpdateStudentsData()"
+                              ng-change="UpdateStudentsData(item,studio)"
                             ng-model="models.studioLists[studio.id]"
                              >
                             {{item.FirstName + " " + item.LastName + "" + item.preference}}

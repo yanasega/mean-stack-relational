@@ -12,6 +12,20 @@ var db = require('../../config/sequelize');
 // var PythonShell = require('python-shell');
 // var escapeJSON = require('escape-json-node');
 
+exports.tz = function(req, res, next, id) {
+    console.log('id => ' + id);
+    db.Tz.find({where: {id: id}}).then(function(tz){
+        if(!tz) {
+            return next(new Error('Failed to load tz ' + id));
+        } else {
+            req.tz = tz;
+            return next();            
+        }
+    }).catch(function(err){
+        return next(err);
+    });
+};
+
 exports.path = function(req, res, next, id) {
     req.csv_path = id;    
     return next();
@@ -66,6 +80,20 @@ exports.show = function(req, res) {
     // Sending down the registration that was just preloaded by the registrations.registration function
     // and saves registration on the req object.
     return res.jsonp(req.tz);
+};
+
+exports.destroy = function(req, res) {
+    // create a new variable to hold the article that was placed on the req object.
+    var tz = req.tz;
+
+    tz.destroy().then(function(){
+        return res.jsonp(tz);
+    }).catch(function(err){
+        return res.render('error', {
+            error: err,
+            status: 500
+        });
+    });
 };
 
 /**

@@ -7,8 +7,7 @@ module.exports = function(sequelize, DataTypes) {
 				primaryKey: true
 			},
             Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER,
-            IsMandatory : DataTypes.BOOLEAN //yana change to bool
+            CreditPoints : DataTypes.INTEGER
 		},{
 			freezeTableName: true
 		}
