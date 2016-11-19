@@ -1,42 +1,51 @@
 <head>
+    <!--<script src="..\css\common.css"></script>-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-  
-<div class="jumbotron text-left">
-  <p style="font-size:20px">New Assignment</p>
+ <body> 
+<div class="jumbotron">
+  <p style="font-size:20px">יצירת שיבוץ חדש</p>
   	<hr>
     <div class="row">
-    <div class ="col-md-3">
-      <div class="control-group">
-        <div class="dropdown">
-            <select ng-model="ChosenYear">
-             <option ng-repeat="x in year">{{x}}</option>
-            </select>
-        </div>
-   </div>
-  </div>
-     <div class ="col-md-3">
+      <div class = "col-md-6">
+     <div class ="col-md-12">
+       <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">המשך...</button>
+     </div>
+      </div>
+     <div class = "col-md-6">
+     <div class ="col-md-6">
       <div class="control-group">
         <div class="dropdown">
             <select ng-model="ChosenSemester">
-             <option >choose Semester ..</option>
-             <option >winter</option>
-             <option >spring</option>
+              <option value="choose semester..">בחר סמסטר...</option>
+              <option value="winter">חורף</option>
+              <option value="spring">אביב</option>
+             <!--<option ng-repeat="x in semester">{{x}}</option>-->
+            </select>
+      </div>
+  </div>
+  </div>
+    <div class ="col-md-6">
+      <div class="control-group">
+        <div class="dropdown">
+            <select ng-model="ChosenYear">
+              <option value="choose year..">בחר שנה...</option>
+              <option value="3,4">3,4</option>
+              <option value="5">5</option>
+             <!--<option ng-repeat="x in year">{{x}}</option>-->
             </select>
         </div>
    </div>
   </div>
-  <div class ="col-md-3">
-  <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">Generate Assigment</button>
   </div>
   </div>
   <div  class="row" style="padding-top:30px">
-    <div class ="col-md-6" style="float:right">
+    <div class ="col-md-4" style="float:left">
     <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
-      <button class="btn btn-info" ng-click="runAlgo()">Auto Assinment</button>
-      <button type="button" class="btn btn-danger" ng-click="init()">Clear Assinment</button>
-      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">Approve Assinment</button>
+      <button class="btn btn-info" ng-click="runAlgo()">שיבוץ אוטומטי</button>
+      <button type="button" class="btn btn-danger" ng-click="init()">נקה שיבוץ</button>
+      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">שמור שיבוץ</button>
 
    </div>
   </div>
@@ -52,16 +61,38 @@
 </div>
 
 <div ng-show="!assign" style = "text-align:center">
-  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> The assignment was savd successfuly.</p>
-  <a ui-sref="ViewPref">View Past assigmentes</a>
+  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> השיבוץ נשמר בהצלחה</p>
+  <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קיימים</a>
 </div>
 
-<div ng-show = loading>
+
+  <div class= "row" style ="float:right" ng-show = "addstudflag">
+     <form class="form-vertical" data-ng-submit="AddStudent()">
+            <div class="controls">
+              <div class="col-md-6">
+                <input type="text" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית סטודנט" required>
+              </div>
+               <div class="control-group;col-md-6">
+                <input type="submit" value = "חפש" class="btn btn-info">
+             </div>
+            </div>
+      </form>
+        <p ng-show="missingStatus">{{"סטודנט זה כבר קיים"}}</p>
+  </div>
+
+<div ng-show = "loading">
   <div class="container" id = thirdFourth  ng-if = "myBtn == true && ChosenYear == '3,4'" ng-show = "assign">
     <div class="row">
       <div class="col-sm-8" style="padding-bottom:10px">
             <div class = "col-sm-6"  ng-repeat= "studio in studios">
-              <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
+              <div class ="row">
+                <div class="col-sm-2" style="padding-top:7px; padding-left:45px;float: right;">
+                  <span class="badge" >{{studio.count}}</span><br>
+                </div>
+                <div class="col-sm-10">
+                  <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
+                </div>
+              </div>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
                     <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]" ng-change = 'UpdateStudentsData()'>
                           <li ng-repeat="item in models.studioLists[studio.id]"
@@ -69,9 +100,10 @@
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item"
-                              ng-class="{'selected': models.selected === item}"      
+                              ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"      
                               >
-                              {{item.FirstName + " " + item.LastName}}
+                              {{item.FirstName + " " + item.LastName + " " + item.Preference}}
 
                           </li>
                         </ul>
@@ -80,16 +112,16 @@
                   <table id = "infoTable" class="table table-hover" style= "width:300px">
                       <thead>
                         <tr>
-                          <th>Average Grade</th>
-                          <th>Average Grade in studio</th>
-                          <th>Female %</th>
-                          <th>male %</th>
+                          <th>ממוצע כללי</th>
+                          <th>ממוצע בסטודיו</th>
+                          <th>נשים %</th>
+                          <th>גברים %</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage}}</td>
-                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage}}</td>
+                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage | number:1}}</td>
+                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage | number:1}}</td>
                           <td id = "female" ng-init="">{{studio.female}}</td>
                           <td id = "male" ng-init="">{{studio.male}}</td>
                         </tr>
@@ -100,7 +132,7 @@
                   </br>
       </div>
       <div class="col-sm-4">
-        <h3 style="margin-top:0px">Students</h3>
+        <h3 style="margin-top:0px">רשימת סטודנטים</h3>
             <div style= "overflow:hidden; overflow-y:scroll; height:600px">
               <div class="simpleDemo">
                     <ul dnd-list="models.studioLists[0]">
@@ -110,6 +142,7 @@
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item"
                               ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"
                               >
                             {{item.FirstName + " " + item.LastName}}
 
@@ -121,6 +154,7 @@
     </div>
   </div>
 </div>
+     
 
 <div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
   <div class="row">
@@ -135,10 +169,10 @@
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
-                              ng-change="UpdateStudentsData()"
+                              ng-change="UpdateStudentsData(item,studio)"
                             ng-model="models.studioLists[studio.id]"
                              >
-                            {{item.FirstName + " " + item.LastName}}
+                            {{item.FirstName + " " + item.LastName + "" + item.preference}}
 
                          </li>
                       </ul>
@@ -147,10 +181,10 @@
                 <table id = "infoTable" class="table table-hover" style= "width:300px">
                     <thead>
                       <tr>
-                        <th>Average Grade</th>
-                        <th>Average Grade in studio</th>
-                        <th>Female %</th>
-                        <th>male %</th>
+                         <th>ממוצע כללי</th>
+                         <th>ממוצע בסטודיו</th>
+                         <th>נשים %</th>
+                         <th>גברים %</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -167,7 +201,7 @@
                  </br>
     </div>
     <div class="col-sm-4">
-      <h3 style="margin-top:0px">Students</h3>
+      <h3 style="margin-top:0px">סטודנטים</h3>
           <div style= "overflow:hidden; overflow-y:scroll; height:600px">
             <div class="simpleDemo">
 		              <ul dnd-list="models.studioLists[0]">
@@ -187,8 +221,7 @@
     </div>
   </div>
 </div>
-</section>
-
+ </body>
 
 
 

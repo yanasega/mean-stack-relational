@@ -17,7 +17,12 @@ app.route('/preferences/:preferenceId/:registrationId')
     .put(users.requiresLogin, preferences.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
+    app.route('/getstudentpreference/:StudentId/:Studio')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentId);
+
 
 // Note: the preferences.registration function will be called everytime then it will call the next function.
 app.param('preferenceId', preferences.preference);
+app.param('StudentId', preferences.setStudentId);
+app.param('Studio', preferences.setStudioId);
 };

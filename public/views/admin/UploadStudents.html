@@ -1,46 +1,64 @@
-<!--<form method="post" action="/upload" ng-file-select enctype="multipart/form-data">
-    <input type="file" name = "StudentsFile">
-    <input type="submit" name = "submit" value = "Submit">
-</form>-->
+
   <div class="container">
-      <p style = "font-size:20px" >Upload ID Files</p>
+      <p style = "font-size:20px" >טעינת קבצי תעודות הזהות</p>
       <hr>
-      <div class="container">
-              <form class="form-horizontal" data-ng-submit="addIds()">
-	<br>
+    <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+      <div class="container" ng-show = "showuser == true">
+        <form class="form-horizontal" data-ng-submit="addIds()">
+        <br>
 		<div class="control-group">
-            <label class="control-label" for="Ids">Upload Student ID File</label>
+            <label class="control-label" style="float: right" for="Ids">טען קובץ תעודות זהות:</label>
             <div class="controls">
             <input type="file" name = "Ids" ngf-select ng-model="Ids">
-            <p>Please note that the file must be is csv format</p>
+            <p>יש לטעון קבצי csv בלבד!</p>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>     
       </div>
   </div>
-  <div class="container">
-      <p style = "font-size:20px" >Upload Manualy</p>
+  <div class="container" ng-show = "showuser == true">
+      <p style = "font-size:20px" >טעינה ידנית</p>
       <hr>
       <div class="container">
           <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <label class="control-label" for="tz">Enter User ID:</label>
+            <label class="control-label" style="float: right" for="tz">הכנס תעודת זהות :</label>
             <div class="controls">
                 <input type="number" step="any" data-ng-model="tz" id="tz" required>
             </div>
             <br>
             <div class="control-group">
                 <div class="controls">
-                    <input type="submit" class="btn">
+                    <input type="submit" class="btn btn-success" value="שמור">
                 </div>
 		    </div>
           </form>
       </div>
   </div>
   <!--<a href="path">image</a>-->
-  <section><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  
-  <section><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:20px" aria-hidden="true"></i> {{error}} </p></section>
+  <section ng-show = "showuser == true"><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  
+  <section ng-show = "showuser == true"><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:20px" aria-hidden="true"></i> {{error}} </p></section>
+
+    <div class="container" ng-show = "showuser == true">
+      <p style = "font-size:20px" >תעודות זהות במערכת</p>
+      <hr>
+      <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th>מספר תעודת זהות</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="tz in tzs | filter:query">
+                <tr>
+                <td>{{tz.id}}</td>
+                <td><a class="btn btn-danger" ng-click=removetz(tz)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+                </tr>
+            </tbody>
+        </table>
+  </div>

@@ -1,32 +1,28 @@
 <div>
 	<br>
-		<p style = "font-size:20px">Manage System Students</p>
+		<p style = "font-size:20px">ניהול סטודנטים הרשומים במערכת</p>
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showuser == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showuser == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+
 <div id = "registrations" ng-show = "showuser == true">
-  <input ng-model = "query" type="text" placeholder="Search...">
+  <input ng-model = "query" type="text" placeholder="חיפוש...">
   
   <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
   </select>
-  <!--<select type="string" data-ng-model="year" required>
-  <option value="" disabled selected>Filter by year...</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  </select>-->
 
    <table class = "table">
       <thead>
          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>Current Year</th>
-            <th>Graduation Form</th>
+            <th>ת"ז</th>
+            <th>שם פרטי</th>
+            <th>שם משפחה</th>
+            <th>דוא"ל</th>
+            <th>מין</th>
+            <th>שנה</th>
+            <th>מצב טופס סיום</th>
             <th></th> 
             <th></th>
             <th></th>
@@ -38,16 +34,17 @@
         <td>{{stud.FirstName}}</td>
         <td>{{stud.LastName}}</td>
         <td>{{stud.Email}}</td>
-        <td>{{stud.Gender}}</td>
+        <td ng-if="stud.Gender == 'female'">{{"נ"}}</td>
+        <td ng-if="stud.Gender == 'male'">{{"ז"}}</td>   
         <td>{{stud.CurrentYear}}</td>
-        <td ng-if="stud.IsValid == false">{{"incomplete"}}</td>
-        <td ng-if="stud.IsValid == true">{{"complete"}}</td>       
-        <td><a href="" ui-sref = "StudentInfo({studentId : stud.id})" >View More</a></td>
-        <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
-        <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td ng-if="stud.IsValid == false">{{"טרם הושלם"}}</td>
+        <td ng-if="stud.IsValid == true">{{"הושלם"}}</td>       
+        <td><a href="" ui-sref = "StudentInfo({studentId : stud.id})" >פרטים</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
         </tr>
      </tbody>
 
    </table>
     <hr>
-    <p>{{"Total: " +students.length}}</p>
+    <p>{{"מספר כולל: " +students.length}}</p>
+</div>

@@ -115,7 +115,15 @@ exports.user = function(req, res, next, id) {
  */
 exports.requiresLogin = function(req, res, next) {
     if (!req.isAuthenticated()) {
-        return res.status(401).send('User is not authorized');
+        //return res.redirect('/views/401.html');
+        
+        return res.render('401', {
+            error: 'You are not loged in...',
+            status: 401
+        });
+        
+        //basic way of error handeling
+        // return res.status(401).send('User is not authorized');
     }
     next();
 };
@@ -124,8 +132,13 @@ exports.requiresLogin = function(req, res, next) {
  * User authorizations routing middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-    if (req.profile.id !== req.user.id) {
-      return res.status(401).send('User is not authorized');
+    if (!req.user.IsAdmin) {
+        return res.render('401', {
+            error: 'You are not authorized...',
+            status: 401
+        });
+    //   basic way of error handeling
+    //   return res.status(401).send('User is not authorized');
     }
     next();
 };

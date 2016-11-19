@@ -1,34 +1,35 @@
 <div ng-include="'../views/users/auth.html'"></div>
 <div ng-controller="signUp">
     <form ng-submit="signUp(user)"  class="signup form-horizontal">
+       <br>
         <div class="control-group">
-            <label for="id" class="control-label">ID</label>
+            <label for="id" style="float:right" class="control-label">ת"ז</label>
             <div class="controls">
-                <input id="id" type="text" name="id" placeholder="ID" ng-model="user.id" required>
+                <input id="id" type="text" name="id" placeholder="ת''ז" ng-model="user.id" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="name" class="control-label">First name</label>
+            <label for="name" style="float:right" class="control-label">שם פרטי</label>
             <div class="controls">
-                <input id="firstname" type="text" name="firstname" placeholder="First name" ng-model="user.firstname" required>
+                <input id="firstname" type="text" name="firstname" placeholder="שם פרטי" ng-model="user.firstname" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="lastname" class="control-label">Last name</label>
+            <label for="lastname" style="float:right" class="control-label">שם משפחה</label>
             <div class="controls">
-                <input id="lastname" type="text" name="lastname" placeholder="Last name" ng-model="user.lastname" required>
+                <input id="lastname" type="text" name="lastname" placeholder="שם משפחה" ng-model="user.lastname" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="email" class="control-label">Email</label>
+            <label for="email" style="float:right" class="control-label">דוא"ל</label>
             <div class="controls">
-                <input id="email" type="text" name="email" placeholder="Email" ng-model="user.email" required>
+                <input id="email" type="email" name="email" placeholder="דוא''ל" ng-model="user.email" required>
             </div>
         </div>
         <div class="control-group">
-            <label for="password" class="control-label">Password</label>
+            <label for="password" style="float:right" class="control-label">סיסמא</label>
             <div class="controls">
-                <input id="password" type="password" name="password" placeholder="Password" ng-model="user.password" required>
+                <input id="password" type="password" name="password" placeholder="סיסמא" ng-model="user.password" required>
             </div>
         </div>
         <!--<div class="control-group">
@@ -39,11 +40,11 @@
         </div>-->
         <!--added-->
         <div class="control-group">
-            <label for="gender" class="control-label">Gender</label>
+            <label for="gender" style="float:right" class="control-label">מין</label>
             <div class="controls"  required>
                 <!--<input id="gender" type="password" name="gender" placeholder="Gender" ng-model="user.gender" required>-->
-                <input type="radio" ng-model="user.gender" name="gender" value="male" > Male<br>
-                <input type="radio" ng-model="user.gender" name="gender" value="female" checked> Female<br>
+                <input type="radio" ng-model="user.gender" name="gender" value="male" > זכר<br>
+                <input type="radio" ng-model="user.gender" name="gender" value="female" checked> נקבה<br>
             </div>
         </div>
         <div class="control-group">
@@ -52,7 +53,7 @@
                 <input id="currentyear" type="password" name="currentyear" placeholder="Current Year" ng-model="user.currentyear" required>
             </div-->
             
-            <label class="control-label" for="currentyear" id="currentyear">Current Year</label>
+            <label class="control-label" for="currentyear" style="float:right" id="currentyear">שנה נוכחית</label>
 			<div class="controls">
 				<select type="string" data-ng-model="user.currentyear" required>
 					<option value="3">3</option>
@@ -61,31 +62,31 @@
 				</select>
 			</div>
             <br>
-            <label class="control-label" for="semester" id="semester">Current Semester</label>
+            <label class="control-label" for="semester" style="float:right" id="semester">סמסטר נוכחי</label>
 			<div class="controls">
 				<select type="string" data-ng-model="user.semester" required>
-					<option value="winter">Winter</option>
-                    <option value="spring">Spring</option>
+					<option value="winter">חורף</option>
+                    <option value="spring">אביב</option>
 				</select>
 			</div>
             <br>
             <div class="control-group">
-                <label for="generalaverage" class="control-label">General Average</label>
+                <label for="generalaverage" style="float:right" class="control-label">ממוצע כללי</label>
                 <div class="controls">
-                    <input id="generalaverage" type="number" step="any" name="generalaverage" placeholder="General Average" ng-model="user.generalaverage" required>
+                    <input id="generalaverage" type="number" step="any" name="generalaverage" placeholder="ממוצע כללי" ng-model="user.generalaverage" required>
                 </div>
             </div>
             <div class="control-group">
-                <label for="laststudiograde" class="control-label">Last Studio Grade</label>
+                <label for="laststudiograde" class="control-label" style="float:right">ממוצע סטודיו</label>
                 <div class="controls">
-                    <input id="laststudiograde" type="number" step="any" name="laststudiograde" placeholder="Last Studio Grade" ng-model="user.laststudiograde" required>
+                    <input id="laststudiograde" type="number" step="any" name="laststudiograde" placeholder="ממוצע סטודיו" ng-model="user.laststudiograde" required>
                 </div>
             </div>
         </div> 
         <section><br><p ng-show="status != null"> <i class="fa fa-times-circle-o red" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>
         <!--added-->
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Sign up&nbsp;</button>or&nbsp;<a ui-sref="SignIn" class="show-login">login</a>
+            <button type="submit" class="btn btn-primary">הרשמה&nbsp;</button>&nbsp;או&nbsp;<a ui-sref="SignIn" class="show-login">כניסה</a>
         </div>
     </form>
 </div>

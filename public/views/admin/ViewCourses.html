@@ -1,76 +1,63 @@
 <div>
 	<br>
-		<p style = "font-size:20px">Manage Courses</p>
+		<p style = "font-size:20px">ניהול מידע על קורסי המערכת</p>
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showcourse == false"></span>
 <div id = "courses" ng-show = "showcourse == true">
-  <input ng-model = "query" type="text" placeholder="Search...">
-
-  <!--<select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
-  </select>
-  <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
-  </select>-->
+  <input ng-model = "query" type="text" placeholder="חפש...">
 
    <table class = "table">
       <thead>
          <tr>
-            <th>Course ID</th>
-            <th>Name</th>
-            <th>Number Of Credit Points</th>
+            <th>מזהה קורס</th>
+            <th>שם הקורס</th>
+            <th>מספר נקודות זיכוי</th>
             <!--<th>Mandatory?</th>-->
             <!--<th></th>-->
             <th></th>
          </tr>
       </thead>
-     <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter">
-        <tr>
-        <td>{{course.Id}}</td>
+     <tbody ng-repeat="course in courses | filter:query | filter:yearFilter | filter:semesterFilter" >
+        <tr >
+        <td >{{course.Id}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
         <!--<td>{{course.IsMandatory}}</td>-->
         <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
-        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
         </tr>
      </tbody>
    </table>
 </div>
 
-<div>
+<div ng-show = "showcourse == true">
     <br>
-    <p style = "font-size:20px">Add New Course</p>
+    <p style = "font-size:20px">הוספת קורס חדש למערכת</p>
     <hr>
     <form class="form-horizontal" data-ng-submit="addCourse()">
 	<br>
 		<div class="control-group">
-            <label class="control-label" for="id">Course ID</label>
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
 			<div class="controls">
 				<input type="number" data-ng-model="id" id="id" required>
 			</div>
             <br>
-			<label class="control-label" for="name">Name</label>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
 			<div class="controls">
 				<input type="text" data-ng-model="name" id="name" required>
 			</div>
             <br>
-			<label class="control-label" for="creditpoints">Credit Points</label>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
 			<div class="controls">
 				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
 			</div>
 		</div>
-		<!--<div class="control-group">
-			<label class="control-label" for="ismandatory" id="ismandatory">Mandatory?</label>
-			<div class="controls">
-				<select type="string" data-ng-model="ismandatory" required>
-					<option value="Yes">Yes</option>
-					<option value="No">No</option>
-				</select>
-			</div>
-		</div>-->
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>     

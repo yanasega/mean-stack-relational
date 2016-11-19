@@ -1,38 +1,39 @@
 <section ng-show = "doneInsert == false">
-	<p style = "font-size:20px" ng-show="RegOpen == false">The preference registration is not open yet.</p>
-	<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. If you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>
+	<p style = "font-size:20px" ng-show="RegOpen == false">ההרשמת ההעדפות טרם נפתחה..</p>
+	<!--<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. If you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>-->
+	<p style = "font-size:20px" ng-show="NotValid == true">אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, אחרת, פנה לנציגות הפקולטה להמשך בירור.</p>
 	<div>
 	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false" data-ng-submit="updateStudent()">
 	<br>
-		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
-		<p style = "font-size:15px">Please update your information before proceeding.</p>
+		<p style = "font-size:20px" >עדכון פרטים</p>
+		<p style = "font-size:15px">אנא עדכן את פרטייך.</p>
 		<hr>
-		<label class="control-label" for="average">Average Grade:</label>
+		<label class="control-label" for="average" style="float: right;">ציון ממוצע</label>
 		<div class="controls">
 			<input type="number" step="any" data-ng-model="average" id="average" required>
 		</div>
 		<br>
-		<label class="control-label" for="studioaverage">Average Studio Grade:</label>
+		<label class="control-label" for="studioaverage" style="float: right;">ציון סטודיו ממוצע:</label>
 		<div class="controls">
 			<input type="number" step="any" data-ng-model="studioaverage" id="studioaverage" required>
 		</div>
 	<br>
-		<label class="control-label" for="currentyear" id="currentyear">Current Year:</label>
+		<label class="control-label" style="float: right;" for="currentyear" id="currentyear">שנה נוכחית</label>
 		<div class="controls">
 			<select type="string" data-ng-model="currentyear" required>
-				<option value="" disabled selected>Select your current year...</option>
+				<option value="" disabled selected>בחר שנה...</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
 				<option value="5">5</option>
 			</select>
 		</div>
 		<br>
-		<label class="control-label" for="semester" id="semester">Relevant Semester: </label>
+		<label class="control-label" style="float: right;" for="semester" id="semester">סמסטר נוכחי </label>
 		<div class="controls">
 			<select type="string" data-ng-model="semester" required>
-				<option value="" disabled selected>Select your semester...</option>
-				<option value="winter">Winter</option>
-				<option value="sprint">Spring</option>
+				<option value="" disabled selected>בחר סמסטר...</option>
+				<option value="winter">חורף</option>
+				<option value="sprint">אביב</option>
 			</select>
 		</div>		
 		<br>
@@ -43,27 +44,27 @@
 		</div>
 	</form>
 	<form class="form-horizontal" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
-		<p style = "font-size:20px" >Insert Assignment Prefernces</p>
+		<p style = "font-size:20px" >הזנת העדפות</p>
 		<hr>
 		<div class="control-group" ng-repeat="stud in studios">
-			<label class="control-label" for="options">{{$index +1 + "."}}</label>
+			<label class="control-label" style="float: right;" for="options">{{$index +1 + "."}}</label>
 			<div class="controls">
 				<select type="string" ng-model = "general.studio[$index]" ng-options = "studio.Name for studio in studios | filter:IsInPref" ng-change ="updatePref(general.studio[$index].id, $index) " required>
-                    <option value="" disabled selected>Select your option...</option>
+                    <option value="" disabled selected>בחר העדפה...</option>
 				</select>
 			</div>
 		</div>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<label class="control-label" for="requests">Special Requests</label>
 			<div class="controls">
 				<textarea data-ng-model="requests" id="requests" cols="30" rows="5" placeholder="Special Requests..."></textarea>
 			</div>
-		</div>
+		</div>-->
 		<div class="control-group">
 
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>
@@ -71,7 +72,7 @@
 </section>
 <section ng-show = "doneInsert == true">
 	<p><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{message}} </p>
-	<a ui-sref="ViewPref">View preferences</a>
+	<a ui-sref="ViewPref">צפייה בהעדפות שהוזנו</a>
 </section> 
 
 

@@ -8,7 +8,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.myBtn = false;
     $scope.loading = true;
     $scope.assign = true;
+    $scope.addstudflag = false;
     $scope.assignments = null;
+    $scope.missingStatus = false;
 
 
     $scope.studios = [];
@@ -21,9 +23,47 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.emptyStudio = function (){
     $scope.studios = [];
 }
+
+  $scope.getStudios = function(){
+             Studios.query(function(studios){
+            studios.forEach(function(studio) {
+                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
+                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }
+                }
+                else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+
+                  else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
+                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+
+                   else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
+                        $scope.studios.push(studio);
+                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+                    }                
+                }
+                else{
+                    $scope.models.studioLists = {};
+                }
+            }, this);
+        });
+    }
+
+
     $scope.init = function (){
      //check if all drop d is Chosen 
-     if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose Semester .." ){
+     if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
          alert("please choose relevant year and Semester");
          return;
      }
@@ -58,58 +98,19 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             }, this);
         });
 
-        Studios.query(function(studios){
-            studios.forEach(function(studio) {
-                if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
-                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }
-                }
-                else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-
-                  else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-
-                   else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
-                        $scope.studios.push(studio);
-                        $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
-                    }                
-                }
-                else{
-                    $scope.models.studioLists = {};
-                }
-            }, this);
-        });
-
+        $scope.getStudios();
+        $scope.addstudflag = true;
     }
+
 
     $scope.findAssignments = function (){
         Assignments.query(function(assignments) {
             $scope.assignments = assignments; 
         });
     }
-   //default value for drop down list
-    $scope.year = ["choose year..","3,4", "5"];
+
     $scope.ChosenYear = "choose year..";
-    $scope.ChosenSemester = "choose Semester ..";
-
-
-    // Generate initial model
-    // Model to JSON for demo purpose
-    $scope.$watch('models', function(model) {
-        $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
+    $scope.ChosenSemester = "choose semester..";
 
     $scope.$watch('models.studioLists', function (model) {
          var count = 0;
@@ -142,17 +143,35 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             studio.SAverage = SAverage/count;
             studio.female = parseInt((female/count)*100);
             studio.male = parseInt((Male/count)*100);
+            studio.count = count;
             }
             else{
             studio.GAverage = "";
             studio.SAverage = "";
             studio.female = "";
-            studio.male = "";  
+            studio.male = ""; 
+            studio.count = ""; 
             }
            
         }, this);
     }, true);
 
+    $scope.changePrefrence =  function(moved_student,studio) {
+        $scope.studios.forEach(function(studio) {
+            $scope.models.studioLists[studio.id] .forEach(function(student){
+                if(student.id == moved_student.id){
+                    $http.get('/getstudentpreference/' + student.id + '/' + studio.id).success(function(preference){
+                        if (preference){
+                            student.Preference = preference.Rate;
+                            console.log("me");
+                            // $scope.models.studioLists[studentinstudio.Studio].unshift(student);
+                        }
+                    })                 
+                }
+            }, this);
+           
+        }, this);       
+    }
 
     $scope.runAlgo = function(){
         $scope.loading = false;
@@ -171,14 +190,16 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 studio.id_list.forEach(function(student) {
                     $scope.students.forEach(function(obj) {
                        if (obj.id == student[0]){
-                        $scope.models.studioLists[studio.studio].unshift(obj); 
+                            obj.Preference = student[1];
+                            $scope.models.studioLists[studio.studio].unshift(obj); 
                        } 
                     }, this);
                 }, this)
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
-                studio.female = (studio.female/studio.total_in_studio)*100;
-                studio.male = (studio.male/studio.total_in_studio)*100;
+                studio.female = ((studio.female/studio.total_in_studio)*100);
+                studio.male = ((studio.male/studio.total_in_studio)*100);
+                studio.count = studio.total_in_studio;
             }, this);
             $scope.loading = true;
         }).error(function (respData) {
@@ -210,26 +231,104 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                         });
                         }
                     }, this);
-                }, this); 
+            }, this); 
             $scope.assign = false;
         });
     }
 
-    //this is th edit section
+    $scope.AddStudent= function(){
+        $scope.missingStatus = false;
+        Students.get({
+            studentId:$scope.MissingStudent
+        },function(student){
+            $scope.models.studioLists[0].forEach(function(obj) {
+                if (student.id == obj.id){
+                    $scope.missingStatus = true;
+                }
+            }, this);
+            $scope.studios.forEach(function(studio) {
+                $scope.models.studioLists[studio.id].forEach(function(obj) {
+                    if (student.id == obj.id){
+                        $scope.missingStatus = true;
+                    }
+                }, this);
+            }, this);
+            if(!$scope.missingStatus){
+                $scope.models.studioLists[0].push(student);
+            }
+        })
+        $scope.MissingStudent = "";
+    }
+
+    //this is the edit section
     $scope.Load = function(){
-        $scope.loading = false;
+        $scope.loading = true;
+        $scope.emptyStudio();
+        $scope.models.studioLists[0] = [];
         Assignments.get({
             assignmentId: $stateParams.assignmentId
         }, function(assignment) {
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
         });
-        StudentInStudio.get({
-            
+        $scope.getStudios();
+        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){
+            respData.forEach(function(studentinstudio) {
+                Students.get({
+                    studentId: studentinstudio.IdStudent
+                }, function(student) {
+                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
+                    console.log("got");
+                    if (preference){
+                        student.preference = preference.Rate;
+                        $scope.models.studioLists[studentinstudio.Studio].unshift(student);
+                    }
+                })
+              });       
+            }, this);  
         })
+        console.log("done");
+        $scope.loading = false;
+    }
 
-
-        $scope.loading = true;
+    $scope.UpdateAssinment = function(){
+        $scope.studios.forEach(function(studio) {
+            $scope.models.studioLists[studio.id].forEach(function(student) {
+                    if (student.length != 0){
+                        $http.get('/getstudentinstudio/' + $stateParams.assignmentId + "/" + student.id).success(function(respData){
+                            if (respData.length){
+                                var studentinstudio = new StudentInStudio({
+                                    IdStudent: respData[0].IdStudent,
+                                    Studio: respData.Studio,
+                                    Instructor: respData.Instructor,
+                                    AId: respData[0].AId
+                                });
+                                studentinstudio.Instructor = studio.Instructor;
+                                studentinstudio.Studio = studio.id;
+                                if (!studentinstudio.updated) {
+                                    studentinstudio.updated = [];
+                                }
+                                studentinstudio.updated.push(new Date().getTime());
+                                    studentinstudio.$update(function() {
+                                        console.log("success");
+                                }); 
+                            }
+                            else{
+                                var studentinstudio = new StudentInStudio({
+                                    IdStudent: student.id,
+                                    Studio: studio.id,
+                                    Instructor: studio.Instructor,
+                                    AId: $stateParams.assignmentId
+                                });
+                                studentinstudio.$save(function(response) {
+                                    console.log('success');
+                                });
+                            }
+                        })
+                    }
+                }, this);
+        }, this);    
+               
     }
     //this is the view section
 }]);

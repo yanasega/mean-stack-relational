@@ -1,9 +1,18 @@
 angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
     console.log("RegistrationController");
     $scope.global = Global;
-    $scope.showreg = true;
+    $scope.showreg = false;
     $scope.status = null;
-    $scope.RegEmpty = true;
+    $scope.RegEmpty = null;
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
 
     $scope.openRegistration = function() {
         
@@ -54,6 +63,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                 registrations.forEach(function(reg) {
                     if(reg.IsActive == true){
                         $scope.RegEmpty = false;
+                        // sleep(1500);
+                        // $scope.showreg = true;
                     }
                 }, this);
             }

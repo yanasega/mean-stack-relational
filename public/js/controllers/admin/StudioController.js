@@ -5,6 +5,15 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
     $scope.isactive = true;
     $scope.sylabus = null;
 
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+            break;
+            }
+        }
+    }
+
     $scope.addStudio = function() {
         if ($scope.sylabus != null){
             $scope.upload = Upload.upload({
@@ -57,15 +66,18 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
      $scope.find = function() {
 
         SubjectMap.query(function(subjects) {
+            sleep(500);
             $scope.subjects = subjects; //yana: add error
         });
 
         Instructors.query(function(instructors) {
+            sleep(500);
             $scope.instructors = instructors; //yana: add error
         });
 
         Studios.query(function(studios) {
             $scope.studios = studios; //yana: add error
+            sleep(500);
             $scope.studios.forEach(function(studio) {
                $scope.subjects.forEach(function(subject) {
                    if(subject.id == studio.Subject){
@@ -78,7 +90,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                    }                  
                }, this); 
             }, this);
-
+            sleep(1500);
             $scope.showstud = true;
         });
         
@@ -188,7 +200,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
     $scope.filterYearOptions = {
         stores: [
-        {id : 2, name : 'Filter by year...', years: 'Filter by year...' },
+        {id : 2, name : 'סנן לפני שנים...', years: 'סנן לפני שנים...' },
         {id : 3, name : '3,4', years: '3,4' },
         {id : 4, name : '5', years: '5' }
         ]
@@ -201,7 +213,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
     $scope.yearFilter = function (data) {
         if (data.RelevantYears === $scope.filterYear.store.years) {
             return true;
-        } else if ($scope.filterYear.store.years === 'Filter by year...') {
+        } else if ($scope.filterYear.store.years === 'סנן לפני שנים...') {
             return true;
         } else {
             return false;
@@ -210,7 +222,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
     $scope.filterSemesterOptions = {
         stores: [
-        {id : 2, name : 'Filter by semester...', semesters: 'Filter by semester...' },
+        {id : 2, name : 'סנן לפי סמסטר...', semesters: 'סנן לפי סמסטר...' },
         {id : 3, name : 'winter', semesters: 'winter' },
         {id : 4, name : 'spring', semesters: 'spring' }
         ]
@@ -223,7 +235,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
     $scope.semesterFilter = function (data) {
         if (data.Semester === $scope.filterSemester.store.semesters) {
             return true;
-        } else if ($scope.filterSemester.store.semesters === 'Filter by semester...') {
+        } else if ($scope.filterSemester.store.semesters === 'סנן לפי סמסטר...') {
             return true;
         } else {
             return false;

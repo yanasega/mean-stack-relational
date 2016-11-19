@@ -1,18 +1,19 @@
 <div>
 	<br>
-		<p style = "font-size:20px">Manage Studio Subjects</p>
+		<p style = "font-size:20px">ניהול מידע אודות נושאי סטודיו</p>
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showsubj == false"></span>
 <div id = "instructors" ng-show = "showsubj == true">
   <input ng-model = "query" type="text" placeholder="Search...">
 
    <table class = "table">
       <thead>
          <tr>
-            <th>Subject ID</th>
-            <th>Subject Name</th>
+            <th>מספר מזהה</th>
+            <th>שם הנושא</th>
          </tr>
       </thead>
      <tbody ng-repeat="subject in subjects | filter:query">
@@ -24,14 +25,14 @@
    </table>
 </div>
 
-<div>
+<div ng-show = "showsubj == true">
     <br>
-    <p style = "font-size:20px">Add New Subject</p>
+    <p style = "font-size:20px">הוספת נושא חדש</p>
     <hr>
     <form class="form-horizontal" data-ng-submit="addSubject()">
 	<br>
 		<div class="control-group">
-			<label class="control-label" for="subjectname">Subject Name</label>
+			<label class="control-label" style="float: right" for="subjectname">שם הנושא</label>
 			<div class="controls">
 				<input type="text" data-ng-model="subjectname" id="subjectname" required>
 			</div>
@@ -39,7 +40,7 @@
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn">
+				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
 		</div>
 	</form>     

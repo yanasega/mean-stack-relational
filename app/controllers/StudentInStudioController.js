@@ -52,18 +52,28 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     // create a new variable to hold the studentinstudio that was placed on the req object.
-    var studentinstudio = req.studentinstudio;
-    studentinstudio.updateAttributes({
-        Studio: req.body.Studio,
-        Instructor: req.body.Instructor
-    }).then(function(a){
-        return res.jsonp(a);
+    db.StudentInStudio.find({where: {IdStudent: req.body.IdStudent, AId : req.body.AId}}).then(function(studentinstudio){
+        if(!studentinstudio) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+            return res.jsonp(null);
+        } else {
+            console.log(req.body.Studio);
+            studentinstudio.updateAttributes({
+                Instructor: req.body.Instructor,
+                Studio: req.body.Studio
+            }).then(function(a){
+                return res.jsonp(a);
+            }).catch(function(err){
+                return res.render('500', {
+                    error: err, 
+                    status: 500
+                });
+            });
+        }
     }).catch(function(err){
-        return res.render('500', {
-            error: err, 
-            status: 500
-        });
+        return next(err);
     });
+
 };
 
 /**
