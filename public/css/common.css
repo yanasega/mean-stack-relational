@@ -1,11 +1,51 @@
+/*added manualy*/
+@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+body{
+  font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+  direction: rtl;
+}
+div{
+      font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+th{
+    text-align: right !important;
+}
+td{
+    text-align: right !important
+}
 .navbar .nav>li>a.brand {
     padding-left:20px;
-    margin-left:0
+    margin-left:0;
+    float: right;
 }
 
+.btn{
+    font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;  
+}
+.btn-primary{
+  font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+
+/*added manualy*/
 .content {
     margin-top:50px;
-    width:100%
+    width:100%;
 }
 
 footer {
@@ -27,3 +67,169 @@ footer p {
 .green{
     color: #158106;
 }
+.red{
+    color: red;
+}
+
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.simpleDemo ul[dnd-list],
+.simpleDemo ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+    
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+    border:  2px black;
+   
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.simpleDemo ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.data_box1{
+width: 50px;
+padding-bottom: 2px;
+text-align: center;
+}
+.assinmentBtn{
+    float:right;
+}
+
+.spinner-dot-in,
+.spinner-dot-stick,
+.spinner-double-dot-stick,
+.spinner-dot-out,
+.spinner-double-dot-out,
+.spinner-double-dot-in,
+.spinner-wave-out,
+.spinner-wave-in,
+.spinner-double-wave-out,
+.spinner-double-wave-in,
+.spinner-huge-wave-out,
+.spinner-huge-wave-in,
+.spinner-section,
+.spinner-section-in,
+.spinner-double-section-in,
+.spinner-section-out,
+.spinner-double-section-out,
+.spinner-section-far,
+.spinner-double-section-far,
+.spinner-double-section {
+  display: block;
+  float: left;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3.125px solid #aaa;
+  animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Waves */
+.spinner-wave-out {
+  box-shadow: -1.5625px -1.5625px 0 1.5625px tomato;
+}
+
+.spinner-wave-in {
+  box-shadow: inset -1.5625px -1.5625px 0 1.5625px tomato;
+}
+
+.spinner-double-wave-out {
+  box-shadow: -1.5625px -1.5625px 0 1.5625px tomato, 1.5625px 1.5625px 0 1.5625px tomato;
+}
+
+.spinner-double-wave-in {
+  box-shadow: inset -1.5625px -1.5625px 0 1.5625px tomato, inset 1.5625px 1.5625px 0 1.5625px tomato;
+}
+
+.spinner-huge-wave-out {
+  box-shadow: -1.5625px -1.5625px 0 6.25px tomato;
+}
+
+.spinner-huge-wave-in {
+  box-shadow: inset -1.5625px -1.5625px 0 6.25px tomato;
+}
+
+
+ /*<style>
+    table
+    {
+      border-collapse: collapse;
+    }
+
+    table, th, td
+    {
+      border: 1px solid #e1e1e1;
+    }
+
+    th, td
+    {
+      padding: 6px;
+    }
+
+    thead
+    {
+      background-color: #fcfcfc;
+    }
+  </style>*/

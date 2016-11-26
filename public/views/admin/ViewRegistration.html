@@ -1,30 +1,54 @@
-<div>
-	<br>
-		<p style = "font-size:20px">Edit/Remove existing registrations</p>
-		<hr>
-</div>
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg == false"></i>
-<div id = "registrations" ng-show = "showreg == true">
+	
+<form class="form" ng-show = "RegEmpty == true" data-ng-submit="openRegistration()">
+  <br>
+    <p style = "font-size:20px" >פתיחת הרשמה</p>
+    <hr>
+   <p>כרגע אין הרשמות פתוחות...</p>
+    <div class="control-group">
+      <label class="control-label" for="semester" style="float: right" id="semester">סמסטר</label>
+      <div class="controls">
+        <select type="string" data-ng-model="semester" required>
+          <option value="winter">חורף</option>
+          <option value="spring">אביב</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <input type="submit" class="btn btn-success" value="שמור">
+      </div>
+    </div>
+</form>
+
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>-->
+<div id = "registrations" ng-show = "RegEmpty == false">
+  <div>
+    <br>
+      <p style = "font-size:20px">ניהול הרשמה</p>
+      <hr>
+  </div>
+  <!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>-->
    <table class = "table">
       <thead>
          <tr>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Semester</th>
-            <th>Status</th>
-            <th></th>
+            <th>תאריך פתיחה</th>
+            <th>תאריך סגירה</th>
+            <th>סמסטר</th>
+            <th> סטאטוס הרשמה</th>
             <th></th>
          </tr>
       </thead>
      <tbody ng-repeat="reg in registrations">
         <tr>
-        <td>{{reg.startdate | date : "dd.MM.y"}}</td>
-        <td>{{reg.enddate | date : "dd.MM.y"}}</td>
-        <td>{{reg.semester}}</td>
-        <!--yana:check:-->
-        <td>{{reg.enddate == Date.now()}}</td> 
-        <td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>
-        <td><a class="btn btn-danger" ng-click=remove(reg)><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+        <td>{{reg.StartDate | date : "dd.MM.y"}}</td>
+        <td>{{reg.EndDate | date : "dd.MM.y"}}</td>
+        <!--<td>{{reg.Semester}}</td>-->
+        <td ng-show="reg.Semester == 'winter'">{{"חורף"}}</td> 
+        <td ng-show="reg.Semester == 'spring'">{{"אביב"}}</td> 
+        <td ng-show="reg.IsActive == true">{{"פעילה"}}</td> 
+        <td ng-show="reg.IsActive ==false">{{"סגורה"}}</td> 
+
+        <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> סגירת הרשמה</a></td>
         </tr>
      </tbody>
 
@@ -32,10 +56,3 @@
 
 </div>
 
-<div>
-	<br>
-		<p style = "font-size:20px">Registration Statistics:</p>
-		<hr>
-       <p></p>
-       <p></p>
-</div>

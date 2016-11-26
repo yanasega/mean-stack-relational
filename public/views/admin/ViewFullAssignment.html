@@ -1,0 +1,162 @@
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "loading"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "loading == false"></span>
+<section data-ng-init="Load()"> 
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+  
+<div ng-show = "loading" class="jumbotron text-left" style="height:200px">
+  <p style="font-size:20px;float: right;">צפייה בשיבוץ</p>
+  	<br>
+    <br>
+    <hr>
+    <div class="row">
+
+      <div class ="col-md-3" style="float:right">
+        <div class="control-group">
+          <div style="width: 60%;">
+              <input style="height:30px;" type="text" disabled ng-model="ChosenYear" disabled>
+          </div>
+        </div>
+      </div>
+     <div class ="col-md-3" style="float:right;width: 0;">
+        <div class="control-group">
+          <div  ng-if = "ChosenSemester == 'winter'">
+              <input style="height:30px"  type="text" value="חורף" disabled>
+          </div>
+          <div  ng-if = "ChosenSemester != 'winter'">
+              <input style="height:30px"  type="text" value="אביב" disabled>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</br>
+</br>
+
+
+<div ng-show = "loading">
+  <div class="container" id = thirdFourth  ng-if = "ChosenYear == '3,4'" >
+    <div class="row">
+            <div class = "col-sm-4"  ng-repeat= "studio in studios">
+              <div class ="row">
+                <div class="col-sm-2" style="padding-top:7px; padding-left:45px;float: right">
+                  <span class="badge" >{{studio.count}}</span><br>
+                </div>
+                <div class="col-sm-10">
+                  <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
+                </div>
+              </div>
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]" ng-change = 'UpdateStudentsData()'>
+                          <li ng-repeat="item in models.studioLists[studio.id]"
+                              dnd-draggable="item"
+                              dnd-moved="models.studioLists[studio.id].splice($index, 1)"
+                              dnd-effect-allowed="move"
+                              dnd-selected="models.selected = item"
+                              ng-class="{'selected': models.selected === item}"      
+                              >
+                              {{item.FirstName + " " + item.LastName  + " " + item.preference}}
+
+                          </li>
+                        </ul>
+                    </div>
+                    </br>
+                  <table id = "infoTable" class="table table-hover" style= "width:300px">
+                      <thead>
+                        <tr>
+                         <th>ממוצע כללי</th>
+                         <th>ממוצע בסטודיו</th>
+                         <th>נשים %</th>
+                         <th>גברים %</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage| number:1}}</td>
+                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage| number:1}}</td>
+                          <td id = "female" ng-init="">{{studio.female}}</td>
+                          <td id = "male" ng-init="">{{studio.male}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  </br>
+                  </br>
+    </div>
+  </div>
+</div>
+
+<div class="container" id =fifth  ng-if = "ChosenYear == '5'">
+  <div class="row">
+    <div class="col-sm-8" style="padding-bottom:10px">
+          <div class = "col-sm-6"  ng-repeat= "studio in studios">
+             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+		              <ul dnd-list="models.studioLists[studio.id]" >
+                         <li ng-repeat="item in models.studioLists[studio.id]"
+                            dnd-draggable="item"
+                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
+                            dnd-effect-allowed="move"
+                            dnd-selected="models.selected = item"
+                            ng-class="{'selected': models.selected === item}"
+                              ng-change="UpdateStudentsData()"
+                            ng-model="models.studioLists[studio.id]"
+                             >
+                            {{item.FirstName + " " + item.LastName}}
+
+                         </li>
+                      </ul>
+	                 </div>
+                   </br>
+                <table id = "infoTable" class="table table-hover" style= "width:300px">
+                    <thead>
+                      <tr>
+                         <th>ממוצע כללי</th>
+                         <th>ממוצע בסטודיו</th>
+                         <th>נשים %</th>
+                         <th>גברים %</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id = "AverageGrade" >{{Sdata.GAverage}}</td>
+                        <td id = "AverageGradeinstudio">{{Sdata.SAverage}}</td>
+                        <td id = "female">{{Sdata.female}}</td>
+                        <td id = "male">{{Sdata.male}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                 </div>
+                 </br>
+                 </br>
+    </div>
+    <div class="col-sm-4">
+      <h3 style="margin-top:0px">Students</h3>
+          <div style= "overflow:hidden; overflow-y:scroll; height:600px">
+            <div class="simpleDemo">
+		              <ul dnd-list="models.studioLists[0]">
+                         <li ng-repeat="item in models.studioLists[0]"
+                            dnd-draggable="item"
+                            dnd-moved="models.studioLists[0].splice($index, 1)"
+                            dnd-effect-allowed="move"
+                            dnd-selected="models.selected = item"
+                            ng-class="{'selected': models.selected === item}"
+                             >
+                           {{item.FirstName + " " + item.LastName}}
+
+                         </li>
+                   </ul>
+	            </div>
+          </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+
+
+

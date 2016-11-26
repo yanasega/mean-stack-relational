@@ -1,0 +1,117 @@
+<div data-ng-init="findOne()">
+	<br>
+		<p style = "font-size:20px">פרטי הסטודנט: {{student.FirstName + " " + student.LastName}}</p>
+		<hr>
+</div>
+
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+<table class = "table" ng-show = "showuser == true">
+    <thead>
+        <tr>
+        <th>ת"ז</th>
+        <th>שם פרטי</th>
+        <th>שם משפחה</th>
+        <th>דוא"ל</th>
+        <th>מין</th>
+        <th>שנה</th>
+        <th>ממוצע כללי</th>
+        <th>ממוצע סטודיו</th>
+        <th>מצב טופס גמר</th>
+        <th></th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody ng-model="student">
+    <tr>
+    <td>{{student.id}}</td>
+    <td>{{student.FirstName}}</td>
+    <td>{{student.LastName}}</td>
+    <td>{{student.Email}}</td>
+    <td>{{student.Gender}}</td>
+    <td>{{student.CurrentYear}}</td>
+    <td>{{student.Generalaverage}}</td>  
+    <td>{{student.LastStudioGrade}}</td>  
+    <td ng-if="student.IsValid == false">{{"טרם הושלם"}}</td>
+    <td ng-if="student.IsValid == true">{{"הושלם"}}</td>     
+    <td><a class="btn btn-default btn-sm" ui-sref="editStudent({studentId : student.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
+    <td><a class="btn btn-danger" ng-click=removeView(stud)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div ng-show = "showuser == true">
+	<br>
+		<p style = "font-size:20px">שיבוצים קודמים</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>סטודיו</th>
+                <th>מנחה</th>
+                <th>תאריך</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sis in studentinstudio">
+            <tr>
+            <td>{{sis.Studio}}</td>
+            <td>{{sis.Instructor}}</td>
+            <td>{{sis.createdAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+</div>
+
+<div ng-show = "showuser == true">
+	<br>
+		<p style = "font-size:20px">מצב טופס גמר</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>מזהה קורס</th>
+                <th>שם הקורס</th>
+                <th>סטאטוס</th>
+                <th>תאריך עדכון אחרון</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sic in studentincourse">
+            <tr>
+            <td>{{sic.IdCourse}}</td>
+            <td>{{sic.CourseName}}</td>
+            <td>{{sic.IsDone}}</td>
+            <td>{{sic.updatedAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+</div>
+
+<div ng-show = "showuser == true">
+	<br>
+		<p style = "font-size:20px">היסטוריית העדפות</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>שנה</th>
+                <th>תאריך</th>
+                <th>סמסטר</th>
+                <th>סטודיו</th>
+                <th>דירוג</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="pref in preferences">
+            <tr>
+            <td>{{pref.StudentYear}}</td>
+            <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
+            <td>{{pref.Semester}}</td>
+            <td>{{pref.IdS}}</td>
+            <td>{{pref.Rate}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+</div>
