@@ -1,0 +1,26 @@
+<div data-ng-init="findAssignments()">
+	<br>
+		<p style = "font-size:20px">שיבוצים קודמים</p>
+		<hr>
+        <table class = "table">
+            <thead>
+                <tr>
+                <th>תאריך יצירה</th>
+                <th>שנים</th>
+                <th>סמסטר</th>
+                <th></th>
+                <!--<th></th>-->
+                </tr>
+            </thead>
+            <tbody ng-repeat="ass in assignments">
+            <tr>
+            <td>{{ass.createdAt | date : "dd.MM.y"}}</td>
+            <td>{{ass.Year}}</td>
+            <td>{{ass.Semester}}</td>
+            <td><a class="btn btn-info" ui-sref="viewFullAssignment({assignmentId : ass.id})"><i class="fa fa-eye"></i> טעינה</a>
+            <a class="btn btn-default btn-sm" ui-sref="editAssignment({assignmentId : ass.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
+            </tr>
+            </tbody>
+
+        </table>
+</div>

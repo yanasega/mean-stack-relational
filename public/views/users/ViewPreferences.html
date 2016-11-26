@@ -1,0 +1,27 @@
+<div >
+	<br>
+		<p style = "font-size:20px">היסטורית העדפות</p>
+		<hr>
+    <table class = "table">
+        <thead>
+            <tr>
+            <th>שנה</th>
+            <th>תאריך</th>
+            <th>סמסטר</th>
+            <th>סטודיו</th>
+            <th>דירוג</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="pref in preferences">
+        <tr>
+        <td>{{pref.StudentYear}}</td>
+        <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
+        <td>{{pref.Semester}}</td>
+        <td>{{pref.IdS}}</td>
+        <td>{{pref.Rate}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>

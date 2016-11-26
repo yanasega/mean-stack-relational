@@ -1,4 +1,4 @@
-<section ng-show="status == null">
+<section>
 	<form class="form-horizontal" data-ng-submit="openRegistration()">
 	<br>
 		<p style = "font-size:20px" >Open Registration</p>
@@ -8,6 +8,7 @@
 			<div class="controls">
 				<input type="date" data-ng-model="startdate" id="startdate" required>
 			</div>
+			<br>
 			<label class="control-label" for="enddate">End Date</label>
 			<div class="controls">
 				<input type="date" data-ng-model="enddate" id="enddate" required>
@@ -29,4 +30,7 @@
 		</div>
 	</form>
 </section>
+<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show="showreg == false"></i>
+
+<!--yana:chenge to red if problem-->
 <section><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{status}} </p></section>	  

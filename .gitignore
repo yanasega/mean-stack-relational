@@ -25,6 +25,7 @@ node_modules/
 public/lib
 test/coverage/
 migrations/
+app/algo
 
 # Configuration Files
 /config/env/development.json5

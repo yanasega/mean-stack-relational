@@ -3,9 +3,12 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Registration = sequelize.define('Registration', {
-			startdate: DataTypes.DATE,
-			enddate: DataTypes.DATE,
-            semester:DataTypes.STRING
+			StartDate: DataTypes.DATE,
+			EndDate: DataTypes.DATE,
+            Semester:DataTypes.STRING,
+			IsActive: DataTypes.BOOLEAN
+		},{
+			freezeTableName: true
 		}
 	);
 
