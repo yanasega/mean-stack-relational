@@ -2,7 +2,8 @@
     <br>
     <p style = "font-size:20px">עריכת סטודיו</p>
     <hr>
-    <form class="form-horizontal" data-ng-submit="update()">
+	<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showstud == false"></span>
+    <form class="form-horizontal" data-ng-submit="update()" ng-show = "showstud == true">
 	<br>
 		<div class="control-group">
             <label class="control-label" for="Id_s" style="float:right">מזהה קורס</label>
