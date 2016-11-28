@@ -22,19 +22,43 @@ exports.setStudioId = function(req, res, next, id) {
     return next();  
 };
 
-exports.getPreferenceByStudentId = function(req, res, next) {
-    console.log(req.StudioId);
-    console.log(req.StudentId);
-     db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId }}).then(function(preference){
-        if(!preference) {
-            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
-            return res.jsonp(null);
-        } else {
-            return res.jsonp(preference);          
+exports.getPreferenceByStudentAndStudio = function(req, res, next) {
+    db.Registration.max('id').then(
+        function(reg){
+            db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:reg }}).then(function(preference){
+                if(!preference) {
+                    return res.jsonp(null);
+                } else {
+                    return res.jsonp(preference);          
+                }
+            }).catch(function(err){
+                return next(err);
+            }) 
         }
-    }).catch(function(err){
+    ).catch(function(err){
         return next(err);
-    });   
+    })  
+};
+
+
+exports.getPreferenceByStudentId = function(req, res, next) {
+    console.log(req.StudentId);
+    db.Registration.max('id').then(
+        function(reg){
+            db.Preference.findAll({where: {Id: req.StudentId,IdR:reg, Rate:{$in: [1,2,3, 4] }}}).then(function(preference){
+                console.log(preference);
+                if(!preference) {
+                    return res.jsonp(null);
+                } else {
+                    return res.jsonp(preference);          
+                }
+            }).catch(function(err){
+                return next(err);
+            }) 
+        }
+    ).catch(function(err){
+        return next(err);
+    })  
 };
 
 
