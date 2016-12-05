@@ -54,6 +54,14 @@
 				</select>
 			</div>
             <br>
+			<label class="control-label" for="isactive" id="isactive" style="float:right">פעיל?</label>
+			<div class="controls">
+				<select type="bool" data-ng-model="studio.IsActive" required>
+					<option value="true">פעיל</option>
+					<option value="false">מושבת</option>
+				</select>
+			</div>
+            <br>
             <label class="control-label" ng-show="studio.LinkSylabus == null" for="sylabus" style="float:right">טען סילבוס חדש</label>
             <div class="controls" ng-show="studio.LinkSylabus == null">
             <input type="file" name = "sylabus" ngf-select ng-model="sylabus">

@@ -44,14 +44,14 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             // $scope.studios = studios;
             if ($scope.student.CurrentYear == '5'){
                 studios.forEach(function(studio) {
-                    if(studio.RelevantYears === '5' && studio.Semester == $scope.student.Semester){
+                    if(studio.RelevantYears === '5' && studio.Semester == $scope.student.Semester && studio.IsActive){
                         $scope.studios.push(studio);
                     }
                 }, this);
             }
             else{
                 studios.forEach(function(studio) {
-                    if(studio.RelevantYears == '3,4'&& studio.Semester == $scope.student.Semester){
+                    if(studio.RelevantYears == '3,4'&& studio.Semester == $scope.student.Semester && studio.IsActive){
                         $scope.studios.push(studio);
                     }                  
                 }, this);
