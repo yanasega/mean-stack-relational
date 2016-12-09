@@ -98,18 +98,198 @@
                 </div>
               </div>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]" ng-change = 'UpdateStudentsData()'>
+                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]">
                           <li ng-repeat="item in models.studioLists[studio.id]"
                               dnd-draggable="item"
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="move"
-                              dnd-selected="models.selected = item"
+                              dnd-selected="models.selected = item; tooltip=!tooltip"
                               ng-class="{'selected': models.selected === item}"
-                              dnd-dragend = "changePrefrence(item)"      
+                              dnd-dragend = "changePrefrence(item)"
+                              
                               >
                               {{item.FirstName + " " + item.LastName + " " + item.Preference}}
+                              <div ng-if ="tooltip == true">
+                               <table id = "studentinfoTable" class="table table-hover" border="2px">
+                                 <tr>
+                                   <td>
+                                     ממוצע בתואר:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.Generalaverage}}
+                                   </td>
+                                 </tr>
+                                   <tr>
+                                   <td>
+                                    ממוצע בסטודיו:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.LastStudioGrade}}
+                                   </td>
+                                 </tr>
+                                    <tr>
+                                   <td>
+                                  העדפה 1:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[0].IdS}}
+                                   </td>
+                                 </tr>
+                                     <tr>
+                                   <td>
+                                  העדפה 2:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[1].IdS}}
+                                   </td>
+                                 </tr>
+                                     <tr>
+                                   <td>
+                                  העדפה 3:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[2].IdS}}
+                                   </td>
+                                 </tr>
+                                    <tr>
+                                   <td>
+                                  העדפה 4:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[3].IdS}}
+                                   </td>
+                                 </tr>
+                               </table>
+                              </div>
+                          </li>                        
+                        </ul>
+                    </div>
+                    </br>
+                  <table id = "infoTable" class="table table-hover" style= "width:300px">
+                      <thead>
+                        <tr>
+                          <th>ממוצע כללי</th>
+                          <th>ממוצע בסטודיו</th>
+                          <th>נשים %</th>
+                          <th>גברים %</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td id = "AverageGrade" ng-init="" >{{studio.GAverage | number:1}}</td>
+                          <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage | number:1}}</td>
+                          <td id = "female" ng-init="">{{studio.female}}</td>
+                          <td id = "male" ng-init="">{{studio.male}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  </br>
+                  </br>
+      </div>
+      <div class="col-sm-4">
+        <h3 style="margin-top:0px">רשימת סטודנטים</h3>
+            <div style= "overflow:hidden; overflow-y:scroll; height:600px">
+              <div class="simpleDemo">
+                    <ul dnd-list="models.studioLists[0]">
+                          <li ng-repeat="item in models.studioLists[0]"
+                              dnd-draggable="item"
+                              dnd-moved="models.studioLists[0].splice($index, 1)"
+                              dnd-effect-allowed="move"
+                              dnd-selected="models.selected = item"
+                              ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"
+                              >
+                            {{item.FirstName + " " + item.LastName}}
 
                           </li>
+                    </ul>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div ng-show = "loading">
+  <div class="container" id = fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "assign">
+    <div class="row">
+      <div class="col-sm-8" style="padding-bottom:10px">
+            <div class = "col-sm-6"  ng-repeat= "studio in studios">
+              <div class ="row">
+                <div class="col-sm-2" style="padding-top:7px; padding-left:45px;float: right;">
+                  <span class="badge" >{{studio.count}}</span><br>
+                </div>
+                <div class="col-sm-10">
+                  <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
+                </div>
+              </div>
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]">
+                          <li ng-repeat="item in models.studioLists[studio.id]"
+                              dnd-draggable="item"
+                              dnd-moved="models.studioLists[studio.id].splice($index, 1)"
+                              dnd-effect-allowed="move"
+                              dnd-selected="models.selected = item; tooltip=!tooltip"
+                              ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"
+                              
+                              >
+                              {{item.FirstName + " " + item.LastName + " " + item.Preference}}
+                              <div ng-if ="tooltip == true">
+                               <table id = "studentinfoTable" class="table table-hover" border="2px">
+                                 <tr>
+                                   <td>
+                                     ממוצע בתואר:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.Generalaverage}}
+                                   </td>
+                                 </tr>
+                                   <tr>
+                                   <td>
+                                    ממוצע בסטודיו:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.LastStudioGrade}}
+                                   </td>
+                                 </tr>
+                                    <tr>
+                                   <td>
+                                  העדפה 1:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[0].IdS}}
+                                   </td>
+                                 </tr>
+                                     <tr>
+                                   <td>
+                                  העדפה 2:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[1].IdS}}
+                                   </td>
+                                 </tr>
+                                     <tr>
+                                   <td>
+                                  העדפה 3:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[2].IdS}}
+                                   </td>
+                                 </tr>
+                                    <tr>
+                                   <td>
+                                  העדפה 4:
+                                   </td>
+                                   <td ng-init=""> 
+                                     {{item.preferences[3].IdS}}
+                                   </td>
+                                 </tr>
+                               </table>
+                              </div>
+                          </li>                        
                         </ul>
                     </div>
                     </br>
@@ -160,7 +340,7 @@
 </div>
      
 
-<div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
+<!--<div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:10px">
           <div class = "col-sm-6"  ng-repeat= "studio in studios">
@@ -173,7 +353,7 @@
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
-                              ng-change="UpdateStudentsData(item,studio)"
+                            ng-change="UpdateStudentsData(item,studio)"
                             ng-model="models.studioLists[studio.id]"
                              >
                             {{item.FirstName + " " + item.LastName + "" + item.preference}}
@@ -224,8 +404,13 @@
           </div>
     </div>
   </div>
-</div>
+</div>-->
  </body>
+
+
+
+
+
 
 
 

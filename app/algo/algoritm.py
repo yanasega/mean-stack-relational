@@ -44,7 +44,7 @@ class Algorithm:
 			self.errors['get_preferences'] = 'database error: ' + str(e)
 			# print e
 
-	def get_information_student(self, year, semester, num_of_studio):
+	def get_information_student(self, year, semester, num_of_studio, rates):
 
 		try:
 
@@ -86,23 +86,29 @@ class Algorithm:
 				general_average = int(round(line[2]))
 				studio_average  = int(round(line[3]))
 
-				sum_general_average += general_average
-				sum_studio_average  += studio_average
-
-				# insert all information to dictionary
-				students_information[id_student] = {"id": id_student, 
-													"gender": gender, 
-													"average": line[2],
-													"grade in studio": line[3]}
-
-				if gender == 'female':
-					num_of_female += 1
+				# check if student have preferences
+				# if student don't have preferences-
+				# do not add him to all the information lists
+				if id_student not in rates:
+					self.remark.append(id_student)
+					num_of_students -= 1
 				else:
-					num_of_male += 1
+					sum_general_average += general_average
+					sum_studio_average  += studio_average
 
-				# create a list of students and their grades
-				student_general_average.append([id_student,general_average])
-				student_studio_average.append([id_student,studio_average])
+					# insert all information to dictionary
+					students_information[id_student] = {"id": id_student,
+														"gender": gender,
+														"average": line[2],
+														"grade in studio": line[3]}
+					if gender == 'female':
+						num_of_female += 1
+					else:
+						num_of_male += 1
+
+					# create a list of students and their grades
+					student_general_average.append([id_student,general_average])
+					student_studio_average.append([id_student,studio_average])
 
 			female_in_studio = float(num_of_female) / num_of_studio
 			male_in_studio = float(num_of_male) / num_of_studio
@@ -313,7 +319,7 @@ class Algorithm:
 	def run_algorithm(self, year, semester, num_studios, rates, original_rates, list_id_studio, dic_studio):
 
 		try:
-			result = self.get_information_student(year, semester, num_studios)
+			result = self.get_information_student(year, semester, num_studios, rates)
 			# return student_general_average, student_studio_average, lb_female, lb_male, num_of_students,
 			# num_of_female, num_of_male, lb_students, ub_students, students_information, general_average_calculation,
 			# studio_average_calculation
@@ -359,11 +365,6 @@ class Algorithm:
 				id_student = item[0]
 				order_rates = []
 				for id_studio in list_id_studio:
-					if id_student not in rates:
-						# print "error: student id " +str(id_student) + "not in the preferences table"
-						self.remark.append(id_student)
-						continue
-
 					order_rates.append(rates[id_student][id_studio])
 
 				coeff_preferences_of_students[i] = order_rates
@@ -570,7 +571,6 @@ class Algorithm:
 
 			result = self.run_algorithm(year, semester, num_of_studio, new_rates, original_rates, list_studio, dic_studio)
 			self.db.close()
-			result['errors'] = self.errors
 			
 		except Exception as e:
 			self.errors['sort_records'] = str(e)
@@ -582,6 +582,6 @@ if __name__ == '__main__':
 
 	# initialize object from type Algorithm
 	algorithm = Algorithm()
-	#x = algorithm.sort_records((3,4 ) , 'winter')
+	#x = algorithm.sort_records(5, 'winter')
 	x = algorithm.sort_records(int(sys.argv[1]) , sys.argv[2])
 

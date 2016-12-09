@@ -22,7 +22,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                         preferences.forEach(function(pref) {
                             if (pref.IdR == $scope.registration && pref.Id == $scope.global.user.id)
                             $scope.doneInsert = true;
-                            $scope.message = "You have already inserted preferences for this semester.";
+                            $scope.message = "כבר הזנת העדפות לסמסטר זה.";
                         }, this);
                     });
                 }
@@ -68,7 +68,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
         if (vals.indexOf(studioId) != -1){
             delete $scope.choosenPrefs[index+1];
             delete $scope.general.studio[index];
-            alert('Choosing the same studio is not allowed. please choose each studio only one time.');
+            alert('לא ניתן לבחור סטודיו פעמיים. אנא בחר סטודיו אחר.');
             
         }
         
@@ -114,7 +114,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
 
             pref.$save(function(response) {
                 $scope.doneInsert = true;
-                $scope.message = "Preferences saved successfully!";
+                $scope.message = "העדפות נשמרו בהצלחה!";
             });
         });         
 
