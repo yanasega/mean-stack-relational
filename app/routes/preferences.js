@@ -18,6 +18,9 @@ app.route('/preferences/:preferenceId/:registrationId')
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
     app.route('/getstudentpreference/:StudentId/:Studio')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudio);
+
+     app.route('/getstudentpreference/:StudentId')
     .get(users.requiresLogin, preferences.getPreferenceByStudentId);
 
 
