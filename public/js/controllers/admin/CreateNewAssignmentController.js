@@ -11,7 +11,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
+<<<<<<< HEAD
      $scope.tooltip = false;
+=======
+    $scope.tooltip = false;
+>>>>>>> origin/development
 
 
     $scope.studios = [];
@@ -38,27 +42,27 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
              Studios.query(function(studios){
             studios.forEach(function(studio) {
                 if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
-                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
+                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }
                 }
                 else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "winter" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
                   else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
+                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
                    else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "spring" && studio.IsActive  ){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
@@ -74,7 +78,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.init = function (){
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
-         alert("please choose relevant year and Semester");
+         alert("בחר שנה וסמסטר");
          return;
      }
         Students.query(function(students) {
@@ -142,7 +146,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
              $scope.tooltip = true; 
+<<<<<<< HEAD
              console.log($scope.tooltip); 
+=======
+>>>>>>> origin/development
           } 
           else{
             $scope.tooltip = false; 
@@ -226,16 +233,20 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             //empty student list
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
-            console.log(respData[0]);
             respData[0].forEach(function(studio) {
-                studio.id_list.forEach(function(student) {
-                    $scope.students.forEach(function(obj) {
-                       if (obj.id == student[0]){
-                            obj.Preference = student[1];
-                            $scope.models.studioLists[studio.studio].unshift(obj); 
-                       } 
-                    }, this);
-                }, this)
+                if (studio.hasOwnProperty('id_list')){
+                    studio.id_list.forEach(function(student) {
+                            $scope.students.forEach(function(obj) {
+                            if (obj.id == student[0]){
+                                    obj.Preference = student[1];
+                                    $scope.models.studioLists[studio.studio].unshift(obj); 
+                            } 
+                            }, this);
+                    }, this)
+                }
+                else{
+                    console.log(studio);
+                }
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
                 studio.female = ((studio.female/studio.total_in_studio)*100);
@@ -322,7 +333,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
                 $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
-                    console.log("got");
                     if (preference){
                         student.preference = preference.Rate;
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
@@ -376,5 +386,4 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     }
     //this is the view section
 }]);
-
 
