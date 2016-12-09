@@ -11,7 +11,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
+<<<<<<< HEAD
+     $scope.tooltip = false;
+=======
     $scope.tooltip = false;
+>>>>>>> origin/development
 
 
     $scope.studios = [];
@@ -142,6 +146,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
              $scope.tooltip = true; 
+<<<<<<< HEAD
+             console.log($scope.tooltip); 
+=======
+>>>>>>> origin/development
           } 
           else{
             $scope.tooltip = false; 
