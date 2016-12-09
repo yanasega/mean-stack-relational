@@ -5,7 +5,17 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
     console.log("ViewPreferencesController");
     $scope.studentinstudio = [];
     $scope.preferences = [];
-    
+    $scope.showpref = false;
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
     $scope.find = function() {
         StudentInStudio.query(function(studentinstudio) {
              studentinstudio.forEach(function(sis) {
@@ -30,9 +40,12 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
                         }
                     }, this);
                 }, this);           
-            });         
+            });  
+            sleep(500);
+            $scope.showpref = true;       
         });
     };
 
     $scope.find();
+
 }]);

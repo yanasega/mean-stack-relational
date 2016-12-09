@@ -12,7 +12,11 @@ class Algorithm:
 		# connection to sql
 		self.db = mysql.connector.connect(host     = "127.0.0.1",             # your host, usually localhost
 										  user     = "root",                  # your username
+<<<<<<< HEAD
 										  password = "02575734",  # your password
+=======
+										  password = "Password1",  # your password
+>>>>>>> refs/remotes/origin/development
 										  database = "sakila")                 # name of the data base
 										  
 		self.errors = {}

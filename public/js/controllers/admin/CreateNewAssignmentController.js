@@ -11,8 +11,16 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
+<<<<<<< HEAD
     $scope.tooltip = false;
     $scope.alertIsActive = false;   
+=======
+<<<<<<< HEAD
+     $scope.tooltip = false;
+=======
+    $scope.tooltip = false;
+>>>>>>> origin/development
+>>>>>>> refs/remotes/origin/development
 
 
     $scope.studios = [];
@@ -39,27 +47,27 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
              Studios.query(function(studios){
             studios.forEach(function(studio) {
                 if ($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "winter"){
-                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter"){
+                    if (studio.RelevantYears == '3,4' && studio.Semester == "winter" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }
                 }
                 else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "winter"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "winter"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "winter" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
                   else if($scope.ChosenYear == "3,4" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring"){
+                     if (studio.RelevantYears == '3,4' && studio.Semester == "spring" && studio.IsActive){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
                 }
 
                    else if($scope.ChosenYear == "5" && $scope.ChosenSemester == "spring"){
-                     if (studio.RelevantYears == '5' && studio.Semester == "spring"){
+                     if (studio.RelevantYears == '5' && studio.Semester == "spring" && studio.IsActive  ){
                         $scope.studios.push(studio);
                         $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
                     }                
@@ -142,7 +150,15 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
+<<<<<<< HEAD
              $scope.tooltip = true;  
+=======
+             $scope.tooltip = true; 
+<<<<<<< HEAD
+             console.log($scope.tooltip); 
+=======
+>>>>>>> origin/development
+>>>>>>> refs/remotes/origin/development
           } 
           else{
             $scope.tooltip = false; 
@@ -326,7 +342,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
                 $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
-                    console.log("got");
                     if (preference){
                         student.preference = preference.Rate;
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
@@ -391,5 +406,4 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
 }]);
-
 

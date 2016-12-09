@@ -1,6 +1,6 @@
 angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global', '$state', 'LogIn', function ($scope, $window, Global, $state, LogIn) {
     $scope.global = Global;
-
+    $scope.IsOk = true;
 
     $scope.signIn = function(user) {
 
@@ -18,6 +18,10 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
                     $window.location.href = '/home';
                 }
  
+            }
+            else{
+                console.log(response.body);
+                $scope.IsOk = false;
             }
         });
     };
