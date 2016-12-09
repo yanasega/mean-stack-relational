@@ -52,8 +52,8 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             // if(response.status === 'success'){
             //     $window.location.href = '/';
             // }
-        });
-        $scope.status = "Registration opened successfully.";
+        }); 
+        $scope.status = "הרשמה נפתחה בהצלחה.";
     };
  
      $scope.find = function() {

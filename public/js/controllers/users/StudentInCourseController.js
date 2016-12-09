@@ -43,7 +43,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: course.isSelected
                         });
                         sic.$save(function(response) {
-                            $scope.status = "Selection saved successfully.";
+                            $scope.status = "השינויים נשמרו.";
                             $scope.showcourse = false;
                         });
                     }
@@ -54,7 +54,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: false
                         });
                         sic.$save(function(response) {
-                            $scope.status = "Selection saved successfully.";
+                            $scope.status = "השינויים נשמרו.";
                             $scope.showcourse = false;
                         });               
                     }
@@ -76,12 +76,12 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     }
                     studentincourse.updated.push(new Date().getTime());
                     studentincourse.$update(function() {
-                        $scope.status = "Selection saved successfully.";
+                        $scope.status = "השינויים נשמרו.";
                         $scope.showcourse = false;
                     });                 
                 }
             }).error(function () {
-               $scope.status = "There was an error in saving the data.";
+               $scope.status = "התרחשה שגיאה בעת שמירת הנתונים.";
             });
         }, this);
         
