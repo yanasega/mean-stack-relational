@@ -581,6 +581,6 @@ if __name__ == '__main__':
 
 	# initialize object from type Algorithm
 	algorithm = Algorithm()
-	x = algorithm.sort_records(5, 'winter')
-	#x = algorithm.sort_records(int(sys.argv[1]) , sys.argv[2])
+	#x = algorithm.sort_records(5, 'winter')
+	x = algorithm.sort_records(int(sys.argv[1]) , sys.argv[2])
 

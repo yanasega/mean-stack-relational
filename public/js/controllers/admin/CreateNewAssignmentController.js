@@ -198,14 +198,21 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             //set each studio and students in studio
             console.log(respData[0]);
             respData[0].forEach(function(studio) {
-                studio.id_list.forEach(function(student) {
-                    $scope.students.forEach(function(obj) {
-                       if (obj.id == student[0]){
-                            obj.Preference = student[1];
-                            $scope.models.studioLists[studio.studio].unshift(obj); 
-                       } 
-                    }, this);
-                }, this)
+                if (studio.hasOwnProperty('id_list')){
+                    studio.id_list.forEach(function(student) {
+                            $scope.students.forEach(function(obj) {
+                            if (obj.id == student[0]){
+                                    obj.Preference = student[1];
+                                    console.log(studio.studio);
+                                    console.log($scope.models.studioLists["1"]);
+                                    $scope.models.studioLists[studio.studio].unshift(obj); 
+                            } 
+                            }, this);
+                    }, this)
+                }
+                else{
+                    console.log(studio);
+                }
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
                 studio.female = ((studio.female/studio.total_in_studio)*100);
