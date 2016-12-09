@@ -11,7 +11,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
-     $scope.tooltip = false;
+    $scope.tooltip = false;
+    $scope.alertIsActive = false;   
 
 
     $scope.studios = [];
@@ -74,7 +75,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.init = function (){
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
-         alert("please choose relevant year and Semester");
+         alert("בחר שנה וסמסטר");
          return;
      }
         Students.query(function(students) {
@@ -141,8 +142,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
-             $scope.tooltip = true; 
-             console.log($scope.tooltip); 
+             $scope.tooltip = true;  
           } 
           else{
             $scope.tooltip = false; 
@@ -226,16 +226,20 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             //empty student list
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
-            console.log(respData[0]);
             respData[0].forEach(function(studio) {
-                studio.id_list.forEach(function(student) {
-                    $scope.students.forEach(function(obj) {
-                       if (obj.id == student[0]){
-                            obj.Preference = student[1];
-                            $scope.models.studioLists[studio.studio].unshift(obj); 
-                       } 
-                    }, this);
-                }, this)
+                if (studio.hasOwnProperty('id_list')){
+                    studio.id_list.forEach(function(student) {
+                            $scope.students.forEach(function(obj) {
+                            if (obj.id == student[0]){
+                                    obj.Preference = student[1];
+                                    $scope.models.studioLists[studio.studio].unshift(obj); 
+                            } 
+                            }, this);
+                    }, this)
+                }
+                else{
+                    console.log(studio);
+                }
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
                 studio.female = ((studio.female/studio.total_in_studio)*100);
@@ -374,7 +378,18 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, this);    
                
     }
-    //this is the view section
+    $scope.checkIfActive = function(){
+        $http.get('/getregistration/').success(function(reg){
+            if (reg.IsActive){
+                 $scope.loading = false;
+                 $scope.alertIsActive = true;  
+                 
+                 return;
+            }
+        })
+    }
+
+
 }]);
 
 
