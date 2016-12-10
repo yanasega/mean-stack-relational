@@ -75,8 +75,10 @@ exports.update = function(req, res) {
 };
 
 exports.updatefifthtosix = function (rew, res){
+    db.Student.findAll({where: {CurrentYear: 5 }}).then(function(students){
         for (var i in students) {
             students[i].updateAttributes({
+                CurrentYear: 6
             }).then(function(a){
                 //return res.jsonp(a);
             }).catch(function(err){
