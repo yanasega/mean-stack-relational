@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios','$http'
+,function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios,$http) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -38,21 +39,26 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                         });
                     }
                     else{
-                        studio.IsActive = false;
-                        if (!studio.updated) {
-                            studio.updated = [];
+                        if (studio.RelevantYears !== "5"){
+                            studio.IsActive = false;
+                            if (!studio.updated) {
+                                studio.updated = [];
+                            }
+                            studio.updated.push(new Date().getTime());
+                            studio.$update(function() {
+                            });
                         }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
                     }
                 }, this);
+
+                if($scope.semester == 'spring'){
+                    $http.get('/setfifthtosix').success(function(res){
+                        console.log("success");
+                    })
+                }
             });
-            //yana: add check if response valid?
-            // if(response.status === 'success'){
-            //     $window.location.href = '/';
-            // }
         }); 
+
         $scope.status = "הרשמה נפתחה בהצלחה.";
     };
  
@@ -67,6 +73,9 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                         // $scope.showreg = true;
                     }
                 }, this);
+                if ($scope.RegEmpty == null){
+                    $scope.RegEmpty = true;
+                }
             }
         });
     };
