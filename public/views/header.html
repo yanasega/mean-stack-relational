@@ -1,17 +1,21 @@
+<head>
+<link rel="stylesheet", href="../../lib/accessibility-buttons/dist/css/accessibility-buttons.css">
+</head>
+<body>
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav pull-right">
         <li>
-            <a class="brand" ui-sref="userhome" style="padding: 9px; color: white;font-size: 25px;padding-top: 20px;">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
+            <a class="brand" ui-sref="userhome" style="padding: 9px; color: white;font-size: 1.8em;padding-top: 20px;">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
         </li>
        <li>
            <!--<i class="fa fa-braille" style = "font-size: 30px; color: grey; padding: 5px" aria-hidden="true"></i>-->
-           <img src="img/icons/Eng_Ver_Blue-Recovered1.png" style="height: 50px;padding-bottom: 5px;padding-top: 5px">
+           <img src="img/icons/Eng_Ver_Blue-Recovered1.png" style="height: 50px;padding-bottom: 0.5em;padding-top: 5px">
        </li>
        <!--<li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a ui-sref="{{item.state}}">{{item.title}}</a>
         </li>-->
     </ul>
-    <ul class="nav pull-right" data-ng-show="global.authenticated" style="font-size: 15px;padding-top: 12px;">
+    <ul class="nav pull-right" data-ng-show="global.authenticated" style="font-size: 1.3em;padding-top: 0.5em;">
         
         <!--USERS-->
 
@@ -80,10 +84,14 @@
                 <li><a ui-sref="ViewCourse">נהל קורסי טופס גמר</a></li>
             </ul>
         </li>
-
     </ul>
-    
-    <ul class="nav pull-left" data-ng-show="global.authenticated" style="padding-top: 12px;">
+    <ul class="nav pull-left" style="font-size: 1.3em;padding-top: 0.5em;">
+        <li>   
+            <button aria-label="Increase Font" id="accessibility-font" class="js-acessibility">+A</button>
+            <button aria-label="Add Contrast" id="accessibility-contrast" class="js-acessibility">Add Contrast</button>
+        </li> 
+    </ul>
+    <ul class="nav pull-left" data-ng-show="global.authenticated" style="font-size: 1.3em;padding-top: 0.5em;">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
 				 {{global.user.FirstName}} <b class="caret"></b> 
@@ -97,3 +105,4 @@
         </li>
     </ul>
 </div>
+</body>
