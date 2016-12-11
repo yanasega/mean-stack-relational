@@ -5,7 +5,6 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
     console.log("ViewAssignmentsController");
     $scope.studentinstudio = [];
     $scope.preferences = [];
-    
     $scope.find = function() {
         StudentInStudio.query(function(studentinstudio) {
              studentinstudio.forEach(function(sis) {

@@ -1,7 +1,6 @@
 angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global','$state', 'SignUp','Students', function ($scope, $window, Global, $state, SignUp,Students) {
     $scope.global = Global;
     $scope.status = null;
-
     $scope.signUp = function(user) {
 
         var signUp = new SignUp({

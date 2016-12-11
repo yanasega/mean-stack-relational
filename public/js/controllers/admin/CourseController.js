@@ -3,7 +3,6 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     $scope.global = Global;
     $scope.showcourse = false;    
 
-
     function sleep(milliseconds) {
         var start = new Date().getTime();
         for (var i = 0; i < 1e7; i++) {

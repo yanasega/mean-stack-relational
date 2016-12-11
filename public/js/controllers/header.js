@@ -8,7 +8,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         "state": "createArticle"
     }
     ];
-    
+    accessibilityButtons();
     $scope.isCollapsed = false;
 
     $scope.SignOut = function(){

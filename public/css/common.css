@@ -15,6 +15,21 @@ div{
                Arial,
                sans-serif;
 }
+h1 {
+     font-size: 4em;
+}
+h3 {
+     font-size: 2em;
+}
+h4 {
+     font-size: 1em;
+}
+label {
+     font-size: 1em;
+}
+tr{
+     font-size: 1em;
+}
 th{
     text-align: right !important;
 }
@@ -22,7 +37,7 @@ td{
     text-align: right !important
 }
 .navbar .nav>li>a.brand {
-    padding-left:20px;
+    padding-left:3em;
     margin-left:0;
     float: right;
 }
@@ -33,6 +48,7 @@ td{
                Helvetica,
                Arial,
                sans-serif;  
+    font-size: 1em;
 }
 .btn-primary{
   font-family: "Alef Hebrew",
@@ -40,11 +56,20 @@ td{
                Helvetica,
                Arial,
                sans-serif;
+   font-size: 1em;
+}
+.btn-success{
+    font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+    font-size: 1em;
 }
 
 /*added manualy*/
 .content {
-    margin-top:50px;
+    margin-top:3em;
     width:100%;
 }
 
@@ -52,7 +77,7 @@ footer {
     position:fixed;
     left:0px;
     bottom:0px;
-    height:30px;
+    height:3em;
     width:100%;
     background:#ddd;
     -webkit-box-shadow:0 8px 6px 6px black;

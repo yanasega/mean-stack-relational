@@ -2,7 +2,6 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
     console.log("InstructorController");
     $scope.global = Global;
     $scope.showinstr = false;    
-
     function sleep(milliseconds) {
         var start = new Date().getTime();
         for (var i = 0; i < 1e7; i++) {
