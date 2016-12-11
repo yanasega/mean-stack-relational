@@ -22,7 +22,7 @@ class Algorithm:
 
 		try:
 			# Cursor object. you execute all the queries you need
-			cur = self.db.cursor()
+			cur = self.db.cursor(buffered=True)
 			if year == 5:
 				year = (5, 5)
 			# Use all the SQL you like
@@ -37,6 +37,8 @@ class Algorithm:
 			# query for table Preferences
 			# need to take only from specific year in field where
 			# return only columns of pref, id
+
+
 
 			return cur.fetchall()
 
@@ -55,9 +57,9 @@ class Algorithm:
 			# Use all the SQL you like
 			# query for table Students (join with preferences)
 			# return columns of id, gender, grade
-			query = " select Id, Gender, GeneralAverage, LastStudioGrade from students " + \
-					" where CurrentYear in" + str(year) + \
-					" order by Gender, Id"
+			query = "select Id, Gender, GeneralAverage, LastStudioGrade from students " + \
+					"where CurrentYear in " + str(year) + " and Semester='" + semester + "' " + \
+					"order by Gender, Id"
 			if year == (5, 5): year = 5
 
 			cur.execute(query)
@@ -324,10 +326,15 @@ class Algorithm:
 			# num_of_female, num_of_male, lb_students, ub_students, students_information, general_average_calculation,
 			# studio_average_calculation
 			# list of general_average : [[id1,grade1],[id2,grade2],...]
+			if result is None:
+				self.errors['run_algorithm'] = 'no results from get_information_student'
+				return False
 			general_average = result[0]
 			studio_average  = result[1]
 			lb_female       = result[2] - 2
+			if lb_female < 0: lb_female = 0
 			lb_male         = result[3] - 2
+			if lb_male < 0: lb_male = 0
 			num_students    = result[4]
 			num_of_female   = result[5]
 			num_of_male     = result[6]
@@ -405,17 +412,19 @@ class Algorithm:
 
 			# number of females in studio between lower bound to upper bound
 			# female: 1-num_of_female
-			condition_num_female_in_studio = {}
-			range_females = range(start_value , start_value + num_of_female)
-			for i in studios:
-				condition_num_female_in_studio[i] = pulp.lpSum([ x[i, j] for j in range_females]) >= lb_female
+			if num_of_female > 0:
+				condition_num_female_in_studio = {}
+				range_females = range(start_value , start_value + num_of_female)
+				for i in studios:
+					condition_num_female_in_studio[i] = pulp.lpSum([ x[i, j] for j in range_females]) >= lb_female
 
 			# number of males in studio between lower bound to upper bound
 			# male: num_of_female+1-num_students
-			condition_num_male_in_studio = {}
-			range_males = range( start_value + num_of_female,  start_value + num_students)
-			for i in studios:
-				condition_num_male_in_studio[i] = pulp.lpSum([x[i, j] for j in range_males]) >= lb_male
+			if num_of_male > 0:
+				condition_num_male_in_studio = {}
+				range_males = range( start_value + num_of_female,  start_value + num_students)
+				for i in studios:
+					condition_num_male_in_studio[i] = pulp.lpSum([x[i, j] for j in range_males]) >= lb_male
 
 			# average general grade in each studio
 			condition_general_average1 = {}
@@ -442,8 +451,10 @@ class Algorithm:
 			for i in range(1, num_studios+1):
 				prob += condition_num_student_in_studio1[i]
 				prob += condition_num_student_in_studio2[i]
-				prob += condition_num_female_in_studio[i]
-				prob += condition_num_male_in_studio[i]
+				if num_of_female > 0:
+					prob += condition_num_female_in_studio[i]
+				if num_of_male > 0:
+					prob += condition_num_male_in_studio[i]
 				prob += condition_general_average1[i]
 				prob += condition_general_average2[i]
 				prob += condition_studio_grade1[i]
@@ -556,10 +567,10 @@ class Algorithm:
 					rate = 1000000
 				if id_student in rates:
 					rates[id_student][id_studio] 		  = rate
-					original_rates[id_student][id_studio] = rate
+					original_rates[id_student][id_studio] = original_rate
 				else:
 					rates[id_student] 		   = {id_studio: rate}
-					original_rates[id_student] = {id_studio: rate}
+					original_rates[id_student] = {id_studio: original_rate}
 
 			# update preferences of students according to the desired conditions
 			if year == (3, 4):
@@ -570,6 +581,8 @@ class Algorithm:
 				new_rates = rates
 
 			result = self.run_algorithm(year, semester, num_of_studio, new_rates, original_rates, list_studio, dic_studio)
+			if result is False:
+				return json.dumps('no success')
 			self.db.close()
 			
 		except Exception as e:
@@ -582,6 +595,6 @@ if __name__ == '__main__':
 
 	# initialize object from type Algorithm
 	algorithm = Algorithm()
-	#x = algorithm.sort_records(5, 'winter')
-	x = algorithm.sort_records(int(sys.argv[1]) , sys.argv[2])
+	#x = algorithm.sort_records(3, 'spring')
+	x = algorithm.sort_records(int(sys.argv[1]), sys.argv[2])
 

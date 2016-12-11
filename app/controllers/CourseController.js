@@ -72,6 +72,27 @@ exports.show = function(req, res) {
     return res.jsonp(req.course);
 };
 
+/**
+ * Update a course
+ */
+exports.update = function(req, res) {
+    // create a new variable to hold the studio that was placed on the req object.
+    var course = req.course;
+    course.updateAttributes({
+        Id: req.body.Id,
+        Name: req.body.Name,
+        CreditPoints: req.body.CreditPoints,
+        CourseType: req.body.CourseType
+    }).then(function(a){
+        return res.jsonp(a);
+    }).catch(function(err){
+        return res.render('500', {
+            error: err, 
+            status: 500
+        });
+    });
+};
+
 // /**
 //  * List of Articles
 //  */

@@ -90,10 +90,11 @@
                               dnd-draggable="item"
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="move"
-                              dnd-selected="models.selected = item"
-                              ng-class="{'selected': models.selected === item}"      
+                              dnd-selected="models.selected = item; tooltip=!tooltip"
+                              ng-class="{'selected': models.selected === item}"
+                              dnd-dragend = "changePrefrence(item)"    
                               >
-                              {{item.FirstName + " " + item.LastName + " " + item.preference}}
+                              {{item.FirstName + " " + item.LastName + " " + item.Preference}}
 
                           </li>
                         </ul>
