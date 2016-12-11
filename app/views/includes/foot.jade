@@ -47,6 +47,7 @@ script(type='text/javascript', src='/js/controllers/admin/InsertPreferencesContr
 script(type='text/javascript', src='/js/controllers/users/ViewPreferencesController.js')
 script(type='text/javascript', src='/js/controllers/users/ViewAssignmentsController.js')
 script(type='text/javascript', src='/js/controllers/users/StudentInCourseController.js')
+script(type='text/javascript', src='/js/controllers/users/HomePage.js')
 script(type='text/javascript', src='/js/controllers/users/ViewDetailsController.js')
 script(type='text/javascript', src='/js/controllers/admin/StudentsController.js')
 script(type='text/javascript', src='/js/controllers/admin/StudioController.js')
@@ -59,8 +60,15 @@ script(type='text/javascript', src='/js/controllers/users/signIn.js')
 script(type='text/javascript', src='/js/controllers/users/signUp.js')
 script(type='text/javascript', src='/js/init.js')
 
-//font-awesome
+ 
+ //accessibility
+link(rel="stylesheet", href="/lib/accessibility-buttons/dist/css/accessibility-buttons.css")
+script(type='text/javascript', src="/lib/accessibility-buttons/dist/js/accessibility-buttons.js")
+
 link(rel="stylesheet", href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css")
+
+
+
 
 
 if (process.env.NODE_ENV == 'development')
