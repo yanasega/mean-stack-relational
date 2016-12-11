@@ -30,7 +30,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                         Subject: $scope.subject.id,
                         RelevantYears: $scope.relevantyears,
                         Semester: $scope.semester,
-                        IsActive: $scope.isactive,
+                        IsActive: true,
                         LinkSylabus: $scope.sylabus
                     });
                     studio.$save(function(response) {
@@ -77,6 +77,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
         Studios.query(function(studios) {
             $scope.studios = studios; //yana: add error
+            console.log(studios);
             sleep(500);
             $scope.studios.forEach(function(studio) {
                $scope.subjects.forEach(function(subject) {

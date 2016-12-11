@@ -5,6 +5,18 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
     console.log("ViewAssignmentsController");
     $scope.studentinstudio = [];
     $scope.preferences = [];
+
+    $scope.showass = false;
+    
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
     $scope.find = function() {
         StudentInStudio.query(function(studentinstudio) {
              studentinstudio.forEach(function(sis) {
@@ -33,8 +45,12 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
                         sis.Instructor = instructor.FirstName + " " + instructor.LastName ;
                     }
                 }, this);
-            }, this);           
-        });  
+            }, this);   
+            sleep(500);
+            $scope.showass = true;         
+        }); 
+
+
     };
 
     $scope.find();

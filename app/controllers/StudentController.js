@@ -43,7 +43,7 @@ exports.all = function(req, res) {
     db.Student.findAll().then(function(student){
         return res.jsonp(student);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });

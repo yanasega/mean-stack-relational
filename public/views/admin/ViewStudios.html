@@ -25,6 +25,7 @@
             <th>נושא</th>
             <th>שנים</th>
             <th>סמסטר</th>
+            <th>סטטוס</th>
             <th>סילבוס</th>
             <th></th> 
             <th></th>
@@ -39,7 +40,9 @@
         <!--<td>{{studio.Description}}</td>-->
         <td>{{studio.Subject}}</td>
         <td>{{studio.RelevantYears}}</td>
-        <td>{{studio.Semester}}</td>  
+        <td>{{studio.Semester}}</td>
+        <td ng-if ="studio.IsActive == true">{{"פעיל"}}</td>   
+        <td ng-if ="studio.IsActive == false">{{"מושבת"}}</td>   
         <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
         <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
         <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
