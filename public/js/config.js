@@ -150,6 +150,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'CreateNewAssignmentController',
             templateUrl: 'views/admin/ViewFullAssignment.html'
         })
+        .state('ViewSylab',{
+            url : '/ViewSylabuses',
+            controller : 'ViewSylabusesController',
+            templateUrl: 'views/users/ViewSylabuses.html'
+        })
         .state('404',{
             templateUrl: 'views/404.html'
         })
