@@ -323,8 +323,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
             $scope.registration = assignment.IdR;
+            $scope.getStudios();
         });
-        $scope.getStudios();
         $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){           
             respData.forEach(function(studentinstudio) {
                 Students.get({
@@ -333,6 +333,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio + '/' + $scope.registration).success(function(preference){
                     if (preference){
                         student.Preference = preference.Rate;
+                        $http.get('/getstudentpreference/' + student.id ).success(function(preferences){
+                            if (preferences){
+                                student.preferences = preferences;
+                            }
+                        })
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
                     }
                 })
