@@ -22,16 +22,20 @@
   </style>
 <div class="container">
     <p style = "font-size:20px" >טופס סיום תואר</p>
-    <p style = "font-size:15px">כאן תוכל לנהל את טופס סיום התואר שלך</p>
+    <p style = "font-size:15px"> כאן תוכל לנהל את טופס סיום התואר שלך ולעקוב אחרי הקורסים והנקודות שצברת</p>
 		<hr>
-  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm()">
+    <br>
+  <p style = "font-size:1.4em" >מקצועות חובה</p>
+  <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
     <div>
       <table>
         <thead>
         <tr>
           <th>
             <input type="checkbox" ng-model="areAllCoursesSelected"
-                  ng-change="updateCourseSelection(courses, areAllCoursesSelected)" />
+                  ng-change="updateCourseSelection(MandatoryCourses, areAllCoursesSelected)" />
           </th>
               <th>מספר קורס</th>
               <th>שם</th>
@@ -39,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="course in courses">
+        <tr ng-repeat="course in MandatoryCourses">
           <td><input type="checkbox" ng-model="course.isSelected" /></td>
           <td>{{course.Id}}</td>
           <td>{{course.Name}}</td>
@@ -63,7 +67,273 @@
   </div>
 
   </form>
+  <p style = "font-size:1.4em" >מקצועות בחירה מחייבת</p>
+  <p style = "font-size:15px">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
+  <hr>
+    <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryChoiceCourses)">
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(MandatoryChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in MandatoryChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >מקצועות בחירה</p>
+  <p style = "font-size:15px">מסלול עיצוב בסיסי - קבוצה ב - ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(DesignChoiceCourses)">
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(DesignChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in DesignChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >מקצועות בחירה</p>
+  <p style = "font-size:15px">פרוייקטים מיוחדים - ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+  <table class = "table">
+      <thead>
+         <tr>
+            <th>מזהה קורס</th>
+            <th>שם הקורס</th>
+            <th>מספר נקודות זיכוי</th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in SpecialProjectsCourses" >
+        <tr >
+        <td >{{course.IdCourse}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+   </table>
+
+<div>
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('special_projects')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+		</div>
+	</form>     
+</div>
+
+  <p style = "font-size:1.4em" >מקצועות בחירה</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(GeneralChoiceCourses)">
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(GeneralChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in GeneralChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >מקצועות בחירה חופשית</p>
+  <p style = "font-size:15px">המחלקה להומניסטיים - ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+    <table class = "table">
+      <thead>
+         <tr>
+            <th>מזהה קורס</th>
+            <th>שם הקורס</th>
+            <th>מספר נקודות זיכוי</th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in FreeChoiceCourses" >
+        <tr >
+        <td >{{course.IdCourse}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+   </table>
+
+<div>
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('free_choice')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+		</div>
+	</form>     
+</div>
+
+  <p style = "font-size:1.4em" >מקצועות שנלמדו מעבר לדרישות התואר</p>
+  <hr>
+  <table class = "table">
+      <thead>
+         <tr>
+            <th>מזהה קורס</th>
+            <th>שם הקורס</th>
+            <th>מספר נקודות זיכוי</th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in FreeChoiceCourses" >
+        <tr >
+        <td >{{course.IdCourse}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+   </table>
+
+<div>
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('extra')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+		</div>
+	</form>     
+</div>
+
  <div>
   <p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i>{{"  " +status}}</p>
  </div>
+
 </div>

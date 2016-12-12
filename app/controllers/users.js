@@ -118,7 +118,7 @@ exports.requiresLogin = function(req, res, next) {
         //return res.redirect('/views/401.html');
         
         return res.render('401', {
-            error: 'You are not loged in...',
+            error: 'אינך מחובר...',
             status: 401
         });
         
@@ -134,7 +134,7 @@ exports.requiresLogin = function(req, res, next) {
 exports.hasAuthorization = function(req, res, next) {
     if (!req.user.IsAdmin) {
         return res.render('401', {
-            error: 'You are not authorized...',
+            error: 'אין ברשותך הרשאות מתאימות לגישה לדף זה.',
             status: 401
         });
     //   basic way of error handeling
