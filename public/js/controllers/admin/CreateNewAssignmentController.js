@@ -11,16 +11,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
-<<<<<<< HEAD
-    $scope.tooltip = false;
-    $scope.alertIsActive = false;   
-=======
-<<<<<<< HEAD
      $scope.tooltip = false;
-=======
-    $scope.tooltip = false;
->>>>>>> origin/development
->>>>>>> refs/remotes/origin/development
+     $scope.alertIsActive = false; 
+
 
 
     $scope.studios = [];
@@ -150,15 +143,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
-<<<<<<< HEAD
-             $scope.tooltip = true;  
-=======
              $scope.tooltip = true; 
-<<<<<<< HEAD
-             console.log($scope.tooltip); 
-=======
->>>>>>> origin/development
->>>>>>> refs/remotes/origin/development
+
           } 
           else{
             $scope.tooltip = false; 
@@ -393,7 +379,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, this);    
                
     }
-    $scope.checkIfActive = function(){
+     $scope.checkIfActive = function(){
         $http.get('/getregistration/').success(function(reg){
             if (reg.IsActive){
                  $scope.loading = false;
@@ -403,7 +389,5 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             }
         })
     }
-
-
 }]);
 
