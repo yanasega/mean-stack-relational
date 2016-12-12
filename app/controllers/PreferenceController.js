@@ -22,10 +22,35 @@ exports.setStudioId = function(req, res, next, id) {
     return next();  
 };
 
+exports.setRegId = function(req, res, next, id) {  
+    req.RegId = id;
+    return next();  
+};
+
+exports.getPreferenceByStudentAndStudioAndReg = function(req, res, next) {
+    // db.Registration.max('id').then(
+    //     function(reg){
+            db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:req.RegId }}).then(function(preference){
+                // console.log(req.RegId);
+                if(!preference) {
+                    return res.jsonp(null);
+                } else {
+                    return res.jsonp(preference);          
+                }
+            }).catch(function(err){
+                return next(err);
+            }) 
+        // }
+    // ).catch(function(err){
+    //     return next(err);
+    // })  
+};
+
 exports.getPreferenceByStudentAndStudio = function(req, res, next) {
     db.Registration.max('id').then(
         function(reg){
             db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:reg }}).then(function(preference){
+                // console.log(req.RegId);
                 if(!preference) {
                     return res.jsonp(null);
                 } else {
@@ -40,13 +65,11 @@ exports.getPreferenceByStudentAndStudio = function(req, res, next) {
     })  
 };
 
-
 exports.getPreferenceByStudentId = function(req, res, next) {
-    console.log(req.StudentId);
     db.Registration.max('id').then(
         function(reg){
             db.Preference.findAll({where: {Id: req.StudentId,IdR:reg, Rate:{$in: [1,2,3, 4] }}}).then(function(preference){
-                console.log(preference);
+                //console.log(preference);
                 if(!preference) {
                     return res.jsonp(null);
                 } else {

@@ -13,8 +13,9 @@ app.route('/courses')
     .post(users.requiresLogin, courses.create);
 app.route('/courses/:courseId')
     .delete(users.requiresLogin, courses.destroy)
-    .get(courses.all)
-    .post(users.requiresLogin, courses.create);
+    .get(courses.show)
+    .post(users.requiresLogin, courses.create)
+    .put(users.requiresLogin, courses.update);
      // .get(articles.show)
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 // Finish with setting up the articleId param

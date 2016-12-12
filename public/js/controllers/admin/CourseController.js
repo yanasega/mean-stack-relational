@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('CourseController', ['$scope', '$resource' ,'Global', 'Courses','$window',function ($scope, $resource ,Global ,Courses ,$window) {
+angular.module('mean.system').controller('CourseController', ['$scope', '$resource' ,'Global', 'Courses','$window','$stateParams','$state'
+,function ($scope, $resource ,Global ,Courses ,$window,$stateParams,$state) {
     console.log("CourseController");
     $scope.global = Global;
     $scope.showcourse = false;    
@@ -17,22 +18,41 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         var course = new Courses({
 
 			Id: $scope.id,
-			Id_c: $scope.id,
             Name: $scope.name,
-			CreditPoints: $scope.creditpoints
+			CreditPoints: $scope.creditpoints,
+            CourseType: $scope.coursetype
         });
         course.$save(function(response) {
             $scope.find();
-            //yana: add check if response valid?
         });
         $scope.clear();
     };
 
      $scope.find = function() {
         Courses.query(function(courses) {
-            $scope.courses = courses; //yana: check if data relavent?
+            $scope.courses = courses; 
             sleep(2000);
             $scope.showcourse = true;
+        });
+    };
+
+    $scope.findOne = function() {
+        Courses.get({
+            courseId: $stateParams.courseId
+        }, function(course) {
+            $scope.course = course;
+        });
+    };
+
+    $scope.update = function() {
+        var course = $scope.course;
+        if (!course.updated) {
+            course.updated = [];
+        }
+        course.updated.push(new Date().getTime());
+        course.$update(function() {
+        $state.go('ViewCourse');
+
         });
     };
 
@@ -48,7 +68,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         }
         else {
             $scope.course.$remove();
-            $state.go('courses'); //yana: test
+            //$state.go('courses'); //yana: test
         }
         $scope.clear();
     };
@@ -57,6 +77,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         $scope.id = null;
         $scope.name = null;
         $scope.creditpoints = null;
+        $scope.coursetype ="";
     };
  
 
