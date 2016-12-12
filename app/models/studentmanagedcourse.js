@@ -1,21 +1,25 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
 
-	var Course = sequelize.define('Course', {
-            Id: {
+	var StudentInCourse = sequelize.define('StudentManagedCourse', {
+            IdStudent: {
 				type: DataTypes.UUID,
 				primaryKey: true
 			},
-            Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER,
+            IdCourse: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			},
+			Name : DataTypes.STRING,
+			CreditPoints : DataTypes.INTEGER,
 			CourseType: {
 				type:   DataTypes.ENUM,
 				values: ['mandatory','mandatory_choice','design_choice','special_projects','general_choice','free_choice','extra']
 			}
-		},{
+            },{
 			freezeTableName: true
-		}
-	);
+		    }
+    );
 
- return Course;
+ return StudentInCourse;
 };

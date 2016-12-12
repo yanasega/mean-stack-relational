@@ -16,6 +16,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
 
+
     $scope.studios = [];
 
 
@@ -144,7 +145,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
              $scope.tooltip = true; 
-
           } 
           else{
             $scope.tooltip = false; 
@@ -204,6 +204,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.models.studioLists[studio.id] .forEach(function(student){
                 if(student.id == moved_student.id){
                     $http.get('/getstudentpreference/' + student.id + '/' + studio.id).success(function(preference){
+                        console.log(preference);
                         if (preference){
                             student.Preference = preference.Rate;
                         }
@@ -225,6 +226,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }
         $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
             $scope.status = "Algorithem run finished succesfully.";
+            console.log(respData);
             //empty student list
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
@@ -320,16 +322,17 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, function(assignment) {
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
+            $scope.registration = assignment.IdR;
         });
         $scope.getStudios();
-        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){
+        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){           
             respData.forEach(function(studentinstudio) {
                 Students.get({
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
-                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
+                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio + '/' + $scope.registration).success(function(preference){
                     if (preference){
-                        student.preference = preference.Rate;
+                        student.Preference = preference.Rate;
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
                     }
                 })

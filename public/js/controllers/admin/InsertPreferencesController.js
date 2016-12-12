@@ -12,6 +12,9 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.preferences = [];
     $scope.studentinstudio = [];
 
+    //$scope.items = [1,2,3,4,5];
+    $scope.data = [];
+
     $scope.checkReg = function(){
         Registrations.query(function(registrations) {
             registrations.forEach(function(registration) {
@@ -59,22 +62,22 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
         });
     }
 
-    $scope.updatePref= function(studioId, index){
-        var allPrefs = [];
-        var vals = Object.keys($scope.choosenPrefs).map(function (key) {
-            return $scope.choosenPrefs[key]
-        });
+    // $scope.updatePref= function(studioId, index){
+    //     var allPrefs = [];
+    //     var vals = Object.keys($scope.choosenPrefs).map(function (key) {
+    //         return $scope.choosenPrefs[key]
+    //     });
         
-        if (vals.indexOf(studioId) != -1){
-            delete $scope.choosenPrefs[index+1];
-            delete $scope.general.studio[index];
-            alert('לא ניתן לבחור סטודיו פעמיים. אנא בחר סטודיו אחר.');
+    //     if (vals.indexOf(studioId) != -1){
+    //         delete $scope.choosenPrefs[index+1];
+    //         delete $scope.general.studio[index];
+    //         alert('לא ניתן לבחור סטודיו פעמיים. אנא בחר סטודיו אחר.');
             
-        }
+    //     }
         
-        $scope.choosenPrefs[index+1] = studioId;
+    //     $scope.choosenPrefs[index+1] = studioId;
         
-    }
+    // }
     
     $scope.IsInPref = function(stud){
         return true;
@@ -102,14 +105,16 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     }
 
     $scope.insertPreferences = function(){
-        angular.forEach($scope.choosenPrefs,function(value,key){
+        angular.forEach($scope.data,function(value,key){
+            // console.log($scope.data[key]);
+            // console.log(key);
             var pref = new Preferences({
                 Id: $scope.student.id,
-                IdS: $scope.choosenPrefs[key],
+                IdS: $scope.data[key].id,
                 IdR: $scope.registration,
                 StudentYear: $scope.currentyear,
                 Semester: $scope.semester,
-                Rate : key
+                Rate : key +1
             });
 
             pref.$save(function(response) {
@@ -123,6 +128,24 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.checkReg();
     $scope.findOne();
 
-}]);
+}]).filter('arrayDiff', function() {
+    return function(array, diff) {
+      var i, item, 
+          newArray = [],
+          exception = Array.prototype.slice.call(arguments, 2);
+      
+      for(i = 0; i < array.length; i++) {
+        item = array[i];
+        if(diff.indexOf(item) < 0 || exception.indexOf(item) >= 0) {
+          newArray.push(item);
+        }
+      }
+      
+      return newArray;
+      
+    };
+  });
+
+
 
 

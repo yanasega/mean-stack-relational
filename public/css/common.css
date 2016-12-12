@@ -21,6 +21,11 @@ th{
 td{
     text-align: right !important
 }
+
+select {
+  display: inline-block;
+  margin-bottom: 5px;
+}
 .navbar .nav>li>a.brand {
     padding-left:20px;
     margin-left:0;

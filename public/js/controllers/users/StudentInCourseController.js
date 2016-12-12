@@ -1,9 +1,17 @@
-angular.module('mean.system').controller('StudentInCourseController', ['$scope', '$resource' ,'Global', 'StudentInCourse','Courses','$window','$http','Students',function ($scope, $resource ,Global ,StudentInCourse ,Courses,$window,$http,Students) {
+angular.module('mean.system').controller('StudentInCourseController', ['$scope', '$resource' ,'Global', 'StudentInCourse','Courses','$window','$http',
+'Students','StudentManagedCourse',function ($scope, $resource ,Global ,StudentInCourse ,Courses,$window,$http,Students,StudentManagedCourse) {
     console.log("StudentInCourseController");
     $scope.global = Global;
     $scope.showcourse = true; 
     $scope.status = null;   
     $scope.exchange = false;
+    $scope.MandatoryCourses = [];
+    $scope.MandatoryChoiceCourses = [];
+    $scope.DesignChoiceCourses = [];
+    $scope.SpecialProjectsCourses = [];
+    $scope.GeneralChoiceCourses = [];
+    $scope.FreeChoiceCourses = [];
+    $scope.ExtraCourses = [];
     // Initialization
     $scope.areAllCoursesSelected = false;
     $scope.updateCourseSelection = function (courseArray, selectionValue) {
@@ -15,12 +23,41 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
 
      $scope.find = function() {
         Courses.query(function(courses) {
-            $scope.courses = courses;
+            courses.forEach(function(course) {
+                if(course.CourseType == "mandatory"){
+                    $scope.MandatoryCourses.push(course); 
+                }
+                else if(course.CourseType == "mandatory_choice"){
+                    $scope.MandatoryChoiceCourses.push(course); 
+                }
+                else if(course.CourseType == "design_choice"){
+                    $scope.DesignChoiceCourses.push(course); 
+                }
+                else if(course.CourseType == "general_choice"){
+                    $scope.GeneralChoiceCourses.push(course); 
+                }
+            }, this);
+            //$scope.courses = courses;
             $scope.showcourse = true;
             StudentInCourse.query(function(studentincourse) {
                 studentincourse.forEach(function(sid) {
                     if(sid.IdStudent == $scope.global.user.id){
-                        $scope.courses.forEach(function(course) {
+                        $scope.MandatoryCourses.forEach(function(course) {
+                            if (course.Id == sid.IdCourse){
+                                course.isSelected = sid.IsDone;
+                            }
+                        }, this);
+                        $scope.MandatoryChoiceCourses.forEach(function(course) {
+                            if (course.Id == sid.IdCourse){
+                                course.isSelected = sid.IsDone;
+                            }
+                        }, this);
+                        $scope.DesignChoiceCourses.forEach(function(course) {
+                            if (course.Id == sid.IdCourse){
+                                course.isSelected = sid.IsDone;
+                            }
+                        }, this);
+                        $scope.GeneralChoiceCourses.forEach(function(course) {
                             if (course.Id == sid.IdCourse){
                                 course.isSelected = sid.IsDone;
                             }
@@ -28,12 +65,28 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     }
                 }, this);
             });
+
+            StudentManagedCourse.query(function(studentmanagedcourse) {
+                studentmanagedcourse.forEach(function(smc) {
+                    if(smc.IdStudent == $scope.global.user.id){
+                        if (smc.CourseType == 'special_projects'){
+                            $scope.SpecialProjectsCourses.push(smc);
+                        }
+                        else if (smc.CourseType == 'free_choice'){
+                            $scope.FreeChoiceCourses.push(smc);
+                        }
+                        else if (smc.CourseType == 'extra'){
+                            $scope.ExtraCourses.push(smc);
+                        }
+                    }
+                }, this);
+            });            
         });
 
     };
 
-    $scope.updateForm = function(){
-        $scope.courses.forEach(function(course) {
+    $scope.updateForm = function(courses){
+        courses.forEach(function(course) {
             $http.get('/getstudentincourse/' + course.Id + "/" + $scope.global.user.id).success(function(respData){
                 if(respData == null){
                     if (course.isSelected == true){
@@ -88,7 +141,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         //allow students that have finished their graduation forms to insert preferences to year 5 studios.
         $scope.activated = true;
         if($scope.exchange){
-            angular.forEach($scope.courses,function(course,key){
+            angular.forEach(courses,function(course,key){
                 if (!course.isSelected){
                     $scope.activated = false;
                 }
@@ -122,7 +175,67 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         }
     }
 
-   
+    $scope.addCourse = function(type) {
+        var studentmanagedcourse = new StudentManagedCourse({
+			IdStudent: $scope.global.user.id,
+            IdCourse: $scope.id,
+			Name: $scope.name,
+            CourseType: type,
+            CreditPoints: $scope.creditpoints
+        });
+        studentmanagedcourse.$save(function(response) {
+            if(type == "special_projects"){
+                $scope.SpecialProjectsCourses.push(studentmanagedcourse); 
+            }
+            else if(type == "free_choice"){
+                $scope.FreeChoiceCourses.push(studentmanagedcourse); 
+            }
+            else{
+                $scope.ExtraCourses.push(studentmanagedcourse);
+            }
+        });
+        $scope.clear();
+    };
+
+    $scope.remove = function(course) {
+        if (course) {
+            course.$remove();  
+
+            if(course.CourseType == "special_projects"){
+                for (var i in $scope.SpecialProjectsCourses) {
+                    if ($scope.SpecialProjectsCourses[i] === course) {
+                        $scope.SpecialProjectsCourses.splice(i, 1);
+                    }
+                }
+            }
+            else if(course.CourseType == "free_choice"){
+                for (var i in $scope.FreeChoiceCourses) {
+                    if ($scope.FreeChoiceCourses[i] === course) {
+                        $scope.FreeChoiceCourses.splice(i, 1);
+                    }
+                }
+            }
+            else{
+                for (var i in $scope.ExtraCourses) {
+                    if ($scope.ExtraCourses[i] === course) {
+                        $scope.ExtraCourses.splice(i, 1);
+                    }
+                }
+            }
+        }
+        else {
+            $scope.course.$remove();
+            //$state.go('courses'); //yana: test
+        }
+        $scope.clear();
+    };
+
+    $scope.clear = function(){
+        $scope.id = null;
+        $scope.name = null;
+        $scope.creditpoints = null;
+    };
+    
     $scope.find();
     
 

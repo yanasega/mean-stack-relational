@@ -24,6 +24,7 @@ app.route('/students/:studentId')
     .delete(users.requiresLogin, students.destroy)
     .get(students.show)
     .put(users.requiresLogin, students.update);
+app.route('/setfifthtosix').get(students.updatefifthtosix);
 
 // Note: the students.student function will be called everytime then it will call the next function.
 app.param('studentId', students.student);
