@@ -43,7 +43,7 @@ exports.all = function(req, res) {
     db.Student.findAll().then(function(student){
         return res.jsonp(student);
     }).catch(function(err){
-        return res.render('error', {
+        return res.render('500', {
             error: err,
             status: 500
         });
@@ -73,6 +73,29 @@ exports.update = function(req, res) {
         });
     });
 };
+
+exports.updatefifthtosix = function (rew, res){
+    db.Student.findAll({where: {CurrentYear: 5 }}).then(function(students){
+        for (var i in students) {
+            students[i].updateAttributes({
+                CurrentYear: 6
+            }).then(function(a){
+                //return res.jsonp(a);
+            }).catch(function(err){
+                return res.render('error', {
+                    error: err, 
+                    status: 500
+                });
+            });
+        }
+        return res.send({status : 'success', message : 'User changed successfully.'});
+    }).catch(function(err){
+        return res.render('500', {
+            error: err,
+            status: 500
+        });
+    });
+}
 
 exports.show = function(req, res) {
     // Sending down the registration that was just preloaded by the registrations.registration function

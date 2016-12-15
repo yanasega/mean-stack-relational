@@ -2,7 +2,9 @@
 	<br>
 		<p style = "font-size:20px">היסטורית העדפות</p>
 		<hr>
-    <table class = "table">
+    <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showpref == false"></span>
+    <span ng-if = "showpref">
+    <table class = "table" >
         <thead>
             <tr>
             <th>שנה</th>
@@ -16,12 +18,14 @@
         <tr>
         <td>{{pref.StudentYear}}</td>
         <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
-        <td>{{pref.Semester}}</td>
+        <td ng-if = "pref.Semester =='winter'" >{{"חורף"}}</td>
+        <td ng-if = "pref.Semester !='winter'" >{{"אביב"}}</td>
         <td>{{pref.IdS}}</td>
         <td>{{pref.Rate}}</td>
         </tr>
         </tbody>
 
     </table>
+    </span>
 
 </div>

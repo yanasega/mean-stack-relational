@@ -1,9 +1,19 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios','$http'
+,function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios,$http) {
     console.log("RegistrationController");
     $scope.global = Global;
-    $scope.showreg = true;
+    $scope.showreg = false;
     $scope.status = null;
-    $scope.RegEmpty = true;
+    $scope.RegEmpty = null;
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
 
     $scope.openRegistration = function() {
         
@@ -16,35 +26,41 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
 
         reg.$save(function(response) {
             $scope.find();
-            //update all studios of the same semester as the registration to active.
-            Studios.query(function(studios){
-                studios.forEach(function(studio) {
-                    if ($scope.semester == studio.Semester){
-                        studio.IsActive = true;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                    else{
-                        studio.IsActive = false;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                }, this);
-            });
-            //yana: add check if response valid?
-            // if(response.status === 'success'){
-            //     $window.location.href = '/';
-            // }
-        });
-        $scope.status = "Registration opened successfully.";
+            //update all studios of the same semester as the registration to active : decided to let the user decide.
+            // Studios.query(function(studios){
+            //     studios.forEach(function(studio) {
+            //         if ($scope.semester == studio.Semester){
+            //             studio.IsActive = true;
+            //             if (!studio.updated) {
+            //                 studio.updated = [];
+            //             }
+            //             studio.updated.push(new Date().getTime());
+            //             studio.$update(function() {
+            //             });
+            //         }
+            //         else{
+            //             if (studio.RelevantYears !== "5"){
+            //                 studio.IsActive = false;
+            //                 if (!studio.updated) {
+            //                     studio.updated = [];
+            //                 }
+            //                 studio.updated.push(new Date().getTime());
+            //                 studio.$update(function() {
+            //                 });
+            //             }
+            //         }
+            //     }, this);
+            // });
+
+                
+            if($scope.semester == 'spring'){
+                $http.get('/setfifthtosix').success(function(res){
+                    console.log("success");
+                })
+            }
+        }); 
+
+        $scope.status = "הרשמה נפתחה בהצלחה.";
     };
  
      $scope.find = function() {
@@ -54,8 +70,13 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                 registrations.forEach(function(reg) {
                     if(reg.IsActive == true){
                         $scope.RegEmpty = false;
+                        // sleep(1500);
+                        // $scope.showreg = true;
                     }
                 }, this);
+                if ($scope.RegEmpty == null){
+                    $scope.RegEmpty = true;
+                }
             }
         });
     };

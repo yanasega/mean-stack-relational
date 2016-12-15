@@ -7,7 +7,7 @@
             <label for="email" class="col-md-4 control-label" style="float: right; font-size:18px">דוא"ל</label>
             
             <div class="col-md-4" >
-                <input id="email"  style="margin-right: -100px;" type="text" name="email" placeholder="דואר אלקטרוני" ng-model="user.email" required>
+                <input id="email"  style="margin-right: -100px;" type="email" name="email" placeholder="דואר אלקטרוני" ng-model="user.email" required>
             </div>
         </div>
         <div class="control-group">
@@ -16,6 +16,9 @@
                 <input id="password" style="margin-right: -100px;" type="password" name="password" placeholder="סיסמא" ng-model="user.password" required>
             </div>
         </div>
+       <div ng-if = "!IsOk">
+          <p style = "color: red">משתמש לא קיים במערכת או סיסמא שגויה</p>
+       </div>
         <div class="form-actions" style="width: 580px;font-size:18px">
             <button type="submit" class="btn btn-primary" style="font-size:18px">הכנס&nbsp;</button>
             או&nbsp;<a ui-sref="SignUp" class="show-signup">הירשם</a>

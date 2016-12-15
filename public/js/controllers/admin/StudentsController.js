@@ -4,24 +4,38 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     console.log("StudentsController");
     $scope.status = null;
     $scope.error = null;
-    $scope.showuser = true;
+    $scope.showuser = false;
     $scope.preferences = [];
     $scope.studentinstudio = [];
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
-    
+
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+            break;
+            }
+        }
+    }
+        
     $scope.create = function(){
         var tz = new Tzs({
             id : $scope.tz
         });
         tz.$save(function(response) {
             $scope.error = null;
-            $scope.status = "Uploaded successfully id number: " + $scope.tz ;
+            $scope.status = "תעודת זהות הוטענה בהצלחה: " + tz.id ;
             $scope.tz = null;
+            Tzs.query(function(tzs) {
+                $scope.tzs = tzs; 
+                // $scope.showreg = true;
+            });
         });
         $scope.status = null;
-        $scope.error = "There was an error while uploding the id: " + $scope.tz;
+        $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
         $scope.tz = null;
     }
 
@@ -38,6 +52,10 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                             $scope.error = null;
                             $scope.status = "File uploaded successfully.";
                             $scope.Ids = null;
+                            Tzs.query(function(tzs) {
+                                $scope.tzs = tzs; 
+                                // $scope.showreg = true;
+                            });
                         }
                         else{
                             $scope.Ids = null;
@@ -134,10 +152,13 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     };
 
      $scope.find = function() {
-         //yana:update status registration if active.
         Students.query(function(students) {
-            $scope.students = students; //yana: check if data relavent?
-            // $scope.showreg = true;
+            $scope.students = students;
+            sleep(2500); 
+            $scope.showuser = true;
+        });
+        Tzs.query(function(tzs) {
+            $scope.tzs = tzs; 
         });
     };
 
@@ -166,6 +187,20 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             $scope.student.$remove();
             $state.go('student'); //yana: test
         }
+    };
+
+    $scope.removetz =  function (tz) {
+        if (tz) {
+            tz.$remove();  
+            for (var i in $scope.tzs) {
+                if ($scope.tzs[i] === tz) {
+                    $scope.tzs.splice(i, 1);
+                }
+            }
+        }
+        else {
+            $scope.tz.$remove();//yana: test
+        }    
     };
 
     $scope.removeView = function(student) {

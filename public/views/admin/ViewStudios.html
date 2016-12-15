@@ -4,8 +4,9 @@
 		<hr>
 </div>
 
-<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showstud == false"></i>
-<div id = "studios" ng-show = "showstud == true">
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showstud == false"></span>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showstud == false"></i>-->
+<div id = "studios" ng-show = "showstud == true" >
   <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
 
   <select style="margin-left: 10px;" ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
@@ -24,6 +25,7 @@
             <th>נושא</th>
             <th>שנים</th>
             <th>סמסטר</th>
+            <th>סטטוס</th>
             <th>סילבוס</th>
             <th></th> 
             <th></th>
@@ -38,7 +40,9 @@
         <!--<td>{{studio.Description}}</td>-->
         <td>{{studio.Subject}}</td>
         <td>{{studio.RelevantYears}}</td>
-        <td>{{studio.Semester}}</td>  
+        <td>{{studio.Semester}}</td>
+        <td ng-if ="studio.IsActive == true">{{"פעיל"}}</td>   
+        <td ng-if ="studio.IsActive == false">{{"מושבת"}}</td>   
         <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
         <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
         <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
@@ -48,7 +52,7 @@
    </table>
 </div>
 
-<div>
+<div ng-show = "showstud == true">
     <br>
     <p style = "font-size:20px">הוספת סטודיו חדש</p>
     <hr>

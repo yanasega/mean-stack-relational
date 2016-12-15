@@ -5,7 +5,7 @@
     <hr>
    <p>כרגע אין הרשמות פתוחות...</p>
     <div class="control-group">
-      <label class="control-label" for="semester" style="float: right" id="semester">סמסטר</label>
+      <label class="control-label" for="semester" style="float: right;margin-left: 1em;margin-top: 0.3em;" id="semester">סמסטר</label>
       <div class="controls">
         <select type="string" data-ng-model="semester" required>
           <option value="winter">חורף</option>
@@ -27,6 +27,7 @@
       <p style = "font-size:20px">ניהול הרשמה</p>
       <hr>
   </div>
+  <!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>-->
    <table class = "table">
       <thead>
          <tr>
@@ -35,18 +36,18 @@
             <th>סמסטר</th>
             <th> סטאטוס הרשמה</th>
             <th></th>
-            <!--<th></th>-->
          </tr>
       </thead>
      <tbody ng-repeat="reg in registrations">
         <tr>
         <td>{{reg.StartDate | date : "dd.MM.y"}}</td>
         <td>{{reg.EndDate | date : "dd.MM.y"}}</td>
-        <td>{{reg.Semester}}</td>
-        <!--yana:check:-->
+        <!--<td>{{reg.Semester}}</td>-->
+        <td ng-show="reg.Semester == 'winter'">{{"חורף"}}</td> 
+        <td ng-show="reg.Semester == 'spring'">{{"אביב"}}</td> 
         <td ng-show="reg.IsActive == true">{{"פעילה"}}</td> 
         <td ng-show="reg.IsActive ==false">{{"סגורה"}}</td> 
-        <!--<td><a class="btn btn-default btn-sm" ui-sref="editReg({registrationId : reg.id})"><i class="fa fa-pencil"></i> Edit</a></td>-->
+
         <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> סגירת הרשמה</a></td>
         </tr>
      </tbody>
@@ -55,13 +56,3 @@
 
 </div>
 
-<!--<div>
-	<br>
-		<p style = "font-size:20px">Registration Statistics:</p>
-		<hr>
-       <p></p>
-       <p></p>
-       <canvas id="pie" class="chart chart-pie"
-        chart-data="data" chart-labels="labels" chart-options="options">
-      </canvas> 
-</div>-->

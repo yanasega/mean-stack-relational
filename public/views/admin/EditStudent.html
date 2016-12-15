@@ -2,7 +2,8 @@
     <br>
     <p style = "font-size:20px">{{"עריכת סטודנט: " + student.FirstName + " " + student.LastName}} </p>
     <hr>
-    <form class="form-horizontal" data-ng-submit="update()">
+	<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+    <form class="form-horizontal" data-ng-submit="update()" ng-show = "showuser == true">
 	<br>
 		<div class="control-group">
 			<label class="control-label" style="float: right" for="currentyear">שנה נוכחית</label>
