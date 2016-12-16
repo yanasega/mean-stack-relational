@@ -8,17 +8,24 @@ studentincourse = require('../../app/controllers/StudentManagedCourseController'
 
 module.exports = function(app) {
 // Article Routes
-app.route('/studentincourse')
+app.route('/studentmanagedcourse')
     .get(studentincourse.all)
     .post(users.requiresLogin, studentincourse.create)
     .put(users.requiresLogin, studentincourse.update);
+
+app.route('/studentmanagedcourse/:studentmanagedcourseId')
+    .delete(users.requiresLogin, studentincourse.destroy)
+// app.route('/studentincourse/:studentincourseId')
+//     .delete(users.requiresLogin, studentincourse.destroy)
 // app.route('/studentincourse/:studentincourseId')
 //     .delete(users.requiresLogin, studentincourse.destroy)
 //     .get(studentincourse.show)
 //     .put(users.requiresLogin, studentincourse.update);
+
 app.route('/getstudentincourse/:courseId/:userId')
     .get(users.requiresLogin, studentincourse.find)
     .put(users.requiresLogin, studentincourse.update);
+
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
 
