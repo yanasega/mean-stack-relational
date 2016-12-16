@@ -335,6 +335,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                         student.Preference = preference.Rate;
                         $http.get('/getstudentpreference/' + student.id ).success(function(preferences){
                             if (preferences){
+                                console.log(preferences);
                                 student.preferences = preferences;
                             }
                         })
