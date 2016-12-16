@@ -14,17 +14,15 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
+    
     db.Instructor.create(req.body).then(function(instructor){
         if(!instructor){
-            return res.send('users/signup', {errors: new StandardError('Instructor could not be created')}); //yana:change the landing page.
+            return res.status(500).send({errors: new StandardError('Instructor could not be created')});
         } else {
             return res.jsonp(instructor);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -46,10 +44,6 @@ exports.all = function(req, res) {
         return res.jsonp(instructor);
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-        // });
     });
 };
 

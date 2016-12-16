@@ -51,8 +51,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         }
         course.updated.push(new Date().getTime());
         course.$update(function() {
-        $state.go('ViewCourse');
-
+            $state.go('ViewCourse');
         });
     };
 
