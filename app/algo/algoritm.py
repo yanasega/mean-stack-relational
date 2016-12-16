@@ -12,8 +12,9 @@ class Algorithm:
 		# connection to sql
 		self.db = mysql.connector.connect(host     = "127.0.0.1",             # your host, usually localhost
 										  user     = "root",                  # your username
-										  password = "02575734",  # your password
-										  database = "sakila")                 # name of the data base
+										  password = "we1are2the3champions",  # your password
+										  database = "sakila")                # name of the data base
+
 										  
 		self.errors = {}
 		self.remark = []
