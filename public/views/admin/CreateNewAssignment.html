@@ -1,55 +1,61 @@
+<section data-ng-init="checkIfActive()">
 <head>
     <!--<script src="..\css\common.css"></script>-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
  <body> 
-<div class="jumbotron">
-  <p style="font-size:20px">יצירת שיבוץ חדש</p>
-  	<hr>
-    <div class="row">
-      <div class = "col-md-6">
-     <div class ="col-md-12">
-       <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true">המשך...</button>
+   <div class="row">
+     <div class ="col-md-12"  style ="text-align:center">
+       <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
      </div>
+   </div>
+    <div class="jumbotron">
+    <p style="font-size:20px">יצירת שיבוץ חדש</p>
+      <hr>
+      <div class="row">
+        <div class = "col-md-6">
+      <div class ="col-md-12">
+        <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init(); myBtn=true" ng-disabled="alertIsActive == true">טען נתונים</button>
       </div>
-     <div class = "col-md-6">
-     <div class ="col-md-6">
-      <div class="control-group">
-        <div class="dropdown">
-            <select ng-model="ChosenSemester">
-              <option value="choose semester..">בחר סמסטר...</option>
-              <option value="winter">חורף</option>
-              <option value="spring">אביב</option>
-             <!--<option ng-repeat="x in semester">{{x}}</option>-->
-            </select>
-      </div>
-  </div>
-  </div>
-    <div class ="col-md-6">
-      <div class="control-group">
-        <div class="dropdown">
-            <select ng-model="ChosenYear">
-              <option value="choose year..">בחר שנה...</option>
-              <option value="3,4">3,4</option>
-              <option value="5">5</option>
-             <!--<option ng-repeat="x in year">{{x}}</option>-->
-            </select>
         </div>
-   </div>
-  </div>
-  </div>
-  </div>
-  <div  class="row" style="padding-top:30px">
-    <div class ="col-md-4" style="float:left">
-    <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
-      <button class="btn btn-info" ng-click="runAlgo()">שיבוץ אוטומטי</button>
-      <button type="button" class="btn btn-danger" ng-click="init()">נקה שיבוץ</button>
-      <button type="button" class="btn btn-success" ng-click="SaveAssinment()">שמור שיבוץ</button>
+      <div class = "col-md-6">
+      <div class ="col-md-6">
+        <div class="control-group">
+          <div class="dropdown">
+              <select ng-model="ChosenSemester" ng-disabled="alertIsActive == true">
+                <option value="choose semester..">בחר סמסטר...</option>
+                <option value="winter">חורף</option>
+                <option value="spring">אביב</option>
+              <!--<option ng-repeat="x in semester">{{x}}</option>-->
+              </select>
+        </div>
+    </div>
+    </div>
+      <div class ="col-md-6">
+        <div class="control-group">
+          <div class="dropdown">
+              <select ng-model="ChosenYear" ng-disabled="alertIsActive == true">
+                <option value="choose year..">בחר שנה...</option>
+                <option value="3,4">3,4</option>
+                <option value="5">5</option>
+              <!--<option ng-repeat="x in year">{{x}}</option>-->
+              </select>
+          </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div  class="row" style="padding-top:30px">
+      <div class ="col-md-4" style="float:left">
+      <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
+        <button class="btn btn-info" ng-click="runAlgo()">שיבוץ אוטומטי</button>
+        <button type="button" class="btn btn-danger" ng-click="init()">נקה שיבוץ</button>
+        <button type="button" class="btn btn-success" ng-click="SaveAssinment()">שמור שיבוץ</button>
 
-   </div>
+    </div>
+    </div>
   </div>
-</div>
 </div>
 </br>
 </br>
@@ -58,7 +64,7 @@
 <!--spinner while witing for algo-->
 <!--<div class="row" ng-if = "loading == false" style="padding-right:500px">
    <i class="fa fa-spinner fa-spin fa-3x fa-fw" ></i>-->
-   <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "loading == false"></span>
+   <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "loading == false && alertIsActive == false" ></span>
 <!--</div>-->
 
 <div ng-show="!assign" style = "text-align:center">
@@ -67,14 +73,14 @@
 </div>
 
 
-  <div class= "row" style ="float:right" ng-show = "addstudflag">
+  <div class= "row" style ="float:right" ng-show = "addstudflag && assign">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
               <div class="col-md-6" style="padding-right:60px">
                 <input type="text" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית סטודנט" style="width:260px;height:35px;float:left" required>
               </div>
                <div class="control-group;col-md-6">
-                <input type="submit" value = "חפש" class="btn btn-info">
+                <input type="submit" value = "הוסף" class="btn btn-info">
              </div>
             </div>
       </form>
@@ -406,6 +412,7 @@
   </div>
 </div>-->
  </body>
+</section>
 
 
 

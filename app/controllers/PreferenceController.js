@@ -66,7 +66,6 @@ exports.getPreferenceByStudentAndStudio = function(req, res, next) {
 };
 
 exports.getPreferenceByStudentId = function(req, res, next) {
-    //console.log(req.StudentId);
     db.Registration.max('id').then(
         function(reg){
             db.Preference.findAll({where: {Id: req.StudentId,IdR:reg, Rate:{$in: [1,2,3, 4] }}}).then(function(preference){

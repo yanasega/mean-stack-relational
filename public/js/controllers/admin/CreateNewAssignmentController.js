@@ -12,6 +12,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.assignments = null;
     $scope.missingStatus = false;
      $scope.tooltip = false;
+     $scope.alertIsActive = false; 
+
 
 
 
@@ -321,8 +323,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
             $scope.registration = assignment.IdR;
+            $scope.getStudios();
         });
-        $scope.getStudios();
         $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){           
             respData.forEach(function(studentinstudio) {
                 Students.get({
@@ -331,6 +333,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio + '/' + $scope.registration).success(function(preference){
                     if (preference){
                         student.Preference = preference.Rate;
+                        $http.get('/getstudentpreference/' + student.id ).success(function(preferences){
+                            if (preferences){
+                                student.preferences = preferences;
+                            }
+                        })
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
                     }
                 })
@@ -380,6 +387,15 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, this);    
                
     }
-    //this is the view section
+     $scope.checkIfActive = function(){
+        $http.get('/getregistration/').success(function(reg){
+            if (reg.IsActive){
+                 $scope.loading = false;
+                 $scope.alertIsActive = true;  
+                 
+                 return;
+            }
+        })
+    }
 }]);
 
