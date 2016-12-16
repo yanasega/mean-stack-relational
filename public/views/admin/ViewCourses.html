@@ -8,6 +8,8 @@
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showcourse == false"></i>-->
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showcourse == false"></span>
 <div id = "courses" ng-show = "showcourse == true">
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
+<p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס נמחק בהצלחה"}}</p>
   <input ng-model = "query" type="text" placeholder="חפש...">
 
    <table class = "table">
@@ -74,6 +76,9 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+            <br>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
 		</div>
 	</form>     
 </div>
