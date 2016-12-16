@@ -1,6 +1,7 @@
 <div>
 	<br>
 		<p style = "font-size:2em">ניהול מידע על קורסי המערכת</p>
+        <p>כאן ניתן לנהל את תוכן טופס הגמר של הסטודנטים</p>
 		<hr>
 </div>
 
@@ -15,8 +16,8 @@
             <th>מזהה קורס</th>
             <th>שם הקורס</th>
             <th>מספר נקודות זיכוי</th>
-            <!--<th>Mandatory?</th>-->
-            <!--<th></th>-->
+            <th>סוג</th>
+            <th></th>
             <th></th>
          </tr>
       </thead>
@@ -25,8 +26,12 @@
         <td >{{course.Id}}</td>
         <td>{{course.Name}}</td>
         <td>{{course.CreditPoints}}</td>
-        <!--<td>{{course.IsMandatory}}</td>-->
-        <!--<td><a class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a></td>-->
+        <!--<td>{{course.CourseType}}</td>-->
+        <td ng-if ="course.CourseType == 'mandatory'">{{"חובה"}}</td>   
+        <td ng-if ="course.CourseType == 'mandatory_choice'">{{"בחירה מחייבת"}}</td> 
+        <td ng-if ="course.CourseType == 'design_choice'">{{"בחירה - מסלול עיצוב בסיסי"}}</td> 
+        <td ng-if ="course.CourseType == 'general_choice'">{{"בחירה"}}</td> 
+        <td><a class="btn btn-default btn-sm" ui-sref="editCourse({courseId : course.Id})"><i class="fa fa-pencil"></i> עריכה</a></td>
         <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
         </tr>
      </tbody>
@@ -53,6 +58,16 @@
 			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
 			<div class="controls">
 				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+			</div>
+            <label class="control-label" style="float: right;margin-top: 20px;" for="coursetype" id="coursetype">סוג:</label>
+			<div class="controls" style="margin-top: 20px;">
+				<select type="string" data-ng-model="coursetype" required>
+                   <option value="">בחר\י סוג קורס...</option>
+					<option value="mandatory">חובה</option>
+					<option value="mandatory_choice">בחירה מחייבת</option>
+					<option value="design_choice">בחירה - מסלול עיצוב בסיסי</option>
+					<option value="general_choice">בחירה</option>
+				</select>
 			</div>
 		</div>
 		<div class="control-group">

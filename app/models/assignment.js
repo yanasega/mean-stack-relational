@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
 
 	var Assignment = sequelize.define('Assignment', {
 			Year: DataTypes.STRING,
-			Semester: DataTypes.STRING
+			Semester: DataTypes.STRING,
+			IdR: DataTypes.INTEGER
 		},{
 			freezeTableName: true
 		}

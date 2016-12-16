@@ -11,11 +11,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
-<<<<<<< HEAD
      $scope.tooltip = false;
-=======
-    $scope.tooltip = false;
->>>>>>> origin/development
+     $scope.alertIsActive = false; 
+
+
 
     
     $scope.studios = [];
@@ -136,10 +135,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
              $scope.tooltip = true; 
-<<<<<<< HEAD
-             console.log($scope.tooltip); 
-=======
->>>>>>> origin/development
           } 
           else{
             $scope.tooltip = false; 
@@ -199,6 +194,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.models.studioLists[studio.id] .forEach(function(student){
                 if(student.id == moved_student.id){
                     $http.get('/getstudentpreference/' + student.id + '/' + studio.id).success(function(preference){
+                        console.log(preference);
                         if (preference){
                             student.Preference = preference.Rate;
                         }
@@ -219,6 +215,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }
         $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
             $scope.status = "Algorithem run finished succesfully.";
+            console.log(respData);
             //empty student list
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
@@ -311,16 +308,22 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, function(assignment) {
             $scope.ChosenYear = assignment.Year;
             $scope.ChosenSemester = assignment.Semester;
+            $scope.registration = assignment.IdR;
+            $scope.getStudios();
         });
-        $scope.getStudios();
-        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){
+        $http.get('/getstudentinstudio/' + $stateParams.assignmentId).success(function(respData){           
             respData.forEach(function(studentinstudio) {
                 Students.get({
                     studentId: studentinstudio.IdStudent
                 }, function(student) {
-                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio).success(function(preference){
+                $http.get('/getstudentpreference/' + studentinstudio.IdStudent + '/' + studentinstudio.Studio + '/' + $scope.registration).success(function(preference){
                     if (preference){
-                        student.preference = preference.Rate;
+                        student.Preference = preference.Rate;
+                        $http.get('/getstudentpreference/' + student.id ).success(function(preferences){
+                            if (preferences){
+                                student.preferences = preferences;
+                            }
+                        })
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
                     }
                 })
@@ -370,6 +373,15 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, this);    
                
     }
-    //this is the view section
+     $scope.checkIfActive = function(){
+        $http.get('/getregistration/').success(function(reg){
+            if (reg.IsActive){
+                 $scope.loading = false;
+                 $scope.alertIsActive = true;  
+                 
+                 return;
+            }
+        })
+    }
 }]);
 

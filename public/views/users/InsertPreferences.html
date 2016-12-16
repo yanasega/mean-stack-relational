@@ -45,17 +45,25 @@
 			</div>
 		</div>
 	</form>
-	<form class="form-horizontal" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
+	<form class="form" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
 		<p style = "font-size:2em" >הזנת העדפות</p>
 		<hr>
-		<div class="control-group" ng-repeat="stud in studios">
-			<label class="control-label" style="float: right;" for="options">{{$index +1 + "."}}</label>
-			<div class="controls">
-				<select type="string" ng-model = "general.studio[$index]" ng-options = "studio.Name for studio in studios | filter:IsInPref" ng-change ="updatePref(general.studio[$index].id, $index) " required>
-                    <option value="" disabled selected>בחר העדפה...</option>
+		<!--<div class="control-group">-->
+			<!--<label class="control-label" style="float: right;" for="options">{{$index +1 + "."}}</label>-->
+			<!--<div class="controls">-->
+				<div style ="margin-bottom: 10px;" ng-repeat="(modelIndex, itemValue) in studios track by modelIndex">
+					{{$index +1 + "."}}
+				<select style="margin-right: 20px;"
+						ng-model="data[modelIndex]"
+						ng-options="item.Name for item in $parent.studios | arrayDiff:data:data[modelIndex]">
+						<option value="">בחר העדפה...</option>
 				</select>
-			</div>
-		</div>
+				</div>
+				<!--<select type="string" ng-model = "general.studio[$index]" ng-options = "studio.Name for studio in studios | filter:IsInPref" ng-change ="updatePref(general.studio[$index].id, $index) " required>
+                    <option value="" disabled selected>בחר העדפה...</option>
+				</select>-->
+			<!--</div>-->
+		<!--</div>-->
 		<!--<div class="control-group">
 			<label class="control-label" for="requests">Special Requests</label>
 			<div class="controls">

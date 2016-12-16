@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios','$http'
+,function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios,$http) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = false;
@@ -25,34 +26,40 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
 
         reg.$save(function(response) {
             $scope.find();
-            //update all studios of the same semester as the registration to active.
-            Studios.query(function(studios){
-                studios.forEach(function(studio) {
-                    if ($scope.semester == studio.Semester){
-                        studio.IsActive = true;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                    else{
-                        studio.IsActive = false;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                }, this);
-            });
-            //yana: add check if response valid?
-            // if(response.status === 'success'){
-            //     $window.location.href = '/';
-            // }
+            //update all studios of the same semester as the registration to active : decided to let the user decide.
+            // Studios.query(function(studios){
+            //     studios.forEach(function(studio) {
+            //         if ($scope.semester == studio.Semester){
+            //             studio.IsActive = true;
+            //             if (!studio.updated) {
+            //                 studio.updated = [];
+            //             }
+            //             studio.updated.push(new Date().getTime());
+            //             studio.$update(function() {
+            //             });
+            //         }
+            //         else{
+            //             if (studio.RelevantYears !== "5"){
+            //                 studio.IsActive = false;
+            //                 if (!studio.updated) {
+            //                     studio.updated = [];
+            //                 }
+            //                 studio.updated.push(new Date().getTime());
+            //                 studio.$update(function() {
+            //                 });
+            //             }
+            //         }
+            //     }, this);
+            // });
+
+                
+            if($scope.semester == 'spring'){
+                $http.get('/setfifthtosix').success(function(res){
+                    console.log("success");
+                })
+            }
         }); 
+
         $scope.status = "הרשמה נפתחה בהצלחה.";
     };
  
@@ -67,6 +74,9 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                         // $scope.showreg = true;
                     }
                 }, this);
+                if ($scope.RegEmpty == null){
+                    $scope.RegEmpty = true;
+                }
             }
         });
     };
