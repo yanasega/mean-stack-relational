@@ -45,10 +45,11 @@ exports.all = function(req, res) {
     db.Instructor.findAll().then(function(instructor){
         return res.jsonp(instructor);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
     });
 };
 
