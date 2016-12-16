@@ -26,6 +26,7 @@
 		<hr>
     <br>
   <p style = "font-size:1.4em" >מקצועות חובה</p>
+  
   <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
   <hr>
   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
@@ -173,17 +174,17 @@
 		<div class="control-group">
             <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="id" id="id" required>
+				<input type="number" data-ng-model="id['special_projects']" id="id" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
 			<div class="controls">
-				<input type="text" data-ng-model="name" id="name" required>
+				<input type="text" data-ng-model="name['special_projects']" id="name" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+				<input type="number" data-ng-model="creditpoints['special_projects']" id="creditpoints" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -261,17 +262,17 @@
 		<div class="control-group">
             <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="id" id="id" required>
+				<input type="number" data-ng-model="id['free_choice']" id="id" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
 			<div class="controls">
-				<input type="text" data-ng-model="name" id="name" required>
+				<input type="text" data-ng-model="name['free_choice']" id="name" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+				<input type="number" data-ng-model="creditpoints['free_choice']" id="creditpoints" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -311,17 +312,17 @@
 		<div class="control-group">
             <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="id" id="id" required>
+				<input type="number" data-ng-model="id['extra']" id="id" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
 			<div class="controls">
-				<input type="text" data-ng-model="name" id="name" required>
+				<input type="text" data-ng-model="name['extra']" id="name" required>
 			</div>
             <br>
 			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
 			<div class="controls">
-				<input type="number" data-ng-model="creditpoints" id="creditpoints" required>
+				<input type="number" data-ng-model="creditpoints['extra']" id="creditpoints" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -333,7 +334,7 @@
 </div>
 
  <div>
-  <p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i>{{"  " +status}}</p>
+  <!--<p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i>{{"  " +status}}</p>-->
  </div>
 
 </div>
