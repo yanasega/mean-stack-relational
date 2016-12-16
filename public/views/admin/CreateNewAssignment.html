@@ -4,10 +4,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
- <body> 
+ <body>    
    <div class="row">
      <div class ="col-md-12"  style ="text-align:center">
-       <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
+       <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive && alertEmptyStudio && alertEmptyStudents" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
      </div>
    </div>
     <div class="jumbotron">
@@ -48,7 +48,7 @@
     </div>
     <div  class="row" style="padding-top:30px">
       <div class ="col-md-4" style="float:left">
-      <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn">
+      <div class = "assinmentBtn" role="group" aria-label="..." ng-show="myBtn" ng-disabled="alertEmptyStudio && alertEmptyStudents">
         <button class="btn btn-info" ng-click="runAlgo()">שיבוץ אוטומטי</button>
         <button type="button" class="btn btn-danger" ng-click="init()">נקה שיבוץ</button>
         <button type="button" class="btn btn-success" ng-click="SaveAssinment()">שמור שיבוץ</button>
@@ -64,16 +64,30 @@
 <!--spinner while witing for algo-->
 <!--<div class="row" ng-if = "loading == false" style="padding-right:500px">
    <i class="fa fa-spinner fa-spin fa-3x fa-fw" ></i>-->
-   <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "loading == false && alertIsActive == false" ></span>
+   <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px"  ng-if ="findall"></span>
+
+   <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "!loading  && !alertIsActive" ></span>
 <!--</div>-->
 
 <div ng-show="!assign" style = "text-align:center">
-  <p> <i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> השיבוץ נשמר בהצלחה</p>
-  <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קיימים</a>
+  <span>
+  <p class="alert alert-info">השיבוץ התעדכן בהצלחה!</p>
+  <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קודמים</a>
+  </span>
+</div>
+
+<div ng-show="alertEmptyStudio" style = "text-align:center">
+  <p class="alert alert-danger"> <i  style = "font-size:20px" aria-hidden="true"></i>לא קיימים נתונים על קבוצות הסטודיו בשנה זו</p>
+  <a href="adminhome"> חזרה לדף הבית</a>
+</div>
+
+<div ng-show="alertEmptyStudents" style = "text-align:center">
+  <p class="alert alert-danger"> <i style = "font-size:20px" aria-hidden="true"></i>לא קיימים נתונים על קבוצות הסטודיו בשנה זו</p>
+  <a href="adminhome">חזרה לדף הבית</a>
 </div>
 
 
-  <div class= "row" style ="float:right" ng-show = "addstudflag && assign">
+  <div class= "row" style ="float:right" ng-show = "addstudflag && assign && !findall">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
               <div class="col-md-6" style="padding-right:60px">
@@ -91,7 +105,7 @@
   
 
 <div ng-show = "loading">
-  <div class="container" id = thirdFourth  ng-if = "myBtn == true && ChosenYear == '3,4'" ng-show = "assign">
+  <div class="container" id = thirdFourth  ng-if = "myBtn == true && ChosenYear == '3,4'" ng-show = "assign && !findall">
     <div class="row">
       <div class="col-sm-8" style="padding-bottom:10px">
             <div class = "col-sm-6"  ng-repeat= "studio in studios">
@@ -138,7 +152,7 @@
                                   העדפה 1:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[0].IdS}}
+                                     {{item.preferences[0]}}
                                    </td>
                                  </tr>
                                      <tr>
@@ -146,7 +160,7 @@
                                   העדפה 2:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[1].IdS}}
+                                     {{item.preferences[1]}}
                                    </td>
                                  </tr>
                                      <tr>
@@ -154,7 +168,7 @@
                                   העדפה 3:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[2].IdS}}
+                                     {{item.preferences[2]}}
                                    </td>
                                  </tr>
                                     <tr>
@@ -162,7 +176,7 @@
                                   העדפה 4:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[3].IdS}}
+                                     {{item.preferences[3]}}
                                    </td>
                                  </tr>
                                </table>
@@ -266,7 +280,7 @@
                                   העדפה 1:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[0].IdS}}
+                                     {{item.preferences[0]}}
                                    </td>
                                  </tr>
                                      <tr>
@@ -274,7 +288,7 @@
                                   העדפה 2:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[1].IdS}}
+                                     {{item.preferences[1]}}
                                    </td>
                                  </tr>
                                      <tr>
@@ -282,7 +296,7 @@
                                   העדפה 3:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[2].IdS}}
+                                     {{item.preferences[2]}}
                                    </td>
                                  </tr>
                                     <tr>
@@ -290,7 +304,7 @@
                                   העדפה 4:
                                    </td>
                                    <td ng-init=""> 
-                                     {{item.preferences[3].IdS}}
+                                     {{item.preferences[3]}}
                                    </td>
                                  </tr>
                                </table>
@@ -344,74 +358,7 @@
     </div>
   </div>
 </div>
-     
-
-<!--<div class="container" id =fifth  ng-if = "myBtn == true && ChosenYear == '5'" ng-show = "loading">
-  <div class="row">
-    <div class="col-sm-8" style="padding-bottom:10px">
-          <div class = "col-sm-6"  ng-repeat= "studio in studios">
-             <h5 style="text-align:right; padding-right:40px"><b> {{studio.Name}}</b></h5>
-                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-		              <ul dnd-list="models.studioLists[studio.id]" >
-                         <li ng-repeat="item in models.studioLists[studio.id]"
-                            dnd-draggable="item"
-                            dnd-moved="models.studioLists[studio.id].splice($index, 1)"
-                            dnd-effect-allowed="move"
-                            dnd-selected="models.selected = item"
-                            ng-class="{'selected': models.selected === item}"
-                            ng-change="UpdateStudentsData(item,studio)"
-                            ng-model="models.studioLists[studio.id]"
-                             >
-                            {{item.FirstName + " " + item.LastName + "" + item.preference}}
-
-                         </li>
-                      </ul>
-	                 </div>
-                   </br>
-                <table id = "infoTable" class="table table-hover" style= "width:300px">
-                    <thead>
-                      <tr>
-                         <th>ממוצע כללי</th>
-                         <th>ממוצע בסטודיו</th>
-                         <th>נשים %</th>
-                         <th>גברים %</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td id = "AverageGrade" >{{Sdata.GAverage}}</td>
-                        <td id = "AverageGradeinstudio">{{Sdata.SAverage}}</td>
-                        <td id = "female">{{Sdata.female}}</td>
-                        <td id = "male">{{Sdata.male}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                 </div>
-                 </br>
-                 </br>
-    </div>
-    <div class="col-sm-4">
-      <h3 style="margin-top:0px">סטודנטים</h3>
-          <div style= "overflow:hidden; overflow-y:scroll; height:600px">
-            <div class="simpleDemo">
-		              <ul dnd-list="models.studioLists[0]">
-                         <li ng-repeat="item in models.studioLists[0]"
-                            dnd-draggable="item"
-                            dnd-moved="models.studioLists[0].splice($index, 1)"
-                            dnd-effect-allowed="move"
-                            dnd-selected="models.selected = item"
-                            ng-class="{'selected': models.selected === item}"
-                             >
-                           {{item.FirstName + " " + item.LastName}}
-
-                         </li>
-                   </ul>
-	            </div>
-          </div>
-    </div>
-  </div>
-</div>-->
- </body>
+</body>
 </section>
 
 
