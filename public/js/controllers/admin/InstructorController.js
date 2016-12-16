@@ -1,7 +1,10 @@
 angular.module('mean.system').controller('InstructorController', ['$scope', '$resource' ,'Global', 'Instructors','$window',function ($scope, $resource ,Global ,Instructors ,$window) {
     console.log("InstructorController");
     $scope.global = Global;
-    $scope.showinstr = false;    
+    $scope.showinstr = false;
+    $scope.loaderror = null;
+    $scope.adderror = null;    
+
     function sleep(milliseconds) {
         var start = new Date().getTime();
         for (var i = 0; i < 1e7; i++) {
@@ -18,8 +21,11 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
 			LastName: $scope.lastname
         });
         instructors.$save(function(response) {
+            $scope.adderror = true; 
             $scope.find();
             //yana: add check if response valid?
+        }, function (err){
+            $scope.adderror = false;
         });
         $scope.clear();
     };
@@ -29,6 +35,10 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
             $scope.instructors = instructors; //yana: check if data relavent?
             sleep(1500);
             $scope.showinstr = true;
+            $scope.loaderror = false;
+            
+        }, function (err){
+            $scope.loaderror = true;
         });
     };
 
