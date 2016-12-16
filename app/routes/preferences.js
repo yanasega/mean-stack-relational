@@ -16,8 +16,13 @@ app.route('/preferences/:preferenceId/:registrationId')
     .get(preferences.show)
     .put(users.requiresLogin, preferences.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
+app.route('/getstudentpreference/:StudentId/:Studio/:RegId')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudioAndReg);
 
-    app.route('/getstudentpreference/:StudentId/:Studio')
+app.route('/getstudentpreference/:StudentId/:Studio/')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudio);
+
+ app.route('/getstudentpreference/:StudentId')
     .get(users.requiresLogin, preferences.getPreferenceByStudentId);
 
 
@@ -25,4 +30,6 @@ app.route('/preferences/:preferenceId/:registrationId')
 app.param('preferenceId', preferences.preference);
 app.param('StudentId', preferences.setStudentId);
 app.param('Studio', preferences.setStudioId);
+app.param('RegId', preferences.setRegId);
+
 };

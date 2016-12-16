@@ -159,7 +159,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         });
         Tzs.query(function(tzs) {
             $scope.tzs = tzs; 
-            // $scope.showreg = true;
         });
     };
 

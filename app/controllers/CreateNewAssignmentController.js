@@ -43,11 +43,13 @@ exports.runAlgorithem = function(req, res) {
 
     var options = {
         mode: 'json',
-        pythonPath: 'python.exe',
+        pythonPath: 'python',
         scriptPath: dirString + '//..//algo',
         args: [req.year, req.semester]
     };
+
     PythonShell.run('algoritm.py', options, function (err, results) {
+        console.log(results);
         if (err) throw err; // yana: fix this to better error catching
         return res.jsonp(results);
     });

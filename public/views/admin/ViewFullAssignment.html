@@ -48,16 +48,16 @@
                   <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
                 </div>
               </div>
-                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
-                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]" ng-change = 'UpdateStudentsData()'>
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px" >
+                    <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]" ng-change = 'UpdateStudentsData()' >
                           <li ng-repeat="item in models.studioLists[studio.id]"
                               dnd-draggable="item"
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item"
                               ng-class="{'selected': models.selected === item}"      
-                              >
-                              {{item.FirstName + " " + item.LastName  + " " + item.preference}}
+                               >
+                              {{item.FirstName + " " + item.LastName  + " " + item.Preference}}
 
                           </li>
                         </ul>
@@ -101,7 +101,7 @@
                             dnd-effect-allowed="move"
                             dnd-selected="models.selected = item"
                             ng-class="{'selected': models.selected === item}"
-                              ng-change="UpdateStudentsData()"
+                            ng-change="UpdateStudentsData()"
                             ng-model="models.studioLists[studio.id]"
                              >
                             {{item.FirstName + " " + item.LastName}}
