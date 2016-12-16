@@ -102,7 +102,6 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
     var studentincourse = req.studentincourse;
-
     studentincourse.destroy().then(function(){
         return res.jsonp(studentincourse);
     }).catch(function(err){
@@ -127,12 +126,8 @@ exports.show = function(req, res) {
  */
 exports.all = function(req, res) {
     db.StudentManagedCourse.findAll().then(function(studentincourse){
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        console.log(studentincourse);
         return res.jsonp(studentincourse);
-    }).catch(function(err){
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        
+    }).catch(function(err){      
         return res.render('error', {
             error: err,
             status: 500
