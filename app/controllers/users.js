@@ -130,7 +130,7 @@ exports.email = function(req, res, next, id) {
 /**
  * Find user by email
  */
-exports.isadmin = function(req, res, next, id) {
+exports.isadmin = function(req, res) {
     return res.jsonp(req.user);
 };
 
