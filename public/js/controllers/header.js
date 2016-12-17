@@ -22,15 +22,17 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     }
 
     $scope.redirect = function(){
-        $window.location.href = '/home';
-        // $http.get('/isadmin/' + user.email).success(function(res){
-        //     if(res.IsAdmin){ //if user is admin
-        //         $window.location.href = '/adminhome'; 
-        //     }
-        //     else{//if user is student
-        //         $window.location.href = '/home';
-        //     }
-        // })
+        if($scope.global.user){
+            if($scope.global.user.IsAdmin){ //if user is admin
+                $window.location.href = '/adminhome'; 
+            }
+            else{//if user is student
+                $window.location.href = '/home';
+            }
+        }
+        else{
+            $window.location.href = '/home';
+        }
     }
 
 
