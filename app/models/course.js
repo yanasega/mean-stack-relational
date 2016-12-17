@@ -7,7 +7,11 @@ module.exports = function(sequelize, DataTypes) {
 				primaryKey: true
 			},
             Name : DataTypes.STRING,
-            CreditPoints : DataTypes.INTEGER
+            CreditPoints : DataTypes.INTEGER,
+			CourseType: {
+				type:   DataTypes.ENUM,
+				values: ['mandatory','mandatory_choice','design_choice','special_projects','general_choice','free_choice','extra']
+			}
 		},{
 			freezeTableName: true
 		}

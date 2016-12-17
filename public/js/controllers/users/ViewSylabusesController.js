@@ -15,8 +15,8 @@ function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
 
      $scope.find = function() {
         Studios.query(function(studios) {
-            $scope.studios = studios; //yana: add error
-            sleep(500);
+        $scope.studios = studios; //yana: add error
+            sleep(1000);
             $scope.studios.forEach(function(studio) {
                 Instructors.query(function(instructors){
                     $scope.instructors = instructors;
@@ -28,7 +28,7 @@ function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
                 })
             }, this);
             //sleep(1500);
-            //$scope.showstud = true;
+            $scope.showsylab = true;
         });
                 //$scope.showsylab = true;
     };

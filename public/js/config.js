@@ -12,7 +12,13 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('userhome',{
             url : '/home',
+            controller: 'HomeController',
             templateUrl: 'views/users/HomePage.html'
+        })
+         .state('adminhome',{
+            url : '/adminhome',
+            controller: 'AdminHomeController',
+            templateUrl: 'views/users/AdminHomePage.html'
         })
         .state('SignIn',{
             url : '/signin',
@@ -75,6 +81,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'StudioController',
             templateUrl: 'views/admin/EditStudio.html'
         })
+        .state('editCourse',{
+            url : '/courses/{courseId}/edit',
+            controller : 'CourseController',
+            templateUrl: 'views/admin/EditCourse.html'
+        })
         .state('ViewInstr',{
             url : '/ViewInstructors',
             controller : 'InstructorController',
@@ -104,6 +115,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/viewpreferences',
             controller : 'ViewPreferencesController',
             templateUrl: 'views/users/ViewPreferences.html'
+        })
+        .state('EditPref',{
+            url : '/editpreferences',
+            controller : 'ViewPreferencesController',
+            templateUrl: 'views/users/EditPreferences.html'
         })
         .state('ViewAssignments',{
             url : '/viewstudentassignments',

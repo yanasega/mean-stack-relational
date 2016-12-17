@@ -11,6 +11,26 @@ var db = require('../../config/sequelize');
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
+
+
+exports.getmax = function(req, res, next) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    db.Registration.max('id').then(
+        function(reg){db.Registration.find({where: {id: reg}}).then(function(registration){
+                if(!registration) {
+                    return res.jsonp(null);
+                } else {
+                    return res.jsonp(registration);          
+                }
+            }).catch(function(err){
+                return next(err);
+            }) 
+        }
+    ).catch(function(err){
+        return next(err);
+    })  
+};
+
 exports.registration = function(req, res, next, id) {
     console.log('id => ' + id);
     db.Registration.find({where: {id: id}}).then(function(registration){

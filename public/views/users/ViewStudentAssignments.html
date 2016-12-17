@@ -2,7 +2,9 @@
 	<br>
 		<p style = "font-size:20px">שיבוצים קודמים</p>
 		<hr>
-        <table class = "table">
+        <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showass == false" ></span>
+        <span  ng-if = "showass">
+        <table class = "table" ng-show="studentinstudio.length">
             <thead>
                 <tr>
                 <th>סטודיו</th>
@@ -19,4 +21,7 @@
             </tbody>
 
         </table>
+        <p class="alert alert-info" ng-show="!studentinstudio.length">לא התבצעו שיבוצים</p>
+
+        </span>
 </div>

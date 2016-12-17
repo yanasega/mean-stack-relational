@@ -1,9 +1,10 @@
-angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios',function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios) {
+angular.module('mean.system').controller('RegistrationController', ['$scope', '$resource', 'Registrations' ,'$stateParams','Global', '$window','$state','Studios','$http'
+,function ($scope, $resource , Registrations,$stateParams,Global,$window,$state,Studios,$http) {
     console.log("RegistrationController");
     $scope.global = Global;
     $scope.showreg = false;
     $scope.status = null;
-    $scope.RegEmpty = null;
+    $scope.RegEmpty = true;
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -15,7 +16,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     }
 
     $scope.openRegistration = function() {
-        
+        console.log($scope.semester);
         var reg = new Registrations({
             StartDate: new Date(),
             EndDate: null,
@@ -25,35 +26,41 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
 
         reg.$save(function(response) {
             $scope.find();
-            //update all studios of the same semester as the registration to active.
-            Studios.query(function(studios){
-                studios.forEach(function(studio) {
-                    if ($scope.semester == studio.Semester){
-                        studio.IsActive = true;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                    else{
-                        studio.IsActive = false;
-                        if (!studio.updated) {
-                            studio.updated = [];
-                        }
-                        studio.updated.push(new Date().getTime());
-                        studio.$update(function() {
-                        });
-                    }
-                }, this);
-            });
-            //yana: add check if response valid?
-            // if(response.status === 'success'){
-            //     $window.location.href = '/';
-            // }
-        });
-        $scope.status = "Registration opened successfully.";
+            //update all studios of the same semester as the registration to active : decided to let the user decide.
+            // Studios.query(function(studios){
+            //     studios.forEach(function(studio) {
+            //         if ($scope.semester == studio.Semester){
+            //             studio.IsActive = true;
+            //             if (!studio.updated) {
+            //                 studio.updated = [];
+            //             }
+            //             studio.updated.push(new Date().getTime());
+            //             studio.$update(function() {
+            //             });
+            //         }
+            //         else{
+            //             if (studio.RelevantYears !== "5"){
+            //                 studio.IsActive = false;
+            //                 if (!studio.updated) {
+            //                     studio.updated = [];
+            //                 }
+            //                 studio.updated.push(new Date().getTime());
+            //                 studio.$update(function() {
+            //                 });
+            //             }
+            //         }
+            //     }, this);
+            // });
+
+                
+            if($scope.semester == 'spring'){
+                $http.get('/setfifthtosix').success(function(res){
+                    console.log("success");
+                })
+            }
+        }); 
+
+        $scope.status = "הרשמה נפתחה בהצלחה.";
     };
  
      $scope.find = function() {
@@ -61,12 +68,17 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             $scope.registrations = registrations;
             if(registrations.length != 0){
                 registrations.forEach(function(reg) {
+                    reg.message = "פתיחה מחדש";
                     if(reg.IsActive == true){
+                        reg.message = "סגירת הרשמה";
                         $scope.RegEmpty = false;
                         // sleep(1500);
                         // $scope.showreg = true;
                     }
                 }, this);
+                // if ($scope.RegEmpty == null){
+                //     $scope.RegEmpty = true;
+                // }
             }
         });
     };
@@ -78,20 +90,29 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             $scope.registration = registration;
             $scope.registration.StartDate = new Date($scope.registration.StartDate);
             $scope.registration.EndDate = new Date($scope.registration.EndDate);
+
         });
     };
 
-    $scope.update = function(reg) {
+    $scope.update = function(reg,state) {
         var registration = reg;
         registration.EndDate = new Date();
-        registration.IsActive = false;
+        registration.IsActive = state;
         if (!registration.updated) {
             registration.updated = [];
         }
         registration.updated.push(new Date().getTime());
         registration.$update(function() {
-            $scope.RegEmpty = true;
-            // $state.go('ViewReg',{registrationId : registration.id})
+            if (!state){
+                $scope.RegEmpty = true;
+                reg.message = "פתיחה מחדש";
+                
+            }
+            else{
+                $scope.RegEmpty = false;
+                reg.message = "סגירת הרשמה";
+            }
+            
 
         });
     };

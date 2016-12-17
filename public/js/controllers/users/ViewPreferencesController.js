@@ -4,21 +4,36 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
 
     console.log("ViewPreferencesController");
     $scope.studentinstudio = [];
-    $scope.preferences = [];
-    
+    $scope.preferences = {};
+    $scope.showpref = false;
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
     $scope.find = function() {
-        StudentInStudio.query(function(studentinstudio) {
-             studentinstudio.forEach(function(sis) {
-                if (sis.IdStudent == $scope.global.user.id){
-                    $scope.studentinstudio.push(sis); //yana: check if data relavent?
-                }    
-            }, this);
-        })
+        // StudentInStudio.query(function(studentinstudio) {
+        //      studentinstudio.forEach(function(sis) {
+        //         if (sis.IdStudent == $scope.global.user.id){
+        //             $scope.studentinstudio.push(sis); //yana: check if data relavent?
+        //         }    
+        //     }, this);
+        // })
 
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
                 if (preference.Id == $scope.global.user.id){
-                    $scope.preferences.push(preference); //yana: check if data relavent?
+                    if ($scope.preferences[preference.IdR]){
+                        $scope.preferences[preference.IdR].push(preference); //yana: check if data relavent?
+                    }
+                    else{
+                        $scope.preferences[preference.IdR] = [preference];
+                    }
                 }    
             }, this);
             Studios.query(function (studios) {
@@ -30,9 +45,12 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
                         }
                     }, this);
                 }, this);           
-            });         
+            });  
+            //sleep(500);
+            $scope.showpref = true;       
         });
     };
 
     $scope.find();
+
 }]);
