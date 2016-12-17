@@ -1,12 +1,12 @@
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "loading"></i>-->
-<span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-if = "loading == false"></span>
-<section data-ng-init="Load()"> 
+
+<section data-ng-init="Load('view')"> 
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
   
-<div ng-show = "loading" class="jumbotron text-left" style="height:200px">
+<div class="jumbotron text-left" style="height:200px">
   <p style="font-size:20px;float: right;">צפייה בשיבוץ</p>
   	<br>
     <br>
@@ -35,8 +35,9 @@
 </br>
 </br>
 
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-show ="findallview"></span>
 
-<div ng-show = "loading">
+<div ng-show = "!findallview">
   <div class="container" id = thirdFourth  ng-if = "ChosenYear == '3,4'" >
     <div class="row">
             <div class = "col-sm-4"  ng-repeat= "studio in studios">
@@ -86,7 +87,7 @@
                   </br>
     </div>
   </div>
-</div>
+
 
 <div class="container" id =fifth  ng-if = "ChosenYear == '5'">
   <div class="row">
@@ -150,6 +151,7 @@
           </div>
     </div>
   </div>
+</div>
 </div>
 </section>
 
