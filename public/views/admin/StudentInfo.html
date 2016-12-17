@@ -44,7 +44,7 @@
 	<br>
 		<p style = "font-size:20px">שיבוצים קודמים</p>
 		<hr>
-        <table class = "table">
+        <table class = "table" ng-show="studentinstudio.length">
             <thead>
                 <tr>
                 <th>סטודיו</th>
@@ -61,13 +61,14 @@
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!studentinstudio.length">אין שיבוצים  עבור סטודנט זה</p>
 </div>
 
 <div ng-show = "showuser == true">
 	<br>
 		<p style = "font-size:20px">מצב טופס גמר</p>
 		<hr>
-        <table class = "table">
+        <table class = "table" ng-show="studentincourse.length">
             <thead>
                 <tr>
                 <th>מזהה קורס</th>
@@ -80,19 +81,23 @@
             <tr>
             <td>{{sic.IdCourse}}</td>
             <td>{{sic.CourseName}}</td>
-            <td>{{sic.IsDone}}</td>
+            <!--<td>{{sic.IsDone}}</td>-->
+            <td ng-if="sic.IsDone == false">{{"טרם הושלם"}}</td>    
+            <td ng-if="sic.IsDone == true">{{ "הושלם"}}</td>    
             <td>{{sic.updatedAt | date : "dd.MM.y"}}</td>
             </tr>
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!studentincourse.length">סטודנט זה טרם הזין טופס גמר</p>
+        
 </div>
 
 <div ng-show = "showuser == true">
 	<br>
 		<p style = "font-size:20px">היסטוריית העדפות</p>
 		<hr>
-        <table class = "table">
+        <table class = "table" ng-show="preferences.length">
             <thead>
                 <tr>
                 <th>שנה</th>
@@ -113,5 +118,7 @@
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!preferences.length">סטודנט זה טרם הזין העדפות</p>
+        
 
 </div>
