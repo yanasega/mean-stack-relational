@@ -40,16 +40,19 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
             }, this);
             Studios.query(function (studios) {
                 $scope.studios = studios;
-                // $scope.preferences.forEach(function(preference) {
-                //     $scope.studios.forEach(function(studio) {
-                //         if(studio.id == preference.IdS){
-                //             preference.IdS = studio.Name;
-                //         }
-                //     }, this);
-                // }, this);           
+                angular.forEach($scope.preferences,function(value,key){
+                    
+                    $scope.preferences[key].forEach(function(preference) {
+                        $scope.studios.forEach(function(studio) {
+                            if(studio.id == preference.IdS){
+                                preference.IdS = studio.Name;
+                            }
+                        }, this);
+                    }, this);
+
+                });           
             });  
             //sleep(500);
-            console.log($scope.preferences);
             $scope.showpref = true;       
         });
     };
