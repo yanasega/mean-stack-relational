@@ -77,19 +77,18 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
         Studios.query(function(studios) {
             $scope.studios = studios; //yana: add error
-            console.log(studios);
             sleep(500);
             $scope.studios.forEach(function(studio) {
-               $scope.subjects.forEach(function(subject) {
-                   if(subject.id == studio.Subject){
-                        studio.Subject = subject.Subject;
+            angular.forEach($scope.subjects,function(value,key){
+                    if($scope.subjects[key].id == studio.Subject){
+                        studio.Subject = $scope.subjects[key].Subject;
                    }
-               }, this);
-               $scope.instructors.forEach(function(instructor) {
-                   if(instructor.id == studio.Instructor){
-                        studio.Instructor = instructor.FirstName + " " + instructor.LastName;
-                   }                  
-               }, this); 
+            });
+            angular.forEach($scope.instructors,function(value,key){
+                    if($scope.instructors[key].id == studio.Subject){
+                        studio.Subject = $scope.instructors[key].Subject;
+                   }
+            });
             }, this);
             sleep(1500);
             $scope.showstud = true;

@@ -2,14 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var StudentInCourse = sequelize.define('StudentManagedCourse', {
-            IdStudent: {
-				type: DataTypes.UUID,
-				primaryKey: true
-			},
-            IdCourse: {
-				type: DataTypes.UUID,
-				primaryKey: true
-			},
+            IdStudent: DataTypes.INTEGER,
+            IdCourse: DataTypes.INTEGER,
 			Name : DataTypes.STRING,
 			CreditPoints : DataTypes.INTEGER,
 			CourseType: {
