@@ -80,6 +80,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $scope.addstudflag = false;
                 $scope.alertIsActive = true;
                 $scope.alertEmptyStudio = true;
+                $scope.findall = false;
                 return;
              }
              $scope.findall = false;
@@ -88,15 +89,15 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
     $scope.init = function (){
-        //$scope.alertIsActive = false; 
- 
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
          alert("בחר שנה וסמסטר");
+          $scope.myBtn=false
          return;
      }
      else{
             $scope.findall = true;
+            $scope.myBtn=true;
      }
         Students.query(function(students) {
             $scope.students = students;
@@ -188,6 +189,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $scope.loading = false;
                 $scope.addstudflag = false;
                 $scope.alertEmptyStudents = false;
+                $scope.findall = false;
                 return;
             }
             
@@ -291,7 +293,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }
         $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
             $scope.status = "Algorithem run finished succesfully.";
-            console.log(respData);
             //empty student list
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
@@ -306,8 +307,18 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                             }, this);
                     }, this)
                 }
+                if (studio.hasOwnProperty('no_preferences')){
+                    studio.no_preferences.forEach(function(student) {
+                            $scope.students.forEach(function(obj) {
+                             console.log(obj);
+                            if (obj.id == student){
+                                    //obj.Preference = student[1];
+                                    $scope.models.studioLists[0].unshift(obj); 
+                            } 
+                            }, this);
+                    }, this)
+                }                
                 else{
-                    console.log(studio);
                 }
                 studio.GAverage = studio.general_average;
                 studio.SAverage = studio.studio_average;
@@ -377,9 +388,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     }
 
     //this is the edit section
-    $scope.Load = function(){
-        $scope.findall = true;
-        sleep(1500);
+
+
+    $scope.Load = function(typ){
+
         $scope.emptyStudio();
         $scope.models.studioLists[0] = [];
         Assignments.get({
@@ -402,22 +414,27 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                             if (preferences){
                                 student.preferences = preferences;
                                 var prefosh = [];
-                                preferences.forEach(function(preferences){
-                                     $http.get('/studios/' + preferences.IdS ).success(function(studio){
-                                     if (studio){
-                                        prefosh.push(studio.Name); 
-                                    }
-                                    })
-                                }, this); 
-                                student.preferences = prefosh;
+                                if(typ == 'edit'){
+                                    console.log("edit");
+                                    preferences.forEach(function(preferences){
+                                        $http.get('/studios/' + preferences.IdS ).success(function(studio){
+                                        if (studio){
+                                            prefosh.push(studio.Name); 
+                                        }
+                                        })
+                                    }, this); 
+                                    student.preferences = prefosh;
+                                 }
                             }
                         })
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
+                      $scope.findallview = false;   
                     }
+                   
                 })
+                
               });   
             }, this); 
-              $scope.findall = false;  
         })
         
     }
