@@ -11,8 +11,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
-     $scope.tooltip = false;
-     $scope.alertIsActive = false; 
+    $scope.tooltip = false;
+    $scope.alertIsActive = false; 
 
 
 
