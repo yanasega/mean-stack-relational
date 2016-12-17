@@ -116,6 +116,11 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             controller : 'ViewPreferencesController',
             templateUrl: 'views/users/ViewPreferences.html'
         })
+        .state('EditPref',{
+            url : '/editpreferences',
+            controller : 'ViewPreferencesController',
+            templateUrl: 'views/users/EditPreferences.html'
+        })
         .state('ViewAssignments',{
             url : '/viewstudentassignments',
             controller : 'ViewAssignmentsController',
