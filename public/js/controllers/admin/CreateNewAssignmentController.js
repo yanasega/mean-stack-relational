@@ -5,6 +5,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.global = Global;
     $scope.status = null;
     $scope.findall = false;
+    $scope.findallview = true;
    //hide btn 
     $scope.myBtn = false;
     $scope.loading = true;
@@ -377,7 +378,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     //this is the edit section
     $scope.Load = function(){
-        $scope.loading = false;
+        $scope.findall = true;
         sleep(1500);
         $scope.emptyStudio();
         $scope.models.studioLists[0] = [];
@@ -415,8 +416,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     }
                 })
               });   
-            $scope.loading = true;  
             }, this); 
+              $scope.findall = false;  
         })
         
     }
