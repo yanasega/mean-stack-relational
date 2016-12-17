@@ -15,7 +15,7 @@ app.route('/registrations/:registrationId')
     .delete(users.requiresLogin, registrations.destroy)
     .get(registrations.show)
     .put(users.requiresLogin, registrations.update);
-app.route('/getregistration/')
+app.route('/getregistration')
     .get(users.requiresLogin, registrations.getmax);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 

@@ -8,11 +8,10 @@
 	  <div id="sidebar_container">
         <div class="sidebar">
           <div class="sidebar_top"></div>
-          <div class="sidebar_item">
+          <div class="sidebar_item" style="padding-bottom: 50px; height: 200px; text-align: center;">
             <!-- insert your sidebar items here -->
             <h3 style="text-align: center;">סטטוס הרשמות פעילות</h3>
-            <h4>ההרשמות הפעילות כרגע עבור</h4>
-            <h5>February 1st, 2014</h5>
+            <h4 ng-model="isregistrationopen" style="padding-top: 20px;">{{isregistrationopen}}</h4>
             <p><br /><a href="viewregistration">לניהול ההרשמות</a></p>
           </div>
           <div class="sidebar_base"></div>
@@ -21,15 +20,31 @@
       <div id="content" style="text-align:right">
         <!-- insert the page content here -->
         <h1>ברוכים הבאים </h1>
-        <p> אתר זה נועד לפתיחת הרשמה לקבוצות הסטודיו השונות, שיבוץ סטודנטים לקבוצות סטודיו וניהול המידע </p>
-        <p>בעזרת אלגורית השיבוץ תוכל לשבץ ביתר קלות את כלל הסטודנטים לפי כל הפרמטרים החשובים ליצירת סטודיו הטרוגני ואיכותי </p>
-        <p><a href="CreateNewAssignment">למעבר לשיבוץ</a></p>
-        <h2 style="text-align:right">הוראות לשימוש באתר</h2>
+          <p> אתר זה נועד לפתיחת הרשמה לקבוצות הסטודיו השונות, שיבוץ סטודנטים לקבוצות סטודיו וניהול המידע. </p>
+          <p>בעזרת אלגורית השיבוץ תוכל/י לשבץ ביתר קלות את כלל הסטודנטים לפי כל הפרמטרים החשובים ליצירת סטודיו הטרוגני ואיכותי </p>
+        
+        <h3 style="text-align:right">ניהול הרשמה</h3>
+          <p>באפשרותך לפתוח ולסגור הרשמות בעת הצורך, במידה וכבר סגרת הרשמה וברצונך לפתוח אותה מחדש ניתן לעשות זאת. באפשרותך לראות סטטוס הרשמות בחלון השמאלי שבמסך. </p>
+        <div class="alert alert-warning"> <strong>שים/י לב:</strong> כאשר פותחים הרשמה של סמסטר אביב המערכת אוטומטית הופכת את כל הסטודנטים של שנה 5 לשנה 6 !!! </div>
+        
+        <h3 style="text-align:right">ניהול שיבוץ</h3>
+          <p> באפשרותך ליצור שיבוץ חדש לפי שנה וסמסטר רלוונטיים ולצפות בשיבוצים קודמים שנעשו. </p>
+          <p><a href="CreateNewAssignment">למעבר לשיבוץ</a></p>
+          <div class="alert alert-warning"> <strong>שים/י לב:</strong> לפני יצירת שיבוץ חדש יש לסגור את ההרשמה הפתוחה באם יש כזאת. </div>
+        
+        <h3 style="text-align:right">ניהול מידע</h3>
+          <p> באפשרותך ליצור, למחוק ולערוך את כל המידע בנושאים הבאים בעמודים המתאימים: </p>
         <ul>
-          <li>Internet Explorer 9</li>
-          <li>FireFox 25</li>
-          <li>Google Chrome 31</li>
+          <li><a href="/viewcourses">קורסים</a></li>
+          <li><a href="/viewstudios">קבוצות סטודיו</a></li>
+          <li><a href="/ViewSubjects">נושאי סטודיו</a></li>
+          <li><a href="/ViewInstructors">מנחים</a></li>
+          <li><a href="/viewstudents">סטודנטים</a></li>
         </ul>
+
+        <h4 style="text-align:right">למידע נוסף אודות השימוש במערכת לחץ על הקישור הבא:</h4>
+          <p><a href="" ng-click="openPdf('User_Manual_Scheduling_system.pdf')">לתיק המשתמש</a></p>
+
       </div>
     </div>
   </div>

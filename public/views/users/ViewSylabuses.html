@@ -13,6 +13,7 @@
          <tr>
             <th>שם הסטודיו</th>
             <th>שם המנחה</th>
+            <th>שנה רלוונטית</th>
             <th>סילבוס</th>
          </tr>
       </thead>
@@ -20,6 +21,7 @@
         <tr>
         <td>{{studio.Name}}</td>
         <td>{{studio.Instructor}}</td>
+        <td>{{studio.RelevantYears}}</td>
         <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
         <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
         </tr>

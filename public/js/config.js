@@ -12,10 +12,12 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('userhome',{
             url : '/home',
+            controller: 'HomeController',
             templateUrl: 'views/users/HomePage.html'
         })
          .state('adminhome',{
             url : '/adminhome',
+            controller: 'AdminHomeController',
             templateUrl: 'views/users/AdminHomePage.html'
         })
         .state('SignIn',{

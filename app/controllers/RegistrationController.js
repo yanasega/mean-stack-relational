@@ -14,6 +14,7 @@ var db = require('../../config/sequelize');
 
 
 exports.getmax = function(req, res, next) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     db.Registration.max('id').then(
         function(reg){db.Registration.find({where: {id: reg}}).then(function(registration){
                 if(!registration) {
