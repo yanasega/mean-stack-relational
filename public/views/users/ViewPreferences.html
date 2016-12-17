@@ -4,7 +4,7 @@
 		<hr>
     <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showpref == false"></span>
     <span ng-if = "showpref">
-    <table class = "table" >
+    <table class = "table" ng-repeat="pref in preferences">
         <thead>
             <tr>
             <th>שנה</th>
@@ -14,14 +14,14 @@
             <th>דירוג</th>
             </tr>
         </thead>
-        <tbody ng-repeat="pref in preferences">
+        <tbody ng-repeat="p in pref">
         <tr>
-        <td>{{pref.StudentYear}}</td>
-        <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
-        <td ng-if = "pref.Semester =='winter'" >{{"חורף"}}</td>
-        <td ng-if = "pref.Semester !='winter'" >{{"אביב"}}</td>
-        <td>{{pref.IdS}}</td>
-        <td>{{pref.Rate}}</td>
+            <td>{{p.StudentYear}}</td>
+            <td>{{p.createdAt | date : "dd.MM.y"}}</td>
+            <td ng-if = "p.Semester =='winter'" >{{"חורף"}}</td>
+            <td ng-if = "p.Semester !='winter'" >{{"אביב"}}</td>
+            <td>{{p.IdS}}</td>
+            <td>{{p.Rate}}</td>
         </tr>
         </tbody>
 

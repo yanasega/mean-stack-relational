@@ -32,21 +32,24 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
                         $scope.preferences[preference.IdR].push(preference); //yana: check if data relavent?
                     }
                     else{
-                        $scope.preferences[preference.IdR] = [preference];
+                        $scope.preferences[preference.IdR] = [];
+                        $scope.preferences[preference.IdR].push(preference); //yana: check if data relavent?
+                        
                     }
                 }    
             }, this);
             Studios.query(function (studios) {
                 $scope.studios = studios;
-                $scope.preferences.forEach(function(preference) {
-                    $scope.studios.forEach(function(studio) {
-                        if(studio.id == preference.IdS){
-                            preference.IdS = studio.Name;
-                        }
-                    }, this);
-                }, this);           
+                // $scope.preferences.forEach(function(preference) {
+                //     $scope.studios.forEach(function(studio) {
+                //         if(studio.id == preference.IdS){
+                //             preference.IdS = studio.Name;
+                //         }
+                //     }, this);
+                // }, this);           
             });  
             //sleep(500);
+            console.log($scope.preferences);
             $scope.showpref = true;       
         });
     };
