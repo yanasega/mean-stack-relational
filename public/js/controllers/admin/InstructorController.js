@@ -21,11 +21,11 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
 			LastName: $scope.lastname
         });
         instructors.$save(function(response) {
-            $scope.adderror = true; 
+            $scope.adderror = false; 
             $scope.find();
             //yana: add check if response valid?
         }, function (err){
-            $scope.adderror = false;
+            $scope.adderror = true;
         });
         $scope.clear();
     };

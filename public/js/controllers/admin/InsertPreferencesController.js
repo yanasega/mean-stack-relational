@@ -42,6 +42,8 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
         });
     };
 
+
+
     $scope.getStudios = function(){
         Studios.query(function(studios) {
             // $scope.studios = studios;

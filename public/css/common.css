@@ -485,8 +485,8 @@ ul#menu li a:hover
 table
 { margin: 10px 0 30px 0;}
 
-table tr th, table tr td
-{ background: #3B3B3B;
+/*table tr th, table tr td
+{ background: #929292;
   color: #FFF;
   padding: 7px 4px;
   text-align: left;}
@@ -494,7 +494,7 @@ table tr th, table tr td
 table tr td
 { background: #E5E5DB;
   color: #47433F;
-  border-top: 1px solid #FFF;}
+  border-top: 1px solid #FFF;}*/
 
 
  /*<style>

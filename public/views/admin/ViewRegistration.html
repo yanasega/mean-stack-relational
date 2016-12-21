@@ -1,4 +1,5 @@
 	
+
 <form class="form" ng-show = "RegEmpty == true" data-ng-submit="openRegistration()">
   <br>
     <p style = "font-size:2em" >פתיחת הרשמה</p>
@@ -21,7 +22,7 @@
 </form>
 
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>-->
-<div id = "registrations" ng-show = "RegEmpty == false">
+
   <div>
     <br>
       <p style = "font-size:2em">ניהול הרשמה</p>
@@ -35,24 +36,47 @@
             <th>תאריך סגירה</th>
             <th>סמסטר</th>
             <th> סטאטוס הרשמה</th>
-            <th></th>
+            <!--<th></th>-->
+            <!--<th></th>-->
          </tr>
       </thead>
      <tbody ng-repeat="reg in registrations">
         <tr>
         <td>{{reg.StartDate | date : "dd.MM.y"}}</td>
         <td>{{reg.EndDate | date : "dd.MM.y"}}</td>
-        <!--<td>{{reg.Semester}}</td>-->
+        
         <td ng-show="reg.Semester == 'winter'">{{"חורף"}}</td> 
         <td ng-show="reg.Semester == 'spring'">{{"אביב"}}</td> 
         <td ng-show="reg.IsActive == true">{{"פעילה"}}</td> 
-        <td ng-show="reg.IsActive ==false">{{"סגורה"}}</td> 
+        <td ng-show="reg.IsActive == false">{{"סגורה"}}</td> 
 
-        <td><a class="btn btn-danger" ng-show = "reg.IsActive == true" ng-click=update(reg)><i class="fa fa-trash-o fa-lg"></i> סגירת הרשמה</a></td>
+        <!--<td><a class="btn btn-danger" ng-if = "reg.IsActive == true" ng-click=update(reg,false)> סגירת הרשמה</a></td>-->
+        <td><a ng-class="reg.IsActive ? 'btn btn-danger': 'btn btn-success'"  ng-click=update(reg,!reg.IsActive)>{{reg.message}}</a></td>
         </tr>
      </tbody>
 
    </table>
 
+<div ng-show="RegEmpty">
+<form class="form" data-ng-submit="openRegistration()">
+  <br>
+  <div class="row">
+    <div class="control-group; col-md-6">
+      <label class="control-label" for="semester" style="float: right;margin-left: 1em;margin-top: 0.3em;" id="semester">פתיחת הרשמה חדשה: </label>
+      <div class="controls">
+        <select type="string" data-ng-model="semester" required>
+        <option value="">בחר סמסטר...</option>
+          <option value="winter">חורף</option>
+          <option value="spring">אביב</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls; col-md-6">
+        <input type="submit" class="btn btn-success" value="פתיחה">
+      </div>
+    </div>
+  </div>
+</form>
 </div>
 

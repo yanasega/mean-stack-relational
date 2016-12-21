@@ -111,6 +111,30 @@ exports.user = function(req, res, next, id) {
 };
 
 /**
+ * Find user by email
+ */
+exports.email = function(req, res, next, id) {
+    console.log('id => ' + id);
+    db.User.find({where: {Email: id}}).then(function(user){
+        if(!user) {
+            return next(new Error('Failed to load user ' + id));
+        } else {
+            req.user = user;
+            return next();            
+        }
+    }).catch(function(err){
+        return next(err);
+    });
+};
+
+/**
+ * Find user by email
+ */
+exports.isadmin = function(req, res) {
+    return res.jsonp(req.user);
+};
+
+/**
  * Generic require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {

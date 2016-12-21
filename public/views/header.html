@@ -5,7 +5,7 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav pull-right">
         <li>
-            <a class="brand" ui-sref="userhome" style="padding: 9px; color: white;font-size: 1.8em;padding-top: 20px;">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
+            <a class="brand"  ng-click = "redirect()" style="padding: 9px; color: white;font-size: 1.8em;padding-top: 20px;;cursor:pointer">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
         </li>
        <li>
            <!--<i class="fa fa-braille" style = "font-size: 30px; color: grey; padding: 5px" aria-hidden="true"></i>-->
@@ -27,11 +27,13 @@
             <ul class="dropdown-menu">
                 <li><a ui-sref="InsertPref">הזנת העדפות</a></li>
                 <li><a ui-sref="ViewPref">צפייה בהעדפות קודמות</a></li>
-                <li><a ui-sref="ViewAssignments">צפייה בשיבוצים</a></li>
+                <!--<li><a ui-sref="ViewAssignments">צפייה בשיבוצים</a></li>-->
             </ul>
         </li>
         <!--Degree calculator-->
         <li><a ui-sref="StudCourse" ng-show="!global.user.IsAdmin" style="color: white;">מילוי טופס גמר</a></li>
+        
+        <li><a ui-sref="ViewAssignments" ng-show="!global.user.IsAdmin" style="color: white;">צפייה בשיבוצים</a></li>
 
         <!--View Sylabuses-->
         <li><a ui-sref="ViewSylab" ng-show="!global.user.IsAdmin" style="color: white;">צפייה בסילבוסים</a></li>

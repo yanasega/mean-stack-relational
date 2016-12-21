@@ -3,6 +3,10 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
     console.log("CourseController");
     $scope.global = Global;
     $scope.showcourse = false;    
+    $scope.loaderror = null;
+    $scope.adderror = null; 
+    $scope.updateerror = null;
+    $scope.delerror = null; 
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -23,7 +27,10 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         });
         course.$save(function(response) {
             $scope.find();
-        });
+            $scope.adderror = false;        
+        }, function (err){
+            $scope.adderror = true;
+        });        
         $scope.clear();
     };
 
@@ -32,6 +39,9 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
             $scope.courses = courses; 
             sleep(2000);
             $scope.showcourse = true;
+            $scope.loaderror = false;            
+        }, function (err){
+            $scope.loaderror = true;
         });
     };
 
@@ -40,6 +50,9 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
             courseId: $stateParams.courseId
         }, function(course) {
             $scope.course = course;
+            $scope.loaderror = false;            
+        }, function (err){
+            $scope.loaderror = true;
         });
     };
 
@@ -51,21 +64,36 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         course.updated.push(new Date().getTime());
         course.$update(function() {
             $state.go('ViewCourse');
+        }, function (err){
+            $scope.updateerror = true;
         });
     };
 
     $scope.remove = function(course) {
         if (course) {
-            course.$remove();  
+            course.$remove(function(response) {
+                 $scope.delerror = false; 
+            //yana: add check if response valid?
+        }, function (err){
+            $scope.delerror = true;
+        }
+            );  
+            
 
             for (var i in $scope.courses) {
                 if ($scope.courses[i] === course) {
                     $scope.courses.splice(i, 1);
                 }
-            }
+            }           
         }
         else {
-            $scope.course.$remove();
+            $scope.course.$remove(function(response) {
+                 $scope.delerror = false; 
+            //yana: add check if response valid?
+        }, function (err){
+            $scope.delerror = true;
+        }
+            ); 
             //$state.go('courses'); //yana: test
         }
         $scope.clear();
