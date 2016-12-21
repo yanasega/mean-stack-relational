@@ -31,7 +31,9 @@ module.exports = function(sequelize, DataTypes) {
 			twitterKey: DataTypes.STRING,
 			twitterSecret: DataTypes.STRING,
 			github: DataTypes.STRING,
-			openId: DataTypes.STRING
+			openId: DataTypes.STRING,
+			resetPasswordToken: DataTypes.STRING,
+ 			resetPasswordExpires: DataTypes.DATE,
 		},
 		{
 			instanceMethods: {
