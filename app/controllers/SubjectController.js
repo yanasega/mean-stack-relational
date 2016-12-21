@@ -15,16 +15,14 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
     db.SubjectMap.create(req.body).then(function(subject){
-        if(!instructor){
-            return res.send('users/signup', {errors: new StandardError('SubjectMap could not be created')}); //yana:change the landing page.
+        if(!subject){
+            return res.status(500).send({errors: new StandardError('SubjectMap could not be created')});
+            //yana:change the landing page.
         } else {
             return res.jsonp(subject);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -45,10 +43,7 @@ exports.all = function(req, res) {
     db.SubjectMap.findAll().then(function(subject){
         return res.jsonp(subject);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 

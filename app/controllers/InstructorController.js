@@ -14,7 +14,6 @@ exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
-    
     db.Instructor.create(req.body).then(function(instructor){
         if(!instructor){
             return res.status(500).send({errors: new StandardError('Instructor could not be created')});

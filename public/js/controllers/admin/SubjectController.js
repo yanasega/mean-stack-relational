@@ -2,6 +2,8 @@ angular.module('mean.system').controller('SubjectController', ['$scope', '$resou
     console.log("SubjectController");
     $scope.global = Global;
     $scope.showsubj = false;    
+    $scope.loaderror = null;
+    $scope.adderror = null; 
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -17,7 +19,11 @@ angular.module('mean.system').controller('SubjectController', ['$scope', '$resou
             Subject: $scope.subjectname
         });
         subjects.$save(function(response) {
-            $scope.find();
+          $scope.adderror = false; 
+          $scope.find();
+            //yana: add check if response valid?
+        }, function (err){
+            $scope.adderror = true;
         });
         $scope.clear();
     };
@@ -27,6 +33,10 @@ angular.module('mean.system').controller('SubjectController', ['$scope', '$resou
             $scope.subjects = subjects;
             sleep(1500);
             $scope.showsubj = true;
+            $scope.loaderror = false;
+        }, function (err){
+            $scope.showsubj = true; 
+            $scope.loaderror = true;
         });
     };
 
