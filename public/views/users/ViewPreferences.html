@@ -4,11 +4,13 @@
 		<hr>
     <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showpref == false"></span>
     <span ng-if = "showpref">
-    
-   <table class = "table table-striped" >
+    <!--<p class="alert alert-info" >טרם הזנת העדפות</p>-->
+
+   <table class = "table table-striped">
       <thead>
             <tr>
                <th></th>
+                <th></th>
                 <th></th>
             </tr>
       </thead>
@@ -16,6 +18,9 @@
         <tr >
             <td  style=" width: 10px;" ng-click="isCollapsed = !isCollapsed"><i  ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i></td>
             <td style = "font-size:20px">{{pref[0].createdAt | date : "dd.MM.y"}}</td>
+            <!--<div ng-show = "isRegOpen(pref[0].IdR)">-->
+            <td style="width: 90px;"><a href="" ui-sref="EditPref({PrfId : pref[0].IdR})">עריכה</a></td>
+            <!--</div>-->
         </tr>
        <tr >
            <td colspan="6">
