@@ -41,6 +41,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
             $scope.showcourse = true;
             $scope.loaderror = false;            
         }, function (err){
+            $scope.showcourse = true; 
             $scope.loaderror = true;
         });
     };
@@ -52,6 +53,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
             $scope.course = course;
             $scope.loaderror = false;            
         }, function (err){
+            $scope.showcourse = true; 
             $scope.loaderror = true;
         });
     };

@@ -109,10 +109,10 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             $scope.showstud = true;
             $scope.loaderror = false;            
         }, function (err){
+            $scope.showstud = true;    
             $scope.loaderror = true;
         });
-        
-
+    
     };
 
     $scope.findOne = function() {
@@ -133,6 +133,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             }, this);
           $scope.loadoneerror = false;            
         }, function (err){
+            $scope.showstud = true; 
             $scope.loadoneerror = true;
         });
     };
@@ -147,7 +148,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             studio.$update(function() {
                 $state.go('ViewStudio',{studioId : studio.id})
             }, function (err){
-            $scope.updateerror = true;
+                $scope.updateerror = true;
         });
         }
         else{
