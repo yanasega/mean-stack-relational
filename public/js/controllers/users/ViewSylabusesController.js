@@ -37,5 +37,6 @@ function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
         $window.open('uploads/' +link);
     }
 
+
     $scope.find();
 }]);

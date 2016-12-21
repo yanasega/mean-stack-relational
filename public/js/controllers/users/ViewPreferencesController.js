@@ -16,14 +16,26 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
         }
     }
 
+    $scope.isRegOpen = function (idr) {
+        Registrations.get({
+            registrationId: idr
+        }, function(reg) {
+            if(reg.IsActive){
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
+    }
     $scope.find = function() {
-        // StudentInStudio.query(function(studentinstudio) {
-        //      studentinstudio.forEach(function(sis) {
-        //         if (sis.IdStudent == $scope.global.user.id){
-        //             $scope.studentinstudio.push(sis); //yana: check if data relavent?
-        //         }    
-        //     }, this);
-        // })
+        StudentInStudio.query(function(studentinstudio) {
+             studentinstudio.forEach(function(sis) {
+                if (sis.IdStudent == $scope.global.user.id){
+                    $scope.studentinstudio.push(sis); //yana: check if data relavent?
+                }    
+            }, this);
+        })
 
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {

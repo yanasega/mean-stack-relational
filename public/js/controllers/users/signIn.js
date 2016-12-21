@@ -29,5 +29,13 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
         });
     };
 
+    $scope.sendemail =  function(){
+        
+    }
+
+    $scope.changepass =  function(){
+        
+    }
+
 
 }]);
