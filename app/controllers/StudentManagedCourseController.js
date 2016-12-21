@@ -13,7 +13,7 @@ var db = require('../../config/sequelize');
  */
 exports.studentincourse = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.StudentManagedCourse.find({where: {IdStudent: id}}).then(function(studentincourse){
+    db.StudentManagedCourse.find({where: {id: id}}).then(function(studentincourse){
         if(!studentincourse) {
             return next(new Error('Failed to load studentincourse ' + id));
         } else {

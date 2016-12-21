@@ -1,15 +1,15 @@
 angular.module('mean.system').factory("StudentManagedCourse", ['$resource', function($resource) {
-    return $resource('/studentmanagedcourse/:studentmanagedcourseId', {
-        studentincourseId: '@IdStudent'
+    return $resource('/studentmanagedcourse/:studentincourseId', {
+        studentincourseId: '@id'
     }, {
         update: {
-            method: 'PUT',
-            params: {studentmanagedcourseId:''}
+            method: 'PUT'
         },
         save: {
             method: 'POST',
-            params: {studentmanagedcourseId:''}
+            params: {studentincourseId:''}
         }
     });
+
 
 }]);

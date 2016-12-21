@@ -1,9 +1,9 @@
 <section ng-show = "doneInsert == false">
-	<p style = "font-size:20px" ng-show="RegOpen == false">ההרשמת ההעדפות טרם נפתחה..</p>
+	<p style = "font-size:20px" ng-show="RegOpen == false">הרשמת ההעדפות טרם נפתחה..</p>
 	<!--<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. If you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>-->
 	<p style = "font-size:20px" ng-show="NotValid == true">אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, אחרת, פנה לנציגות הפקולטה להמשך בירור.</p>
 	<div>
-	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false" data-ng-submit="updateStudent()">
+	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false">
 	<br>
 		<p style = "font-size:20px" >עדכון פרטים</p>
 		<p style = "font-size:15px">אנא עדכן את פרטייך טרם הזנת ההעדפות.</p>
@@ -74,14 +74,14 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn btn-success" value="שמור">
+				<input type="submit" class="btn btn-success" ng-confirm-click="הזנת ההעדפות היא חד פעמית. האם אתה בטוח שאתה רוצה לשמור?" confirmed-click = "updateStudent()" value="שמור">
 			</div>
 		</div>
 	</form>
 		</div>
 </section>
 <section ng-show = "doneInsert == true">
-	<p><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i> {{message}} </p>
+	<p class = "alert alert-success"> {{message}} </p>
 	<a ui-sref="ViewPref">צפייה בהעדפות שהוזנו</a>
 </section> 
 

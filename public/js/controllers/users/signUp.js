@@ -33,7 +33,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                         studentUpdated.updated.push(new Date().getTime());
                         studentUpdated.$update(function() {
                             console.log("updated");
-                            $window.location.href = '/';
+                            $window.location.href = '/home';
                         });
                 }, function errorCallback(response) {
                     var student = new Students({
@@ -50,7 +50,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                         });
                         student.$save(function(response){
                             console.log("created");
-                            $window.location.href = '/';
+                            $window.location.href = '/home';
                         });
 
                 })

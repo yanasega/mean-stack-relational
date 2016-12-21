@@ -40,11 +40,13 @@
 
 </table>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px">
+     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+     שיבוצים קודמים</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed">
 	<br>
-		<p style = "font-size:20px">שיבוצים קודמים</p>
-		<hr>
-        <table class = "table">
+        <table class = "table" ng-show="studentinstudio.length">
             <thead>
                 <tr>
                 <th>סטודיו</th>
@@ -61,13 +63,16 @@
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!studentinstudio.length">אין שיבוצים  עבור סטודנט זה</p>
 </div>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px">
+     <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+     מצב טופס גמר</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed1">
 	<br>
-		<p style = "font-size:20px">מצב טופס גמר</p>
-		<hr>
-        <table class = "table">
+        <table class = "table" ng-show="studentincourse.length">
             <thead>
                 <tr>
                 <th>מזהה קורס</th>
@@ -80,20 +85,26 @@
             <tr>
             <td>{{sic.IdCourse}}</td>
             <td>{{sic.CourseName}}</td>
-            <td>{{sic.IsDone}}</td>
+            <!--<td>{{sic.IsDone}}</td>-->
+            <td ng-if="sic.IsDone == false">{{"טרם הושלם"}}</td>    
+            <td ng-if="sic.IsDone == true">{{ "הושלם"}}</td>    
             <td>{{sic.updatedAt | date : "dd.MM.y"}}</td>
             </tr>
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!studentincourse.length">סטודנט זה טרם הזין טופס גמר</p>
+        
 </div>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px"> 
+    <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    היסטוריית העדפות</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed2">
 	<br>
-		<p style = "font-size:20px">היסטוריית העדפות</p>
-		<hr>
-        <table class = "table">
-            <thead>
+        <table class = "table" ng-show="preferences.length">
+            <thead> 
                 <tr>
                 <th>שנה</th>
                 <th>תאריך</th>
@@ -113,5 +124,7 @@
             </tbody>
 
         </table>
+       <p class="alert alert-info" ng-show="!preferences.length">סטודנט זה טרם הזין העדפות</p>
+        
 
 </div>

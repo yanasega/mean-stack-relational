@@ -12,6 +12,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.GeneralChoiceCourses = [];
     $scope.FreeChoiceCourses = [];
     $scope.ExtraCourses = [];
+
     // Initialization
     $scope.areAllCoursesSelected = false;
     $scope.updateCourseSelection = function (courseArray, selectionValue) {
@@ -88,7 +89,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.updateForm = function(courses){
         courses.forEach(function(course) {
             $http.get('/getstudentincourse/' + course.Id + "/" + $scope.global.user.id).success(function(respData){
-                if(respData == null){
+                if(respData == null){ // does not exist
                     if (course.isSelected == true){
                         var sic = new StudentInCourse({
                             IdStudent: $scope.global.user.id, //the id of the current user
@@ -96,8 +97,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: course.isSelected
                         });
                         sic.$save(function(response) {
-                            $scope.status = "השינויים נשמרו.";
-                            $scope.showcourse = false;
+                            //$scope.status = "השינויים נשמרו.";
+                            //$scope.showcourse = false;
                         });
                     }
                     else{
@@ -107,12 +108,12 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: false
                         });
                         sic.$save(function(response) {
-                            $scope.status = "השינויים נשמרו.";
-                            $scope.showcourse = false;
+                            //$scope.status = "השינויים נשמרו.";
+                            //$scope.showcourse = false;
                         });               
                     }
                 }
-                else{
+                else{ //already exits
                     var studentincourse = new StudentInCourse({
                         IdStudent: respData.IdStudent, 
                         IdCourse: respData.IdCourse,
@@ -129,12 +130,12 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     }
                     studentincourse.updated.push(new Date().getTime());
                     studentincourse.$update(function() {
-                        $scope.status = "השינויים נשמרו.";
-                        $scope.showcourse = false;
+                        //$scope.status = "השינויים נשמרו.";
+                        //$scope.showcourse = false;
                     });                 
                 }
             }).error(function () {
-               $scope.status = "התרחשה שגיאה בעת שמירת הנתונים.";
+               //$scope.status = "התרחשה שגיאה בעת שמירת הנתונים.";
             });
         }, this);
         
@@ -155,7 +156,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             student.updated = [];
                         }
                         student.updated.push(new Date().getTime());
-                        student.$update(function() {
+                            student.$update(function() {
                         });
                 });
             }
@@ -168,7 +169,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             student.updated = [];
                         }
                         student.updated.push(new Date().getTime());
-                        student.$update(function() {
+                            student.$update(function() {
                         });
                 });                
             }
@@ -178,10 +179,10 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.addCourse = function(type) {
         var studentmanagedcourse = new StudentManagedCourse({
 			IdStudent: $scope.global.user.id,
-            IdCourse: $scope.id,
-			Name: $scope.name,
+            IdCourse: $scope.id[type],
+			Name: $scope.name[type],
             CourseType: type,
-            CreditPoints: $scope.creditpoints
+            CreditPoints: $scope.creditpoints[type]
         });
         studentmanagedcourse.$save(function(response) {
             if(type == "special_projects"){
@@ -199,6 +200,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
 
     $scope.remove = function(course) {
         if (course) {
+            console.log(course);
             course.$remove();  
 
             if(course.CourseType == "special_projects"){
@@ -225,7 +227,6 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         }
         else {
             $scope.course.$remove();
-            //$state.go('courses'); //yana: test
         }
         $scope.clear();
     };
