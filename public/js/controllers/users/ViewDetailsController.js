@@ -2,7 +2,6 @@ angular.module('mean.system').controller('ViewDetailsController', ['$scope', '$r
 'StudentInStudio','Instructors',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,StudentInStudio,Instructors) {
     $scope.global = Global;
     $scope.showdet = false;
-
     console.log("ViewDetailsController");
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.doneInsert = false;
