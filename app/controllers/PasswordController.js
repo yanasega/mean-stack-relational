@@ -13,16 +13,8 @@ var async = require('async');
 var crypto = require('crypto');
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://yanasegal90@gmail.com:pass@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://archstuddatasystem@gmail.com:1!BillMike@smtp.gmail.com');
 
-// setup e-mail data with unicode symbols
-var mailOptions = {
-    from: '"Fred Foo 👥" <yanasegal90@gmail.com>', // sender address
-    to: 'yanasegal90@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world 🐴', // plaintext body
-    html: '<b>Hello world 🐴</b>' // html body
-};
 
 /**
  * Forgot password
@@ -30,75 +22,40 @@ var mailOptions = {
  */
 
 exports.forgot = function(req, res,next) {
-//   async.waterfall([
-//     function(done) {
 
-//     },
-//     function(token, done) {
-//       db.User.findOne({ Email: req.body.email }, function(err, user) {
-//         if (!user) {
-//             return res.status(500).send({errors: new StandardError('Email was not found in thesyste')});
-//           //return res.redirect('/forgot');
-//         }
-//         console.log("user");
-
-//         user.resetPasswordToken = token;
-//         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-//         user.save(function(err) {
-//           done(err, token, user);
-//         });
-//       });
-//     },
-//     function(token, user, done) {
-//       var smtpTransport = nodemailer.createTransport('SMTP', {
-//         service: 'SendGrid',
-//         auth: {
-//           user: '!!! YOUR SENDGRID USERNAME !!!',
-//           pass: '!!! YOUR SENDGRID PASSWORD !!!'
-//         }
-//       });
-//       var mailOptions = {
-//         to: user.email,
-//         from: 'passwordreset@demo.com',
-//         subject: 'Node.js Password Reset',
-//         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-//           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-//           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-//           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-//       };
-//       smtpTransport.sendMail(mailOptions, function(err) {
-//         return res.status(20).send({errors: new StandardError('An e-mail has been sent to ' + user.email + ' with further instructions.')});
-          
-//         //req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-//         //done(err, 'done');
-//       });
-//     }
-//   ], function(err) {
-//     if (err) return next(err);
-//     res.redirect('/forgot');
-//   });
     db.User.find({where : { Email: req.body.email }}).then(function(user){
         
       if (!user) {
          return res.status(500).send({errors: new StandardError('Email was not found in thesyste')});
       }
       crypto.randomBytes(20, function(err, buf) {
+        
+        //console.log(token);
         var token = buf.toString('hex');
-        console.log(token);
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-                console.log("here");
-        user.save(function(err) {
-            // send mail with defined transport object
+        user.updateAttributes({
+            
+            resetPasswordToken : token,
+            resetPasswordExpires : Date.now() + 3600000 // 1 hour
+        }).then(function(a){
+            var mailOptions = {
+                from: '"archstuddatasystem 👥" <archstuddatasystem@gmail.com>', // sender address
+                to: req.body.email, // list of receivers
+                subject: 'Password Reset System - Please follow the attached link.', // Subject line
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                    'http://' + req.headers.host + '/password/reset/' + token + '\n\n' +
+                    'If you did not request this, please ignore this email and your password will remain unchanged.\n' // plaintext body
+            };
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
                     return console.log(error);
                 }
                 console.log('Message sent: ' + info.response);
+                return res.status(200).send({status:200, message:'Message sent.'});
+                
             });
-        }).catch(function(err){        
+        }).catch(function(err){
             return res.status(500).send({status:500, message:'internal error: ' + err});
         });
 
@@ -110,12 +67,62 @@ exports.forgot = function(req, res,next) {
 };
 
 
+exports.redirect = function(req, res) {
+    console.log("redirect");
+    db.User.find({ resetPasswordToken: req.params.token }).then(function(user){
+        if (!user) {
+            return res.render('401', {
+                error: 'לא נמצא משתמש.',
+                status: 401
+            });
+        }
+        return res.redirect('/changepassword/' + req.params.token);
+        // res.render('reset', {
+        //     user: req.user
+        // });
+    }).catch(function(err){  
+        return res.render('401', {
+                error: 'התרחשה שגיאה בשרת.',
+                status: 401
+            });      
+    });
+};
 /**
  * Reset Password
  */
 exports.reset = function(req, res) {
-    // Sending down the registration that was just preloaded by the registrations.registration function
-    // and saves registration on the req object.
-    return res.jsonp(req.params);
+    console.log("reset");
+    db.User.find({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }).then(function(user){
+        if (!user) {
+            return res.render('401', {
+                error: 'עבר יותר מידי זמן מקבלת הדוא"ל, אנא שלח דוא"ל נוסף.',
+                status: 401
+            });
+        }
+        if(req.body.password == req.body.passwordtwo){
+            var usersalt = user.makeSalt();
+            user.updateAttributes({
+                salt: usersalt,
+                hashedPassword: user.encryptPassword(req.params.password, user.salt),
+                resetPasswordToken : null,
+                resetPasswordExpires : null 
+            }).then(function(a){
+                req.login(user, function(err){
+                    if(err) {
+                        return res.status(500).send({status:500, message:'internal error: ' + err});  
+                    }
+                    return res.redirect('/home');
+                })
+            }).catch(function(err){
+                return res.status(500).send({status:500, message:'internal error: ' + err});
+            });
+        }
+        else{
+            res.status(500).send({status:500, message:'passwords do not match.'});  
+        }
+
+    }).catch(function(err){  
+        return res.status(500).send({status:500, message:'internal error: ' + err});      
+    });
 };
 

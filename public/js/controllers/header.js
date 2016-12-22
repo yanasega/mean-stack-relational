@@ -31,7 +31,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
             }
         }
         else{
-            $window.location.href = '/home';
+            $window.location.href = '/';
         }
     }
 
