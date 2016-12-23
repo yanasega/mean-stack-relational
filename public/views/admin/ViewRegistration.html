@@ -1,25 +1,3 @@
-	
-
-<form class="form" ng-show = "RegEmpty == true" data-ng-submit="openRegistration()">
-  <br>
-    <p style = "font-size:2em" >פתיחת הרשמה</p>
-    <hr>
-   <p>כרגע אין הרשמות פתוחות...</p>
-    <div class="control-group">
-      <label class="control-label" for="semester" style="float: right;margin-left: 1em;margin-top: 0.3em;" id="semester">סמסטר</label>
-      <div class="controls">
-        <select type="string" data-ng-model="semester" required>
-          <option value="winter">חורף</option>
-          <option value="spring">אביב</option>
-        </select>
-      </div>
-    </div>
-    <div class="control-group">
-      <div class="controls">
-        <input type="submit" class="btn btn-success" value="שמור">
-      </div>
-    </div>
-</form>
 
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showreg != true"></i>-->
 
@@ -28,6 +6,15 @@
       <p style = "font-size:2em">ניהול הרשמה</p>
       <hr>
   </div>
+  
+ <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
+ <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעריכה- ייתכן שהשינויים לא נשמרו."}}</p>
+ <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"הפעולה התבצעה בהצלחה"}}</p>
+ <p class="alert alert-danger text-white" style="font-size:large" ng-show="loadoneerror == true" >{{"התרחשה שגיאה בשרת"}}</p>
+ <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת פתיחת ההרשמה"}}</p>
+ <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"הרשמה נפתחה בהצלחה"}}</p>
+ <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת סגירת הרשמה"}}</p>
+ <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הרשמה נסגרה בהצלחה"}}</p>
   <!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>-->
    <table class = "table">
       <thead>

@@ -5,6 +5,10 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.showreg = false;
     $scope.status = null;
     $scope.RegEmpty = true;
+    $scope.loaderror = null;
+    $scope.updateerror = null;
+    $scope.adderror = null;
+    $scope.loadoneerror = null; 
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -55,10 +59,17 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                 
             if($scope.semester == 'spring'){
                 $http.get('/setfifthtosix').success(function(res){
-                    console.log("success");
-                })
-            }
-        }); 
+                    $scope.adderror = false;
+                }).error(function (errorResponse) {
+                   $scope.adderror = true; 
+                })}
+           $scope.adderror = false;
+           console.log("success"); 
+            //yana: add check if response valid?
+           }, function (err){
+            console.log(" not success"); 
+           $scope.adderror = true;  
+           });
 
         $scope.status = "הרשמה נפתחה בהצלחה.";
     };
@@ -74,12 +85,18 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
                         $scope.RegEmpty = false;
                         // sleep(1500);
                         // $scope.showreg = true;
+
                     }
                 }, this);
                 // if ($scope.RegEmpty == null){
                 //     $scope.RegEmpty = true;
                 // }
             }
+            $scope.showreg = true;
+            $scope.loaderror = false;            
+        }, function (err){
+            $scope.showreg = true;
+            $scope.loaderror = true;
         });
     };
 
@@ -90,7 +107,9 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             $scope.registration = registration;
             $scope.registration.StartDate = new Date($scope.registration.StartDate);
             $scope.registration.EndDate = new Date($scope.registration.EndDate);
-
+             $scope.loadoneerror = false;            
+        }, function (err){
+            $scope.loadoneerror = true;
         });
     };
 
@@ -105,21 +124,27 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         registration.$update(function() {
             if (!state){
                 $scope.RegEmpty = true;
-                reg.message = "פתיחה מחדש";
-                
+                reg.message = "פתיחה מחדש";      
             }
             else{
                 $scope.RegEmpty = false;
                 reg.message = "סגירת הרשמה";
             }
+            $scope.updateerror = false;
             
-
+        }, function (err){
+            $scope.updateerror = true;
         });
     };
    
     $scope.remove = function(registration) {
         if (registration) {
-            registration.$remove();  
+            registration.$remove(function(response) {
+                 $scope.delerror = false; 
+            //yana: add check if response valid?
+        }, function (err){
+            $scope.delerror = true;
+        });   
             for (var i in $scope.registrations) {
                 if ($scope.registrations[i] === registration) {
                     $scope.registrations.splice(i, 1);
@@ -127,8 +152,12 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
             }
         }
         else {
-            $scope.registration.$remove();
-            $state.go('registrations'); //yana: test
+            $scope.registration.$remove(function(response) {
+                 $scope.delerror = false; 
+            //yana: add check if response valid?
+        }, function (err){
+            $scope.delerror = true;
+        }); 
         }
     };
 

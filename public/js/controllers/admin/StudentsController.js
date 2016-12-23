@@ -226,6 +226,7 @@ if ($scope.loaderror == false || $scope.loaderror == false||  $scope.adderror ==
         }
         student.updated.push(new Date().getTime());
         student.$update(function() {
+         $scope.updateerror = false;
         $state.go('StudentInfo',{studentId : student.id})
         }, function (err){
             $scope.updateerror = true;
