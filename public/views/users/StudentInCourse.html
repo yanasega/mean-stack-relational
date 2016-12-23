@@ -25,18 +25,14 @@
     <p style = "font-size:1.5em">כאן תוכל לנהל את טופס סיום התואר שלך ולעקוב אחרי הקורסים והנקודות שצברת</p>
 		<hr>
     <br>
-
-  <div class="container">  
-    <div class="panel-group">
-    <div class="panel panel-default">
-    <div class="panel-heading">
-     <a  ng-click = "isCollapsed = !isCollapsed" style = "font-size:1.4em" >מקצועות חובה</a>
-    </div>
-    <div collapse = "!isCollapsed">
-    <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
-   <hr>
-   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
-    <div>
+  <p style = "font-size:1.4em" > 
+    <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות חובה</p>
+  
+  <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
+    <div collapse="!isCollapsed">
       <table>
         <thead>
         <tr>
@@ -67,23 +63,20 @@
       <br />
       </table>
     </div>
-    <div class="control-group">
+    <div class="control-group" collapse="!isCollapsed">
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
-       </div>
-      </form>
-    </div>
-    </div>
-    </div>
   </div>
 
- 
-  <p style = "font-size:1.4em" >מקצועות בחירה מחייבת</p>
+  </form>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+  מקצועות בחירה מחייבת</p>
   <p style = "font-size:15px">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
   <hr>
     <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryChoiceCourses)">
-    <div>
+    <div collapse="!isCollapsed1">
       <table>
         <thead>
         <tr>
@@ -109,7 +102,7 @@
       </table>
       </table>
     </div>
-    <div class="control-group">
+    <div class="control-group" collapse="!isCollapsed1">
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
@@ -117,11 +110,13 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >מקצועות בחירה</p>
-  <p style = "font-size:15px">מסלול עיצוב בסיסי - קבוצה ב - ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+  מקצועות בחירה - מסלול עיצוב בסיסי - קבוצה ב</p>
+  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(DesignChoiceCourses)">
-    <div>
+    <div collapse="!isCollapsed2">
       <table>
         <thead>
         <tr>
@@ -147,7 +142,7 @@
       </table>
       </table>
     </div>
-    <div class="control-group">
+    <div class="control-group" collapse="!isCollapsed2">
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
@@ -155,29 +150,34 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >מקצועות בחירה</p>
-  <p style = "font-size:15px">פרוייקטים מיוחדים - ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed3 = !isCollapsed3" ng-class="isCollapsed3? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה - פרוייקטים מיוחדים</p>
+  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
-  <table class = "table">
-      <thead>
-         <tr>
-            <th>מזהה קורס</th>
-            <th>שם הקורס</th>
-            <th>מספר נקודות זיכוי</th>
-            <th></th>
-         </tr>
-      </thead>
-     <tbody ng-repeat="course in SpecialProjectsCourses" >
-        <tr >
-        <td >{{course.IdCourse}}</td>
-        <td>{{course.Name}}</td>
-        <td>{{course.CreditPoints}}</td>
-        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
-        </tr>
-     </tbody>
-   </table>
+  <div collapse="!isCollapsed3">
+    <table class = "table">
+        <thead>
+          <tr>
+              <th>מזהה קורס</th>
+              <th>שם הקורס</th>
+              <th>מספר נקודות זיכוי</th>
+              <th></th>
+          </tr>
+        </thead>
+      <tbody ng-repeat="course in SpecialProjectsCourses" >
+          <tr >
+          <td >{{course.IdCourse}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+          <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+   
 
-<div>
+<div collapse="!isCollapsed3">
     <br>
     <p style = "font-size:15px">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('special_projects')">
@@ -206,10 +206,12 @@
 	</form>     
 </div>
 
-  <p style = "font-size:1.4em" >מקצועות בחירה</p>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed4 = !isCollapsed4" ng-class="isCollapsed4? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה</p>
   <hr>
   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(GeneralChoiceCourses)">
-    <div>
+    <div collapse="!isCollapsed4">
       <table>
         <thead>
         <tr>
@@ -235,7 +237,7 @@
       </table>
       </table>
     </div>
-    <div class="control-group">
+    <div class="control-group" collapse="!isCollapsed4">
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
@@ -243,9 +245,12 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >מקצועות בחירה חופשית</p>
-  <p style = "font-size:15px">המחלקה להומניסטיים - ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed5 = !isCollapsed5" ng-class="isCollapsed5? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה חופשית - המחלקה להומניסטיים</p>
+  <p style = "font-size:15px"> ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
+  <div collapse="!isCollapsed5">
     <table class = "table">
       <thead>
          <tr>
@@ -264,8 +269,8 @@
         </tr>
      </tbody>
    </table>
-
-<div>
+  </div>
+<div collapse="!isCollapsed5">
     <br>
     <p style = "font-size:15px">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('free_choice')">
@@ -294,28 +299,31 @@
 	</form>     
 </div>
 
-  <p style = "font-size:1.4em" >מקצועות שנלמדו מעבר לדרישות התואר</p>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed6 = !isCollapsed6" ng-class="isCollapsed6? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות שנלמדו מעבר לדרישות התואר</p>
   <hr>
-  <table class = "table">
-      <thead>
-         <tr>
-            <th>מזהה קורס</th>
-            <th>שם הקורס</th>
-            <th>מספר נקודות זיכוי</th>
-            <th></th>
-         </tr>
-      </thead>
-     <tbody ng-repeat="course in ExtraCourses" >
-        <tr >
-        <td >{{course.IdCourse}}</td>
-        <td>{{course.Name}}</td>
-        <td>{{course.CreditPoints}}</td>
-        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
-        </tr>
-     </tbody>
-   </table>
-
-<div>
+  <div collapse="!isCollapsed6" >
+    <table class = "table">
+        <thead>
+          <tr>
+              <th>מזהה קורס</th>
+              <th>שם הקורס</th>
+              <th>מספר נקודות זיכוי</th>
+              <th></th>
+          </tr>
+        </thead>
+      <tbody ng-repeat="course in ExtraCourses" >
+          <tr >
+          <td >{{course.IdCourse}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+          <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+<div collapse="!isCollapsed6">
     <br>
     <p style = "font-size:15px">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('extra')">
