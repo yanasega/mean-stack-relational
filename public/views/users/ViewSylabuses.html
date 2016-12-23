@@ -6,6 +6,7 @@
 
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showsylab == false"></span>
 <div id = "sylabuses" ng-show = "showsylab == true">
+  <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בהעלאת המידע."}}</p>
    <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
 
    <table class = "table">
