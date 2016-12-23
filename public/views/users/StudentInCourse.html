@@ -25,11 +25,17 @@
     <p style = "font-size:15px"> כאן תוכל לנהל את טופס סיום התואר שלך ולעקוב אחרי הקורסים והנקודות שצברת</p>
 		<hr>
     <br>
-  <p style = "font-size:1.4em" >מקצועות חובה</p>
-  
-  <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
-  <hr>
-  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
+
+  <div class="container">  
+    <div class="panel-group">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+     <a  ng-click = "isCollapsed = !isCollapsed" style = "font-size:1.4em" >מקצועות חובה</a>
+    </div>
+    <div collapse = "!isCollapsed">
+    <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
+   <hr>
+   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
     <div>
       <table>
         <thead>
@@ -65,9 +71,14 @@
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
+       </div>
+      </form>
+    </div>
+    </div>
+    </div>
   </div>
 
-  </form>
+ 
   <p style = "font-size:1.4em" >מקצועות בחירה מחייבת</p>
   <p style = "font-size:15px">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
   <hr>

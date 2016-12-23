@@ -65,7 +65,12 @@
 <!--<div class="row" ng-if = "loading == false" style="padding-right:500px">
    <i class="fa fa-spinner fa-spin fa-3x fa-fw" ></i>-->
    <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px"  ng-if ="findall"></span>
-
+   <div ng-show="dataError">
+     <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror" >{{"התרחשה שגיאה בייבוא הנתונים."}}</p>
+   </div>
+   <div ng-show="serverError">
+     <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror" >{{"התרחשה שגיאה בשרת"}}</p>
+   </div>
   
 <!--</div>-->
 

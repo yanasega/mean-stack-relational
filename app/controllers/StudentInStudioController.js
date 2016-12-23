@@ -40,10 +40,8 @@ exports.create = function(req, res) {
             return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+               return res.status(500).send({status:500, message:'internal error: ' + err});
+
     });
 };
 
