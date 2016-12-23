@@ -141,17 +141,12 @@ exports.update = function(req, res) {
             });
         });        
     }).catch(function(err){
-<<<<<<< HEAD
+
         // return res.render('error', {
         //     error: err, 
         //     status: 500
         return res.status(500).send({status:500, message:'internal error: ' + err});
-=======
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
->>>>>>> refs/remotes/origin/development
+
     });
     // create a new variable to hold the article that was placed on the req object.
 

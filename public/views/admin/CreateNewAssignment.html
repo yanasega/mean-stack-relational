@@ -10,13 +10,13 @@
        <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive && alertEmptyStudio && alertEmptyStudents" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
      </div>
    </div>
-    <div class="jumbotron">
+    <div >
     <p style="font-size:2.5em">יצירת שיבוץ חדש</p>
       <hr>
       <div class="row">
         <div class = "col-md-6">
       <div class ="col-md-12">
-        <button type="button" class="btn btn-deafult" ng-click="emptyStudio();init()" ng-disabled="alertIsActive == true">טען נתונים</button>
+        <button type="button" class="btn btn-info" ng-click="emptyStudio();init()" ng-disabled="alertIsActive == true">טען נתונים</button>
       </div>
         </div>
       <div class = "col-md-6">

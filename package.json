@@ -19,6 +19,7 @@
     "postinstall": "bower install && cp config/env/development.json5.sample config/env/development.json5 && cp config/env/production.json5.sample config/env/production.json5 && node node_modules/grunt-cli/bin/grunt copy"
   },
   "dependencies": {
+    "accessibility-buttons": "^3.1.1",
     "angular-chart.js": "^1.0.2",
     "angular-drag-and-drop-lists": "^1.4.0",
     "angular-ui-router": "^0.3.1",
@@ -29,8 +30,8 @@
     "compression": "^1.6.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",
-    "escape-json-node": "^1.0.8",
     "drag-drop": "^2.12.1",
+    "escape-json-node": "^1.0.8",
     "express": "^4.13.3",
     "express-sequelize-session": "^0.4.0",
     "express-session": "^1.12.1",

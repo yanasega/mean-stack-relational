@@ -57,31 +57,31 @@ exports.runAlgorithem = function(req, res) {
 };
 
 exports.getByAssignmentId = function(req, res, next) {
-//      db.StudentInStudio.findAll({where: {AId: req.AssignmentId}}).then(function(studentinstudio){
-//          console.log(studentinstudio);
-//         // if(!studentinstudio) {
-//         //     // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+     db.StudentInStudio.findAll({where: {AId: req.AssignmentId}}).then(function(studentinstudio){
+         console.log(studentinstudio);
+        if(!studentinstudio) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.status(500).send({errors: new StandardError('could not get student')});
-//         // } else {
-//         //     return res.jsonp(studentinstudio);          
-//         // }
-//     }).catch(function(err){
-//          return res.status(500).send({status:500, message:'internal error: ' + err});
-//     });   
+        } else {
+            return res.jsonp(studentinstudio);          
+        }
+    }).catch(function(err){
+         return res.status(500).send({status:500, message:'internal error: ' + err});
+    });   
 };
 
 exports.getByAssignmentIdandStudentId = function(req, res, next) {
-//      db.StudentInStudio.findAll({where: {AId: req.AssignmentId, IdStudent: req.StudentId }}).then(function(studentinstudio){
-//          console.log(studentinstudio);
-//         if(!studentinstudio) {
-//             // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
+     db.StudentInStudio.findAll({where: {AId: req.AssignmentId, IdStudent: req.StudentId }}).then(function(studentinstudio){
+         console.log(studentinstudio);
+        if(!studentinstudio) {
+            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.status(500).send({errors: new StandardError('could not get student')});
-//         } else {
-//             return res.jsonp(studentinstudio);          
-//         }
-//     }).catch(function(err){
-//         return res.status(500).send({status:500, message:'internal error: ' + err});
-//     });   
+        } else {
+            return res.jsonp(studentinstudio);          
+        }
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+    });   
 };
 
 

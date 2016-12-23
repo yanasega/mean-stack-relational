@@ -80,7 +80,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         }, function (err){
             $scope.dataError =true;
         });
-    }
+  };
+
 
 
     $scope.init = function (){
@@ -229,7 +230,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
         //$scope.alertIsActive = true; 
         //$scope.loading = true; 
-    }
+    };
 
 
     $scope.findAssignments = function (){
@@ -239,7 +240,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
      }, function (err){
             $scope.dataError = true;
         });
-    }
+    };
 
         $scope.clickforinfo = function (student){
           if($scope.tooltip == false){
@@ -361,9 +362,12 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 studio.count = studio.total_in_studio;
             }, this);
             $scope.loading = true;
+            $scope.serverError = false;
         }).error(function (respData) {
+            console.log("erorrrbaby");
                $scope.status = "There was an error while running the algorithem.";
                $scope.loading = true;
+               $scope.serverError = true;
         });
     }
 
@@ -515,7 +519,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 }, this);
         }, this);    
        $scope.assign = false;        
-    }
+}
      $scope.checkIfActive = function(){
         $http.get('/getregistration/').success(function(reg){
             if (reg.IsActive){
