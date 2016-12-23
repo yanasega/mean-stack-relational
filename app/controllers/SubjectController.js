@@ -15,7 +15,7 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;
     // save and return and instance of article on the res object. 
     db.SubjectMap.create(req.body).then(function(subject){
-        if(!instructor){
+        if(!subject){
             return res.send('users/signup', {errors: new StandardError('SubjectMap could not be created')}); //yana:change the landing page.
         } else {
             return res.jsonp(subject);
