@@ -14,7 +14,6 @@ var db = require('../../config/sequelize');
 
 
 exports.getmax = function(req, res, next) {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     db.Registration.max('id').then(
         function(reg){db.Registration.find({where: {id: reg}}).then(function(registration){
                 if(!registration) {
@@ -59,10 +58,7 @@ exports.create = function(req, res) {
             return res.jsonp(registration);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -79,10 +75,7 @@ exports.update = function(req, res) {
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        return res.render('error', {
-            error: err, 
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -97,10 +90,7 @@ exports.destroy = function(req, res) {
     registration.destroy().then(function(){
         return res.jsonp(registration);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+       return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -120,10 +110,7 @@ exports.all = function(req, res) {
     db.Registration.findAll().then(function(registration){
         return res.jsonp(registration);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+     return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 

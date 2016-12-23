@@ -29,20 +29,19 @@ exports.assignment = function(req, res, next, id) {
  * Create a registration
  */
 exports.create = function(req, res) {
-    // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+ //   augment the article by adding the UserId
+    req.body.UserId = req.user.id;
+   // save and return and instance of article on the res object. 
     db.Assignment.create(req.body).then(function(assignment){
         if(!assignment){
-            return res.send('users/signup', {errors: new StandardError('assignment could not be created')}); //yana:change the landing page.
+            return res.status(500).send({errors: new StandardError('assignment could not be created')});
+         //yana:change the landing page.
         } else {
             return res.jsonp(assignment);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+             return res.status(500).send({status:500, message:'internal error: ' + err});
+
     });
 };
 
