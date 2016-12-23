@@ -38,6 +38,7 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
             $scope.loaderror = false;
             
         }, function (err){
+            $scope.showinstr = true;            
             $scope.loaderror = true;
         });
     };
