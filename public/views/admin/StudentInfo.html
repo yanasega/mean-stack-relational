@@ -1,6 +1,6 @@
 <div data-ng-init="findOne()">
 	<br>
-		<p style = "font-size:20px">פרטי הסטודנט: {{student.FirstName + " " + student.LastName}}</p>
+		<p style = "font-size:2em">פרטי הסטודנט: {{student.FirstName + " " + student.LastName}}</p>
 		<hr>
 </div>
 
@@ -40,9 +40,13 @@
 
 </table>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px">
+     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+     שיבוצים קודמים</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed">
 	<br>
-		<p style = "font-size:20px">שיבוצים קודמים</p>
+		<p style = "font-size:2em">שיבוצים קודמים</p>
 		<hr>
         <table class = "table" ng-show="studentinstudio.length">
             <thead>
@@ -64,9 +68,13 @@
        <p class="alert alert-info" ng-show="!studentinstudio.length">אין שיבוצים  עבור סטודנט זה</p>
 </div>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px">
+     <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+     מצב טופס גמר</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed1">
 	<br>
-		<p style = "font-size:20px">מצב טופס גמר</p>
+		<p style = "font-size:2em">מצב טופס גמר</p>
 		<hr>
         <table class = "table" ng-show="studentincourse.length">
             <thead>
@@ -93,12 +101,14 @@
         
 </div>
 
-<div ng-show = "showuser == true">
+<p ng-show = "showuser == true" style = "font-size:20px"> 
+    <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    היסטוריית העדפות</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed2">
 	<br>
-		<p style = "font-size:20px">היסטוריית העדפות</p>
-		<hr>
         <table class = "table" ng-show="preferences.length">
-            <thead>
+            <thead> 
                 <tr>
                 <th>שנה</th>
                 <th>תאריך</th>

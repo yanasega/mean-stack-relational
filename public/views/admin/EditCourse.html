@@ -1,11 +1,13 @@
 <section data-ng-init="findOne()">
     <br>
-    <p style = "font-size:20px">עריכת קורס</p>
+    <p style = "font-size:2em">עריכת קורס</p>
     <hr>
 	<!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showstud == false"></span>-->
     <form class="form-horizontal" data-ng-submit="update()" >
 	<br>
 		<div class="control-group">
+			<p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעריכה- ייתכן שהשינויים לא נשמרו."}}</p>
+			<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
             <label class="control-label" for="Id_s" style="float:right">מזהה קורס</label>
 			<div class="controls">
 				<input type="text" data-ng-model="course.Id" id="Id_s" required>

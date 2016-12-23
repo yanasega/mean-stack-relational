@@ -12,15 +12,25 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('userhome',{
             url : '/home',
+            controller: 'HomeController',
             templateUrl: 'views/users/HomePage.html'
         })
          .state('adminhome',{
             url : '/adminhome',
+            controller: 'AdminHomeController',
             templateUrl: 'views/users/AdminHomePage.html'
         })
         .state('SignIn',{
             url : '/signin',
             templateUrl: 'views/users/signin.html'
+        })
+        .state('ForgotPass',{
+            url : '/forgotpassword',
+            templateUrl: 'views/users/forgotpassword.html'
+        })
+        .state('ChangePass',{
+            url : '/changepassword',
+            templateUrl: 'views/users/changepassword.html'
         })
         .state('ViewPdf',{
             url : '/uploads/:pdfId'
@@ -115,8 +125,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/users/ViewPreferences.html'
         })
         .state('EditPref',{
-            url : '/editpreferences',
-            controller : 'ViewPreferencesController',
+            url : '/viewpreferences/{PrfId}/edit',
+            controller : 'EditPreferencesController',
             templateUrl: 'views/users/EditPreferences.html'
         })
         .state('ViewAssignments',{

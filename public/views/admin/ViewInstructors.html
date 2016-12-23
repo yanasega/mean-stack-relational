@@ -1,12 +1,12 @@
 <div>
 	<br>
-		<p style = "font-size:20px">ניהול המידע אודות מנחים</p>
+		<p style = "font-size:2em">ניהול המידע אודות מנחים</p>
 		<hr>
 </div>
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>-->
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showinstr == false"></span>
 <div id = "instructors" ng-show = "showinstr == true">
-<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror" >{{"התרחשה שגיאה בשרת."}}</p>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
   <input ng-model = "query" type="text" placeholder="חיפוש...">
 
    <table class = "table">
@@ -29,7 +29,7 @@
 
 <div ng-show = "showinstr == true">
     <br>
-    <p style = "font-size:20px">הוספת מנחה חדש</p>
+    <p style = "font-size:2em">הוספת מנחה חדש</p>
     <hr>
     <form class="form-horizontal" data-ng-submit="addInstructor()">
 	<br>
@@ -49,8 +49,8 @@
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
             <br>
-            <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == false" >{{"התרחשה שגיאה בעת הוספת מנחה חדש"}}</p>
-            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == true" >{{"מנחה חדש התווסף בהצלחה"}}</p>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת מנחה חדש"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"מנחה חדש התווסף בהצלחה"}}</p>
             
 		</div>
 	</form>     

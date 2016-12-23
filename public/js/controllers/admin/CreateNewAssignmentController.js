@@ -22,9 +22,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
 
-
+    
     $scope.studios = [];
-
 
     $scope.models = {
         studioLists : {},
@@ -33,15 +32,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.emptyStudio = function (){
     $scope.studios = [];
 }
-
-   function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds){
-                break;
-            }
-        }
-    }
 
   $scope.getStudios = function(){
             Studios.query(function(studios){  
@@ -329,7 +319,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
     $scope.runAlgo = function(){
         $scope.loading = false;
-        $scope.addstudflag = false;
         if ($scope.ChosenYear == "5"){
             $scope.algoYear = "5";
         }
@@ -372,11 +361,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 studio.count = studio.total_in_studio;
             }, this);
             $scope.loading = true;
-            $scope.addstudflag = true;
         }).error(function (respData) {
                $scope.status = "There was an error while running the algorithem.";
                $scope.loading = true;
-               $scope.addstudflag = true;
         });
     }
 
@@ -477,11 +464,13 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     }
                    
                 })
-                
+  
               });   
             }, this); 
+
         })
-        
+        console.log("done");
+        $scope.loading = false;
     }
 
     $scope.UpdateAssinment = function(){

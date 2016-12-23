@@ -27,6 +27,10 @@ exports.setRegId = function(req, res, next, id) {
     return next();  
 };
 
+exports.setRate = function(req, res, next, id) {  
+    req.Rate = id;
+    return next();  
+};
 exports.getPreferenceByStudentAndStudioAndReg = function(req, res, next) {
     // db.Registration.max('id').then(
     //     function(reg){
@@ -124,19 +128,33 @@ exports.create = function(req, res) {
  * Update a registration
  */
 exports.update = function(req, res) {
-
-    // create a new variable to hold the article that was placed on the req object.
-    var preference = req.preference;
-    preference.updateAttributes({
-        Rate: req.body.Rate
-    }).then(function(a){
-        return res.jsonp(a);
+    db.Preference.find({where: {Id: req.StudentId,IdR:req.RegId, IdS:req.StudioId}}).then(function(preference){
+        var pref = preference;
+        pref.updateAttributes({
+            Rate: req.Rate
+        }).then(function(a){
+            return res.jsonp(a);
+        }).catch(function(err){
+            return res.render('error', {
+                error: err, 
+                status: 500
+            });
+        });        
     }).catch(function(err){
+<<<<<<< HEAD
         // return res.render('error', {
         //     error: err, 
         //     status: 500
         return res.status(500).send({status:500, message:'internal error: ' + err});
+=======
+        return res.send('users/signup', { 
+            errors: err,
+            status: 500
+        });
+>>>>>>> refs/remotes/origin/development
     });
+    // create a new variable to hold the article that was placed on the req object.
+
 };
 
 /**
