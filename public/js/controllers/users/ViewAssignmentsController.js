@@ -5,6 +5,7 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
     console.log("ViewAssignmentsController");
     $scope.studentinstudio = [];
     $scope.preferences = [];
+
     $scope.showass = false;
     
     function sleep(milliseconds) {

@@ -1,5 +1,6 @@
 angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', 'Global', 'Articles', '$state', function ($scope, $stateParams, Global, Articles, $state) {
     $scope.global = Global;
+    accessibilityButtons();
     $scope.create = function() {
         var article = new Articles({
             title: this.title,
