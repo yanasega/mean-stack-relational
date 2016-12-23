@@ -2,12 +2,12 @@
 	<div>
 	<form class="form-horizontal" data-ng-submit="updateStudent()">
 	<br>
-		<p style = "font-size:20px" >פרטים אישיים</p>
-        <p style = "font-size:15px">כאן תוכל לערוך את פרטיך</p>
+		<p style = "font-size:2em" >פרטים אישיים</p>
+        <p style = "font-size:1.5em">כאן תוכל לערוך את פרטיך</p>
 		<hr>
 		<!--<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showdet == false"></span>-->
 		<div>
-			<label for="name" class="control-label" style="float:right">שם פרטי</label>
+			<label for="name" class="control-label" style="float: right;">שם פרטי</label>
 			<div class="controls">
 				<input id="firstname" type="text" name="firstname" placeholder="שם פרטי" ng-model="student.FirstName" required>
 			</div>
@@ -51,8 +51,8 @@
 			<div class="control-group">
 				<div class="controls">
 				<section>
-					<input type="submit" class="btn btn-success" value="עדכון" style="margin-bottom: 10px">
-					<i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:30px; padding-left: 10px" aria-hidden="true"></i>
+					<input type="submit" class="btn btn-success" value="עדכון" style="margin-bottom: 0.1em">
+					<i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:3em; padding-left: 10px" aria-hidden="true"></i>
 					</section>
 				</div>
 			</div>
@@ -60,5 +60,4 @@
 	</form>
 	</div>
 </section>
-
 
