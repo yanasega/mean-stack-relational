@@ -44,6 +44,7 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
             $scope.sending = false;
             $scope.email = null;
             $scope.show = true;
+            $scope.error=false;
         })
         .error(function (data, status, header, config) {
             $scope.sending = false;            
