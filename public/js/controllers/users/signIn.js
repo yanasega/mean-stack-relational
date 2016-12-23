@@ -1,6 +1,10 @@
-angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global', '$state', 'LogIn','$http', function ($scope, $window, Global, $state, LogIn,$http) {
+angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global', '$state', 'LogIn',
+'$http','$stateParams', function ($scope, $window, Global, $state, LogIn,$http,$stateParams) {
     $scope.global = Global;
     $scope.IsOk = true;
+    $scope.show = false;
+    $scope.error = false;
+    $scope.sending = false;
 
     $scope.signIn = function(user) {
 
@@ -30,25 +34,51 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
     };
 
     $scope.sendemail =  function(){
-            var data = {
-                email: $scope.email
-            };
 
+        $scope.sending = true;
+        var data = {
+            email: $scope.email
+        };
 
-            $http.post('/password/forgot', data)
-            .success(function (data, status, headers, config) {
-                $scope.PostDataResponse = data;
-            })
-            .error(function (data, status, header, config) {
-                $scope.ResponseDetails = "Data: " + data +
-                    "<hr />status: " + status +
-                    "<hr />headers: " + header +
-                    "<hr />config: " + config;
-            });
+        $http.post('/password/forgot', data)
+        .success(function (data, status, headers, config) {
+            $scope.sending = false;
+            $scope.email = null;
+            $scope.show = true;
+        })
+        .error(function (data, status, header, config) {
+            $scope.sending = false;            
+            $scope.email = null;            
+            $scope.error = true;
+        });
+
     }
 
     $scope.changepass =  function(){
-        
+        var data = {
+                password: $scope.password,
+                passwordtwo: $scope.passwordtwo,
+                token: $stateParams.token
+        };
+
+        $http.post('/password/reset/'+$stateParams.token , data)
+            .success(function (data, status, headers, config) {
+                $window.location.href = '/home';
+            })
+            .error(function (data, status, header, config) {
+                if (data.message == "passwords do not match."){
+                    $scope.show = true;
+                    $scope.message = "הסיסמאות אינן תואמות.";
+
+                }
+                else{
+                    $scope.show = true;
+                    $scope.message = "התרחשה שגיאה בשרת";
+                    
+                }
+                $scope.password = null;
+                $scope.passwordtwo = null;
+        });
     }
 
 

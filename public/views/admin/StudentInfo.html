@@ -3,9 +3,13 @@
 		<p style = "font-size:2em">פרטי הסטודנט: {{student.FirstName + " " + student.LastName}}</p>
 		<hr>
 </div>
+
 <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
 <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת סטודנט"}}</p>
-<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+
+
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 2em" ng-show = "showuser == false"></span>
+
 <table class = "table" ng-show = "showuser == true">
     <thead>
         <tr>
@@ -41,13 +45,12 @@
 
 </table>
 
-<p ng-show = "showuser == true" style = "font-size:20px">
+<p ng-show = "showuser == true" style = "font-size:1.5em">
      <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
      שיבוצים קודמים</p>
 <hr ng-show = "showuser == true">
 <div collapse="!isCollapsed">
 	<br>
-		<p style = "font-size:2em">שיבוצים קודמים</p>
 		<hr>
         <table class = "table" ng-show="studentinstudio.length">
             <thead>
@@ -69,13 +72,12 @@
        <p class="alert alert-info" ng-show="!studentinstudio.length">אין שיבוצים  עבור סטודנט זה</p>
 </div>
 
-<p ng-show = "showuser == true" style = "font-size:20px">
+<p ng-show = "showuser == true" style = "font-size:1.5em">
      <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
      מצב טופס גמר</p>
 <hr ng-show = "showuser == true">
 <div collapse="!isCollapsed1">
 	<br>
-		<p style = "font-size:2em">מצב טופס גמר</p>
 		<hr>
         <table class = "table" ng-show="studentincourse.length">
             <thead>
@@ -102,7 +104,7 @@
         
 </div>
 
-<p ng-show = "showuser == true" style = "font-size:20px"> 
+<p ng-show = "showuser == true" style = "font-size:1.5em"> 
     <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     היסטוריית העדפות</p>
 <hr ng-show = "showuser == true">
