@@ -3,6 +3,7 @@
 		<p style = "font-size:2em">ניהול מידע אודות נושאי סטודיו</p>
 		<hr>
 </div>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
 
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showsubj == false"></i>-->
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showsubj == false"></span>
@@ -42,6 +43,9 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+            <br>
+             <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת נושא חדש"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"נושא חדש התווסף בהצלחה"}}</p>
 		</div>
 	</form>     
 </div>
