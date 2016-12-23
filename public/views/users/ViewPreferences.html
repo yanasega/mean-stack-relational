@@ -14,7 +14,7 @@
                 <th></th>
             </tr>
       </thead>
-     <tbody ng-repeat="pref in preferences">
+     <tbody ng-repeat="pref in preferences" style="color:black">
         <tr >
             <td  style=" width: 10px;" ng-click="isCollapsed = !isCollapsed"><i  ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i></td>
             <td style = "font-size:20px">{{pref[0].createdAt | date : "dd.MM.y"}}</td>
