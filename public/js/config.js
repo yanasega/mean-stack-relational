@@ -26,10 +26,12 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
         })
         .state('ForgotPass',{
             url : '/forgotpassword',
+            controller:'signIn',
             templateUrl: 'views/users/forgotpassword.html'
         })
         .state('ChangePass',{
-            url : '/changepassword',
+            url : '/changepassword/{token}',
+            controller:'signIn',
             templateUrl: 'views/users/changepassword.html'
         })
         .state('ViewPdf',{
@@ -140,9 +142,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/articles/list.html'
         })
         // .state('createArticle',{
-        //     url : '/articles/create',
-        //     controller : 'ArticlesController',
-        //     templateUrl: 'views/articles/create.html'
+        //     url : '/password/reset/:token',
+        //     templateUrl: 'changepassword.html'
         // })
         // .state('editArticles',{
         //     url : '/articles/{articleId}/edit',
