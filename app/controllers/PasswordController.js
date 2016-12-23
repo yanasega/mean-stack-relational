@@ -77,9 +77,6 @@ exports.redirect = function(req, res) {
             });
         }
         return res.redirect('/changepassword/' + req.params.token);
-        // res.render('reset', {
-        //     user: req.user
-        // });
     }).catch(function(err){  
         return res.render('401', {
                 error: 'התרחשה שגיאה בשרת.',
@@ -91,7 +88,6 @@ exports.redirect = function(req, res) {
  * Reset Password
  */
 exports.reset = function(req, res) {
-    console.log("reset");
     db.User.find({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }).then(function(user){
         if (!user) {
             return res.render('401', {
@@ -100,10 +96,8 @@ exports.reset = function(req, res) {
             });
         }
         if(req.body.password == req.body.passwordtwo){
-            var usersalt = user.makeSalt();
             user.updateAttributes({
-                salt: usersalt,
-                hashedPassword: user.encryptPassword(req.params.password, user.salt),
+                hashedPassword: user.encryptPassword(req.body.password, user.salt),
                 resetPasswordToken : null,
                 resetPasswordExpires : null 
             }).then(function(a){

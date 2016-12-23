@@ -4,6 +4,7 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
     $scope.IsOk = true;
     $scope.show = false;
     $scope.error = false;
+    $scope.sending = false;
 
     $scope.signIn = function(user) {
 
@@ -33,15 +34,20 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
     };
 
     $scope.sendemail =  function(){
+        $scope.sending = true;
         var data = {
             email: $scope.email
         };
 
         $http.post('/password/forgot', data)
         .success(function (data, status, headers, config) {
+            $scope.sending = false;
+            $scope.email = null;
             $scope.show = true;
         })
         .error(function (data, status, header, config) {
+            $scope.sending = false;            
+            $scope.email = null;            
             $scope.error = true;
         });
     }
@@ -58,7 +64,18 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
                 $window.location.href = '/home';
             })
             .error(function (data, status, header, config) {
-                $scope.error = true;
+                if (data.message == "passwords do not match."){
+                    $scope.show = true;
+                    $scope.message = "הסיסמאות אינן תואמות.";
+
+                }
+                else{
+                    $scope.show = true;
+                    $scope.message = "התרחשה שגיאה בשרת";
+                    
+                }
+                $scope.password = null;
+                $scope.passwordtwo = null;
         });
     }
 
