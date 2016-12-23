@@ -32,8 +32,8 @@ exports.setRate = function(req, res, next, id) {
     return next();  
 };
 exports.getPreferenceByStudentAndStudioAndReg = function(req, res, next) {
-    // db.Registration.max('id').then(
-    //     function(reg){
+    db.Registration.max('id').then(
+        function(reg){
             db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:req.RegId }}).then(function(preference){
                 // console.log(req.RegId);
                 if(!preference) {
@@ -44,10 +44,10 @@ exports.getPreferenceByStudentAndStudioAndReg = function(req, res, next) {
             }).catch(function(err){
                 return res.status(500).send({status:500, message:'internal error: ' + err});
             }) 
-        // }
-    // ).catch(function(err){
-    //     return next(err);
-    // })  
+        }
+    ).catch(function(err){
+        return next(err);
+    })  
 };
 
 exports.getPreferenceByStudentAndStudio = function(req, res, next) {

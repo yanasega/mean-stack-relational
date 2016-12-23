@@ -50,7 +50,7 @@ exports.runAlgorithem = function(req, res) {
 
     PythonShell.run('algoritm.py', options, function (err, results) {
         console.log(results);
-        if (err) return res.status(500).send({status:500, message:'internal error: ' + err});; // yana: fix this to better error catching
+        if (err) return res.status(500).send({status:500, message:'internal error: ' + err}); // yana: fix this to better error catching
         return res.jsonp(results);
     });
 
