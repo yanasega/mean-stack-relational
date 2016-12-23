@@ -8,6 +8,7 @@
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
 
 <div id = "registrations" ng-show = "showuser == true">
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
   <input ng-model = "query" type="text" placeholder="חיפוש...">
   
   <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">

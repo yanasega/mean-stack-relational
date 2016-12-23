@@ -6,6 +6,10 @@
     <form class="form-horizontal" data-ng-submit="update()" ng-show = "showuser == true">
 	<br>
 		<div class="control-group">
+			<p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעריכה- ייתכן שהשינויים לא נשמרו."}}</p>
+			<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
+			<p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת סטודנט"}}</p>
+<p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"סטודנט נמחק בהצלחה"}}</p>
 			<label class="control-label" style="float: right" for="currentyear">שנה נוכחית</label>
 			<div class="controls">
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->

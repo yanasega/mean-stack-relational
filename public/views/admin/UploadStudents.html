@@ -1,4 +1,4 @@
-
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
   <div class="container">
       <p style = "font-size:2em" >טעינת קבצי תעודות הזהות</p>
       <hr>
@@ -17,6 +17,9 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+            <br>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="fileerror == false" >{{"קובץ תעודות זהות התווסף בהצלחה"}}</p>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
 		</div>
 	</form>     
       </div>
@@ -35,18 +38,22 @@
                 <div class="controls">
                     <input type="submit" class="btn btn-success" value="שמור">
                 </div>
-		    </div>
+                <br>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{" התרחשה שגיאה בעת הוספת תעודת זהות חדשה"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"תעודת זהות חדשה התווסף בהצלחה"}}</p>
+            </div>
           </form>
       </div>
   </div>
   <!--<a href="path">image</a>-->
-  <section ng-show = "showuser == true"><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:2em" aria-hidden="true"></i> {{status}} </p></section>	  
-  <section ng-show = "showuser == true"><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:2em" aria-hidden="true"></i> {{error}} </p></section>
+  <!--<section ng-show = "showuser == true"><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:2em" aria-hidden="true"></i> {{status}} </p></section>	  
+  <section ng-show = "showuser == true"><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:2em" aria-hidden="true"></i> {{error}} </p></section>-->
 
     <div class="container" ng-show = "showuser == true">
       <p style = "font-size:2em" >תעודות זהות במערכת</p>
       <hr>
       <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
+      <br>
         <table class = "table">
             <thead>
                 <tr>
@@ -62,3 +69,6 @@
             </tbody>
         </table>
   </div>
+  <br>
+  <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת תעודת זהןת"}}</p>
+  <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"תעודת זהות נמחקה בהצלחה"}}</p>

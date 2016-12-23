@@ -109,6 +109,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             $scope.showstud = true;
             $scope.loaderror = false;            
         }, function (err){
+            $scope.showstud = true;
             $scope.loaderror = true;
         });
         

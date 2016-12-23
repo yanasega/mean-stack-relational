@@ -76,10 +76,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
             //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
-        }
-            );  
-            
-
+        });     
             for (var i in $scope.courses) {
                 if ($scope.courses[i] === course) {
                     $scope.courses.splice(i, 1);

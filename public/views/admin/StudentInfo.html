@@ -3,7 +3,8 @@
 		<p style = "font-size:2em">פרטי הסטודנט: {{student.FirstName + " " + student.LastName}}</p>
 		<hr>
 </div>
-
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת סטודנט"}}</p>
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
 <table class = "table" ng-show = "showuser == true">
     <thead>

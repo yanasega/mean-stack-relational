@@ -6,11 +6,11 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
-// var exec = require('child_process').exec;
-// var fs = require('fs'),
-//     path = require('path');
-// var PythonShell = require('python-shell');
-// var escapeJSON = require('escape-json-node');
+var exec = require('child_process').exec;
+var fs = require('fs'),
+    path = require('path');
+var PythonShell = require('python-shell');
+var escapeJSON = require('escape-json-node');
 
 exports.tz = function(req, res, next, id) {
     console.log('id => ' + id);
@@ -39,21 +39,22 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;    
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
-            return res.send('users/signup', {errors: new StandardError('Tz could not be created')}); //yana:change the landing page.
+            return res.status(500).send({errors: new StandardError('Tz could not be created')});
         } else {
             return res.jsonp(tz);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        // return res.send('users/signup', { 
+        //     errors: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
 exports.insertTz = function (req, res){
-    
     var dirString = path.dirname(fs.realpathSync(__filename));
+    console.log(dirString);
 
     var csv_path = req.csv_path;
     var options = {
@@ -63,9 +64,11 @@ exports.insertTz = function (req, res){
         scriptPath: dirString + '//..//algo',
         args: [dirString + '//..//..//public/uploads/' + csv_path]
     };
-
+    console.log(dirString + '//..//..//public/uploads/' + csv_path);
     PythonShell.run('readfile.py', options, function (err, results) {
-        if (err) throw err;
+        console.log("erorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        console.log(err);
+        if (err) return res.status(500).send({status:500, message:'internal error: ' + err});
         // results is an array consisting of messages collected during execution
         // results = results.toString().replace(/\\/g, "");
         return res.jsonp(results);
@@ -89,10 +92,11 @@ exports.destroy = function(req, res) {
     tz.destroy().then(function(){
         return res.jsonp(tz);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -103,10 +107,11 @@ exports.all = function(req, res) {
     db.Tz.findAll().then(function(tz){
         return res.jsonp(tz);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+         return res.status(500).send({status:500, message:'internal error: ' + err});       
     });
 };
 
