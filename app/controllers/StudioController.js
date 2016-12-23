@@ -34,15 +34,17 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object. 
     db.Studio.create(req.body).then(function(studio){
         if(!studio){
-            return res.send('users/signup', {errors: new StandardError('Studio could not be created')}); //yana:change the landing page.
+            // return res.send('users/signup', {errors: new StandardError('Studio could not be created')}); //yana:change the landing page.
+            return res.status(500).send({errors: new StandardError('Studio could not be created')});
         } else {
             return res.jsonp(studio);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        // return res.send('users/signup', { 
+        //     errors: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -64,10 +66,11 @@ exports.update = function(req, res) {
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        return res.render('500', {
-            error: err, 
-            status: 500
-        });
+        // return res.render('500', {
+        //     error: err, 
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -81,10 +84,11 @@ exports.destroy = function(req, res) {
     studio.destroy().then(function(){
         return res.jsonp(studio);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -104,10 +108,11 @@ exports.all = function(req, res) {
     db.Studio.findAll().then(function(studio){
         return res.jsonp(studio);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 

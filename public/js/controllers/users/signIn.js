@@ -1,6 +1,9 @@
-angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global', '$state', 'LogIn','$http', function ($scope, $window, Global, $state, LogIn,$http) {
+angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global', '$state', 'LogIn',
+'$http','$stateParams', function ($scope, $window, Global, $state, LogIn,$http,$stateParams) {
     $scope.global = Global;
     $scope.IsOk = true;
+    $scope.show = false;
+    $scope.error = false;
 
     $scope.signIn = function(user) {
 
@@ -28,6 +31,36 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
             }
         });
     };
+
+    $scope.sendemail =  function(){
+        var data = {
+            email: $scope.email
+        };
+
+        $http.post('/password/forgot', data)
+        .success(function (data, status, headers, config) {
+            $scope.show = true;
+        })
+        .error(function (data, status, header, config) {
+            $scope.error = true;
+        });
+    }
+
+    $scope.changepass =  function(){
+        var data = {
+                password: $scope.password,
+                passwordtwo: $scope.passwordtwo,
+                token: $stateParams.token
+        };
+
+        $http.post('/password/reset/'+$stateParams.token , data)
+            .success(function (data, status, headers, config) {
+                $window.location.href = '/home';
+            })
+            .error(function (data, status, header, config) {
+                $scope.error = true;
+        });
+    }
 
 
 }]);

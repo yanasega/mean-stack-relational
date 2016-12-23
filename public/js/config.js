@@ -24,6 +24,16 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             url : '/signin',
             templateUrl: 'views/users/signin.html'
         })
+        .state('ForgotPass',{
+            url : '/forgotpassword',
+            controller:'signIn',
+            templateUrl: 'views/users/forgotpassword.html'
+        })
+        .state('ChangePass',{
+            url : '/changepassword/{token}',
+            controller:'signIn',
+            templateUrl: 'views/users/changepassword.html'
+        })
         .state('ViewPdf',{
             url : '/uploads/:pdfId'
         })
@@ -117,8 +127,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/users/ViewPreferences.html'
         })
         .state('EditPref',{
-            url : '/editpreferences',
-            controller : 'ViewPreferencesController',
+            url : '/viewpreferences/{PrfId}/edit',
+            controller : 'EditPreferencesController',
             templateUrl: 'views/users/EditPreferences.html'
         })
         .state('ViewAssignments',{
@@ -132,9 +142,8 @@ angular.module('mean').config(['$stateProvider','$urlRouterProvider', function($
             templateUrl: 'views/articles/list.html'
         })
         // .state('createArticle',{
-        //     url : '/articles/create',
-        //     controller : 'ArticlesController',
-        //     templateUrl: 'views/articles/create.html'
+        //     url : '/password/reset/:token',
+        //     templateUrl: 'changepassword.html'
         // })
         // .state('editArticles',{
         //     url : '/articles/{articleId}/edit',

@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', 'SignOut', '$state','$window', function ($scope, Global, SignOut, $state,$window) {
+angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', 'SignOut', '$state','$window','$http'
+, function ($scope, Global, SignOut, $state,$window,$http) {
     $scope.global = Global;
     $scope.menu = [{
         "title": "Articles",
@@ -21,11 +22,16 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     }
 
     $scope.redirect = function(){
-        if($scope.global.user.IsAdmin){ //if user is admin
-            $window.location.href = '/adminhome'; 
+        if($scope.global.user){
+            if($scope.global.user.IsAdmin){ //if user is admin
+                $window.location.href = '/adminhome'; 
+            }
+            else{//if user is student
+                $window.location.href = '/home';
+            }
         }
-        else{//if user is student
-            $window.location.href = '/home';
+        else{
+            $window.location.href = '/';
         }
     }
 

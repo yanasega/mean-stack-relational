@@ -16,14 +16,26 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
         }
     }
 
+    $scope.isRegOpen = function (idr) {
+        Registrations.get({
+            registrationId: idr
+        }, function(reg) {
+            if(reg.IsActive){
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
+    }
     $scope.find = function() {
-        // StudentInStudio.query(function(studentinstudio) {
-        //      studentinstudio.forEach(function(sis) {
-        //         if (sis.IdStudent == $scope.global.user.id){
-        //             $scope.studentinstudio.push(sis); //yana: check if data relavent?
-        //         }    
-        //     }, this);
-        // })
+        StudentInStudio.query(function(studentinstudio) {
+             studentinstudio.forEach(function(sis) {
+                if (sis.IdStudent == $scope.global.user.id){
+                    $scope.studentinstudio.push(sis); //yana: check if data relavent?
+                }    
+            }, this);
+        })
 
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
@@ -40,16 +52,19 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
             }, this);
             Studios.query(function (studios) {
                 $scope.studios = studios;
-                // $scope.preferences.forEach(function(preference) {
-                //     $scope.studios.forEach(function(studio) {
-                //         if(studio.id == preference.IdS){
-                //             preference.IdS = studio.Name;
-                //         }
-                //     }, this);
-                // }, this);           
+                angular.forEach($scope.preferences,function(value,key){
+                    
+                    $scope.preferences[key].forEach(function(preference) {
+                        $scope.studios.forEach(function(studio) {
+                            if(studio.id == preference.IdS){
+                                preference.IdS = studio.Name;
+                            }
+                        }, this);
+                    }, this);
+
+                });           
             });  
             //sleep(500);
-            console.log($scope.preferences);
             $scope.showpref = true;       
         });
     };
