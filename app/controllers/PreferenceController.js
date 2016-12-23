@@ -32,22 +32,22 @@ exports.setRate = function(req, res, next, id) {
     return next();  
 };
 exports.getPreferenceByStudentAndStudioAndReg = function(req, res, next) {
-    // db.Registration.max('id').then(
-    //     function(reg){
+    db.Registration.max('id').then(
+        function(reg){
             db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:req.RegId }}).then(function(preference){
                 // console.log(req.RegId);
                 if(!preference) {
-                    return res.jsonp(null);
+                    return res.status(500).send({errors: new StandardError('could not get preference')});
                 } else {
                     return res.jsonp(preference);          
                 }
             }).catch(function(err){
-                return next(err);
+                return res.status(500).send({status:500, message:'internal error: ' + err});
             }) 
-        // }
-    // ).catch(function(err){
-    //     return next(err);
-    // })  
+        }
+    ).catch(function(err){
+        return next(err);
+    })  
 };
 
 exports.getPreferenceByStudentAndStudio = function(req, res, next) {
@@ -56,16 +56,16 @@ exports.getPreferenceByStudentAndStudio = function(req, res, next) {
             db.Preference.find({where: {Ids: req.StudioId, Id: req.StudentId,IdR:reg }}).then(function(preference){
                 // console.log(req.RegId);
                 if(!preference) {
-                    return res.jsonp(null);
+                    return res.status(500).send({errors: new StandardError('could not get preference')});
                 } else {
                     return res.jsonp(preference);          
                 }
             }).catch(function(err){
-                return next(err);
+                return res.status(500).send({status:500, message:'internal error: ' + err});
             }) 
         }
     ).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     })  
 };
 
@@ -75,16 +75,16 @@ exports.getPreferenceByStudentId = function(req, res, next) {
             db.Preference.findAll({where: {Id: req.StudentId,IdR:reg, Rate:{$in: [1,2,3, 4] }}}).then(function(preference){
                 //console.log(preference);
                 if(!preference) {
-                    return res.jsonp(null);
+                    return res.status(500).send({errors: new StandardError('could not get preference')});
                 } else {
                     return res.jsonp(preference);          
                 }
             }).catch(function(err){
-                return next(err);
+                return res.status(500).send({status:500, message:'internal error: ' + err});
             }) 
         }
     ).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     })  
 };
 
@@ -117,10 +117,10 @@ exports.create = function(req, res) {
             return res.jsonp(preference);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        // return res.send('users/signup', { 
+        //     errors: err,
+        //     status: 500
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -141,10 +141,12 @@ exports.update = function(req, res) {
             });
         });        
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+
+        // return res.render('error', {
+        //     error: err, 
+        //     status: 500
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+
     });
     // create a new variable to hold the article that was placed on the req object.
 
@@ -161,10 +163,11 @@ exports.destroy = function(req, res) {
     preference.destroy().then(function(){
         return res.jsonp(preference);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+        return res.status(500).send({status:500, message:'internal error: ' + err}); 
     });
 };
 
@@ -184,10 +187,11 @@ exports.all = function(req, res) {
     db.Preference.findAll().then(function(preference){
         return res.jsonp(preference);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        // return res.render('error', {
+        //     error: err,
+        //     status: 500
+        // });
+         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 

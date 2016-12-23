@@ -29,21 +29,20 @@ exports.studentinstudio = function(req, res, next, id) {
  * Create a registration
  */
 exports.create = function(req, res) {
-    // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+    //augment the article by adding the UserId
+    req.body.UserId = req.user.id;
+    //save and return and instance of article on the res object. 
     console.log(req.body);
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
-            return res.send('users/signup', {errors: new StandardError('studentinstudio could not be created')}); //yana:change the landing page.
+             return res.status(500).send({errors: new StandardError('studentinstudio could not be created')});
+            //  yana:change the landing page.
         } else {
             return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+               return res.status(500).send({status:500, message:'internal error: ' + err});
+
     });
 };
 
@@ -64,10 +63,7 @@ exports.update = function(req, res) {
             }).then(function(a){
                 return res.jsonp(a);
             }).catch(function(err){
-                return res.render('500', {
-                    error: err, 
-                    status: 500
-                });
+               return res.status(500).send({status:500, message:'internal error: ' + err});
             });
         }
     }).catch(function(err){
@@ -86,10 +82,7 @@ exports.destroy = function(req, res) {
     studentinstudio.destroy().then(function(){
         return res.jsonp(studentinstudio);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+       return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -109,10 +102,7 @@ exports.all = function(req, res) {
     db.StudentInStudio.findAll().then(function(studentinstudio){
         return res.jsonp(studentinstudio);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+       return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 

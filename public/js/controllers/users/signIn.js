@@ -34,6 +34,7 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
     };
 
     $scope.sendemail =  function(){
+
         $scope.sending = true;
         var data = {
             email: $scope.email
@@ -51,6 +52,7 @@ angular.module('mean.auth').controller('signIn', ['$scope', '$window', 'Global',
             $scope.email = null;            
             $scope.error = true;
         });
+
     }
 
     $scope.changepass =  function(){
