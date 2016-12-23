@@ -5,7 +5,7 @@
 <div class="navbar-inner" data-ng-controller="HeaderController">
     <ul class="nav pull-right">
         <li>
-            <a class="brand" ui-sref="userhome" style="padding: 9px; color: white;font-size: 1.8em;padding-top: 20px;">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
+            <a class="brand" ng-click = "redirect()" style="padding: 9px; color: white;font-size: 1.8em;padding-top: 20px;cursor:pointer">הפקולטה לארכיטקטורה ובינוי ערים - טכניון</a>
         </li>
        <li>
            <!--<i class="fa fa-braille" style = "font-size: 30px; color: grey; padding: 5px" aria-hidden="true"></i>-->
@@ -85,12 +85,6 @@
             </ul>
         </li>
     </ul>
-    <ul class="nav pull-left" style="font-size: 1.3em;padding-top: 0.5em;">
-        <li>   
-            <button aria-label="Increase Font" id="accessibility-font" class="js-acessibility">+A</button>
-            <button aria-label="Add Contrast" id="accessibility-contrast" class="js-acessibility">Add Contrast</button>
-        </li> 
-    </ul>
     <ul class="nav pull-left" data-ng-show="global.authenticated" style="font-size: 1.3em;padding-top: 0.5em;">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor:pointer">
@@ -103,6 +97,15 @@
                 </li>
             </ul>
         </li>
+    </ul>
+    
+    <ul class="nav pull-left" style="font-size: 1.3em;padding-top: 1.1em;padding-left:2em">
+        <!--<li>   -->
+            >
+            <a aria-label="Add Contrast" id="accessibility-contrast" class="js-acessibility" style="color: white;cursor:pointer">ניגודיות</a>
+            &nbsp 
+            <a aria-label="Increase Font" id="accessibility-font" class="js-acessibility" style="color: white;cursor:pointer">+A</a>
+        <!--</li> -->
     </ul>
 </div>
 </body>
