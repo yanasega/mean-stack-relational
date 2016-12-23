@@ -108,10 +108,6 @@ exports.all = function(req, res) {
     db.Studio.findAll().then(function(studio){
         return res.jsonp(studio);
     }).catch(function(err){
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-        // });
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
