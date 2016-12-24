@@ -2,7 +2,9 @@ angular.module('mean.system').controller('ViewSylabusesController', ['$scope', '
 function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
     console.log("ViewSylabusesController");
     $scope.global = Global;
-    $scope.showsylab = false;    
+    $scope.showsylab = false;
+    $scope.loaderror = null;
+    $scope.adderror = null;    
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -29,8 +31,12 @@ function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
             }, this);
             //sleep(1500);
             $scope.showsylab = true;
-        });
-                //$scope.showsylab = true;
+            $scope.loaderror = false;
+        } ,function (err){
+            $scope.showsylab = true;
+            $scope.loaderror = true;
+        }
+     );
     };
 
     $scope.openPdf = function(link){

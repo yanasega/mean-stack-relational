@@ -23,6 +23,7 @@
 <div class="container">
     <p style = "font-size:2em" >טופס סיום תואר</p>
     <p style = "font-size:1.5em">כאן תוכל לנהל את טופס סיום התואר שלך ולעקוב אחרי הקורסים והנקודות שצברת</p>
+    <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בהעלאת המידע."}}</p>
 		<hr>
     <br>
   <p style = "font-size:1.4em" > 
@@ -202,6 +203,8 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
 		</div>
 	</form>     
 </div>
@@ -295,6 +298,8 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
 		</div>
 	</form>     
 </div>
@@ -348,14 +353,14 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
 		</div>
 	</form>     
 </div>
 
  <div>
-<!--<<<<<<< HEAD
-  <p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:2em" aria-hidden="true"></i>{{"  " +status}}</p>
-  <!--<p ng-show = !showcourse><i class="fa fa-check-circle-o green" style = "font-size:20px" aria-hidden="true"></i>{{"  " +status}}</p>-->
+
  </div>
 
 </div>

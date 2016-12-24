@@ -12,6 +12,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.GeneralChoiceCourses = [];
     $scope.FreeChoiceCourses = [];
     $scope.ExtraCourses = [];
+    $scope.loaderror = null;
+    $scope.adderror = null; 
 
     // Initialization
     $scope.areAllCoursesSelected = false;
@@ -65,7 +67,10 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         }, this);
                     }
                 }, this);
-            });
+            }, function (err){ 
+            $scope.loaderror = true;
+            $scope.showcourse = true;
+        });
 
             StudentManagedCourse.query(function(studentmanagedcourse) {
                 studentmanagedcourse.forEach(function(smc) {
@@ -185,6 +190,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             CreditPoints: $scope.creditpoints[type]
         });
         studentmanagedcourse.$save(function(response) {
+            $scope.adderror = false; 
             if(type == "special_projects"){
                 $scope.SpecialProjectsCourses.push(studentmanagedcourse); 
             }
@@ -194,6 +200,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             else{
                 $scope.ExtraCourses.push(studentmanagedcourse);
             }
+        }, function (err){
+            $scope.adderror = true;
         });
         $scope.clear();
     };
