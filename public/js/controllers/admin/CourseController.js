@@ -37,7 +37,7 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
      $scope.find = function() {
         Courses.query(function(courses) {
             $scope.courses = courses; 
-            sleep(2000);
+            //sleep(2000);
             $scope.showcourse = true;
             $scope.loaderror = false;            
         }, function (err){
