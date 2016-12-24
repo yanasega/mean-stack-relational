@@ -107,9 +107,7 @@ exports.preference = function(req, res, next, id) {
  * Create a preference
  */
 exports.create = function(req, res) {
-    // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+
     db.Preference.create(req.body).then(function(preference){
         if(!preference){
             return res.send('users/signup', {errors: new StandardError('Preference could not be created')}); //yana:change the landing page.
@@ -117,9 +115,6 @@ exports.create = function(req, res) {
             return res.jsonp(preference);
         }
     }).catch(function(err){
-        // return res.send('users/signup', { 
-        //     errors: err,
-        //     status: 500
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
@@ -128,6 +123,7 @@ exports.create = function(req, res) {
  * Update a registration
  */
 exports.update = function(req, res) {
+    
     db.Preference.find({where: {Id: req.StudentId,IdR:req.RegId, IdS:req.StudioId}}).then(function(preference){
         var pref = preference;
         pref.updateAttributes({
@@ -135,20 +131,12 @@ exports.update = function(req, res) {
         }).then(function(a){
             return res.jsonp(a);
         }).catch(function(err){
-            return res.render('error', {
-                error: err, 
-                status: 500
-            });
+            return res.status(500).send({status:500, message:'internal error: ' + err});            
         });        
     }).catch(function(err){
-
-        // return res.render('error', {
-        //     error: err, 
-        //     status: 500
         return res.status(500).send({status:500, message:'internal error: ' + err});
 
     });
-    // create a new variable to hold the article that was placed on the req object.
 
 };
 
@@ -187,20 +175,7 @@ exports.all = function(req, res) {
     db.Preference.findAll().then(function(preference){
         return res.jsonp(preference);
     }).catch(function(err){
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-        // });
          return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
