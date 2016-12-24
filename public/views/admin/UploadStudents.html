@@ -40,8 +40,8 @@
       </div>
   </div>
   <!--<a href="path">image</a>-->
-  <section ng-show = "showuser == true"><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:2em" aria-hidden="true"></i> {{status}} </p></section>	  
-  <section ng-show = "showuser == true"><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:2em" aria-hidden="true"></i> {{error}} </p></section>
+  <section ng-show = "showuser == true"><br><p class="alert alert-success" ng-show="status != null">  {{status}} </p></section>	  
+  <section ng-show = "showuser == true"><br><p class="alert alert-danger" ng-show="error != null"> {{error}} </p></section>
 
 <p style = "font-size:2em" ng-show = "showuser == true">
     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
@@ -64,3 +64,5 @@
             </tbody>
         </table>
   </div>
+
+  

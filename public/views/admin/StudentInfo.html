@@ -4,7 +4,7 @@
 		<hr>
 </div>
 
-<span class="spinner-huge-wave-out" style="float: right;margin-right: 2em" ng-show = "showuser == false"></span>
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 400px;" ng-show = "showuser == false"></span>
 <table class = "table" ng-show = "showuser == true">
     <thead>
         <tr>
@@ -27,7 +27,8 @@
     <td>{{student.FirstName}}</td>
     <td>{{student.LastName}}</td>
     <td>{{student.Email}}</td>
-    <td>{{student.Gender}}</td>
+    <td ng-if="student.Gender == 'male'">{{"ז"}}</td>
+    <td ng-if="student.Gender == 'female'">{{"נ"}}</td>  
     <td>{{student.CurrentYear}}</td>
     <td>{{student.Generalaverage}}</td>  
     <td>{{student.LastStudioGrade}}</td>  
@@ -46,7 +47,6 @@
 <hr ng-show = "showuser == true">
 <div collapse="!isCollapsed">
 	<br>
-		<hr>
         <table class = "table" ng-show="studentinstudio.length">
             <thead>
                 <tr>
@@ -73,7 +73,9 @@
 <hr ng-show = "showuser == true">
 <div collapse="!isCollapsed1">
 	<br>
-		<hr>
+        
+        <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
+
         <table class = "table" ng-show="studentincourse.length">
             <thead>
                 <tr>
@@ -83,7 +85,7 @@
                 <th>תאריך עדכון אחרון</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="sic in studentincourse">
+            <tbody ng-repeat="sic in studentincourse | filter:query">
             <tr>
             <td>{{sic.IdCourse}}</td>
             <td>{{sic.CourseName}}</td>
@@ -119,7 +121,8 @@
             <tr>
             <td>{{pref.StudentYear}}</td>
             <td>{{pref.createdAt | date : "dd.MM.y"}}</td>
-            <td>{{pref.Semester}}</td>
+            <td ng-if="pref.Semester == 'winter'">{{"חורף"}}</td>    
+            <td ng-if="pref.Semester == 'spring'">{{ "אביב"}}</td>
             <td>{{pref.IdS}}</td>
             <td>{{pref.Rate}}</td>
             </tr>
