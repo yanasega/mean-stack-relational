@@ -3,10 +3,10 @@ angular.module('mean.system').controller('EditPreferencesController', ['$scope',
     $scope.global = Global;
 
     console.log("EditPreferencesController");
-    $scope.studentinstudio = [];
     $scope.preferences = {};
     $scope.showpref = false;
     $scope.RegOpen = false;
+    $scope.loaderror = false;
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -28,19 +28,16 @@ angular.module('mean.system').controller('EditPreferencesController', ['$scope',
             else{
                 $scope.RegOpen= false;
             }
+        },function (err) {
+            $scope.RegOpen= true;
+            $scope.loaderror = true;          
         });
     }
-    $scope.doneUpdate = false;
-    $scope.NotValid = false;
+
     $scope.studios = [];
     $scope.registration = null;
-    $scope.choosenPrefs = {};
-    $scope.general = {};
     $scope.doneInsert = false;
     $scope.preferences = [];
-    $scope.studentinstudio = [];
-
-    //$scope.items = [1,2,3,4,5];
     $scope.data = [];
 
 
@@ -51,7 +48,9 @@ angular.module('mean.system').controller('EditPreferencesController', ['$scope',
             $scope.student = student;
             $scope.isRegOpen(); 
             $scope.getStudios();
-            $scope.doneUpdate = true;
+        },function (err) {
+            $scope.RegOpen= true;            
+            $scope.loaderror = true;
         });
     };
 
@@ -74,49 +73,29 @@ angular.module('mean.system').controller('EditPreferencesController', ['$scope',
                     }                  
                 }, this);
             }
+        }, function (err) {
+            $scope.RegOpen= true;            
+            $scope.loaderror = true;
         });
     }
 
-    
-    $scope.IsInPref = function(stud){
-        return true;
-    }
 
     $scope.updatePreferences = function(){
         angular.forEach($scope.data,function(value,key){
-            // console.log($scope.data[key]);
-            // console.log(key);
-            // var pref = new Preferences({
-            //     Id: $scope.student.id,
-            //     IdS: $scope.data[key].id,
-            //     IdR: $scope.registration,
-            //     StudentYear: $scope.currentyear,
-            //     Semester: $scope.semester,
-            //     Rate : key +1
-            // });
-            // if (!pref.updated) {
-            //     pref.updated = [];
-            // }
-            // pref.updated.push(new Date().getTime());
             $http.put('/preferences/' + $scope.student.id +'/' + $scope.registration + '/' +$scope.data[key].id + '/' + (key +1))
             .success(function (data, status, headers) {
                 $scope.ServerResponse = data;
                 $scope.doneInsert = true;
                  $scope.message = "העדפות נשמרו בהצלחה!";
             }).error (function(err){
-
+                $scope.saveerror = true;
             })
-            // pref.$update(function() {
-            //     $scope.doneInsert = true;
-            //     $scope.message = "העדפות נשמרו בהצלחה!";
-            // });
 
         });         
 
     }
 
     $scope.findOne();
-    //$scope.find();
     
 
 }]).filter('arrayDiffedit', function() {

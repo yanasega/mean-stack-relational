@@ -2,7 +2,10 @@
 	<br>
 		<p style = "font-size:2em">היסטורית העדפות</p>
 		<hr>
-    <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showpref == false"></span>
+    <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showpref == false "></span>
+    <p class ="alert alert-info" ng-show = "preferences == null && showpref && !loaderror" style = "font-size:1.2em" >טרם הוזנו העדפות.</p>
+    <p class ="alert alert-danger" ng-show = "loaderror" style = "font-size:1.2em" >התרחשה שגיאה בעת טעינת הנתונים</p>
+
     <span ng-if = "showpref">
     <!--<p class="alert alert-info" >טרם הזנת העדפות</p>-->
 
