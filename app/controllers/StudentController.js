@@ -7,6 +7,7 @@ var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
 exports.student = function(req, res, next, id) {
+    
     console.log('id => ' + id);
     db.Student.find({where: {id: id}}).then(function(student){
         if(!student) {
@@ -27,15 +28,12 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object. 
     db.Student.create(req.body).then(function(student){
         if(!student){
-            return res.send('users/signup', {errors: new StandardError('Student could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(student);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -64,10 +62,7 @@ exports.update = function(req, res) {
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        return res.render('error', {
-            error: err, 
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -79,18 +74,12 @@ exports.updatefifthtosix = function (rew, res){
             }).then(function(a){
                 //return res.jsonp(a);
             }).catch(function(err){
-                return res.render('error', {
-                    error: err, 
-                    status: 500
-                });
+                return res.status(500).send({status:500, message:'internal error: ' + err});
             });
         }
         return res.send({status : 'success', message : 'User changed successfully.'});
     }).catch(function(err){
-        return res.render('500', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 }
 
@@ -113,16 +102,10 @@ exports.destroy = function(req, res) {
                 user.destroy().then(function(){});
             }
         }).catch(function(err){
-            return res.render('error', {
-            error: err,
-            status: 500
-            });
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         });        
         return res.jsonp(student);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };

@@ -4,7 +4,9 @@ angular.module('mean.system').controller('ViewDetailsController', ['$scope', '$r
     $scope.showdet = false;
     console.log("ViewDetailsController");
     $scope.years = {"3": 3, "4":4, "5":5};
-    $scope.doneInsert = false;
+    $scope.updateerror = false;
+    $scope.loaderror = false;
+    $scope.doneinsert = false;
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -20,23 +22,24 @@ angular.module('mean.system').controller('ViewDetailsController', ['$scope', '$r
             studentId: $scope.global.user.id
         }, function(student) {
             $scope.student = student;
+        }, function (err) {
+            $scope.loaderror = true;
         });
     };
 
     $scope.updateStudent = function(){      
-        //update student
         var student = $scope.student;
-        // student.Generalaverage = $scope.average;
-        // student.LastStudioGrade = $scope.studioaverage;
-        // student.CurrentYear = $scope.currentyear;
-        // student.Semester = $scope.semester;
 
         if (!student.updated) {
             student.updated = [];
         }
         student.updated.push(new Date().getTime());
         student.$update(function() {
-            $scope.doneInsert = true;
+            $scope.doneinsert = true;
+            
+            
+        }, function (err) {
+            $scope.updateerror = true;
         });
     }
 

@@ -1,13 +1,15 @@
-<section ng-show = "doneInsert == false">
+<section ng-show="doneInsert ==false">
 	<!--<p style = "font-size:1.5em" ng-show="RegOpen == false">ההרשמת ההעדפות טרם נפתחה..</p>-->
 	<p class="alert alert-info text-white" style="font-size:1.2em" ng-if="RegOpen == false" >{{"הרשמת ההעדפות טרם נפתחה.."}}</p>
+	<p class="alert alert-danger text-white" style="font-size:1.2em" ng-if="NotValid == true" >{{"אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, 
+		אחרת, פנה לנציגות הפקולטה להמשך בירור."}}</p>
+	<p ng-if = "error != null" class = "alert alert-danger text-white" style="font-size:1.2em"> {{error}} </p>
 
-	<p style = "font-size:1.5em" ng-show="NotValid == true">אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, אחרת, פנה לנציגות הפקולטה להמשך בירור.</p>
 	<div>
-	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false" data-ng-submit="updateStudent()">
+	<form class="form-horizontal" ng-show="RegOpen == true && doneUpdate == false && error == null" data-ng-submit="updateStudent()">
 	<br>
 		<p style = "font-size:2em" >עדכון פרטים</p>
-		<p style = "font-size:1.5em">אנא עדכן את פרטייך</p>
+		<p style = "font-size:1.2em">אנא עדכן את פרטייך בטרם הזנת ההעדפות</p>
 		<hr>
 		<label class="control-label" for="average" style="float: right;">ציון ממוצע</label>
 		<div class="controls">
@@ -38,7 +40,7 @@
 			</select>
 		</div>		
 		<br>
-		<p>* נא להזין את הסמסטר ושנת הלימוד אליהם את\ה מעוניין\ת להשתבץ</p>
+		<p><b>* נא להזין את הסמסטר ושנת הלימוד אליהם את\ה מעוניין\ת להשתבץ</p>
 		<br>
 		<div class="control-group">
 			<div class="controls">
@@ -46,32 +48,19 @@
 			</div>
 		</div>
 	</form>
+	</div>
+
 	<form class="form" ng-show="doneUpdate == true && NotValid == false" data-ng-submit="insertPreferences()">
-		<p style = "font-size:2em" >הזנת העדפות</p>
+		<p style = "font-size:1.7em" >הזנת העדפות</p>
 		<hr>
-		<!--<div class="control-group">-->
-			<!--<label class="control-label" style="float: right;" for="options">{{$index +1 + "."}}</label>-->
-			<!--<div class="controls">-->
 				<div style ="margin-bottom: 10px;" ng-repeat="(modelIndex, itemValue) in studios track by modelIndex">
 					{{$index +1 + "."}}
 				<select style="margin-right: 20px;"
 						ng-model="data[modelIndex]"
-						ng-options="item.Name for item in $parent.studios | arrayDiff:data:data[modelIndex]">
+						ng-options="item.Name for item in $parent.studios | arrayDiff:data:data[modelIndex]" required>
 						<option value="">בחר העדפה...</option>
 				</select>
 				</div>
-				<!--<select type="string" ng-model = "general.studio[$index]" ng-options = "studio.Name for studio in studios | filter:IsInPref" ng-change ="updatePref(general.studio[$index].id, $index) " required>
-                    <option value="" disabled selected>בחר העדפה...</option>
-				</select>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="control-group">
-			<label class="control-label" for="requests">Special Requests</label>
-			<div class="controls">
-				<textarea data-ng-model="requests" id="requests" cols="30" rows="5" placeholder="Special Requests..."></textarea>
-			</div>
-		</div>-->
-		<div class="control-group">
 
 		<div class="control-group">
 			<div class="controls">
@@ -79,11 +68,14 @@
 			</div>
 		</div>
 	</form>
-		</div>
 </section>
+
+
 <section ng-show = "doneInsert == true">
-	<p class = "alert alert-success"> {{message}} </p>
-	<a ui-sref="ViewPref">צפייה בהעדפות שהוזנו</a>
+	<p class = "alert alert-success text-white" style="font-size:1.2em"> {{message}} </p>
+	<a style="font-size:1.1em" ui-sref="ViewPref">צפייה בהעדפות שהוזנו</a>
 </section> 
+
+
 
 

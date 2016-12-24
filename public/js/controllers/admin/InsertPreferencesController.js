@@ -11,7 +11,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.doneInsert = false;
     $scope.preferences = [];
     $scope.studentinstudio = [];
-
+    $scope.error = null;
     //$scope.items = [1,2,3,4,5];
     $scope.data = [];
 
@@ -27,10 +27,19 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                             $scope.doneInsert = true;
                             $scope.message = "כבר הזנת העדפות לסמסטר זה.";
                         }, this);
+                    },function(err){
+                        $scope.RegOpen = true;
+                        $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
+                        
                     });
                 }
             }, this);
+        }, function(err){
+            $scope.RegOpen = true;
+            $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
         });
+        $scope.findOne();
+        
     }
 
 
@@ -39,6 +48,9 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             studentId: $scope.global.user.id
         }, function(student) {
             $scope.student = student;
+        }, function(err){
+            $scope.RegOpen = true;
+            $scope.error = "פרטייך לא נמצאו במסד הנתונים - התרחשה שגיאה בעת טעינת הנתונים";            
         });
     };
 
@@ -61,25 +73,13 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                     }                  
                 }, this);
             }
+        },function (err) {
+            $scope.RegOpen = true;
+            $scope.error = "התרחשה שגיאה בעת טעינת קבוצות הסטודיו.";  
         });
-    }
 
-    // $scope.updatePref= function(studioId, index){
-    //     var allPrefs = [];
-    //     var vals = Object.keys($scope.choosenPrefs).map(function (key) {
-    //         return $scope.choosenPrefs[key]
-    //     });
         
-    //     if (vals.indexOf(studioId) != -1){
-    //         delete $scope.choosenPrefs[index+1];
-    //         delete $scope.general.studio[index];
-    //         alert('לא ניתן לבחור סטודיו פעמיים. אנא בחר סטודיו אחר.');
-            
-    //     }
-        
-    //     $scope.choosenPrefs[index+1] = studioId;
-        
-    // }
+    }
     
     $scope.IsInPref = function(stud){
         return true;
@@ -101,8 +101,11 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             if (student.IsValid == false && student.CurrentYear == '5'){
                 $scope.NotValid = true;
             }
-            $scope.getStudios();
             $scope.doneUpdate = true;
+            $scope.getStudios();
+        }, function (err) {
+            $scope.RegOpen = true;
+            $scope.error = "התרחשה שגיאה בעת שמירת הנתונים.";          
         });
     }
 
@@ -121,14 +124,17 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
 
             pref.$save(function(response) {
                 $scope.doneInsert = true;
+                $scope.doneUpdate = false;
                 $scope.message = "העדפות נשמרו בהצלחה!";
+            }, function (error) {
+                $scope.error = "התרחשה שגיאה בעת שמירת הנתונים";
             });
         });         
 
     }
 
+    // $scope.findOne();
     $scope.checkReg();
-    $scope.findOne();
 
 }]).filter('arrayDiff', function() {
     return function(array, diff) {

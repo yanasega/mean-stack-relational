@@ -48,12 +48,11 @@ exports.registration = function(req, res, next, id) {
  * Create a registration
  */
 exports.create = function(req, res) {
-    // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+
     db.Registration.create(req.body).then(function(registration){
         if(!registration){
-            return res.send('users/signup', {errors: new StandardError('Registration could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err});
+            
         } else {
             return res.jsonp(registration);
         }
@@ -107,6 +106,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
+    
     db.Registration.findAll().then(function(registration){
         return res.jsonp(registration);
     }).catch(function(err){

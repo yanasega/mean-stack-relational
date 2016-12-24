@@ -52,7 +52,10 @@
 				<div class="controls">
 				<section>
 					<input type="submit" class="btn btn-success" value="עדכון" style="margin-bottom: 0.1em">
-					<i ng-show = "doneInsert" class="fa fa-check-circle-o green" style = "font-size:3em; padding-left: 10px" aria-hidden="true"></i>
+					<br>
+					<p class ="alert alert-danger" ng-show = "updateerror" style = "font-size:1.2em" >התרחשה שגיאה בעת עדכון הנתונים</p>
+					<p class ="alert alert-success" ng-show = "doneinsert" style = "font-size:1.2em" >נתונים נשמרו בהצלחה</p>
+					<p class ="alert alert-danger" ng-show = "loaderror" style = "font-size:1.2em" >התרחשה שגיאה בעת טעינת הנתונים</p>
 					</section>
 				</div>
 			</div>
