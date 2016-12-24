@@ -43,8 +43,10 @@
   <section ng-show = "showuser == true"><br><p ng-show="status != null"> <i class="fa fa-check-circle-o green" style = "font-size:2em" aria-hidden="true"></i> {{status}} </p></section>	  
   <section ng-show = "showuser == true"><br><p ng-show="error != null"> <i class="fa fa-times-circle-o red" style = "font-size:2em" aria-hidden="true"></i> {{error}} </p></section>
 
-    <div class="container" ng-show = "showuser == true">
-      <p style = "font-size:2em" >תעודות זהות במערכת</p>
+<p style = "font-size:2em" ng-show = "showuser == true">
+    <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    תעודות זהות במערכת</p>
+    <div class="container" ng-show = "showuser == true" collapse="!isCollapsed"> 
       <hr>
       <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
         <table class = "table">

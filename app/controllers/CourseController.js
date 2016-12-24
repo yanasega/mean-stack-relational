@@ -15,15 +15,13 @@ exports.course = function(req, res, next, id) {
     console.log('id => ' + id);
     db.Course.find({where: {Id: id}}).then(function(course){
         if(!course) {
-             return next(new Error('Failed to load course ' + id));
-            // return res.status(500).send({errors: new StandardError('Failed to load course')});
+            return next(new Error('Failed to load course ' + id));
         } else {
             req.course = course;
             return next();
         }
     }).catch(function(err){
-        return next(err);
-        // return res.status(500).send({status:500, message:'internal error: ' + err});
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -36,23 +34,18 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object.
     db.Course.create(req.body).then(function(course){
         if(!course){
-            // return res.send('users/signup', {errors: new StandardError('Course could not be created')}); //yana:change the landing page.
-          return res.status(500).send({errors: new StandardError('Course could not be created')});
+            return res.status(500).send({errors: new StandardError('Course could not be created')});
       } else {
             return res.jsonp(course);
         }
     }).catch(function(err){
-        // return res.send('users/signup', {
-        //     errors: err,
-        //     status: 500
-        // });
          return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
 
 // /**
-//  * Delete an article
+//  * Delete a Course
 //  */
 exports.destroy = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
@@ -60,12 +53,8 @@ exports.destroy = function(req, res) {
     course.destroy().then(function(){
         return res.jsonp(course);
     }).catch(function(err){
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-       //  });
         return res.status(500).send({status:500, message:'internal error: ' + err});
-         });
+    });
 };
 
 // /**
@@ -91,11 +80,7 @@ exports.update = function(req, res) {
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        // return res.render('500', {
-        //     error: err,
-        //     status: 500
-        // });
-         return res.status(500).send({status:500, message:'internal error: ' + err});       
+        return res.status(500).send({status:500, message:'internal error: ' + err});       
     });
 };
 
@@ -106,20 +91,6 @@ exports.all = function(req, res) {
     db.Course.findAll().then(function(course){
         return res.jsonp(course);
     }).catch(function(err){
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-        // });
-         return res.status(500).send({status:500, message:'internal error: ' + err});       
+        return res.status(500).send({status:500, message:'internal error: ' + err});       
     });
 };
-
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
