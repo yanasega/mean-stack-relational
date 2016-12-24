@@ -483,20 +483,18 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                             prefosh.push(studio.Name); 
                                         }
                                           $scope.serverError = false;
-                                          $scope.myBtn = true;
                                         }).error(function (studio) {
                                                 $scope.status = "There was an error in preferences data.";
                                                 $scope.serverError = true;
-                                                $scope.myBtn = false;
+                                                $scope.findallview = false; 
                                              });
                                     }, this); 
                                     student.preferences = prefosh;
                                  }
                             }
                              $scope.serverError = false;
-                             $scope.myBtn = true;
+                             $scope.myBtn = true; 
                         }).error(function (preferences) {
-                            console.log(preferences);
                              $scope.status = "There was an error in preferences data.";
                              $scope.serverError = true;
                              $scope.myBtn = false;
@@ -506,13 +504,23 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                         $scope.models.studioLists[studentinstudio.Studio].unshift(student);
                       $scope.findallview = false;   
                     }
-                   
-                })
+                     $scope.serverError = false;
+                }).error(function (preference) {
+                             $scope.status = "There was an error in student data.";
+                             $scope.serverError = true;
+                             $scope.findallview = false; 
+                            
+                        });
   
               });   
             }, this); 
-
-        })
+                     $scope.serverError = false;
+        }).error(function (respData) {
+                             $scope.status = "There was an error in preferences data.";
+                             $scope.serverError = true;
+                             $scope.findallview = false; 
+                            
+                        });
         console.log("done");
         $scope.loading = false;
     }
@@ -537,7 +545,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                 studentinstudio.updated.push(new Date().getTime());
                                     studentinstudio.$update(function() {
                                         console.log("success");
-                                }); 
+                                         $scope.serverError =false;
+                               }, function (err){
+                                            $scope.serverError =true;
+                                        });
                             }
                             else{
                                 var studentinstudio = new StudentInStudio({
@@ -548,12 +559,15 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                 });
                                 studentinstudio.$save(function(response) {
                                     console.log('success');
-                                });
+                                     $scope.serverError =false;
+                                  }, function (err){
+                                            $scope.serverError =true;
+                                        });
                             }
-                            $scope.serverError = false;
+                            $scope.dataError = false;
                         }).error(function (respData) {
                             $scope.status = "There was an error in student data.";
-                            $scope.serverError = true;
+                            $scope.dataError = true;
                         });
                     }
                 }, this);
@@ -562,6 +576,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 }
      $scope.checkIfActive = function(){
         $http.get('/getregistration/').success(function(reg){
+            console.log(reg.IsActive)
             if (reg.IsActive){
                  $scope.loading = false;
                  $scope.alertIsActive = true;
