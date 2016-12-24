@@ -60,9 +60,8 @@
             <br>
 			<label class="control-label" for="isactive" id="isactive" style="float:right">פעיל?</label>
 			<div class="controls">
-				<select type="bool" data-ng-model="studio.IsActive" required>
-					<option value="true">פעיל</option>
-					<option value="false">מושבת</option>
+				<select type="bool" data-ng-model="studio.IsActive" ng-options="status for status in statuses" required>
+					<option value="">בחר סטאטוס</option>
 				</select>
 			</div>
             <br>

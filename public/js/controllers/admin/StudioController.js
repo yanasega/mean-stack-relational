@@ -10,6 +10,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
     $scope.updateerror = null;
     $scope.delerror = null;
     $scope.fileerror = null;
+    $scope.statuses = {"true": true, "false":false};
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -42,7 +43,6 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                     studio.$save(function(response) {
                         $scope.find();
                         $scope.adderror = false; 
-                        //yana: add check if response valid?
                     }, function (err){
                     $scope.adderror = true;  
                     });
@@ -82,16 +82,20 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
         SubjectMap.query(function(subjects) {
             sleep(500);
-            $scope.subjects = subjects; //yana: add error
+            $scope.subjects = subjects; 
+        }, function (err){
+            $scope.loaderror = true;
         });
 
         Instructors.query(function(instructors) {
             sleep(500);
-            $scope.instructors = instructors; //yana: add error
+            $scope.instructors = instructors;
+        }, function (err){
+            $scope.loaderror = true;
         });
 
         Studios.query(function(studios) {
-            $scope.studios = studios; //yana: add error
+            $scope.studios = studios; 
             sleep(500);
             $scope.studios.forEach(function(studio) {
             angular.forEach($scope.subjects,function(value,key){
@@ -165,10 +169,9 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 studio.$update(function() {
                     $state.go('ViewStudio',{studioId : studio.id})
             }, function (err){
-            $scope.updateerror = true;
-        });
-            }
-            ).error(function (errorResponse) {
+                $scope.updateerror = true;
+            });
+            }).error(function (errorResponse) {
                 //sefi
                 $scope.fileerror = true;
                 //yana
@@ -183,7 +186,6 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         if (studio) {
             studio.$remove(function(response) {
                  $scope.delerror = false; 
-            //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
         }
@@ -198,12 +200,11 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         else {
             $scope.studio.$remove(function(response) {
                  $scope.delerror = false; 
-            //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
         }
             ); 
-            $state.go('studios'); //yana: test
+            $state.go('studios');
         }
         $scope.clear();
     };

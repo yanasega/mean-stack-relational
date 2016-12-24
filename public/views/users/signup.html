@@ -83,7 +83,9 @@
                 </div>
             </div>
         </div> 
-        <section><br><p ng-show="status != null"> <i class="fa fa-times-circle-o red" style = "font-size:2em" aria-hidden="true"></i> {{status}} </p></section>
+        <section><br>
+        	<p class="alert alert-danger text-white" style="font-size:1.2em" ng-if="status != null" >{{status}}</p>
+        </section>
         <!--added-->
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">הרשמה&nbsp;</button>&nbsp;או&nbsp;<a ui-sref="SignIn" class="show-login">כניסה</a>

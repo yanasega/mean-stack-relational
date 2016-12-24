@@ -14,6 +14,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.ExtraCourses = [];
     $scope.loaderror = null;
     $scope.adderror = null; 
+    $scope.updateerror = null;
+    $scope.delerror = null; 
 
     // Initialization
     $scope.areAllCoursesSelected = false;
@@ -27,6 +29,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
      $scope.find = function() {
         Courses.query(function(courses) {
             courses.forEach(function(course) {
+                $scope.loaderror = false;
+                    $scope.showcourse = true;
                 if(course.CourseType == "mandatory"){
                     $scope.MandatoryCourses.push(course); 
                 }
@@ -45,6 +49,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             StudentInCourse.query(function(studentincourse) {
                 studentincourse.forEach(function(sid) {
                     if(sid.IdStudent == $scope.global.user.id){
+                        $scope.loaderror = false;
+                        $scope.showcourse = true;
                         $scope.MandatoryCourses.forEach(function(course) {
                             if (course.Id == sid.IdCourse){
                                 course.isSelected = sid.IsDone;
@@ -74,6 +80,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
 
             StudentManagedCourse.query(function(studentmanagedcourse) {
                 studentmanagedcourse.forEach(function(smc) {
+                    $scope.loaderror = false;
+                    $scope.showcourse = true;
                     if(smc.IdStudent == $scope.global.user.id){
                         if (smc.CourseType == 'special_projects'){
                             $scope.SpecialProjectsCourses.push(smc);
@@ -86,7 +94,13 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         }
                     }
                 }, this);
-            });            
+            }, function (err){ 
+            $scope.loaderror = true;
+            $scope.showcourse = true;
+        });            
+        }, function (err){ 
+            $scope.loaderror = true;
+            $scope.showcourse = true;
         });
 
     };
@@ -102,8 +116,11 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: course.isSelected
                         });
                         sic.$save(function(response) {
-                            //$scope.status = "השינויים נשמרו.";
+                            $scope.updateerror = false;
                             //$scope.showcourse = false;
+                        }, function (err){ 
+                            $scope.updateerror = true;
+                            $scope.showcourse = true;
                         });
                     }
                     else{
@@ -113,9 +130,12 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                             IsDone: false
                         });
                         sic.$save(function(response) {
-                            //$scope.status = "השינויים נשמרו.";
+                            $scope.updateerror = false;
                             //$scope.showcourse = false;
-                        });               
+                        }, function (err){ 
+                            $scope.updateerror = true;
+                            $scope.showcourse = true;
+                        });              
                     }
                 }
                 else{ //already exits
@@ -135,12 +155,15 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     }
                     studentincourse.updated.push(new Date().getTime());
                     studentincourse.$update(function() {
-                        //$scope.status = "השינויים נשמרו.";
-                        //$scope.showcourse = false;
-                    });                 
+                        $scope.updateerror = false;
+                    }, function (err){ 
+                            $scope.updateerror = true;
+                            $scope.showcourse = true;
+                        });                
                 }
             }).error(function () {
-               //$scope.status = "התרחשה שגיאה בעת שמירת הנתונים.";
+                $scope.showcourse = true;
+                $scope.updateerror = true;
             });
         }, this);
         
@@ -162,7 +185,13 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         }
                         student.updated.push(new Date().getTime());
                             student.$update(function() {
+                        }, function (err){ 
+                            $scope.updateerror = true;
+                            $scope.showcourse = true;
                         });
+                }, function (err){ 
+                    $scope.loaderror = true;
+                    $scope.showcourse = true;
                 });
             }
             else{
@@ -175,8 +204,14 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         }
                         student.updated.push(new Date().getTime());
                             student.$update(function() {
+                        }, function (err){ 
+                            $scope.updateerror = true;
+                            $scope.showcourse = true;
                         });
-                });                
+                }, function (err){ 
+                    $scope.loaderror = true;
+                    $scope.showcourse = true;
+                });              
             }
         }
     }
@@ -191,6 +226,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         });
         studentmanagedcourse.$save(function(response) {
             $scope.adderror = false; 
+            $scope.showcourse = true;
             if(type == "special_projects"){
                 $scope.SpecialProjectsCourses.push(studentmanagedcourse); 
             }
@@ -202,6 +238,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             }
         }, function (err){
             $scope.adderror = true;
+            $scope.showcourse = true;
         });
         $scope.clear();
     };
@@ -209,8 +246,16 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.remove = function(course) {
         if (course) {
             console.log(course);
-            course.$remove();  
-
+            course.$remove(
+                function(response){
+                    $scope.delerror = false;
+                    $scope.showcourse = true;
+                },
+                function(err){
+                    $scope.delerror = true;
+                    $scope.showcourse = true;
+                }
+            );  
             if(course.CourseType == "special_projects"){
                 for (var i in $scope.SpecialProjectsCourses) {
                     if ($scope.SpecialProjectsCourses[i] === course) {

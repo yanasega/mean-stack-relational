@@ -10,7 +10,7 @@
 			<p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
             <label class="control-label" for="Id_s" style="float:right">מזהה קורס</label>
 			<div class="controls">
-				<input type="text" data-ng-model="course.Id" id="Id_s" required>
+				<input type="number" data-ng-model="course.Id" id="Id_s" required>
 			</div>
             <br>
 			<label class="control-label" for="name" style="float:right">שם קורס</label>
@@ -32,7 +32,7 @@
             <br>
             <label class="control-label" for="Id_s" style="float:right">מספר נקודות זיכוי</label>
 			<div class="controls">
-				<input type="text" data-ng-model="course.CreditPoints" id="Id_s" required>
+				<input type="number" step="any" data-ng-model="course.CreditPoints" id="Id_s" required>
 			</div>
 		</div>
 

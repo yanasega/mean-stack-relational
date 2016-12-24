@@ -65,7 +65,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                 user.laststudiograde = null;
                 user.password = null;
                 user.currentyear = null;
-                $scope.status = "Could not insert user - id not in database.";           
+                $scope.status = "לא ניתן ליצור משתמש. תעודת הזהות אינה נמצאת במערכת.";           
             }
         });
     };

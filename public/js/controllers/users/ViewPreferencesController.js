@@ -4,8 +4,9 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
 
     console.log("ViewPreferencesController");
     $scope.studentinstudio = [];
-    $scope.preferences = {};
+    $scope.preferences = null;
     $scope.showpref = false;
+    $scope.loaderror = false;
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -16,31 +17,16 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
         }
     }
 
-    $scope.isRegOpen = function (idr) {
-        Registrations.get({
-            registrationId: idr
-        }, function(reg) {
-            if(reg.IsActive){
-                return true;
-            }
-            else{
-                return false;
-            }
-        });
-    }
     $scope.find = function() {
-        StudentInStudio.query(function(studentinstudio) {
-             studentinstudio.forEach(function(sis) {
-                if (sis.IdStudent == $scope.global.user.id){
-                    $scope.studentinstudio.push(sis); //yana: check if data relavent?
-                }    
-            }, this);
-        })
 
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
                 if (preference.Id == $scope.global.user.id){
+                    if($scope.preferences == null){
+                        $scope.preferences = {};
+                    }
                     if ($scope.preferences[preference.IdR]){
+
                         $scope.preferences[preference.IdR].push(preference); //yana: check if data relavent?
                     }
                     else{
@@ -50,6 +36,7 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
                     }
                 }    
             }, this);
+
             Studios.query(function (studios) {
                 $scope.studios = studios;
                 angular.forEach($scope.preferences,function(value,key){
@@ -63,9 +50,16 @@ angular.module('mean.system').controller('ViewPreferencesController', ['$scope',
                     }, this);
 
                 });           
+            }, function (err) {
+                $scope.showpref = true;       
+                $scope.loaderror = true;
             });  
-            //sleep(500);
-            $scope.showpref = true;       
+
+            $scope.showpref = true; 
+
+        }, function(err){
+            $scope.showpref = true;         
+            $scope.loaderror = true;
         });
     };
 
