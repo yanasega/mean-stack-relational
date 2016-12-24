@@ -39,8 +39,6 @@
 
         <!--ADMIN-->
 
-        <!--Registration-->
-        <li><a ui-sref="ViewReg" ng-show="global.user.IsAdmin" style="color: white;">ניהול הרשמה</a></li>
 
         <!--User managment-->
         <li class="dropdown" ng-show="global.user.IsAdmin">
@@ -88,6 +86,9 @@
                 <li><a ui-sref="ViewCourse">נהל קורסי טופס גמר</a></li>
             </ul>
         </li>
+        
+        <!--Registration-->
+        <li><a ui-sref="ViewReg" ng-show="global.user.IsAdmin" style="color: white;">ניהול הרשמה</a></li>
     </ul>
     <ul class="nav pull-left" data-ng-show="global.authenticated" style="font-size: 1.3em;padding-top: 0.5em;">
         <li class="dropdown">

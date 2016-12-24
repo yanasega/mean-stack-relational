@@ -6,11 +6,11 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
-// var exec = require('child_process').exec;
-// var fs = require('fs'),
-//     path = require('path');
-// var PythonShell = require('python-shell');
-// var escapeJSON = require('escape-json-node');
+var exec = require('child_process').exec;
+var fs = require('fs'),
+    path = require('path');
+var PythonShell = require('python-shell');
+var escapeJSON = require('escape-json-node');
 
 exports.tz = function(req, res, next, id) {
     console.log('id => ' + id);

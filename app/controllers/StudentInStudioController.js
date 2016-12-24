@@ -99,6 +99,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
+    
     db.StudentInStudio.findAll().then(function(studentinstudio){
         return res.jsonp(studentinstudio);
     }).catch(function(err){

@@ -7,7 +7,7 @@ var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
 exports.student = function(req, res, next, id) {
-    
+   
     console.log('id => ' + id);
     db.Student.find({where: {id: id}}).then(function(student){
         if(!student) {
@@ -86,6 +86,7 @@ exports.updatefifthtosix = function (rew, res){
 exports.show = function(req, res) {
     // Sending down the registration that was just preloaded by the registrations.registration function
     // and saves registration on the req object.
+    
     return res.jsonp(req.student);
 };
 

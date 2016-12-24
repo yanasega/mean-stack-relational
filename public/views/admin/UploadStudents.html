@@ -1,4 +1,4 @@
-
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
   <div class="container">
       <p style = "font-size:2em" >טעינת קבצי תעודות הזהות</p>
       <hr>
@@ -17,6 +17,10 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
+            <br>
+             <p class="alert alert-danger text-white" style="font-size:large" ng-show="fileerror == true" >{{"התרחשה שגיאה בעת טעינת קובץ"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="fileerror == false" >{{"קובץ תעודות זהות התווסף בהצלחה"}}</p>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
 		</div>
 	</form>     
       </div>
@@ -35,15 +39,17 @@
                 <div class="controls">
                     <input type="submit" class="btn btn-success" value="שמור">
                 </div>
-		    </div>
+                <br>
+            <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{" התרחשה שגיאה בעת הוספת תעודת זהות חדשה"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"תעודת זהות חדשה התווסף בהצלחה"}}</p>
+            </div>
           </form>
       </div>
   </div>
-  <!--<a href="path">image</a>-->
-  <section ng-show = "showuser == true"><br><p class="alert alert-success" ng-show="status != null">  {{status}} </p></section>	  
-  <section ng-show = "showuser == true"><br><p class="alert alert-danger" ng-show="error != null"> {{error}} </p></section>
 
-<p style = "font-size:2em" ng-show = "showuser == true">
+
+    <div class="container" ng-show = "showuser == true">
+    <p style = "font-size:2em" ng-show = "showuser == true">
     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     תעודות זהות במערכת</p>
     <div class="container" ng-show = "showuser == true" collapse="!isCollapsed"> 
@@ -64,5 +70,8 @@
             </tbody>
         </table>
   </div>
-
+  <br>
+  <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת תעודת זהות"}}</p>
+  <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"תעודת זהות נמחקה בהצלחה"}}</p>
   
+

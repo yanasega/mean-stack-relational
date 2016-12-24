@@ -8,7 +8,11 @@
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
 
 <div id = "registrations" ng-show = "showuser == true">
-  <input ng-model = "query" type="text" placeholder="חיפוש...">
+  
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בעת טעינת הנתונים"}}</p>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="deleteerror == true" >{{"המחיקה נכשלה"}}</p>
+<p class="alert alert-success text-white" style="font-size:large" ng-show="deleteerror == false" >{{"המחיקה בוצעה בהצלחה"}}</p>
+  <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-top: 5px;margin-left: 10px;">
   
   <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
   </select>

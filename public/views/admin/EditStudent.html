@@ -3,6 +3,8 @@
     <p style = "font-size:2em">{{"עריכת סטודנט: " + student.FirstName + " " + student.LastName}} </p>
     <hr>
 	<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+	<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בעת טעינת הנתונים"}}</p>
+	<p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת עדכון הנתונים"}}</p>
     <form class="form-horizontal" data-ng-submit="update()" ng-show = "showuser == true">
 	<br>
 		<div class="control-group">
