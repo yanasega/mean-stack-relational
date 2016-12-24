@@ -21,7 +21,7 @@ exports.studentincourse = function(req, res, next, id) {
             return next();            
         }
     }).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -38,13 +38,12 @@ exports.setUserId = function(req, res, next, id) {
 exports.find = function(req, res, next) {
      db.StudentManagedCourse.find({where: {IdStudent: req.userId, IdCourse : req.courseId}}).then(function(studentincourse){
         if(!studentincourse) {
-            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.jsonp(null);
         } else {
             return res.jsonp(studentincourse);          
         }
     }).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });   
 };
 
@@ -63,10 +62,7 @@ exports.create = function(req, res) {
             return res.jsonp(studentincourse);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -85,14 +81,11 @@ exports.update = function(req, res) {
             }).then(function(a){
                 return res.jsonp(a);
             }).catch(function(err){
-                return res.render('500', {
-                    error: err, 
-                    status: 500
-                });
+                return res.status(500).send({status:500, message:'internal error: ' + err});
             });     
         }
     }).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -105,10 +98,7 @@ exports.destroy = function(req, res) {
     studentincourse.destroy().then(function(){
         return res.jsonp(studentincourse);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -128,19 +118,6 @@ exports.all = function(req, res) {
     db.StudentManagedCourse.findAll().then(function(studentincourse){
         return res.jsonp(studentincourse);
     }).catch(function(err){      
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
-
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
