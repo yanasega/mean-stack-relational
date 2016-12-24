@@ -3,6 +3,7 @@
 		<p style = "font-size:2em">שיבוצים קודמים</p>
 		<hr>
         <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showass == false" ></span>
+        <p class ="alert alert-danger" ng-show = "loaderror" style = "font-size:1.2em" >התרחשה שגיאה בעת טעינת הנתונים</p>
         <span  ng-if = "showass">
         <table class = "table" ng-show="studentinstudio.length">
             <thead>
@@ -21,7 +22,7 @@
             </tbody>
 
         </table>
-        <p class="alert alert-info" ng-show="!studentinstudio.length">לא התבצעו שיבוצים</p>
+        <p class="alert alert-info" ng-show="!studentinstudio.length && !loaderror" >לא התבצעו שיבוצים</p>
 
         </span>
 </div>

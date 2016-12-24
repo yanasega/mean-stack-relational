@@ -16,6 +16,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     $scope.adderror = null; 
     $scope.updateerror = null;
     $scope.delerror = null; 
+    $scope.runspinner = false;
 
     // Initialization
     $scope.areAllCoursesSelected = false;
@@ -106,6 +107,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
     };
 
     $scope.updateForm = function(courses){
+        $scope.runspinner = true;
         courses.forEach(function(course) {
             $http.get('/getstudentincourse/' + course.Id + "/" + $scope.global.user.id).success(function(respData){
                 if(respData == null){ // does not exist
@@ -117,10 +119,11 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         });
                         sic.$save(function(response) {
                             $scope.updateerror = false;
-                            //$scope.showcourse = false;
+                            $scope.runspinner = false;
                         }, function (err){ 
                             $scope.updateerror = true;
                             $scope.showcourse = true;
+                            $scope.runspinner = false;
                         });
                     }
                     else{
@@ -131,10 +134,11 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         });
                         sic.$save(function(response) {
                             $scope.updateerror = false;
-                            //$scope.showcourse = false;
+                            $scope.runspinner = false;
                         }, function (err){ 
                             $scope.updateerror = true;
                             $scope.showcourse = true;
+                            $scope.runspinner = false;
                         });              
                     }
                 }
@@ -156,14 +160,17 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     studentincourse.updated.push(new Date().getTime());
                     studentincourse.$update(function() {
                         $scope.updateerror = false;
+                        $scope.runspinner = false;                        
                     }, function (err){ 
                             $scope.updateerror = true;
                             $scope.showcourse = true;
+                            $scope.runspinner = false;                            
                         });                
                 }
             }).error(function () {
                 $scope.showcourse = true;
                 $scope.updateerror = true;
+                $scope.runspinner = false;                
             });
         }, this);
         

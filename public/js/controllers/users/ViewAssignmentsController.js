@@ -1,6 +1,8 @@
-angular.module('mean.system').controller('ViewAssignmentsController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios',
-'StudentInStudio','Instructors',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,StudentInStudio,Instructors) {
+angular.module('mean.system').controller('ViewAssignmentsController', 
+['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios','StudentInStudio','Instructors',
+function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,StudentInStudio,Instructors) {
     $scope.global = Global;
+    $scope.loaderror = false;
 
     console.log("ViewAssignmentsController");
     $scope.studentinstudio = [];
@@ -21,9 +23,12 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
         StudentInStudio.query(function(studentinstudio) {
              studentinstudio.forEach(function(sis) {
                 if (sis.IdStudent == $scope.global.user.id){
-                    $scope.studentinstudio.push(sis); //yana: check if data relavent?
+                    $scope.studentinstudio.push(sis);
                 }    
             }, this);
+        }, function (err) {    
+            $scope.loaderror = true;
+            $scope.showass = true;
         })
 
         Studios.query(function (studios) {
@@ -35,7 +40,10 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
                     }
                 }, this);
             }, this);           
-        });
+        }, function (err) {       
+            $scope.loaderror = true;
+            $scope.showass = true;
+        }); 
             
         Instructors.query(function (instructors) {
             $scope.instructors = instructors;
@@ -48,10 +56,11 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
             }, this);   
             sleep(500);
             $scope.showass = true;         
+        }, function (err) {     
+            $scope.loaderror = true;
+            $scope.showass = true;
         }); 
-
-
-    };
+    }
 
     $scope.find();
 }]);

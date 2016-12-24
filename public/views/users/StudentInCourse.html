@@ -26,13 +26,13 @@
     <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בהעלאת המידע."}}</p>
 		<hr>
     <br>
-  <p style = "font-size:1.4em" > 
+  <p style = "font-size:1.5em" > 
     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     מקצועות חובה</p>
   
-  <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
+  <p style = "font-size:1.3em">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
   <hr>
-  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
+  <form class="form-horizontal"  ng-show = "showcourse" data-ng-submit="updateForm(MandatoryCourses)">
     <div collapse="!isCollapsed">
       <table>
         <thead>
@@ -65,18 +65,20 @@
       </table>
     </div>
     <div class="control-group" collapse="!isCollapsed">
-        <div class="controls">
+        <div class="controls" style="padding-top: 20px;">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
+        <br>
+      <span class="spinner-huge-wave-out" style="width:20px; height:20px; margin-left: 800px; margin-top: -35px;"ng-show="runspinner" ></span>
       <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
       <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
   </div>
 
   </form>
-  <p style = "font-size:1.4em" >
+  <p style = "font-size:1.5em" >
     <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
   מקצועות בחירה מחייבת</p>
-  <p style = "font-size:15px">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
+  <p style = "font-size:1.3em">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
   <hr>
     <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryChoiceCourses)">
     <div collapse="!isCollapsed1">
@@ -115,10 +117,10 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >
+  <p style = "font-size:1.5em" >
     <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
   מקצועות בחירה - מסלול עיצוב בסיסי - קבוצה ב</p>
-  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.3em"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
   <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(DesignChoiceCourses)">
     <div collapse="!isCollapsed2">
@@ -157,10 +159,10 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >
+  <p style = "font-size:1.5em" >
     <i ng-click="isCollapsed3 = !isCollapsed3" ng-class="isCollapsed3? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     מקצועות בחירה - פרוייקטים מיוחדים</p>
-  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.3em"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
   <div collapse="!isCollapsed3">
     <table class = "table">
@@ -186,7 +188,7 @@
 
 <div collapse="!isCollapsed3">
     <br>
-    <p style = "font-size:15px">הוספת קורס</p>
+    <p style = "font-size:1.4em">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('special_projects')">
 	<br>
 		<div class="control-group">
@@ -258,10 +260,10 @@
 
   </form>
 
-  <p style = "font-size:1.4em" >
+  <p style = "font-size:1.5em" >
     <i ng-click="isCollapsed5 = !isCollapsed5" ng-class="isCollapsed5? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     מקצועות בחירה חופשית - המחלקה להומניסטיים</p>
-  <p style = "font-size:15px"> ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
+  <p style = "font-size:1.3em"> ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
   <hr>
   <div collapse="!isCollapsed5">
     <table class = "table">
@@ -285,7 +287,7 @@
   </div>
 <div collapse="!isCollapsed5">
     <br>
-    <p style = "font-size:15px">הוספת קורס</p>
+    <p style = "font-size:1.4em">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('free_choice')">
 	<br>
 		<div class="control-group">
@@ -316,7 +318,7 @@
 	</form>     
 </div>
 
-  <p style = "font-size:1.4em" >
+  <p style = "font-size:1.5em" >
     <i ng-click="isCollapsed6 = !isCollapsed6" ng-class="isCollapsed6? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     מקצועות שנלמדו מעבר לדרישות התואר</p>
   <hr>
@@ -343,7 +345,7 @@
   </div>
 <div collapse="!isCollapsed6">
     <br>
-    <p style = "font-size:15px">הוספת קורס</p>
+    <p style = "font-size:1.4em">הוספת קורס</p>
     <form class="form-horizontal" data-ng-submit="addCourse('extra')">
 	<br>
 		<div class="control-group">

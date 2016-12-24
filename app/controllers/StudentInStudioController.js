@@ -21,7 +21,7 @@ exports.studentinstudio = function(req, res, next, id) {
             return next();            
         }
     }).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -36,13 +36,11 @@ exports.create = function(req, res) {
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
              return res.status(500).send({errors: new StandardError('studentinstudio could not be created')});
-            //  yana:change the landing page.
         } else {
             return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
-               return res.status(500).send({status:500, message:'internal error: ' + err});
-
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -53,7 +51,6 @@ exports.update = function(req, res) {
     // create a new variable to hold the studentinstudio that was placed on the req object.
     db.StudentInStudio.find({where: {IdStudent: req.body.IdStudent, AId : req.body.AId}}).then(function(studentinstudio){
         if(!studentinstudio) {
-            // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.jsonp(null);
         } else {
             console.log(req.body.Studio);
@@ -67,7 +64,7 @@ exports.update = function(req, res) {
             });
         }
     }).catch(function(err){
-        return next(err);
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 
 };
@@ -105,13 +102,3 @@ exports.all = function(req, res) {
        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
-
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
