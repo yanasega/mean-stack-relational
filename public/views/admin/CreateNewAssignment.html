@@ -5,12 +5,13 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
  <body>    
+   
    <div class="row">
      <div class ="col-md-12"  style ="text-align:center">
-       <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive && alertEmptyStudio && alertEmptyStudents" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
+       <p class="bg-danger text-white" style="font-size:large" ng-show="alertIsActive && !alertEmptyStudio && !alertEmptyStudents" >{{"ישנה הרשמה פעילה! סגור את ההרשמה לפני יצירת שיבוץ!"}}</p>
      </div>
    </div>
-    <div >
+    <div class="jumbotron" >
     <p style="font-size:2.5em">יצירת שיבוץ חדש</p>
       <hr>
       <div class="row">
@@ -56,6 +57,7 @@
     </div>
     </div>
   </div>
+</div>
 </div>
 </br>
 </br>

@@ -39,7 +39,7 @@
 </br>
 </br>
 
-<div ng-show="!assign" style = "text-align:center">
+<div ng-show="!assign && !serverError && !dataError" style = "text-align:center">
   <span>
   <p class="alert alert-info">השיבוץ התעדכן בהצלחה!</p>
   <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קודמים</a>
@@ -47,8 +47,14 @@
 </div>
 
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 500px" ng-show ="findallview"></span>
+<div ng-show="dataError">
+  <p class="alert alert-danger text-white" style="font-size:large; text-align:center" ng-show="dataError" >{{"התרחשה שגיאה בייבוא הנתונים."}}</p>
+</div>
+<div ng-show="serverError">
+  <p class="alert alert-danger text-white" style="font-size:large; text-align:center" ng-show="serverError" >{{"התרחשה שגיאה בשרת"}}</p>
+</div>
 
-<div ng-show = "!findallview">
+<div ng-show = "!findallview && !dataError && !serverError">
   <div class= "row" style ="float:right" ng-show = "addstudflag && Assign">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
