@@ -560,7 +560,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                      $scope.serverError =false;
                                   }, function (err){
                                             $scope.serverError =true;
-                                        });
+                                });
                             }
                             $scope.dataError = false;
                         }).error(function (respData) {
