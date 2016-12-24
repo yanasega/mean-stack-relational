@@ -16,7 +16,8 @@
             <tr>
             <td>{{ass.createdAt | date : "dd.MM.y"}}</td>
             <td>{{ass.Year}}</td>
-            <td>{{ass.Semester}}</td>
+            <td ng-if="ass.Semester == 'winter'">{{"חורף"}}</td>
+            <td ng-if="ass.Semester == 'spring'">{{"אביב"}}</td>
             <td><a class="btn btn-info" ui-sref="viewFullAssignment({assignmentId : ass.id})"><i class="fa fa-eye"></i> טעינה</a>
             <a class="btn btn-default btn-sm" ui-sref="editAssignment({assignmentId : ass.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
             </tr>

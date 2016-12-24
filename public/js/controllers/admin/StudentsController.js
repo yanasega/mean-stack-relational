@@ -10,7 +10,8 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
     $scope.statuses = {"true": true, "false":false};
-
+    $scope.deleteerror = null;
+    $scope.loaderror = false;
 
     function sleep(milliseconds) {
         var start = new Date().getTime();
@@ -32,11 +33,18 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             Tzs.query(function(tzs) {
                 $scope.tzs = tzs; 
                 // $scope.showreg = true;
+            },function (err) {
+                $scope.status = null;
+                $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
+                $scope.tz = null;
+
             });
+        },function (err) {
+            $scope.status = null;
+            $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
+            $scope.tz = null;
+
         });
-        $scope.status = null;
-        $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
-        $scope.tz = null;
     }
 
     $scope.addIds = function(){
@@ -47,29 +55,31 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 file: $scope.Ids           
             }).success(function (response, status) {
                     $scope.TzFile = response[0].filename;
-                    $http.get('/insertTz/' + $scope.TzFile).success(function(respData){ //yana: do I need to set the config.server????
+                    $http.get('/insertTz/' + $scope.TzFile).success(function(respData){ 
                         if (respData == 'done'){
                             $scope.error = null;
-                            $scope.status = "File uploaded successfully.";
+                            $scope.status = "הקובץ נטען בהצלחה";
                             $scope.Ids = null;
                             Tzs.query(function(tzs) {
                                 $scope.tzs = tzs; 
-                                // $scope.showreg = true;
+                            },function (err) {
+                                $scope.status = null;
+                                $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
+                                $scope.tz = null;
+
                             });
                         }
                         else{
                             $scope.Ids = null;
                             $scope.status = null;
-                            $scope.error = "There was an error. File could not be uploaded.";                          
+                            $scope.error = "התרחשה שגיאה בזמן טעינה.";                          
                         }
                     })
-                    //yana: complete when there is algotrithem.
                 }
             ).error(function (errorResponse) {
-                // $scope.error = errorResponse.data;
                 $scope.Ids = null;
                 $scope.status = null;
-                $scope.error = "There was an error. File could not be uploaded.";
+                $scope.error = "התרחשה שגיאה בעת הטענת הקובץ.";
                 }
             );
     }
@@ -79,6 +89,10 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             studentId: $stateParams.studentId
         }, function(student) {
             $scope.student = student;
+        }, function (params) {
+            $scope.loaderror = true;  
+            $scope.showuser = true;
+                      
         });
     }
 
@@ -87,19 +101,31 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             studentId: $stateParams.studentId
         }, function(student) {
             $scope.student = student;
+        },function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
+            
         });
 
         Studios.query(function (studios) {
             $scope.studios = studios;
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         })
 
         Courses.query(function (courses) {
             $scope.courses = courses;
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         })
 
         Instructors.query(function (instructors) {
             $scope.instructors = instructors;
-            console.log(instructors);
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         })
 
         StudentInStudio.query(function(studentinstudio) {
@@ -120,6 +146,9 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 }              
             }, this);
 
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         });
 
         StudentInCourse.query(function(studentincourse) {
@@ -133,6 +162,9 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                     $scope.studentincourse.push(sic);
                 }              
             }, this);
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         });        
 
         Preferences.query(function(preferences) {
@@ -148,17 +180,28 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                     }
                 }, this);
             }, this);
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
         });
     };
 
-     $scope.find = function() {
+    $scope.find = function() {
         Students.query(function(students) {
             $scope.students = students;
             sleep(2500); 
             $scope.showuser = true;
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
+            
         });
         Tzs.query(function(tzs) {
             $scope.tzs = tzs; 
+        }, function (params) {
+            $scope.loaderror = true;
+            $scope.showuser = true;
+            
         });
     };
 
@@ -171,21 +214,32 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         student.$update(function() {
         $state.go('StudentInfo',{studentId : student.id})
 
+        }, function (params) {
+            $scope.updateerror = true;
+            $scope.showuser = true;
         });
     };
 
     $scope.remove = function(student) {
         if (student) {
-            student.$remove();  
-            for (var i in $scope.students) {
-                if ($scope.students[i] === student) {
-                    $scope.students.splice(i, 1);
+            student.$remove(function(data){
+                $scope.deleteerror = false;
+                for (var i in $scope.students) {
+                    if ($scope.students[i] === student) {
+                        $scope.students.splice(i, 1);
+                    }
                 }
-            }
+            }, function (err) {
+                $scope.deleteerror = true;
+                
+            });  
+            
         }
         else {
             $scope.student.$remove();
-            $state.go('student'); //yana: test
+            $scope.deleteerror = false;
+            
+            //$state.go('student'); //yana: test
         }
     };
 
@@ -205,12 +259,20 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
 
     $scope.removeView = function(student) {
         if (student) {
-            student.$remove();  
-            $state.go('ViewStud');
+            student.$remove(function(data){
+                $state.go('ViewStud');
+            }, function (params) {
+                $scope.deleteerror = true;
+                
+            });  
         }
         else {
-            $scope.student.$remove();
-            $state.go('ViewStud'); //yana: test
+            $scope.student.$remove(function(data){
+                $state.go('ViewStud');
+            }, function (params) {
+                $scope.deleteerror = true;
+                
+            });
         }
     };
 

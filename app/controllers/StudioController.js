@@ -12,6 +12,7 @@ var db = require('../../config/sequelize');
  * Its purpose is to preload the article on the req object then call the next function. 
  */
 exports.studio = function(req, res, next, id) {
+    
     console.log('id => ' + id);
     db.Studio.find({where: {id: id}}).then(function(studio){
         if(!studio) {

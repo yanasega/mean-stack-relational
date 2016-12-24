@@ -5,6 +5,9 @@
 </div>
 
 <span class="spinner-huge-wave-out" style="float: right;margin-right: 400px;" ng-show = "showuser == false"></span>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בעת טעינת הנתונים"}}</p>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="deleteerror == true" >{{"מחיקה נכשלה"}}</p>
+
 <table class = "table" ng-show = "showuser == true">
     <thead>
         <tr>
@@ -89,7 +92,6 @@
             <tr>
             <td>{{sic.IdCourse}}</td>
             <td>{{sic.CourseName}}</td>
-            <!--<td>{{sic.IsDone}}</td>-->
             <td ng-if="sic.IsDone == false">{{"טרם הושלם"}}</td>    
             <td ng-if="sic.IsDone == true">{{ "הושלם"}}</td>    
             <td>{{sic.updatedAt | date : "dd.MM.y"}}</td>

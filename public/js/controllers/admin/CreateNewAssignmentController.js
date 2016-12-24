@@ -219,7 +219,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                     $scope.models.studioLists = {};
                 }   
             }, this);
-            console.log($scope.models.studioLists[0] == []);
             if($scope.models.studioLists[0] == []){
                 
                 $scope.loading = false;
@@ -315,7 +314,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             $scope.models.studioLists[studio.id] .forEach(function(student){
                 if(student.id == moved_student.id){
                     $http.get('/getstudentpreference/' + student.id + '/' + studio.id).success(function(preference){
-                        console.log(preference);
                         if (preference){
                             student.Preference = preference.Rate;
                         }
@@ -341,7 +339,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         else{
             $scope.algoYear = "3";
         }
-        $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ //yana: do I need to set the config.server????
+        $http.get('/createNewAssigment/' + $scope.algoYear + "/" + $scope.ChosenSemester).success(function(respData){ 
             $scope.status = "Algorithem run finished succesfully.";
             //empty student list
             $scope.models.studioLists[0] = [];
@@ -360,7 +358,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 if (studio.hasOwnProperty('no_preferences')){
                     studio.no_preferences.forEach(function(student) {
                             $scope.students.forEach(function(obj) {
-                             console.log(obj);
                             if (obj.id == student){
                                     //obj.Preference = student[1];
                                     $scope.models.studioLists[0].unshift(obj); 
@@ -387,40 +384,45 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
     $scope.SaveAssinment = function(){
-        var assignment = new Assignments({
-            Year: $scope.ChosenYear,
-            Semester: $scope.ChosenSemester
-        })
-        assignment.$save(function(response){
-            var ass = response;
-            $scope.studios.forEach(function(studio) {
-                $scope.models.studioLists[studio.id].forEach(function(student) {
-                        if (student.length != 0){
-                        var studentinstudio = new StudentInStudio({
-                            IdStudent:student.id,
-                            Studio:studio.id,
-                            Instructor:studio.Instructor,
-                            AId: ass.id
-                            
-                        })
-                        studentinstudio.$save(function(response) {
-                            console.log('success');
-                            $scope.dataError =false;
-                            $scope.myBtn =true;
-                          }, function (err){
-                            $scope.dataError =true;
-                            $scope.myBtn =false;
-                            return;
-                        });
-                        }
-                    }, this);
-            }, this); 
-            $scope.assign = false;
-            $scope.dataError =false;
-            $scope.myBtn =true;
+        $http.get('/getregistration').success(function(respData){
+            var assignment = new Assignments({
+                Year: $scope.ChosenYear,
+                Semester: $scope.ChosenSemester,
+                IdR: respData.id
+            })
+            assignment.$save(function(response){
+                var ass = response;
+                    $scope.studios.forEach(function(studio) {
+                        $scope.models.studioLists[studio.id].forEach(function(student) {
+                                if (student.length != 0){
+                                var studentinstudio = new StudentInStudio({
+                                    IdStudent:student.id,
+                                    Studio:studio.id,
+                                    Instructor:studio.Instructor,
+                                    AId: ass.id,
+                                    IdR:  respData.id
+                                })
+                                studentinstudio.$save(function(response) {
+                                    $scope.dataError =false;
+                                    $scope.myBtn =true;
+                                }, function (err){
+                                    $scope.dataError =true;
+                                    $scope.myBtn =false;
+                                    return;
+                                });
+                                }
+                            }, this);
+                    }, this); 
+                    $scope.assign = false;
+                    $scope.dataError =false;
+                    $scope.myBtn =true;
+            }, function (err){
+                $scope.dataError =true;
+                $scope.myBtn =false;
+            });
         }, function (err){
-            $scope.dataError =true;
-            $scope.myBtn =false;
+                $scope.dataError =true;
+                $scope.myBtn =false;
         });
     };
 
@@ -476,7 +478,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                 student.preferences = preferences;
                                 var prefosh = [];
                                 if(typ == 'edit'){
-                                    console.log("edit");
                                     preferences.forEach(function(preferences){
                                         $http.get('/studios/' + preferences.IdS ).success(function(studio){
                                         if (studio){
@@ -521,7 +522,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                              $scope.findallview = false; 
                             
                         });
-        console.log("done");
         $scope.loading = false;
     }
 
@@ -544,7 +544,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                 }
                                 studentinstudio.updated.push(new Date().getTime());
                                     studentinstudio.$update(function() {
-                                        console.log("success");
                                          $scope.serverError =false;
                                }, function (err){
                                             $scope.serverError =true;
@@ -558,7 +557,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                     AId: $stateParams.assignmentId
                                 });
                                 studentinstudio.$save(function(response) {
-                                    console.log('success');
                                      $scope.serverError =false;
                                   }, function (err){
                                             $scope.serverError =true;
@@ -576,7 +574,6 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 }
      $scope.checkIfActive = function(){
         $http.get('/getregistration/').success(function(reg){
-            console.log(reg.IsActive)
             if (reg.IsActive){
                  $scope.loading = false;
                  $scope.alertIsActive = true;
