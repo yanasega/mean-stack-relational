@@ -40,10 +40,6 @@ exports.create = function(req, res) {
             return res.jsonp(studio);
         }
     }).catch(function(err){
-        // return res.send('users/signup', { 
-        //     errors: err,
-        //     status: 500
-        // });
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
@@ -66,10 +62,6 @@ exports.update = function(req, res) {
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){
-        // return res.render('500', {
-        //     error: err, 
-        //     status: 500
-        // });
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
@@ -84,10 +76,6 @@ exports.destroy = function(req, res) {
     studio.destroy().then(function(){
         return res.jsonp(studio);
     }).catch(function(err){
-        // return res.render('error', {
-        //     error: err,
-        //     status: 500
-        // });
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
@@ -111,13 +99,3 @@ exports.all = function(req, res) {
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
-
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
