@@ -105,7 +105,8 @@
              </div>
             </div>
       </form>
-        <p ng-show="missingStatus">{{"סטודנט זה כבר קיים"}}</p>
+        <p ng-show="missingStatus" class="alert alert-danger" style="text-align:center">{{"סטודנט זה כבר קיים"}}</p>
+        <p ng-show="missingStatusOK" class="alert alert-danger" style="text-align:center">{{"הסטודנט לא קיים במערכת והתווסף בהצלחה"}}</p>
   </div>
 
 
