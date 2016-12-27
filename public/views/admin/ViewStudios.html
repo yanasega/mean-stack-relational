@@ -43,7 +43,9 @@
         <!--<td>{{studio.Description}}</td>-->
         <td>{{studio.Subject}}</td>
         <td>{{studio.RelevantYears}}</td>
-        <td>{{studio.Semester}}</td>
+        <!-- <td>{{studio.Semester}}</td> -->
+		<td ng-if ="studio.Semester == 'winter'">{{"חורף"}}</td>  
+		<td ng-if ="studio.Semester == 'spring'">{{"אביב"}}</td>  
         <td ng-if ="studio.IsActive == true">{{"פעיל"}}</td>   
         <td ng-if ="studio.IsActive == false">{{"מושבת"}}</td>   
         <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
