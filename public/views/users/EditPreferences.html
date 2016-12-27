@@ -1,0 +1,34 @@
+<section ng-show = "doneInsert == false">
+	<p class ="alert alert-info" style="font-size:1.2em" ng-show = "!RegOpen && !loaderror" style = "font-size:20px" >ההרשמה נסגרה ולא ניתן לערוך העדפות כעת.</p>
+	<p class ="alert alert-danger" ng-show = "loaderror" style="font-size:1.2em" >התרחשה שגיאה בעת טעינת הנתונים</p>
+	<!--<p style = "font-size:20px" ng-show="NotValid == true">You are not authorized to insert preferetions since you did not finish your graduation form. If you are eligible please do so now, otherwize please contact the faculty authoroties to address the issue.</p>-->
+	<!--<p style = "font-size:20px" ng-show="NotValid == true">אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, אחרת, פנה לנציגות הפקולטה להמשך בירור.</p>-->
+	<div>
+	<form ng-show = "RegOpen && !loaderror" class="form" data-ng-submit="updatePreferences()">
+		<p style = "font-size:1.5em" >הזנת העדפות</p>
+		<p style = "font-size:1em" >הזן מחדש את העדפותיך ולחץ "שמור"</p>
+		<hr>
+				<div style ="margin-bottom: 10px;" ng-repeat="(modelIndex, itemValue) in studios track by modelIndex">
+					{{$index +1 + "."}}
+				<select style="margin-right: 20px;"
+						ng-model="data[modelIndex]"
+						ng-options="item.Name for item in $parent.studios | arrayDiffedit:data:data[modelIndex]" required>
+						<option value="">בחר העדפה...</option>
+				</select>
+				</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success"  value="שמור">
+			</div>
+		</div>
+	</form>
+	</div>
+	<p class ="alert alert-danger" ng-show = "saveerror" style="font-size:1.2em" >התרחשה שגיאה בעת טעינת הנתונים</p>	
+	</section>
+
+<section ng-show = "doneInsert == true">
+	<p class = "alert alert-success"  style="font-size:1.2em"> {{message}} </p>
+	<a ui-sref="ViewPref"  style="font-size:1.2em">צפייה בהעדפות שהוזנו</a>
+</section> 
+
+

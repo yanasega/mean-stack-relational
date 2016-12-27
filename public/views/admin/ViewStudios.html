@@ -1,0 +1,129 @@
+<div>
+	<br>
+		<p style = "font-size:2em">ניהול קבוצות סטודיו במערכת</p>
+		<hr>
+</div>
+
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showstud == false"></span>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showstud == false"></i>-->
+<div id = "studios" ng-show = "showstud == true" >
+<p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
+<p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת סטודיו"}}</p>
+<p class="alert alert-success text-white" style="font-size:1.2em" ng-show="delerror == false" >{{"הסטודיו נמחק בהצלחה"}}</p>
+  <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
+
+  <select style="margin-left: 10px;" ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
+  </select>
+
+  <select ng-model="filterSemester.store" ng-options="item.name for item in filterSemesterOptions.stores">
+  </select>
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>מזהה קורס משוייך</th>
+            <th>שם הסטודיו</th>
+            <th>מנחה</th>
+            <!--<th>Description</th>-->
+            <th>נושא</th>
+            <th>שנים</th>
+            <th>סמסטר</th>
+            <th>סטטוס</th>
+            <th>סילבוס</th>
+            <th></th> 
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="studio in studios | filter:query | filter:yearFilter | filter:semesterFilter">
+        <tr>
+        <td>{{studio.IdC}}</td>
+        <td>{{studio.Name}}</td>
+        <td>{{studio.Instructor}}</td>
+        <!--<td>{{studio.Description}}</td>-->
+        <td>{{studio.Subject}}</td>
+        <td>{{studio.RelevantYears}}</td>
+        <td>{{studio.Semester}}</td>
+        <td ng-if ="studio.IsActive == true">{{"פעיל"}}</td>   
+        <td ng-if ="studio.IsActive == false">{{"מושבת"}}</td>   
+        <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
+        <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
+        <td><a class="btn btn-default btn-sm" ui-sref="editStudio({studioId : studio.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(studio)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+   </table>
+</div>
+
+<div ng-show = "showstud == true">
+    <br>
+    <p style = "font-size:2em">הוספת סטודיו חדש</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="addStudio()">
+	<br>
+		<div class="control-group">
+            <label class="control-label" style="float: right" for="Id_s">מזהה קורס</label>
+			<div class="controls">
+				<input type="number" data-ng-model="Id_s" id="Id_s" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הסטודיו</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="instructor">מנחה</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
+					<option value="">בחר מנחה...</option>
+				</select>
+			</div>
+            <br>
+            <!--<label class="control-label" for="description">Description</label>
+			<div class="controls">
+				<input type="text" data-ng-model="description" id="description" required>
+			</div>
+            <br>-->
+            <label class="control-label" style="float: right" for="subject">נושא</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="subject" ng-options="subject.Subject for subject in subjects" required>
+					<option value="">בחר נושא...</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label title = "שנים בהן מועבר הסטודיו" style="float: right" style="float: right" class="control-label" for="relevantyears" id="relevantyears" >שנים</label>
+			<div class="controls">
+				<select type="string" data-ng-model="relevantyears" required>
+					<option value="3,4">3,4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+            <br>
+            <label title = "סמסטר בו מועבר הסטודיו" class="control-label" style="float: right" for="semester" id="semester">סמסטר</label>
+			<div class="controls">
+				<select type="string" data-ng-model="semester" required>
+					<option value="winter">חורף</option>
+					<option value="spring">אביב</option>
+				</select>
+			</div>
+            <br>
+            <label class="control-label" style="float: right" for="sylabus">העלה סילבוס למערכת</label>
+            <div class="controls" >
+                <input type="file" name = "sylabus"  ngf-select ng-model="sylabus" >
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+            <br>
+            <p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת סטודיו חדש"}}</p>
+            <p class="alert alert-success text-white" style="font-size:1.2em" ng-show="adderror == false" >{{"סטודיו חדש התווסף בהצלחה"}}</p>
+            <p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="fileerror == true" >{{"התרחשה שגיאה בעת העלאת קובץ"}}</p>
+		</div>
+	</form>     
+</div>

@@ -12,11 +12,13 @@ app.route('/registrations')
     .get(registrations.all)
     .post(users.requiresLogin, registrations.create);
 app.route('/registrations/:registrationId')
-    .delete(users.requiresLogin, registrations.destroy);
-    // .get(articles.show)
+    .delete(users.requiresLogin, registrations.destroy)
+    .get(registrations.show)
+    .put(users.requiresLogin, registrations.update);
+app.route('/getregistration')
+    .get(users.requiresLogin, registrations.getmax);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
-// Finish with setting up the articleId param
 // Note: the registrations.registration function will be called everytime then it will call the next function.
 app.param('registrationId', registrations.registration);
 };

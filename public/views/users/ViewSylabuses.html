@@ -1,0 +1,31 @@
+<div>
+	<br>
+		<p style = "font-size:2em">צפייה בסילבוסים של קבוצות סטודיו</p>
+		<hr>
+</div>
+
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showsylab == false"></span>
+<div id = "sylabuses" ng-show = "showsylab == true">
+  <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בהעלאת המידע."}}</p>
+   <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>שם הסטודיו</th>
+            <th>שם המנחה</th>
+            <th>שנה רלוונטית</th>
+            <th>סילבוס</th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="studio in studios | filter:query">
+        <tr>
+        <td>{{studio.Name}}</td>
+        <td>{{studio.Instructor}}</td>
+        <td>{{studio.RelevantYears}}</td>
+        <td ng-show = "(studio.LinkSylabus != null)"><a href="" ng-click="openPdf(studio.LinkSylabus)">{{"סילבוס"}}</a></td>
+        <td ng-show = "(studio.LinkSylabus == null)">{{"---"}}</td>
+        </tr>
+     </tbody>
+   </table>
+</div>

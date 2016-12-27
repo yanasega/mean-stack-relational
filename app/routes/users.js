@@ -13,7 +13,7 @@ var users = require('../../app/controllers/users');
 // User Routes
 app.get('/signout', users.signout);
 app.get('/users/me', users.me);
-
+app.get('/isadmin/:email', users.isadmin);
 // Setting up the users api
 app.post('/users', users.create);
 
@@ -59,5 +59,6 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 
 // Finish with setting up the userId param
 app.param('userId', users.user);
+app.param('email', users.email);
 };
 

@@ -1,0 +1,41 @@
+'use strict';
+
+/**
+* Module dependencies.
+*/
+var users = require('../../app/controllers/users'),
+preferences = require('../../app/controllers/PreferenceController');
+
+module.exports = function(app) {
+// Article Routes
+app.route('/preferences')
+    .get(preferences.all)
+    .post(users.requiresLogin, preferences.create);
+
+app.route('/preferences/:StudentId/:registrationId/:Studio/:Rate').put(users.requiresLogin, preferences.update);
+
+app.route('/preferences/:preferenceId/:registrationId')
+    .delete(users.requiresLogin, preferences.destroy)
+    .get(preferences.show)
+    .put(users.requiresLogin, preferences.update);
+    // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
+app.route('/getstudentpreference/:StudentId/:Studio/:RegId')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudioAndReg);
+
+app.route('/getstudentpreference/:StudentId/:Studio/')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudio);
+
+ app.route('/getstudentpreference/:StudentId')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentId)
+    .put(users.requiresLogin, preferences.update);
+
+
+// Note: the preferences.registration function will be called everytime then it will call the next function.
+app.param('preferenceId', preferences.preference);
+app.param('StudentId', preferences.setStudentId);
+app.param('registrationId',preferences.setRegId);
+app.param('Studio', preferences.setStudioId);
+app.param('RegId', preferences.setRegId);
+app.param('Rate', preferences.setRate);
+
+};

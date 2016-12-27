@@ -1,0 +1,381 @@
+
+  <style>
+    table
+    {
+      border-collapse: collapse;
+    }
+
+    table, th, td
+    {
+      border: 0.1em solid #e1e1e1;
+    }
+
+    th, td
+    {
+      padding: 0.6em;
+    }
+
+    thead
+    {
+      background-color: #fcfcfc;
+    }
+  </style>
+<div class="container">
+    <p style = "font-size:2em" >טופס סיום תואר</p>
+    <p style = "font-size:1.5em">כאן תוכל לנהל את טופס סיום התואר שלך ולעקוב אחרי הקורסים והנקודות שצברת</p>
+    <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בהעלאת המידע."}}</p>
+		<hr>
+    <br>
+  <p style = "font-size:1.4em" > 
+    <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות חובה</p>
+  
+  <p style = "font-size:15px">חובה למלא חלק בטרם הזנת העדפות לשיבוץ של שנה חמישית.</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryCourses)">
+    <div collapse="!isCollapsed">
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(MandatoryCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in MandatoryCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+        <td><input type="checkbox" ng-model = exchange ng-checked = exchange></td>
+        <td>מצהיר/ה שאישרתי את כל הנקודות שעשיתי במסגרת חילופי סטודנטים/ לא עשיתי חילופי סטודנטים </td>
+        </tr>
+      </table>
+      <br />
+      </table>
+    </div>
+    <div class="control-group" collapse="!isCollapsed">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+  </div>
+
+  </form>
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed1 = !isCollapsed1" ng-class="isCollapsed1? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+  מקצועות בחירה מחייבת</p>
+  <p style = "font-size:15px">יש להשלים לפחות <b>שני מקצועות</b> מקבוצה זו</p>
+  <hr>
+    <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(MandatoryChoiceCourses)">
+    <div collapse="!isCollapsed1">
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(MandatoryChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in MandatoryChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group" collapse="!isCollapsed1">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+  מקצועות בחירה - מסלול עיצוב בסיסי - קבוצה ב</p>
+  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(DesignChoiceCourses)">
+    <div collapse="!isCollapsed2">
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(DesignChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in DesignChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group" collapse="!isCollapsed2">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed3 = !isCollapsed3" ng-class="isCollapsed3? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה - פרוייקטים מיוחדים</p>
+  <p style = "font-size:15px"> ניתן לבחור עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+  <div collapse="!isCollapsed3">
+    <table class = "table">
+        <thead>
+          <tr>
+              <th>מזהה קורס</th>
+              <th>שם הקורס</th>
+              <th>מספר נקודות זיכוי</th>
+              <th></th>
+          </tr>
+        </thead>
+      <tbody ng-repeat="course in SpecialProjectsCourses" >
+          <tr >
+          <td >{{course.IdCourse}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+          <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+   
+
+<div collapse="!isCollapsed3">
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('special_projects')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id['special_projects']" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name['special_projects']" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" step="any" data-ng-model="creditpoints['special_projects']" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+		</div>
+	</form>     
+</div>
+
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed4 = !isCollapsed4" ng-class="isCollapsed4? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה</p>
+  <hr>
+  <form class="form-horizontal"  ng-show = showcourse data-ng-submit="updateForm(GeneralChoiceCourses)">
+    <div collapse="!isCollapsed4">
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" ng-model="areAllCoursesSelected"
+                  ng-change="updateCourseSelection(GeneralChoiceCourses, areAllCoursesSelected)" />
+          </th>
+              <th>מספר קורס</th>
+              <th>שם</th>
+              <th>מספר נקודות זכות</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in GeneralChoiceCourses">
+          <td><input type="checkbox" ng-model="course.isSelected" /></td>
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br />
+      </table>
+      </table>
+    </div>
+    <div class="control-group" collapse="!isCollapsed4">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="שמור">
+        </div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+  </div>
+
+  </form>
+
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed5 = !isCollapsed5" ng-class="isCollapsed5? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות בחירה חופשית - המחלקה להומניסטיים</p>
+  <p style = "font-size:15px"> ניתן לרשום עד <b>10 נקודות</b> מקבוצה זו</p>
+  <hr>
+  <div collapse="!isCollapsed5">
+    <table class = "table">
+      <thead>
+         <tr>
+            <th>מזהה קורס</th>
+            <th>שם הקורס</th>
+            <th>מספר נקודות זיכוי</th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="course in FreeChoiceCourses" >
+        <tr >
+        <td >{{course.IdCourse}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.CreditPoints}}</td>
+        <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+   </table>
+  </div>
+<div collapse="!isCollapsed5">
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('free_choice')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id['free_choice']" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name['free_choice']" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" step="any" data-ng-model="creditpoints['free_choice']" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+    </div>
+	</form>     
+</div>
+
+  <p style = "font-size:1.4em" >
+    <i ng-click="isCollapsed6 = !isCollapsed6" ng-class="isCollapsed6? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    מקצועות שנלמדו מעבר לדרישות התואר</p>
+  <hr>
+  <div collapse="!isCollapsed6" >
+    <table class = "table">
+        <thead>
+          <tr>
+              <th>מזהה קורס</th>
+              <th>שם הקורס</th>
+              <th>מספר נקודות זיכוי</th>
+              <th></th>
+          </tr>
+        </thead>
+      <tbody ng-repeat="course in ExtraCourses" >
+          <tr >
+          <td >{{course.IdCourse}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.CreditPoints}}</td>
+          <td><a class="btn btn-danger" ng-click=remove(course)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+          </tr>
+      </tbody>
+    </table>
+
+  </div>
+<div collapse="!isCollapsed6">
+    <br>
+    <p style = "font-size:15px">הוספת קורס</p>
+    <form class="form-horizontal" data-ng-submit="addCourse('extra')">
+	<br>
+		<div class="control-group">
+            <label class=" control-label" style="float: right" for="id">מזהה קורס:</label>
+			<div class="controls">
+				<input type="number" data-ng-model="id['extra']" id="id" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="name">שם הקורס:</label>
+			<div class="controls">
+				<input type="text" data-ng-model="name['extra']" id="name" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="creditpoints">נקודות זיכוי:</label>
+			<div class="controls">
+				<input type="number" step="any" data-ng-model="creditpoints['extra']" id="creditpoints" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+		</div>
+	</form>     
+</div>
+
+ <div>
+
+ </div>
+
+</div>

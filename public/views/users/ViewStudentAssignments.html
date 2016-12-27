@@ -1,0 +1,27 @@
+<div >
+	<br>
+		<p style = "font-size:2em">שיבוצים קודמים</p>
+		<hr>
+        <span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-if = "showass == false" ></span>
+        <span  ng-if = "showass">
+        <table class = "table" ng-show="studentinstudio.length">
+            <thead>
+                <tr>
+                <th>סטודיו</th>
+                <th>מנחה</th>
+                <th>תאריך</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sis in studentinstudio">
+            <tr>
+            <td>{{sis.Studio}}</td>
+            <td>{{sis.Instructor}}</td>
+            <td>{{sis.createdAt | date : "dd.MM.y"}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+        <p class="alert alert-info" ng-show="!studentinstudio.length">לא התבצעו שיבוצים</p>
+
+        </span>
+</div>

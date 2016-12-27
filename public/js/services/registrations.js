@@ -6,8 +6,10 @@ angular.module('mean.system').factory("Registrations", ['$resource', function($r
             method: 'PUT'
         }
     });
+
 }]);
 
 // angular.module('mean.system').service("Registrations", ['$resource', function($resource) {
 //     return $resource('/registrations');
 // }]);
+

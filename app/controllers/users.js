@@ -53,28 +53,39 @@ exports.session = function(req, res) {
  */
 exports.create = function(req, res, next) {
     var message = null;
-
-    var user = db.User.build(req.body);
-
-    user.provider = 'local';
-    user.salt = user.makeSalt();
-    user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
-    console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
-    
-    user.save().then(function(){
-      req.login(user, function(err){
-        if(err) {
-            return next(err);
+    db.Tz.find({where : { id: req.body.id }}).then(function(user){
+        if (!user) {
+            // return next(new Error('No such user in db ' + req.body.id));
+            return res.send({status : 'faild', message : 'No such user in db.'})
         }
-          return res.send({status : 'success', message : 'User signup successfully.'})
-       // res.redirect('/');
-      });
-    }).catch(function(err){
-      res.render('users/signup',{
-          message: message,
-          user: user
-      });
+        else{
+            var user = db.User.build(req.body);
+
+            user.provider = 'local';
+            user.salt = user.makeSalt();
+            user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
+            console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
+            
+            user.save().then(function(){
+            req.login(user, function(err){
+                if(err) {
+                    return next(err);
+                }
+                return res.send({status : 'success', message : 'User signup successfully.'})
+            // res.redirect('/');
+            });
+            }).catch(function(err){
+            res.render('users/signup',{
+                message: message,
+                user: user
+            });
+            });
+        }
+        }).catch(function(err){
+            next(err);
     });
+
+
 };
 
 /**
@@ -100,11 +111,43 @@ exports.user = function(req, res, next, id) {
 };
 
 /**
+ * Find user by email
+ */
+exports.email = function(req, res, next, id) {
+    console.log('id => ' + id);
+    db.User.find({where: {Email: id}}).then(function(user){
+        if(!user) {
+            return next(new Error('Failed to load user ' + id));
+        } else {
+            req.user = user;
+            return next();            
+        }
+    }).catch(function(err){
+        return next(err);
+    });
+};
+
+/**
+ * Find user by email
+ */
+exports.isadmin = function(req, res) {
+    return res.jsonp(req.user);
+};
+
+/**
  * Generic require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {
     if (!req.isAuthenticated()) {
-        return res.status(401).send('User is not authorized');
+        //return res.redirect('/views/401.html');
+        
+        return res.render('401', {
+            error: 'אינך מחובר...',
+            status: 401
+        });
+        
+        //basic way of error handeling
+        // return res.status(401).send('User is not authorized');
     }
     next();
 };
@@ -113,8 +156,13 @@ exports.requiresLogin = function(req, res, next) {
  * User authorizations routing middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-    if (req.profile.id !== req.user.id) {
-      return res.status(401).send('User is not authorized');
+    if (!req.user.IsAdmin) {
+        return res.render('401', {
+            error: 'אין ברשותך הרשאות מתאימות לגישה לדף זה.',
+            status: 401
+        });
+    //   basic way of error handeling
+    //   return res.status(401).send('User is not authorized');
     }
     next();
 };

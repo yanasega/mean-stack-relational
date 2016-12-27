@@ -1,0 +1,54 @@
+<div>
+	<br>
+		<p style = "font-size:2em">ניהול סטודנטים הרשומים במערכת</p>
+		<hr>
+</div>
+
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showuser == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showuser == false"></span>
+
+<div id = "registrations" ng-show = "showuser == true">
+  
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בעת טעינת הנתונים"}}</p>
+<p class="alert alert-danger text-white" style="font-size:large" ng-show="deleteerror == true" >{{"המחיקה נכשלה"}}</p>
+<p class="alert alert-success text-white" style="font-size:large" ng-show="deleteerror == false" >{{"המחיקה בוצעה בהצלחה"}}</p>
+  <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-top: 5px;margin-left: 10px;">
+  
+  <select ng-model="filterYear.store" ng-options="item.name for item in filterYearOptions.stores">
+  </select>
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>ת"ז</th>
+            <th>שם פרטי</th>
+            <th>שם משפחה</th>
+            <th>דוא"ל</th>
+            <th>מין</th>
+            <th>שנה</th>
+            <th>מצב טופס סיום</th>
+            <th></th> 
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="stud in students | filter:query | filter:yearFilter">
+        <tr>
+        <td>{{stud.id}}</td>
+        <td>{{stud.FirstName}}</td>
+        <td>{{stud.LastName}}</td>
+        <td>{{stud.Email}}</td>
+        <td ng-if="stud.Gender == 'female'">{{"נ"}}</td>
+        <td ng-if="stud.Gender == 'male'">{{"ז"}}</td>   
+        <td>{{stud.CurrentYear}}</td>
+        <td ng-if="stud.IsValid == false">{{"טרם הושלם"}}</td>
+        <td ng-if="stud.IsValid == true">{{"הושלם"}}</td>       
+        <td><a href="" ui-sref = "StudentInfo({studentId : stud.id})" >פרטים</a></td>
+        <td><a class="btn btn-danger" ng-click=remove(stud)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
+        </tr>
+     </tbody>
+
+   </table>
+    <hr>
+    <p>{{"מספר כולל: " +students.length}}</p>
+</div>

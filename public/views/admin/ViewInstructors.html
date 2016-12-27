@@ -1,0 +1,57 @@
+<div>
+	<br>
+		<p style = "font-size:2em">ניהול המידע אודות מנחים</p>
+		<hr>
+</div>
+<!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "showinstr == false"></i>-->
+<span class="spinner-huge-wave-out" style="float: right;margin-right: 450px" ng-show = "showinstr == false"></span>
+<div id = "instructors" ng-show = "showinstr == true">
+<p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת."}}</p>
+  <input ng-model = "query" type="text" placeholder="חיפוש...">
+
+   <table class = "table">
+      <thead>
+         <tr>
+            <th>מספר מזהה</th>
+            <th>שם פרטי</th>
+            <th>שם משפחה</th>
+         </tr>
+      </thead>
+     <tbody ng-repeat="instructor in instructors | filter:query">
+        <tr>
+        <td>{{instructor.id}}</td>
+        <td>{{instructor.FirstName}}</td>
+        <td>{{instructor.LastName}}</td>
+        </tr>
+     </tbody>
+   </table>
+</div>
+
+<div ng-show = "showinstr == true">
+    <br>
+    <p style = "font-size:2em">הוספת מנחה חדש</p>
+    <hr>
+    <form class="form-horizontal" data-ng-submit="addInstructor()">
+	<br>
+		<div class="control-group">
+			<label class="control-label" style="float: right" for="firstname">שם פרטי</label>
+			<div class="controls">
+				<input type="text" data-ng-model="firstname" id="firstname" required>
+			</div>
+            <br>
+			<label class="control-label" style="float: right" for="lastname">שם משפחה</label>
+			<div class="controls">
+				<input type="text" data-ng-model="lastname" id="lastname" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn btn-success" value="שמור">
+			</div>
+            <br>
+            <p class="alert alert-danger text-white" style="font-size:1.2em" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת מנחה חדש"}}</p>
+            <p class="alert alert-success text-white" style="font-size:1.2em" ng-show="adderror == false" >{{"מנחה חדש התווסף בהצלחה"}}</p>
+            
+		</div>
+	</form>     
+</div>
