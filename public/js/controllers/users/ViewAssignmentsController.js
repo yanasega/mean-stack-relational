@@ -17,9 +17,7 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
     }
 
     $scope.find = function() {
-        $http.get('/getmyassigments/' + $scope.global.user.id).success(function(respData){
-            //$scope.studentinstudio = respData;
-            
+        $http.get('/getmyassigments/' + $scope.global.user.id).success(function(respData){         
             respData.forEach(function(sis) {
                 Studios.get({
                     studioId: sis.Studio
@@ -46,42 +44,6 @@ angular.module('mean.system').controller('ViewAssignmentsController', ['$scope',
             $scope.loaderror = true;
             $scope.showass = true;
         })
-
-
-
-
-        // StudentInStudio.query(function(studentinstudio) {
-        //      studentinstudio.forEach(function(sis) {
-        //         if (sis.IdStudent == $scope.global.user.id){
-        //             $scope.studentinstudio.push(sis); //yana: check if data relavent?
-        //         }    
-        //     }, this);
-        // })
-
-        // Studios.query(function (studios) {
-        //     $scope.studios = studios;
-        //     $scope.studentinstudio.forEach(function(sis) {
-        //         $scope.studios.forEach(function(studio) {
-        //             if(studio.id == sis.Studio){
-        //                 sis.Studio = studio.Name;
-        //             }
-        //         }, this);
-        //     }, this);           
-        // });
-            
-        // Instructors.query(function (instructors) {
-        //     $scope.instructors = instructors;
-        //     $scope.studentinstudio.forEach(function(sis) {
-        //         $scope.instructors.forEach(function(instructor) {
-        //             if(instructor.id == sis.Instructor){
-        //                 sis.Instructor = instructor.FirstName + " " + instructor.LastName ;
-        //             }
-        //         }, this);
-        //     }, this);   
-        //     sleep(500);
-        //     $scope.showass = true;         
-        // }); 
-
 
     };
 
