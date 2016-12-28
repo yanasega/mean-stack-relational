@@ -22,7 +22,7 @@
             <p class="alert alert-success text-white" style="font-size:large" ng-show="fileerror == false" >{{"קובץ תעודות זהות התווסף בהצלחה"}}</p>
             <p class="alert alert-danger text-white" style="font-size:large" ng-show="loaderror == true" >{{"התרחשה שגיאה בשרת"}}</p>
 		</div>
-	</form>     
+	</form>
       </div>
   </div>
   <div class="container" ng-show = "showuser == true">
@@ -41,7 +41,7 @@
                 </div>
                 <br>
             <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{" התרחשה שגיאה בעת הוספת תעודת זהות חדשה"}}</p>
-            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"תעודת זהות חדשה התווסף בהצלחה"}}</p>
+            <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"תעודת זהות חדשה התווספה בהצלחה"}}</p>
             </div>
           </form>
       </div>
@@ -52,7 +52,7 @@
     <p style = "font-size:2em" ng-show = "showuser == true">
     <i ng-click="isCollapsed = !isCollapsed" ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     תעודות זהות במערכת</p>
-    <div class="container" ng-show = "showuser == true" collapse="!isCollapsed"> 
+    <div class="container" ng-show = "showuser == true" collapse="!isCollapsed">
       <hr>
       <input ng-model = "query" type="text" placeholder="חיפוש..." style="margin-left: 10px;">
         <table class = "table">
@@ -73,5 +73,3 @@
   <br>
   <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת מחיקת תעודת זהות"}}</p>
   <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"תעודת זהות נמחקה בהצלחה"}}</p>
-  
-

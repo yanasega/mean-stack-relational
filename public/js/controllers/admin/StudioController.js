@@ -80,41 +80,41 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
      $scope.find = function() {
 
+
         SubjectMap.query(function(subjects) {
-            sleep(500);
-            $scope.subjects = subjects; 
+            $scope.subjects = subjects;
+
+			Instructors.query(function(instructors) {
+				$scope.instructors = instructors;
+					Studios.query(function(studios) {
+					$scope.studios = studios; 
+					$scope.studios.forEach(function(studio) {
+					angular.forEach($scope.subjects,function(value,key){
+							if($scope.subjects[key].id == studio.Subject){
+								studio.Subject = $scope.subjects[key].Subject;
+						   }
+					});
+					angular.forEach($scope.instructors,function(value,key){
+							if($scope.instructors[key].id == studio.Instructor){
+								studio.Instructor = $scope.instructors[key].FirstName + ' ' + $scope.instructors[key].LastName;
+						   }
+					});
+					}, this);
+					$scope.showstud = true;
+					$scope.loaderror = false;            
+				}, function (err){
+					$scope.loaderror = true;
+				});
+			}, function (err){
+				$scope.loaderror = true;
+			});			
+			
         }, function (err){
             $scope.loaderror = true;
         });
 
-        Instructors.query(function(instructors) {
-            sleep(500);
-            $scope.instructors = instructors;
-        }, function (err){
-            $scope.loaderror = true;
-        });
 
-        Studios.query(function(studios) {
-            $scope.studios = studios; 
-            sleep(500);
-            $scope.studios.forEach(function(studio) {
-            angular.forEach($scope.subjects,function(value,key){
-                    if($scope.subjects[key].id == studio.Subject){
-                        studio.Subject = $scope.subjects[key].Subject;
-                   }
-            });
-            angular.forEach($scope.instructors,function(value,key){
-                    if($scope.instructors[key].id == studio.Subject){
-                        studio.Subject = $scope.instructors[key].Subject;
-                   }
-            });
-            }, this);
-            sleep(1500);
-            $scope.showstud = true;
-            $scope.loaderror = false;            
-        }, function (err){
-            $scope.loaderror = true;
-        });
+
         
 
     };
