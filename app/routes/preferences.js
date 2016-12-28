@@ -25,10 +25,15 @@ app.route('/getstudentpreference/:StudentId/:Studio/:RegId')
 app.route('/getstudentpreference/:StudentId/:Studio/')
     .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudio);
 
+app.route('/findstudentpreference/:StudentId/:RegId/')
+    .get(users.requiresLogin, preferences.getPreferenceByStudentAndReg);
+
  app.route('/getstudentpreference/:StudentId')
     .get(users.requiresLogin, preferences.getPreferenceByStudentId)
     .put(users.requiresLogin, preferences.update);
 
+app.route('/getallstudentpreference/:StudentId')
+    .get(users.requiresLogin, preferences.getAllPreferenceByStudentId)
 
 // Note: the preferences.registration function will be called everytime then it will call the next function.
 app.param('preferenceId', preferences.preference);

@@ -57,7 +57,7 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object. 
     db.StudentInCourse.create(req.body).then(function(studentincourse){
         if(!studentincourse){
-            return res.send('users/signup', {errors: new StandardError('studentincourse could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err}); 
         } else {
             return res.jsonp(studentincourse);
         }

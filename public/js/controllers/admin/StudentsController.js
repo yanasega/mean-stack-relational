@@ -178,7 +178,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
                 if (preference.Id == $stateParams.studentId){
-                    $scope.preferences.push(preference); //yana: check if data relavent?
+                    $scope.preferences.push(preference); 
                 }
             }, this);
             $scope.preferences.forEach(function(preference) {
@@ -246,8 +246,6 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         else {
             $scope.student.$remove();
             $scope.deleteerror = false;
-
-            //$state.go('student'); //yana: test
         }
     };
 

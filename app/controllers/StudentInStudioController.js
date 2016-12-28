@@ -42,7 +42,6 @@ exports.create = function(req, res) {
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
              return res.status(500).send({errors: new StandardError('studentinstudio could not be created')});
-            //  yana:change the landing page.
         } else {
             return res.jsonp(studentinstudio);
         }

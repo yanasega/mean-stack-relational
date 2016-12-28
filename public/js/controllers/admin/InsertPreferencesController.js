@@ -1,4 +1,5 @@
-angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global', '$window','Students','Studios','StudentInStudio',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,StudentInStudio) {
+angular.module('mean.system').controller('InsertPreferencesController', ['$scope', '$resource', 'Registrations','Preferences' ,'Global',
+ '$window','Students','Studios','$http',function ($scope, $resource , Registrations,Preferences,Global,$window,Students,Studios,$http) {
     console.log("InsertPreferencesController");
     $scope.global = Global;
     $scope.RegOpen = false;
@@ -10,7 +11,6 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
     $scope.general = {};
     $scope.doneInsert = false;
     $scope.preferences = [];
-    $scope.studentinstudio = [];
     $scope.error = null;
     //$scope.items = [1,2,3,4,5];
     $scope.data = [];
@@ -21,17 +21,16 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                 if (registration.IsActive == true){
                     $scope.registration = registration.id;
                     $scope.RegOpen = true;
-                    Preferences.query(function(preferences){
-                        preferences.forEach(function(pref) {
-                            if (pref.IdR == $scope.registration && pref.Id == $scope.global.user.id)
-                            $scope.doneInsert = true;
-                            $scope.message = "כבר הזנת העדפות לסמסטר זה.";
-                        }, this);
-                    },function(err){
+                    $http.get('/findstudentpreference/' + $scope.global.user.id + '/' + registration.id).success(function(respData){
+                        console.log(respData.length);
+                        if(respData.length){
+                                $scope.doneInsert = true;
+                                $scope.message = "כבר הזנת העדפות לסמסטר זה.";
+                        }
+                    }).error(function(err){
                         $scope.RegOpen = true;
                         $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
-                        
-                    });
+                    })
                 }
             }, this);
         }, function(err){
@@ -81,9 +80,6 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
         
     }
     
-    $scope.IsInPref = function(stud){
-        return true;
-    }
 
     $scope.updateStudent = function(){      
         //update student

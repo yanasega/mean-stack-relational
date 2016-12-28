@@ -23,7 +23,6 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
         instructors.$save(function(response) {
             $scope.adderror = false; 
             $scope.find();
-            //yana: add check if response valid?
         }, function (err){
             $scope.adderror = true;
         });
@@ -32,7 +31,7 @@ angular.module('mean.system').controller('InstructorController', ['$scope', '$re
 
      $scope.find = function() {
         Instructors.query(function(instructors) {
-            $scope.instructors = instructors; //yana: check if data relavent?
+            $scope.instructors = instructors; 
             sleep(1500);
             $scope.showinstr = true;
             $scope.loaderror = false;

@@ -35,7 +35,6 @@ exports.create = function(req, res) {
     db.Assignment.create(req.body).then(function(assignment){
         if(!assignment){
             return res.status(500).send({errors: new StandardError('assignment could not be created')});
-         //yana:change the landing page.
         } else {
             return res.jsonp(assignment);
         }

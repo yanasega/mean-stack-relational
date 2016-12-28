@@ -39,7 +39,7 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
-            return  res.status(500).send({status:500, message:'internal error: ' + err}); //yana:change the landing page.
+            return  res.status(500).send({status:500, message:'internal error: ' + err}); 
         } else {
             return res.jsonp(tz);
         }

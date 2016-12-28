@@ -101,7 +101,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         }
         else {
             $scope.registration.$remove();
-            $state.go('registrations'); //yana: test
+            $state.go('registrations');
         }
     };
 
