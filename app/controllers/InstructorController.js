@@ -7,6 +7,19 @@ var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
 
+exports.instructor = function(req, res, next, id) {
+    console.log('id => ' + id);
+    db.Instructor.find({where: {id: id}}).then(function(instructor){
+        if(!instructor) {
+            return next(new Error('Failed to load instructor ' + id));
+        } else {
+            req.instructor = instructor;
+            return next();            
+        }
+    }).catch(function(err){
+        return next(err);
+    });
+};
 /**
  * Create a Instructor
  */

@@ -55,7 +55,7 @@ exports.insertTz = function (req, res){
     var csv_path = req.csv_path;
     var options = {
         mode: 'text',
-        pythonPath: 'C:\\Program Files (x86)\\Python27\\python.exe',
+        pythonPath: 'python.exe',
         // pythonOptions: ['-u'],
         scriptPath: dirString + '//..//algo',
         args: [dirString + '//..//..//public/uploads/' + csv_path]

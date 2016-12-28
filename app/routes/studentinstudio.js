@@ -15,10 +15,11 @@ app.route('/studentinstudio')
 app.route('/studentinstudio/:studentinstudioId')
     .delete(users.requiresLogin, studentinstudio.destroy)
     .get(studentinstudio.show);
-    // .put(users.requiresLogin, studentinstudio.update);
-    // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
+app.route('/getmyassigments/:studentId')
+    .get(users.requiresLogin, studentinstudio.getmyassigments);
 
 
 // Note: the studentinstudios.studentinstudio function will be called everytime then it will call the next function.
 app.param('studentinstudioId', studentinstudio.studentinstudio);
+app.param('studentId', studentinstudio.setStudentId);
 };
