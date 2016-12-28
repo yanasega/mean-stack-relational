@@ -21,9 +21,9 @@
 			</div>
             <br>
 			<label class="control-label" for="instructor" style="float:right">מנחה</label>
-			<div class="controls">
+			<div class="controls" >
 				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
-                <select type="string" data-ng-model="studio.instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors" required>
+                <select type="string" data-ng-model="studio.instructor" ng-options="instructor.FirstName +' '+ instructor.LastName for instructor in instructors track by instructor.id" required>
 					<option value="">בחר מנחה...</option>
 				</select>
 			</div>
@@ -73,7 +73,7 @@
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="submit" class="btn btn-success" value= "שמוק">
+				<input type="submit" class="btn btn-success" value= "שמור">
 			</div>
 		</div>
 	</form>     

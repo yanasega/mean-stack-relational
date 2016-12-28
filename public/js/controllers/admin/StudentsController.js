@@ -21,26 +21,29 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }
         }
     }
-        
+
     $scope.create = function(){
         var tz = new Tzs({
             id : $scope.tz
         });
         tz.$save(function(response) {
             $scope.error = null;
+            $scope.adderror = false;
             $scope.status = "תעודת זהות הוטענה בהצלחה: " + tz.id ;
             $scope.tz = null;
             Tzs.query(function(tzs) {
-                $scope.tzs = tzs; 
+                $scope.tzs = tzs;
                 // $scope.showreg = true;
             },function (err) {
                 $scope.status = null;
+                $scope.adderror = true;
                 $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
                 $scope.tz = null;
 
             });
         },function (err) {
             $scope.status = null;
+            $scope.adderror = true;
             $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
             $scope.tz = null;
 
@@ -52,18 +55,21 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 url: '/upload',
                 method: 'POST',
                 headers: {'Content-Type': 'multipart/form-data'},
-                file: $scope.Ids           
+                file: $scope.Ids
             }).success(function (response, status) {
                     $scope.TzFile = response[0].filename;
-                    $http.get('/insertTz/' + $scope.TzFile).success(function(respData){ 
+                    $http.get('/insertTz/' + $scope.TzFile).success(function(respData){
                         if (respData == 'done'){
                             $scope.error = null;
+                            $scope.fileerror = true;
                             $scope.status = "הקובץ נטען בהצלחה";
                             $scope.Ids = null;
                             Tzs.query(function(tzs) {
-                                $scope.tzs = tzs; 
+                                $scope.tzs = tzs;
                             },function (err) {
                                 $scope.status = null;
+                                $scope.fileerror = false;
+
                                 $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
                                 $scope.tz = null;
 
@@ -72,13 +78,15 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                         else{
                             $scope.Ids = null;
                             $scope.status = null;
-                            $scope.error = "התרחשה שגיאה בזמן טעינה.";                          
+                            $scope.fileerror = false;
+                            $scope.error = "התרחשה שגיאה בזמן טעינה.";
                         }
                     })
                 }
             ).error(function (errorResponse) {
                 $scope.Ids = null;
                 $scope.status = null;
+                $scope.fileerror = false;
                 $scope.error = "התרחשה שגיאה בעת הטענת הקובץ.";
                 }
             );
@@ -90,9 +98,9 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         }, function(student) {
             $scope.student = student;
         }, function (params) {
-            $scope.loaderror = true;  
+            $scope.loaderror = true;
             $scope.showuser = true;
-                      
+
         });
     }
 
@@ -104,7 +112,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         },function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
-            
+
         });
 
         Studios.query(function (studios) {
@@ -143,7 +151,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                     }, this);
 
                     $scope.studentinstudio.push(sis);
-                }              
+                }
             }, this);
 
         }, function (params) {
@@ -158,20 +166,20 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                         if(course.Id == sic.IdCourse){
                             sic.CourseName = course.Name;
                         }
-                    }, this);                    
+                    }, this);
                     $scope.studentincourse.push(sic);
-                }              
+                }
             }, this);
         }, function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
-        });        
+        });
 
         Preferences.query(function(preferences) {
             preferences.forEach(function(preference) {
                 if (preference.Id == $stateParams.studentId){
-                    $scope.preferences.push(preference); //yana: check if data relavent?
-                }    
+                    $scope.preferences.push(preference); 
+                }
             }, this);
             $scope.preferences.forEach(function(preference) {
                 $scope.studios.forEach(function(studio) {
@@ -189,19 +197,19 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.find = function() {
         Students.query(function(students) {
             $scope.students = students;
-            sleep(2500); 
+            sleep(2500);
             $scope.showuser = true;
         }, function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
-            
+
         });
         Tzs.query(function(tzs) {
-            $scope.tzs = tzs; 
+            $scope.tzs = tzs;
         }, function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
-            
+
         });
     };
 
@@ -231,21 +239,24 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 }
             }, function (err) {
                 $scope.deleteerror = true;
-                
-            });  
-            
+
+            });
+
         }
         else {
             $scope.student.$remove();
             $scope.deleteerror = false;
-            
-            //$state.go('student'); //yana: test
         }
     };
 
     $scope.removetz =  function (tz) {
         if (tz) {
-            tz.$remove();  
+            tz.$remove(function(data){
+              $scope.delerror = false;
+            }, function(err){
+              $scope.delerror = true;
+
+            });
             for (var i in $scope.tzs) {
                 if ($scope.tzs[i] === tz) {
                     $scope.tzs.splice(i, 1);
@@ -253,8 +264,13 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }
         }
         else {
-            $scope.tz.$remove();//yana: test
-        }    
+            $scope.tz.$remove(function(data){
+              $scope.delerror = false;
+            }, function(err){
+              $scope.delerror = true;
+
+            });
+        }
     };
 
     $scope.removeView = function(student) {
@@ -263,15 +279,15 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                 $state.go('ViewStud');
             }, function (params) {
                 $scope.deleteerror = true;
-                
-            });  
+
+            });
         }
         else {
             $scope.student.$remove(function(data){
                 $state.go('ViewStud');
             }, function (params) {
                 $scope.deleteerror = true;
-                
+
             });
         }
     };
@@ -297,7 +313,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
         } else {
             return false;
         }
-    }; 
+    };
 
     $scope.find();
 

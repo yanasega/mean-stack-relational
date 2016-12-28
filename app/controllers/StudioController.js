@@ -35,7 +35,6 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object. 
     db.Studio.create(req.body).then(function(studio){
         if(!studio){
-            // return res.send('users/signup', {errors: new StandardError('Studio could not be created')}); //yana:change the landing page.
             return res.status(500).send({errors: new StandardError('Studio could not be created')});
         } else {
             return res.jsonp(studio);

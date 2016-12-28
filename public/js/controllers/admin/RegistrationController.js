@@ -25,34 +25,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         });
 
         reg.$save(function(response) {
-            $scope.find();
-            //update all studios of the same semester as the registration to active : decided to let the user decide.
-            // Studios.query(function(studios){
-            //     studios.forEach(function(studio) {
-            //         if ($scope.semester == studio.Semester){
-            //             studio.IsActive = true;
-            //             if (!studio.updated) {
-            //                 studio.updated = [];
-            //             }
-            //             studio.updated.push(new Date().getTime());
-            //             studio.$update(function() {
-            //             });
-            //         }
-            //         else{
-            //             if (studio.RelevantYears !== "5"){
-            //                 studio.IsActive = false;
-            //                 if (!studio.updated) {
-            //                     studio.updated = [];
-            //                 }
-            //                 studio.updated.push(new Date().getTime());
-            //                 studio.$update(function() {
-            //                 });
-            //             }
-            //         }
-            //     }, this);
-            // });
-
-                
+            $scope.find();          
             if($scope.semester == 'spring'){
                 $http.get('/setfifthtosix').success(function(res){
                     console.log("success");
@@ -128,7 +101,7 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
         }
         else {
             $scope.registration.$remove();
-            $state.go('registrations'); //yana: test
+            $state.go('registrations');
         }
     };
 

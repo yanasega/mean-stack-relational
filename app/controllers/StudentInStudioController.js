@@ -6,10 +6,17 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
+
+exports.setStudentId = function(req, res, next, id) {
+    req.StudentId = id;
+    
+    return next();
+};
+
 /**
  * Find article by id
- * Note: This is called every time that the parameter :articleId is used in a URL. 
- * Its purpose is to preload the article on the req object then call the next function. 
+ * Note: This is called every time that the parameter :articleId is used in a URL.
+ * Its purpose is to preload the article on the req object then call the next function.
  */
 exports.studentinstudio = function(req, res, next, id) {
     console.log('id => ' + id);
@@ -18,7 +25,7 @@ exports.studentinstudio = function(req, res, next, id) {
             return next(new Error('Failed to load studentinstudio ' + id));
         } else {
             req.studentinstudio = studentinstudio;
-            return next();            
+            return next();
         }
     }).catch(function(err){
         return next(err);
@@ -31,12 +38,10 @@ exports.studentinstudio = function(req, res, next, id) {
 exports.create = function(req, res) {
     //augment the article by adding the UserId
     req.body.UserId = req.user.id;
-    //save and return and instance of article on the res object. 
-    console.log(req.body);
+    //save and return and instance of article on the res object.
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
              return res.status(500).send({errors: new StandardError('studentinstudio could not be created')});
-            //  yana:change the landing page.
         } else {
             return res.jsonp(studentinstudio);
         }
@@ -56,7 +61,6 @@ exports.update = function(req, res) {
             // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.jsonp(null);
         } else {
-            console.log(req.body.Studio);
             studentinstudio.updateAttributes({
                 Instructor: req.body.Instructor,
                 Studio: req.body.Studio
@@ -99,7 +103,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    
+
     db.StudentInStudio.findAll().then(function(studentinstudio){
         return res.jsonp(studentinstudio);
     }).catch(function(err){
@@ -107,12 +111,10 @@ exports.all = function(req, res) {
     });
 };
 
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
+exports.getmyassigments = function(req,res){
+     db.StudentInStudio.findAll({where: {IdStudent: req.StudentId}}).then(function(studentinstudio){
+        return res.jsonp(studentinstudio);
+    }).catch(function(err){
+       return res.status(500).send({status:500, message:'internal error: ' + err});
+    });  
+}

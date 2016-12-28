@@ -13,15 +13,15 @@ var db = require('../../config/sequelize');
 exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+    // save and return and instance of article on the res object.
     db.SubjectMap.create(req.body).then(function(subject){
-        if(!instructor){
-            return res.send('users/signup', {errors: new StandardError('SubjectMap could not be created')}); //yana:change the landing page.
+        if(!subject){
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(subject);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
+        return res.send('users/signup', {
             errors: err,
             status: 500
         });
@@ -51,4 +51,3 @@ exports.all = function(req, res) {
         });
     });
 };
-

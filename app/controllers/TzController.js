@@ -19,7 +19,7 @@ exports.tz = function(req, res, next, id) {
             return next(new Error('Failed to load tz ' + id));
         } else {
             req.tz = tz;
-            return next();            
+            return next();
         }
     }).catch(function(err){
         return next(err);
@@ -27,7 +27,7 @@ exports.tz = function(req, res, next, id) {
 };
 
 exports.path = function(req, res, next, id) {
-    req.csv_path = id;    
+    req.csv_path = id;
     return next();
 };
 
@@ -36,23 +36,20 @@ exports.path = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     // augment the article by adding the UserId
-    //req.body.UserId = req.user.id;    
+    //req.body.UserId = req.user.id;
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
-            return res.send('users/signup', {errors: new StandardError('Tz could not be created')}); //yana:change the landing page.
+            return  res.status(500).send({status:500, message:'internal error: ' + err}); 
         } else {
             return res.jsonp(tz);
         }
     }).catch(function(err){
-        return res.send('users/signup', { 
-            errors: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
 exports.insertTz = function (req, res){
-    
+
     var dirString = path.dirname(fs.realpathSync(__filename));
 
     var csv_path = req.csv_path;
@@ -65,7 +62,7 @@ exports.insertTz = function (req, res){
     };
 
     PythonShell.run('readfile.py', options, function (err, results) {
-        if (err) throw err;
+        if (err)  {return res.status(500).send({status:500, message:'internal error: ' + err}); }
         // results is an array consisting of messages collected during execution
         // results = results.toString().replace(/\\/g, "");
         return res.jsonp(results);
@@ -89,10 +86,7 @@ exports.destroy = function(req, res) {
     tz.destroy().then(function(){
         return res.jsonp(tz);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
@@ -103,11 +97,6 @@ exports.all = function(req, res) {
     db.Tz.findAll().then(function(tz){
         return res.jsonp(tz);
     }).catch(function(err){
-        return res.render('error', {
-            error: err,
-            status: 500
-        });
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
-
-

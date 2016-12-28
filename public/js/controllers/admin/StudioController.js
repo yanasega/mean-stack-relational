@@ -80,65 +80,66 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
      $scope.find = function() {
 
+
         SubjectMap.query(function(subjects) {
-            sleep(500);
-            $scope.subjects = subjects; 
+            $scope.subjects = subjects;
+			Instructors.query(function(instructors) {
+				$scope.instructors = instructors;
+					Studios.query(function(studios) {
+                        $scope.studios = studios; 
+                        $scope.studios.forEach(function(studio) {
+                        angular.forEach($scope.subjects,function(value,key){
+                                if($scope.subjects[key].id == studio.Subject){
+                                    studio.Subject = $scope.subjects[key].Subject;
+                            }
+                        });
+                        angular.forEach($scope.instructors,function(value,key){
+                                if($scope.instructors[key].id == studio.Instructor){
+                                    studio.Instructor = $scope.instructors[key].FirstName + ' ' + $scope.instructors[key].LastName;
+                            }
+                        });
+                        }, this);
+                        $scope.showstud = true;
+                        $scope.loaderror = false;            
+				}, function (err){
+					$scope.loaderror = true;
+				});
+			}, function (err){
+				$scope.loaderror = true;
+			});			
+			
         }, function (err){
             $scope.loaderror = true;
         });
 
-        Instructors.query(function(instructors) {
-            sleep(500);
-            $scope.instructors = instructors;
-        }, function (err){
-            $scope.loaderror = true;
-        });
 
-        Studios.query(function(studios) {
-            $scope.studios = studios; 
-            sleep(500);
-            $scope.studios.forEach(function(studio) {
-            angular.forEach($scope.subjects,function(value,key){
-                    if($scope.subjects[key].id == studio.Subject){
-                        studio.Subject = $scope.subjects[key].Subject;
-                   }
-            });
-            angular.forEach($scope.instructors,function(value,key){
-                    if($scope.instructors[key].id == studio.Subject){
-                        studio.Subject = $scope.instructors[key].Subject;
-                   }
-            });
-            }, this);
-            sleep(1500);
-            $scope.showstud = true;
-            $scope.loaderror = false;            
-        }, function (err){
-            $scope.loaderror = true;
-        });
+
         
 
     };
 
     $scope.findOne = function() {
-
-        Studios.get({
-            studioId: $stateParams.studioId
-        }, function(studio) {
-            $scope.studio = studio;
-            $scope.instructors.forEach(function(instructor) {
-                if (instructor.id == $scope.studio.Instructor){
-                    $scope.studio.instructor = instructor;
-                }
-            }, this);
-            $scope.subjects.forEach(function(subject) {
-                if (subject.id == $scope.studio.Subject){
-                    $scope.studio.subject = subject;
-                }
-            }, this);
-          $scope.loadoneerror = false;            
-        }, function (err){
-            $scope.loadoneerror = true;
-        });
+        Instructors.query(function(instructors) {
+           $scope.instructors =  instructors;
+            Studios.get({
+                studioId: $stateParams.studioId
+            }, function(studio) {
+                $scope.studio = studio;
+                $scope.instructors.forEach(function(instructor) {
+                    if (instructor.id == $scope.studio.Instructor){
+                        $scope.studio.instructor = instructor;
+                    }
+                }, this);
+                $scope.subjects.forEach(function(subject) {
+                    if (subject.id == $scope.studio.Subject){
+                        $scope.studio.subject = subject;
+                    }
+                }, this);
+            $scope.loadoneerror = false;            
+            }, function (err){
+                $scope.loadoneerror = true;
+            });
+        })
     };
 
     $scope.update = function() {
@@ -149,10 +150,10 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
             }
             studio.updated.push(new Date().getTime());
             studio.$update(function() {
-                $state.go('ViewStudio',{studioId : studio.id})
+                $state.go('ViewStudio')
             }, function (err){
             $scope.updateerror = true;
-        });
+            });
         }
         else{
             $scope.upload = Upload.upload({
@@ -167,7 +168,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 }
                 studio.updated.push(new Date().getTime());
                 studio.$update(function() {
-                    $state.go('ViewStudio',{studioId : studio.id})
+                    $state.go('ViewStudio')
             }, function (err){
                 $scope.updateerror = true;
             });

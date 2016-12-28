@@ -8,8 +8,8 @@ var db = require('../../config/sequelize');
 
 /**
  * Find article by id
- * Note: This is called every time that the parameter :articleId is used in a URL. 
- * Its purpose is to preload the article on the req object then call the next function. 
+ * Note: This is called every time that the parameter :articleId is used in a URL.
+ * Its purpose is to preload the article on the req object then call the next function.
  */
 exports.studentincourse = function(req, res, next, id) {
     console.log('id => ' + id);
@@ -18,7 +18,7 @@ exports.studentincourse = function(req, res, next, id) {
             return next(new Error('Failed to load studentincourse ' + id));
         } else {
             req.studentincourse = studentincourse;
-            return next();            
+            return next();
         }
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
@@ -27,12 +27,12 @@ exports.studentincourse = function(req, res, next, id) {
 
 exports.setCourseId = function(req, res, next, id) {
     req.courseId = id;
-    return next();  
+    return next();
 };
 
 exports.setUserId = function(req, res, next, id) {
     req.userId = id;
-    return next();  
+    return next();
 };
 
 exports.find = function(req, res, next) {
@@ -40,13 +40,24 @@ exports.find = function(req, res, next) {
         if(!studentincourse) {
             return res.jsonp(null);
         } else {
-            return res.jsonp(studentincourse);          
+            return res.jsonp(studentincourse);
         }
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
-    });   
+    });
 };
 
+exports.getmycourses =  function(req, res){
+     db.StudentManagedCourse.findAll({where: {IdStudent: req.userId}}).then(function(studentincourse){
+        if(!studentincourse) {
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(studentincourse);          
+        }
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});  
+    });   
+}
 
 /**
  * Create a registration
@@ -54,10 +65,10 @@ exports.find = function(req, res, next) {
 exports.create = function(req, res) {
     // augment the article by adding the UserId
     //req.body.UserId = req.user.id;
-    // save and return and instance of article on the res object. 
+    // save and return and instance of article on the res object.
     db.StudentManagedCourse.create(req.body).then(function(studentincourse){
         if(!studentincourse){
-            return res.send('users/signup', {errors: new StandardError('studentincourse could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(studentincourse);
         }
@@ -82,7 +93,7 @@ exports.update = function(req, res) {
                 return res.jsonp(a);
             }).catch(function(err){
                 return res.status(500).send({status:500, message:'internal error: ' + err});
-            });     
+            });
         }
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
@@ -117,7 +128,7 @@ exports.show = function(req, res) {
 exports.all = function(req, res) {
     db.StudentManagedCourse.findAll().then(function(studentincourse){
         return res.jsonp(studentincourse);
-    }).catch(function(err){      
-        return res.status(500).send({status:500, message:'internal error: ' + err});
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal 22error: ' + err});
     });
 };
