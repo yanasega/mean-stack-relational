@@ -66,6 +66,17 @@ exports.create = function(req, res) {
     });
 };
 
+exports.getmycourses =  function(req, res){
+     db.StudentInCourse.findAll({where: {IdStudent: req.userId}}).then(function(studentincourse){
+        if(!studentincourse) {
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(studentincourse);          
+        }
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});  
+    });   
+}
 /**
  * Update a studio
  */
@@ -96,7 +107,6 @@ exports.destroy = function(req, res) {
     var studentincourse = req.studentincourse;
 
     studentincourse.destroy().then(function(){
-        return res.status(500).send({status:500, message:'internal error: ' + err});  
         return res.jsonp(studentincourse);
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});  
