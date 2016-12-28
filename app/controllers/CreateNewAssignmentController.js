@@ -17,20 +17,20 @@ exports.setParams = function(req, res, next, value) {
     if (value == "3" || value == "5"){
         req.year = value;
     }
-    else{       
-        req.semester = value;        
+    else{
+        req.semester = value;
     }
     return next();
 };
 
-exports.setStudentId = function(req, res, next, id) {  
+exports.setStudentId = function(req, res, next, id) {
     req.StudentId = id;
-    return next();  
+    return next();
 };
 
-exports.setAssignmentId = function(req, res, next, id) {  
+exports.setAssignmentId = function(req, res, next, id) {
     req.AssignmentId = id;
-    return next();  
+    return next();
 };
 
 
@@ -43,14 +43,13 @@ exports.runAlgorithem = function(req, res) {
 
     var options = {
         mode: 'json',
-        pythonPath: 'python',
+        pythonPath: 'C:\\Program Files (x86)\\Python27\\python.exe',
         scriptPath: dirString + '//..//algo',
         args: [req.year, req.semester]
     };
 
     PythonShell.run('algoritm.py', options, function (err, results) {
-        console.log(results);
-        if (err) return res.status(500).send({status:500, message:'internal error: ' + err}); // yana: fix this to better error catching
+        if (err) {return res.status(500).send({status:500, message:'internal error: ' + err}); }
         return res.jsonp(results);
     });
 
@@ -58,33 +57,27 @@ exports.runAlgorithem = function(req, res) {
 
 exports.getByAssignmentId = function(req, res, next) {
      db.StudentInStudio.findAll({where: {AId: req.AssignmentId}}).then(function(studentinstudio){
-         console.log(studentinstudio);
         if(!studentinstudio) {
             // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.status(500).send({errors: new StandardError('could not get student')});
         } else {
-            return res.jsonp(studentinstudio);          
+            return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
          return res.status(500).send({status:500, message:'internal error: ' + err});
-    });   
+    });
 };
 
 exports.getByAssignmentIdandStudentId = function(req, res, next) {
      db.StudentInStudio.findAll({where: {AId: req.AssignmentId, IdStudent: req.StudentId }}).then(function(studentinstudio){
-         console.log(studentinstudio);
+  
         if(!studentinstudio) {
             // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.status(500).send({errors: new StandardError('could not get student')});
         } else {
-            return res.jsonp(studentinstudio);          
+            return res.jsonp(studentinstudio);
         }
     }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
-    });   
+    });
 };
-
-
-
-
-

@@ -18,23 +18,23 @@ var transporter = nodemailer.createTransport('smtps://archstuddatasystem@gmail.c
 
 /**
  * Forgot password
- * send email 
+ * send email
  */
 
 exports.forgot = function(req, res,next) {
 
     db.User.find({where : { Email: req.body.email }}).then(function(user){
-        
+
       if (!user) {
          return res.status(500).send({errors: new StandardError('Email was not found in thesyste')});
       }
       crypto.randomBytes(20, function(err, buf) {
-        
+
         //console.log(token);
         var token = buf.toString('hex');
 
         user.updateAttributes({
-            
+
             resetPasswordToken : token,
             resetPasswordExpires : Date.now() + 3600000 // 1 hour
         }).then(function(a){
@@ -49,26 +49,25 @@ exports.forgot = function(req, res,next) {
             };
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
-                    return console.log(error);
+                    return res.status(500).send({status:500, message:'internal error: ' + error});
                 }
                 console.log('Message sent: ' + info.response);
                 return res.status(200).send({status:200, message:'Message sent.'});
-                
+
             });
         }).catch(function(err){
             return res.status(500).send({status:500, message:'internal error: ' + err});
         });
 
       });
-      
-    }).catch(function(err){        
+
+    }).catch(function(err){
         return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
 
 
 exports.redirect = function(req, res) {
-    console.log("redirect");
     db.User.find({ resetPasswordToken: req.params.token }).then(function(user){
         if (!user) {
             return res.render('401', {
@@ -77,11 +76,11 @@ exports.redirect = function(req, res) {
             });
         }
         return res.redirect('/changepassword/' + req.params.token);
-    }).catch(function(err){  
+    }).catch(function(err){
         return res.render('401', {
                 error: 'התרחשה שגיאה בשרת.',
                 status: 401
-            });      
+            });
     });
 };
 /**
@@ -99,11 +98,11 @@ exports.reset = function(req, res) {
             user.updateAttributes({
                 hashedPassword: user.encryptPassword(req.body.password, user.salt),
                 resetPasswordToken : null,
-                resetPasswordExpires : null 
+                resetPasswordExpires : null
             }).then(function(a){
                 req.login(user, function(err){
                     if(err) {
-                        return res.status(500).send({status:500, message:'internal error: ' + err});  
+                        return res.status(500).send({status:500, message:'internal error: ' + err});
                     }
                     return res.redirect('/home');
                 })
@@ -112,11 +111,10 @@ exports.reset = function(req, res) {
             });
         }
         else{
-            res.status(500).send({status:500, message:'passwords do not match.'});  
+            res.status(500).send({status:500, message:'passwords do not match.'});
         }
 
-    }).catch(function(err){  
-        return res.status(500).send({status:500, message:'internal error: ' + err});      
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
-

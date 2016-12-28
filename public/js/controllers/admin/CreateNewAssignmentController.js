@@ -1,6 +1,6 @@
 angular.module('mean.system').controller('CreateNewAssignmentController', ['$scope', '$resource','Global', '$window','Students',
-'Studios','$http','StudentInStudio','Assignments','$stateParams',function 
-($scope, $resource,Global,$window,Students,Studios,$http,StudentInStudio,Assignments,$stateParams) {
+'Studios','$http','StudentInStudio','Assignments','$stateParams', '$q',function 
+($scope, $resource,Global,$window,Students,Studios,$http,StudentInStudio,Assignments,$stateParams,$q) {
     console.log("CreateNewAssignmentController");
     $scope.global = Global;
     $scope.status = null;
@@ -13,6 +13,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.addstudflag = false;
     $scope.assignments = null;
     $scope.missingStatus = false;
+    $scope.missingStatusOK = false;
     $scope.tooltip = false;
     $scope.alertIsActive = false; 
     $scope.alertEmptyStudio = false;
@@ -85,6 +86,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
 
 
     $scope.init = function (){
+      $scope.missingStatusOK = false;
+        $scope.missingStatus = false;  
      //check if all drop d is Chosen 
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
          alert("בחר שנה וסמסטר");
@@ -332,7 +335,9 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     }
 
     $scope.runAlgo = function(){
-        $scope.loading = false;
+        $scope.missingStatusOK = false;
+        $scope.missingStatus = false;
+        $scope.findall = true;
         if ($scope.ChosenYear == "5"){
             $scope.algoYear = "5";
         }
@@ -374,11 +379,13 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 studio.count = studio.total_in_studio;
             }, this);
             $scope.loading = true;
+            $scope.findall = false;
             $scope.serverError = false;
         }).error(function (respData) {
                $scope.status = "There was an error while running the algorithem.";
                $scope.loading = true;
                $scope.serverError = true;
+               $scope.findall = false;
         });
     }
 
@@ -420,6 +427,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $scope.dataError =true;
                 $scope.myBtn =false;
             });
+
         }, function (err){
                 $scope.dataError =true;
                 $scope.myBtn =false;
@@ -427,6 +435,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     };
 
     $scope.AddStudent= function(){
+        $scope.missingStatusOK = false;
         $scope.missingStatus = false;
         Students.get({
             studentId:$scope.MissingStudent
@@ -444,17 +453,20 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 }, this);
             }, this);
             if(!$scope.missingStatus){
+                console.log(student);
                 $scope.models.studioLists[0].push(student);
+                $scope.missingStatusOK = true;
             }
         })
         $scope.MissingStudent = "";
+        
     }
 
     //this is the edit section
 
 
     $scope.Load = function(typ){
-
+        $scope.findallview = true;
         $scope.emptyStudio();
         $scope.models.studioLists[0] = [];
         Assignments.get({
@@ -488,7 +500,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                                                 $scope.status = "There was an error in preferences data.";
                                                 $scope.serverError = true;
                                                 $scope.findallview = false; 
-                                             });
+                                             });                                          
                                     }, this); 
                                     student.preferences = prefosh;
                                  }
