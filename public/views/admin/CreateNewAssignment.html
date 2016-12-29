@@ -97,12 +97,13 @@
   <div class= "row" style ="float:right" ng-show = "addstudflag && assign && !findall && !serverError && !dataError">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
-              <div class="col-md-6" style="padding-right:60px">
-                <input type="text" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית סטודנט" style="width:260px;height:35px;float:left" required>
-              </div>
-               <div class="control-group;col-md-6">
+               <div class="control-group col-md-3">
                 <input type="submit" value = "הוסף" class="btn btn-info">
              </div>
+              <div class="col-md-9" style="padding-right:60px">
+                <input type="text" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית סטודנט" style="width:100%;padding:16px;" required>
+              </div>
+              
             </div>
       </form>
         <p ng-show="missingStatus" class="alert alert-danger" style="text-align:center">{{"סטודנט זה כבר קיים"}}</p>
