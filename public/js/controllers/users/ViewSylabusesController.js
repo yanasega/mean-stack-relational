@@ -17,7 +17,7 @@ function ($scope, $resource ,Global ,Studios ,$window, Instructors) {
 
      $scope.find = function() {
         Studios.query(function(studios) {
-        $scope.studios = studios; //yana: add error
+        $scope.studios = studios; 
             sleep(1000);
             $scope.studios.forEach(function(studio) {
                 Instructors.query(function(instructors){

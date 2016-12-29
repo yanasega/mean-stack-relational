@@ -6,6 +6,13 @@
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
 
+
+exports.setStudentId = function(req, res, next, id) {
+    req.StudentId = id;
+    
+    return next();
+};
+
 /**
  * Find article by id
  * Note: This is called every time that the parameter :articleId is used in a URL.
@@ -35,7 +42,6 @@ exports.create = function(req, res) {
     db.StudentInStudio.create(req.body).then(function(studentinstudio){
         if(!studentinstudio){
              return res.status(500).send({errors: new StandardError('studentinstudio could not be created')});
-            //  yana:change the landing page.
         } else {
             return res.jsonp(studentinstudio);
         }
@@ -105,12 +111,10 @@ exports.all = function(req, res) {
     });
 };
 
-/**
- * Article authorizations routing middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-//     if (req.article.User.id !== req.user.id) {
-//       return res.send(401, 'User is not authorized');
-//     }
-//     next();
-// };
+exports.getmyassigments = function(req,res){
+     db.StudentInStudio.findAll({where: {IdStudent: req.StudentId}}).then(function(studentinstudio){
+        return res.jsonp(studentinstudio);
+    }).catch(function(err){
+       return res.status(500).send({status:500, message:'internal error: ' + err});
+    });  
+}

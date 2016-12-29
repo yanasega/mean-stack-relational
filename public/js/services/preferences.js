@@ -13,7 +13,3 @@ angular.module('mean.system').factory("Preferences", ['$resource', function($res
 
 }]);
 
-// angular.module('mean.system').service("Registrations", ['$resource', function($resource) {
-//     return $resource('/registrations');
-// }]);
-

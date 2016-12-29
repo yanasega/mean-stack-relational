@@ -47,6 +47,17 @@ exports.find = function(req, res, next) {
     });
 };
 
+exports.getmycourses =  function(req, res){
+     db.StudentManagedCourse.findAll({where: {IdStudent: req.userId}}).then(function(studentincourse){
+        if(!studentincourse) {
+            return res.jsonp(null);
+        } else {
+            return res.jsonp(studentincourse);          
+        }
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});  
+    });   
+}
 
 /**
  * Create a registration
@@ -57,7 +68,7 @@ exports.create = function(req, res) {
     // save and return and instance of article on the res object.
     db.StudentManagedCourse.create(req.body).then(function(studentincourse){
         if(!studentincourse){
-            return res.send('users/signup', {errors: new StandardError('studentincourse could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(studentincourse);
         }

@@ -43,7 +43,7 @@ exports.runAlgorithem = function(req, res) {
 
     var options = {
         mode: 'json',
-        pythonPath: 'C:\\Program Files (x86)\\Python27\\python.exe',
+        pythonPath: 'python',
         scriptPath: dirString + '//..//algo',
         args: [req.year, req.semester]
     };

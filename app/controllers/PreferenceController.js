@@ -88,6 +88,28 @@ exports.getPreferenceByStudentId = function(req, res, next) {
     })  
 };
 
+exports.getAllPreferenceByStudentId = function(req, res, next) {
+
+    db.Preference.findAll({where: {Id: req.StudentId}}).then(function(preference){
+        //console.log(preference);
+        if(!preference) {
+            return res.status(500).send({errors: new StandardError('could not get preference')});
+        } else {
+            return res.jsonp(preference);          
+        }
+    }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+    }) 
+ 
+};
+
+exports.getPreferenceByStudentAndReg = function(req, res, next) {
+     db.Preference.findAll({where: {Id: req.StudentId,IdR:req.RegId}}).then(function(preference){
+        return res.jsonp(preference);
+    }).catch(function(err){
+         return res.status(500).send({status:500, message:'internal error: ' + err});
+    });
+};
 
 exports.preference = function(req, res, next, id) {
     console.log('id => ' + id);
@@ -110,7 +132,7 @@ exports.create = function(req, res) {
 
     db.Preference.create(req.body).then(function(preference){
         if(!preference){
-            return res.send('users/signup', {errors: new StandardError('Preference could not be created')}); //yana:change the landing page.
+            return res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(preference);
         }

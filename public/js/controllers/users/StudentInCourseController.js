@@ -46,9 +46,8 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
             }, this);
             //$scope.courses = courses;
             $scope.showcourse = true;
-            StudentInCourse.query(function(studentincourse) {
+            $http.get('/getstudentincourse/' + $scope.global.user.id).success(function(studentincourse){
                 studentincourse.forEach(function(sid) {
-                    if(sid.IdStudent == $scope.global.user.id){
                         $scope.loaderror = false;
                         $scope.showcourse = true;
                         $scope.MandatoryCourses.forEach(function(course) {
@@ -71,14 +70,14 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                                 course.isSelected = sid.IsDone;
                             }
                         }, this);
-                    }
                 }, this);
-            }, function (err){ 
-            $scope.loaderror = true;
-            $scope.showcourse = true;
-        });
 
-            StudentManagedCourse.query(function(studentmanagedcourse) {
+            }).error(function(err){
+                $scope.loaderror = true;
+                $scope.showcourse = true;
+            })
+
+            $http.get('/getstudentmanagedcourse/' + $scope.global.user.id).success(function(studentmanagedcourse){
                 studentmanagedcourse.forEach(function(smc) {
                     $scope.loaderror = false;
                     $scope.showcourse = true;
@@ -94,10 +93,10 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                         }
                     }
                 }, this);
-            }, function (err){ 
-            $scope.loaderror = true;
-            $scope.showcourse = true;
-        });            
+            }).error( function (err){ 
+                $scope.loaderror = true;
+                $scope.showcourse = true;
+            })           
         }, function (err){ 
             $scope.loaderror = true;
             $scope.showcourse = true;
@@ -243,9 +242,16 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
         $scope.clear();
     };
 
-    $scope.remove = function(course) {
-        if (course) {
-            console.log(course);
+    $scope.remove = function(c) {
+        if (c) {
+            var course = new StudentManagedCourse({
+                id:c.id,
+                IdStudent: $scope.global.user.id,
+                IdCourse: c.IdCourse,
+                Name: c.Name,
+                CourseType: c.CourseType,
+                CreditPoints: c.CreditPoints
+            });
             course.$remove(
                 function(response){
                     $scope.delerror = false;
@@ -256,23 +262,23 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     $scope.showcourse = true;
                 }
             );  
-            if(course.CourseType == "special_projects"){
+            if(c.CourseType == "special_projects"){
                 for (var i in $scope.SpecialProjectsCourses) {
-                    if ($scope.SpecialProjectsCourses[i] === course) {
+                    if ($scope.SpecialProjectsCourses[i] === c) {
                         $scope.SpecialProjectsCourses.splice(i, 1);
                     }
                 }
             }
-            else if(course.CourseType == "free_choice"){
+            else if(c.CourseType == "free_choice"){
                 for (var i in $scope.FreeChoiceCourses) {
-                    if ($scope.FreeChoiceCourses[i] === course) {
+                    if ($scope.FreeChoiceCourses[i] === c) {
                         $scope.FreeChoiceCourses.splice(i, 1);
                     }
                 }
             }
             else{
                 for (var i in $scope.ExtraCourses) {
-                    if ($scope.ExtraCourses[i] === course) {
+                    if ($scope.ExtraCourses[i] === c) {
                         $scope.ExtraCourses.splice(i, 1);
                     }
                 }

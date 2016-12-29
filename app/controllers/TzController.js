@@ -39,7 +39,7 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
-            return  res.status(500).send({status:500, message:'internal error: ' + err}); //yana:change the landing page.
+            return  res.status(500).send({status:500, message:'internal error: ' + err}); 
         } else {
             return res.jsonp(tz);
         }
@@ -55,7 +55,7 @@ exports.insertTz = function (req, res){
     var csv_path = req.csv_path;
     var options = {
         mode: 'text',
-        pythonPath: 'C:\\Program Files (x86)\\Python27\\python.exe',
+        pythonPath: 'python.exe',
         // pythonOptions: ['-u'],
         scriptPath: dirString + '//..//algo',
         args: [dirString + '//..//..//public/uploads/' + csv_path]

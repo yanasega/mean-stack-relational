@@ -93,7 +93,6 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         if (course) {
             course.$remove(function(response) {
                  $scope.delerror = false;
-            //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
         }
@@ -109,12 +108,10 @@ angular.module('mean.system').controller('CourseController', ['$scope', '$resour
         else {
             $scope.course.$remove(function(response) {
                  $scope.delerror = false;
-            //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
         }
             );
-            //$state.go('courses'); //yana: test
         }
         $scope.clear();
     };

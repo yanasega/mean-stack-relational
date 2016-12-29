@@ -12,10 +12,8 @@ app.route('/studentincourse')
     .get(studentincourse.all)
     .post(users.requiresLogin, studentincourse.create)
     .put(users.requiresLogin, studentincourse.update);
-// app.route('/studentincourse/:studentincourseId')
-//     .delete(users.requiresLogin, studentincourse.destroy)
-//     .get(studentincourse.show)
-//     .put(users.requiresLogin, studentincourse.update);
+app.route('/getstudentincourse/:userId')
+    .get(studentincourse.getmycourses);
 app.route('/getstudentincourse/:courseId/:userId')
     .get(users.requiresLogin, studentincourse.find)
     .put(users.requiresLogin, studentincourse.update);
