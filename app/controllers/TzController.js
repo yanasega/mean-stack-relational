@@ -39,7 +39,7 @@ exports.create = function(req, res) {
     //req.body.UserId = req.user.id;
     db.Tz.create(req.body).then(function(tz){
         if(!tz){
-            return  res.status(500).send({status:500, message:'internal error: ' + err}); 
+            return  res.status(500).send({status:500, message:'internal error: ' + err});
         } else {
             return res.jsonp(tz);
         }
@@ -55,14 +55,14 @@ exports.insertTz = function (req, res){
     var csv_path = req.csv_path;
     var options = {
         mode: 'text',
-        pythonPath: 'python.exe',
+        pythonPath: 'C:\\Program Files (x86)\\Python27\\python',
         // pythonOptions: ['-u'],
         scriptPath: dirString + '//..//algo',
         args: [dirString + '//..//..//public/uploads/' + csv_path]
     };
 
     PythonShell.run('readfile.py', options, function (err, results) {
-        if (err)  {return res.status(500).send({status:500, message:'internal error: ' + err}); }
+        if (err)  { console.log(err);return res.status(500).send({status:500, message:'internal error: ' + err}); }
         // results is an array consisting of messages collected during execution
         // results = results.toString().replace(/\\/g, "");
         return res.jsonp(results);

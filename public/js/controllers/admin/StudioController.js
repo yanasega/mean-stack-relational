@@ -1,12 +1,12 @@
 angular.module('mean.system').controller('StudioController', ['$scope', '$resource' ,'Global','$stateParams', 'Studios','$window','Upload','Instructors','SubjectMap','$state',function ($scope, $resource ,Global ,$stateParams,Studios ,$window,Upload,Instructors,SubjectMap,$state) {
     console.log("StudioController");
     $scope.global = Global;
-    $scope.showstud = false;    
+    $scope.showstud = false;
     $scope.isactive = true;
     $scope.sylabus = null;
     $scope.loaderror = null;
     $scope.loadoneerror = null;
-    $scope.adderror = null; 
+    $scope.adderror = null;
     $scope.updateerror = null;
     $scope.delerror = null;
     $scope.fileerror = null;
@@ -27,7 +27,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 url: '/upload',
                 method: 'POST',
                 headers: {'Content-Type': 'multipart/form-data'},
-                file: $scope.sylabus           
+                file: $scope.sylabus
             }).success(function (response, status) {
                     $scope.sylabus = response[0].filename;
                     var studio = new Studios({
@@ -42,9 +42,9 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                     });
                     studio.$save(function(response) {
                         $scope.find();
-                        $scope.adderror = false; 
+                        $scope.adderror = false;
                     }, function (err){
-                    $scope.adderror = true;  
+                    $scope.adderror = true;
                     });
                     $scope.clear();
                 }
@@ -65,15 +65,15 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 Subject: $scope.subject.id,
                 RelevantYears: $scope.relevantyears,
                 Semester: $scope.semester,
-                IsActive: $scope.isactive,
+                IsActive: true,
                 LinkSylabus: $scope.sylabus
             });
             studio.$save(function(response) {
                 $scope.find();
-                $scope.adderror = false;        
+                $scope.adderror = false;
         }, function (err){
             $scope.adderror = true;
-        }); 
+        });
             $scope.clear();
         }
     };
@@ -86,7 +86,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 			Instructors.query(function(instructors) {
 				$scope.instructors = instructors;
 					Studios.query(function(studios) {
-                        $scope.studios = studios; 
+                        $scope.studios = studios;
                         $scope.studios.forEach(function(studio) {
                         angular.forEach($scope.subjects,function(value,key){
                                 if($scope.subjects[key].id == studio.Subject){
@@ -100,21 +100,21 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                         });
                         }, this);
                         $scope.showstud = true;
-                        $scope.loaderror = false;            
+                        $scope.loaderror = false;
 				}, function (err){
 					$scope.loaderror = true;
 				});
 			}, function (err){
 				$scope.loaderror = true;
-			});			
-			
+			});
+
         }, function (err){
             $scope.loaderror = true;
         });
 
 
 
-        
+
 
     };
 
@@ -135,7 +135,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                         $scope.studio.subject = subject;
                     }
                 }, this);
-            $scope.loadoneerror = false;            
+            $scope.loadoneerror = false;
             }, function (err){
                 $scope.loadoneerror = true;
             });
@@ -144,6 +144,9 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
 
     $scope.update = function() {
         var studio = $scope.studio;
+        studio.Instructor = $scope.studio.instructor.id;
+        studio.Subject = $scope.studio.subject.id;
+
         if ($scope.sylabus == null){
             if (!studio.updated) {
                 studio.updated = [];
@@ -160,7 +163,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 url: '/upload',
                 method: 'POST',
                 headers: {'Content-Type': 'multipart/form-data'},
-                file: $scope.sylabus           
+                file: $scope.sylabus
             }).success(function (response, status) {
                 $scope.studio.LinkSylabus = response[0].filename;
                 if (!studio.updated) {
@@ -179,18 +182,18 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
                 $scope.error = errorResponse.data;
                 $scope.status = "There was an error. File could not be uploaded.";
                 }
-            );            
+            );
         }
     };
 
     $scope.remove = function(studio) {
         if (studio) {
             studio.$remove(function(response) {
-                 $scope.delerror = false; 
+                 $scope.delerror = false;
         }, function (err){
             $scope.delerror = true;
         }
-            );    
+            );
 
             for (var i in $scope.studios) {
                 if ($scope.studios[i] === studio) {
@@ -200,11 +203,11 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         }
         else {
             $scope.studio.$remove(function(response) {
-                 $scope.delerror = false; 
+                 $scope.delerror = false;
         }, function (err){
             $scope.delerror = true;
         }
-            ); 
+            );
             $state.go('studios');
         }
         $scope.clear();
@@ -235,12 +238,12 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         studio.updated.push(new Date().getTime());
         studio.$update(function() {
             $scope.findOne();
-             $scope.delerror = false; 
+             $scope.delerror = false;
             //yana: add check if response valid?
         }, function (err){
             $scope.delerror = true;
         }
-        )        
+        )
     }
 
     $scope.filterYearOptions = {
@@ -263,7 +266,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         } else {
             return false;
         }
-    }; 
+    };
 
     $scope.filterSemesterOptions = {
         stores: [
@@ -285,7 +288,7 @@ angular.module('mean.system').controller('StudioController', ['$scope', '$resour
         } else {
             return false;
         }
-    }; 
+    };
 
     $scope.find();
 }]);
