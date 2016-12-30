@@ -1,7 +1,7 @@
 <section ng-show="doneInsert ==false">
 	<!--<p style = "font-size:1.5em" ng-show="RegOpen == false">ההרשמת ההעדפות טרם נפתחה..</p>-->
 	<p class="alert alert-info text-white" style="font-size:1.2em" ng-if="RegOpen == false" >{{"הרשמת ההעדפות טרם נפתחה.."}}</p>
-	<p class="alert alert-danger text-white" style="font-size:1.2em" ng-if="NotValid == true" >{{"אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו, 
+	<p class="alert alert-danger text-white" style="font-size:1.2em" ng-if="NotValid == true" >{{"אינך מורשה להזין העדפות כיוון שלא סיימת את טופס הגמר שלך. אם סיימת את חובותיך אנא מלא אותו עכשיו,
 		אחרת, פנה לנציגות הפקולטה להמשך בירור."}}</p>
 	<p ng-if = "error != null" class = "alert alert-danger text-white" style="font-size:1.2em"> {{error}} </p>
 
@@ -36,9 +36,9 @@
 			<select type="string" data-ng-model="semester" required>
 				<option value="" disabled selected>בחר סמסטר...</option>
 				<option value="winter">חורף</option>
-				<option value="sprint">אביב</option>
+				<option value="spring">אביב</option>
 			</select>
-		</div>		
+		</div>
 		<br>
 		<p><b>* נא להזין את הסמסטר ושנת הלימוד אליהם את\ה מעוניין\ת להשתבץ</p>
 		<br>
@@ -74,8 +74,4 @@
 <section ng-show = "doneInsert == true">
 	<p class = "alert alert-success text-white" style="font-size:1.2em"> {{message}} </p>
 	<a style="font-size:1.1em" ui-sref="ViewPref">צפייה בהעדפות שהוזנו</a>
-</section> 
-
-
-
-
+</section>

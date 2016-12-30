@@ -43,7 +43,7 @@ exports.runAlgorithem = function(req, res) {
 
     var options = {
         mode: 'json',
-        pythonPath: 'python',
+        pythonPath: 'C:\\Program Files (x86)\\Python27\\python',
         scriptPath: dirString + '//..//algo',
         args: [req.year, req.semester]
     };
@@ -70,7 +70,7 @@ exports.getByAssignmentId = function(req, res, next) {
 
 exports.getByAssignmentIdandStudentId = function(req, res, next) {
      db.StudentInStudio.findAll({where: {AId: req.AssignmentId, IdStudent: req.StudentId }}).then(function(studentinstudio){
-  
+
         if(!studentinstudio) {
             // return next(new Error('Failed to load studentincourse ' +  req.userId + " " + req.courseId));
             return res.status(500).send({errors: new StandardError('could not get student')});

@@ -36,7 +36,7 @@ exports.forgot = function(req, res,next) {
         user.updateAttributes({
 
             resetPasswordToken : token,
-            resetPasswordExpires : Date.now() + 3600000 // 1 hour
+            resetPasswordExpires : Date.now() + 9000000 // 1 hour
         }).then(function(a){
             var mailOptions = {
                 from: '"archstuddatasystem 👥" <archstuddatasystem@gmail.com>', // sender address
@@ -68,7 +68,7 @@ exports.forgot = function(req, res,next) {
 
 
 exports.redirect = function(req, res) {
-    db.User.find({ resetPasswordToken: req.params.token }).then(function(user){
+    db.User.find({where :{ resetPasswordToken: req.params.token }}).then(function(user){
         if (!user) {
             return res.render('401', {
                 error: 'לא נמצא משתמש.',
@@ -87,7 +87,8 @@ exports.redirect = function(req, res) {
  * Reset Password
  */
 exports.reset = function(req, res) {
-    db.User.find({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }).then(function(user){
+    db.User.find({where :{ resetPasswordToken: req.body.token }}).then(function(user){
+      console.log(user);
         if (!user) {
             return res.render('401', {
                 error: 'עבר יותר מידי זמן מקבלת הדוא"ל, אנא שלח דוא"ל נוסף.',
@@ -100,6 +101,7 @@ exports.reset = function(req, res) {
                 resetPasswordToken : null,
                 resetPasswordExpires : null
             }).then(function(a){
+
                 req.login(user, function(err){
                     if(err) {
                         return res.status(500).send({status:500, message:'internal error: ' + err});
