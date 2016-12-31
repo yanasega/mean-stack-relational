@@ -1,7 +1,7 @@
 <!--<i class="fa fa-spinner fa-spin fa-3x fa-fw" ng-show = "loading"></i>-->
 
 <section data-ng-init="Load('view')">
-   
+
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -47,9 +47,9 @@
 
 <div ng-show = "!findallview && !dataError && !serverError">
 
-  <div class="container" id = thirdFourth  ng-if = "ChosenYear == '3,4'" ng-show = "assign" >
+  <div class="container" id = thirdFourth ng-show = "assign" >
     <div class="row">
-            <div class = "col-sm-4"  ng-repeat= "studio in studios">
+            <div class = "col-sm-4 studio-frame"  ng-repeat= "studio in studios">
               <div class ="row">
                 <div class="col-sm-2" style="padding-top:7px; padding-left:45px">
                   <span class="badge" >{{studio.count}}</span><br>
@@ -65,7 +65,7 @@
                               dnd-moved="models.studioLists[studio.id].splice($index, 1)"
                               dnd-effect-allowed="none"
                               dnd-selected="models.selected = item"
-                                  
+
                                >
                               {{item.FirstName + " " + item.LastName  + " " + item.Preference}}
 
@@ -98,7 +98,7 @@
   </div>
 
 
-<div class="container" id =fifth  ng-if = "ChosenYear == '5'">
+<!-- <div class="container" id =fifth  ng-if = "ChosenYear == '5'">
   <div class="row">
     <div class="col-sm-8" style="padding-bottom:1em">
           <div class = "col-sm-6"  ng-repeat= "studio in studios">
@@ -160,12 +160,6 @@
           </div>
     </div>
   </div>
-</div>
+</div> -->
 </div>
 </section>
-
-
-
-
-
-

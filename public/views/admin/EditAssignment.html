@@ -1,9 +1,9 @@
-<section data-ng-init="Load('edit')"> 
+<section data-ng-init="Load('edit')">
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-  
+
 <div class="jumbotron text-left">
   <p style="font-size:20px;float: right;">עריכת שיבוץ קיים</p>
   <br>
@@ -54,24 +54,26 @@
   <p class="alert alert-danger text-white" style="font-size:large; text-align:center" ng-show="serverError" >{{"התרחשה שגיאה בשרת"}}</p>
 </div>
 
-<div ng-show = "!findallview && !dataError && !serverError">
-  <div class= "row" style ="float:right" ng-show = "addstudflag && Assign">
+<div>
+  <div class="row">
+      <p ng-show="missingStatus" class="alert alert-danger" style="text-align:center">{{"סטודנט זה כבר קיים"}}</p>
+      <p ng-show="missingStatusOK" class="alert alert-success" style="text-align:center">{{"סטודנט התווסף בהצלחה"}}</p>
+  </div>
+  <div class= "row" style ="float:right" ng-show = "!findallview && !dataError && !serverError && assign">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
-              <div class="col-md-6" style="padding-right:60px">
-                <input type="text" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית סטודנט" style="width:260px;height:35px;float:left" required>
-              </div>
-               <div class="control-group;col-md-6">
-                <input type="submit" value = "חפש" class="btn btn-info">
-             </div>
+                 <div class="control-group col-md-3">
+                  <input type="submit" value = "הוסף" class="btn btn-info">
+               </div>
+                <div class="col-md-9" >
+                  <input type="number" data-ng-model="MissingStudent" id="title"  placeholder="הוסף ידנית ת.ז של סטודנט" style="width:100%;padding:16px;" required>
+                </div>
             </div>
       </form>
-        <p ng-show="missingStatus">{{"סטודנט זה כבר קיים"}}</p>
-        <p ng-show="!missingStatus">{{"הסטודנט לא קיים במערכת והתווסף בהצלחה"}}</p>
-  </div>
+    </div>
 
 <div >
-  <div class="container" id = "thirdFourth"  ng-if = "ChosenYear == '3,4'" ng-show = "assign" >
+  <div class="container" id = "thirdFourth"  ng-show = "assign && !findallview" >
     <div class="row">
       <div class="col-sm-8" style="padding-bottom:10px">
             <div class = "col-sm-6"  ng-repeat= "studio in studios">
@@ -83,7 +85,7 @@
                   <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
                 </div>
               </div>
-                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:300px; width:300px">
                     <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]">
                           <li ng-repeat="item in models.studioLists[studio.id]"
                               dnd-draggable="item"
@@ -91,7 +93,7 @@
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item; tooltip=!tooltip"
                               ng-class="{'selected': models.selected === item}"
-                              dnd-dragend = "changePrefrence(item)"    
+                              dnd-dragend = "changePrefrenceEdit(item)"
                               >
                               {{item.FirstName + " " + item.LastName + " " + item.Preference}}
                              <div ng-if ="tooltip == true">
@@ -100,7 +102,7 @@
                                    <td>
                                      ממוצע בתואר:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.Generalaverage}}
                                    </td>
                                  </tr>
@@ -108,7 +110,7 @@
                                    <td>
                                     ממוצע בסטודיו:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.LastStudioGrade}}
                                    </td>
                                  </tr>
@@ -116,7 +118,7 @@
                                    <td>
                                   העדפה 1:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[0]}}
                                    </td>
                                  </tr>
@@ -124,7 +126,7 @@
                                    <td>
                                   העדפה 2:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[1]}}
                                    </td>
                                  </tr>
@@ -132,7 +134,7 @@
                                    <td>
                                   העדפה 3:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[2]}}
                                    </td>
                                  </tr>
@@ -140,13 +142,13 @@
                                    <td>
                                   העדפה 4:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[3]}}
                                    </td>
                                  </tr>
                                </table>
                               </div>
-                          </li>                        
+                          </li>
                         </ul>
                     </div>
                     </br>
@@ -195,7 +197,7 @@
   </div>
 </div>
 
-
+<!--
 <div >
   <div class="container" id = "fifth"  ng-if = "ChosenYear == '5'" ng-show = "assign" >
     <div class="row">
@@ -209,7 +211,7 @@
                   <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
                 </div>
               </div>
-                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px">
+                  <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:300px; width:300px">
                     <ul dnd-list="models.studioLists[studio.id]" ng-model="models.studioLists[studio.id]">
                           <li ng-repeat="item in models.studioLists[studio.id]"
                               dnd-draggable="item"
@@ -217,7 +219,7 @@
                               dnd-effect-allowed="move"
                               dnd-selected="models.selected = item; tooltip=!tooltip"
                               ng-class="{'selected': models.selected === item}"
-                              dnd-dragend = "changePrefrence(item)"    
+                              dnd-dragend = "changePrefrence(item)"
                               >
                               {{item.FirstName + " " + item.LastName + " " + item.Preference}}
                              <div ng-if ="tooltip == true">
@@ -226,7 +228,7 @@
                                    <td>
                                      ממוצע בתואר:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.Generalaverage}}
                                    </td>
                                  </tr>
@@ -234,7 +236,7 @@
                                    <td>
                                     ממוצע בסטודיו:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.LastStudioGrade}}
                                    </td>
                                  </tr>
@@ -242,7 +244,7 @@
                                    <td>
                                   העדפה 1:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[0]}}
                                    </td>
                                  </tr>
@@ -250,7 +252,7 @@
                                    <td>
                                   העדפה 2:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[1]}}
                                    </td>
                                  </tr>
@@ -258,7 +260,7 @@
                                    <td>
                                   העדפה 3:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[2]}}
                                    </td>
                                  </tr>
@@ -266,13 +268,13 @@
                                    <td>
                                   העדפה 4:
                                    </td>
-                                   <td ng-init=""> 
+                                   <td ng-init="">
                                      {{item.preferences[3]}}
                                    </td>
                                  </tr>
                                </table>
                               </div>
-                          </li>                        
+                          </li>
                         </ul>
                     </div>
                     </br>
@@ -319,12 +321,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 </div>
 </section>
-
-
-
-
-
-
