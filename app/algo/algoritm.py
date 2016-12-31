@@ -12,9 +12,8 @@ class Algorithm:
 		# connection to sql
 		self.db = mysql.connector.connect(host     = "127.0.0.1",             # your host, usually localhost
 										  user     = "root",                  # your username
-										  password = "Password1",  # your password
+										  password = "Password1",  			  # your password
 										  database = "sakila")                # name of the data base
-
 										  
 		self.errors = {}
 		self.remark = []
@@ -23,25 +22,22 @@ class Algorithm:
 
 		try:
 			# Cursor object. you execute all the queries you need
-			cur = self.db.cursor(buffered=True)
+			cur = self.db.cursor()
 			if year == 5:
 				year = (5, 5)
-			# Use all the SQL you like
-			query = " SELECT P.Id, P.IdS, P.Rate, S.Gender FROM Preferences P, Students S " + \
-					" WHERE P.Id = S.Id and P.StudentYear in " + str(year) + " and P.semester= '" + str(semester) + "' and " + \
-						   "P.createdAt >= (SELECT max(StartDate) FROM Registration) and " + \
-					       "P.createdAt <= (SELECT max(EndDate) FROM Registration)" + \
-					" ORDER BY S.Gender, P.Id"
-
-			cur.execute(query)
-
 			# query for table Preferences
 			# need to take only from specific year in field where
 			# return only columns of pref, id
+			query = "SELECT P.Id, P.IdS, P.Rate, S.Gender " + \
+					"FROM Preferences P, Students S " + \
+					"WHERE P.Id = S.Id and P.StudentYear in " + str(year) + " and P.semester= '" + str(semester) + "' and " + \
+						  "P.IdR= (SELECT max(id) FROM registration WHERE semester='" + str(semester) + "')" + \
+					"ORDER BY S.Gender, P.Id"
 
+			cur.execute(query)
+			result = cur.fetchall()
 
-
-			return cur.fetchall()
+			return result
 
 		except Exception as e:
 			self.errors['get_preferences'] = 'database error: ' + str(e)
@@ -58,9 +54,10 @@ class Algorithm:
 			# Use all the SQL you like
 			# query for table Students (join with preferences)
 			# return columns of id, gender, grade
-			query = "select Id, Gender, GeneralAverage, LastStudioGrade from students " + \
-					"where CurrentYear in " + str(year) + " and Semester='" + semester + "' " + \
-					"order by Gender, Id"
+			query = "SELECT Id, Gender, GeneralAverage, LastStudioGrade " + \
+					"FROM students " + \
+					"WHERE CurrentYear in " + str(year) + " and Semester='" + semester + "' " + \
+					"ORDER BY Gender, Id"
 			if year == (5, 5): year = 5
 
 			cur.execute(query)
@@ -140,7 +137,7 @@ class Algorithm:
 			self.db.close()
 			# print e
 
-	def update_preferences_by_conditions(self, rates, year):
+	def update_preferences_by_conditions(self, rates, year, semester):
 
 		try:
 
@@ -152,14 +149,19 @@ class Algorithm:
 			# return from studio table : ID of studio and instructor
 			# return from student_in_studio : id of student and studio
 
-			if year == (3,4):
+			if year == (3, 4):
 
-				query1 = " select IdStudent, Studio, Instructor from StudentInStudio " + \
-						 " where IdStudent in (select IdStudent from Students" + \
-											" where CurrentYear in " + str(year) + " )"
+				query1 = "SELECT IdStudent, Studio, Instructor " + \
+						 "FROM StudentInStudio " + \
+						 "WHERE IdStudent in (SELECT Id FROM Students " + \
+											 "WHERE CurrentYear in " + str(year) + " and " + \
+						 						   "Semester= '" + str(semester) + "' )"
 
-				query2 = " select Instructor, id, Subject from Studio " + \
-						 " where IsActive = True and RelevantYears = '3,4' "
+				query2 = "SELECT Instructor, id, Subject " + \
+						 "FROM Studio "
+				#"WHERE IsActive = True and " + \
+				#"Semester= '" + str(semester) + "' and " + \
+				#"RelevantYears = '3,4' "
 
 				cur1.execute(query1)
 				cur2.execute(query2)
@@ -203,7 +205,7 @@ class Algorithm:
 					else:
 						counter[student] = {subject_of_studio[studio]: 1}
 
-				# check if student already been with specific instructor
+				# check if student already have been with specific instructor
 				# if yes - he can't choose this instructor again
 				for student, studios in rates.iteritems():
 					for studio, rate in studios.iteritems():
@@ -225,19 +227,21 @@ class Algorithm:
 
 				# get all the previous assigning of the students for studio
 				# and for each studio- his subject
-				query1 = " SELECT IdStudent, Studio, Subject " + \
-						 " FROM StudentInStudio SIS, Studio S " + \
-						 " WHERE SIS.IdStudent in (SELECT IdStudent " + \
+				query1 = "SELECT SIS.IdStudent, SIS.Studio, S.Subject " + \
+						 "FROM StudentInStudio SIS, Studio S " + \
+						 "WHERE SIS.IdStudent in (SELECT IdStudent " + \
 												 " FROM Students		" + \
-												 " WHERE CurrentYear = 5 and IsValid = True " + \
-						 " and SIS.Studio = S.id " + \
-						 " and S.RelevantYears = '3,4' "
+												 " WHERE CurrentYear = 5 and IsValid = True) and " + \
+						 "SIS.Studio = S.id and " + \
+						 "S.RelevantYears = '3,4'"
 
 				# get all the groups in the project course
 				# for each group - his subject
-				query2 = " SELECT id, Subject " +\
-						 " FROM Studio " + \
-						 " WHERE IsActive = True and RelevantYears = '5'"
+				query2 = "SELECT id, Subject " +\
+						 "FROM Studio " + \
+						 "WHERE IsActive = True and " + \
+								"Semester= '" + str(semester) + "' and " + \
+						 		"RelevantYears = '5'"
 
 				cur1.execute(query1)
 				cur2.execute(query2)
@@ -295,24 +299,32 @@ class Algorithm:
 			cur = self.db.cursor()
 
 			# query for table Studio
-			# need to take only from specific year and semester( date.today) in field where
+			# need to take only from specific year and semester in field where
 			# IsActive = true
 			if year == (3, 4):
-				query = "SELECT id FROM Studio " + \
-						"WHERE RelevantYears = '3,4' and Semester ='" + str(semester) + "' and IsActive = true "
+				query = "SELECT id " + \
+						"FROM Studio " + \
+						"WHERE RelevantYears = '3,4' and " + \
+							  "Semester ='" + str(semester) + "' and " + \
+							  "IsActive = true "
 
 			if year == 5:
-				query = "SELECT id FROM Studio " + \
-						"WHERE RelevantYears = '5' and Semester ='" + str(semester) + "' and IsActive = true "
+				query = "SELECT id " + \
+						"FROM Studio " + \
+						"WHERE RelevantYears = '5' and " + \
+							  "Semester ='" + str(semester) + "' and " + \
+							  "IsActive = true "
 
 			cur.execute(query)
-			result = {}
-			i = 1
-			for line in cur.fetchall():
-				result[i] = line[0]
-				i += 1
+			result = cur.fetchall()
+			id_dict = {}
+			if len(result) > 0:
+				i = 1
+				for line in result:
+					id_dict[i] = line[0]
+					i += 1
 
-			return result
+			return id_dict
 
 		except Exception as e:
 			self.errors['get_studio_id'] = 'database error: ' + str(e)
@@ -329,7 +341,7 @@ class Algorithm:
 			# list of general_average : [[id1,grade1],[id2,grade2],...]
 			if result is None:
 				self.errors['run_algorithm'] = 'no results from get_information_student'
-				return False
+				return json.dumps('no success - no data from result in run_algorithm')
 			general_average = result[0]
 			studio_average  = result[1]
 			lb_female       = result[2] - 2
@@ -384,7 +396,9 @@ class Algorithm:
 			students = range(start_value,  start_value + num_students)
 			studios = range(1, num_studios + 1)
 
-			# Linear Programming
+			############################################
+			####### Build the Linear Programming #######
+			############################################
 			# naming the problem
 			prob = LpProblem("SchedulingProblem", LpMinimize)
 			x = {}
@@ -464,14 +478,34 @@ class Algorithm:
 			for j in students:
 				prob += condition_each_student[j]
 
+			###############################
+			####### Solution status #######
+			###############################
 			prob.writeLP("SchedulingProblem.lp")
 			prob.solve()
 			# print("Status:", LpStatus[prob.status])
+			# if the status is not optimal - the solver don't succesed
+			solver_status = LpStatus[prob.status]
+			if solver_status != 'Optimal' and solver_status != 'Undefined':
+				return json.dumps('no success - The Solver status is ' + solver_status)
+			"""
+			Optimal - Optimal solution exists and is found.
+			Not Solved - Is the default setting before a problem has been solved.
+			Infeasible - The problem has no feasible solution.
+			Unbounded - The cost function is unbounded.
+			Undefined - Feasible solution hasn't been found (but may exist).
+			"""
 
 			temp_solution = {}
 			for v in prob.variables():
 				# print(v.name, "=", v.varValue)
-				value_variable = int(v.varValue)
+				value_variable = v.varValue
+				# In case solution can be found
+				if solver_status == 'Undefined':
+					if value_variable < 0.5:
+						value_variable = 0
+					else:
+						value_variable = 1
 				if value_variable == 1:
 					temp_name 	  = v.name.split("_")
 					student_index = int(temp_name[2])
@@ -483,10 +517,15 @@ class Algorithm:
 					else:
 						temp_solution[studio_id] = [students_information[student_id]]
 
+			###############################
+			######### Json format #########
+			###############################
 			# write the solution to json format
 			# when every studio have the following information: id of student and his preference of the studio,
 			# average grade, average studio grade, number of female, number of male
 			final_solution = []
+			# list that holds all the students with the assignments in case the solver status is Undefined
+			have_assignment = []
 			for studio, list_info in temp_solution.iteritems():
 				sum_average      = 0
 				sum_studio_grade = 0
@@ -496,6 +535,7 @@ class Algorithm:
 				list_id_student  = []
 
 				for item in list_info:
+					have_assignment.append(item["id"])
 					total_in_studio += 1
 					list_id_student.append([item["id"], original_rates[item["id"]][dic_studio[int(studio)]]])
 					sum_average += item["average"]
@@ -511,6 +551,14 @@ class Algorithm:
 				final_solution.append({"studio": dic_studio[int(studio)], "id_list": list_id_student, "general_average": total_average,
 									   "studio_average": total_studio_average, "female": num_female, "male": num_male,
 									   "total_in_studio": total_in_studio})
+
+			# In case solution can be found - check if there is students without assignment
+			if solver_status == 'Undefined':
+				for student_id in rates:
+					if student_id in have_assignment:
+						continue
+					else:
+						self.remark.append(student_id)
 
 			final_solution.append({"errors": self.errors, "no_preferences": self.remark})
 
@@ -531,6 +579,8 @@ class Algorithm:
 			# get all the relevant studios
 			# receive from db
 			dic_studio  = self.get_studio_id(year, semester)
+			if len(dic_studio) == 0:
+				return json.dumps('no success - no data from Studio table')
 			list_studio = dic_studio.values()
 
 			# create list of all the active studios
@@ -539,7 +589,7 @@ class Algorithm:
 
 			preferences_dic = self.get_preferences(year, semester)
 			if len(preferences_dic) == 0:
-				self.errors['sort_records'] = 'the preferences are empty'
+				return json.dumps('no success - not able to get preferences from table')
 			# duplicate dictionaries of all rates per student
 			# original_rates - for return the original prefernce of the
 			# student in the solution
@@ -549,7 +599,7 @@ class Algorithm:
 			# determine what is the bound for the preferences of the students
 			# in year 3,4 - student can get only one of the first 4 preferences
 			# in year 5 - student can get only one of the first 2 preferences
-			if year == (3,4):
+			if year == (3, 4):
 				bound = 4
 			if year == 5:
 				bound = 2
@@ -575,27 +625,24 @@ class Algorithm:
 
 			# update preferences of students according to the desired conditions
 			if year == (3, 4):
-				new_rates = self.update_preferences_by_conditions(rates, year)
+				new_rates = self.update_preferences_by_conditions(rates, year, semester)
 			elif year == 5:
 				# for now the faculty didn't use this condition for assigning
 				# so we ignore this section
 				new_rates = rates
 
 			result = self.run_algorithm(year, semester, num_of_studio, new_rates, original_rates, list_studio, dic_studio)
-			if result is False:
-				return json.dumps('no success')
 			self.db.close()
 			
 		except Exception as e:
 			self.errors['sort_records'] = str(e)
 			self.db.close()
 
-		return json.dumps(result)
+		return result
 		
 if __name__ == '__main__':
 
 	# initialize object from type Algorithm
 	algorithm = Algorithm()
-	#x = algorithm.sort_records(3, 'spring')
+	#x = algorithm.sort_records(5, 'winter')
 	x = algorithm.sort_records(int(sys.argv[1]), sys.argv[2])
-

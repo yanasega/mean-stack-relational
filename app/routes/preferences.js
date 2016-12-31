@@ -22,11 +22,16 @@ app.route('/preferences/:preferenceId/:registrationId')
 app.route('/getstudentpreference/:StudentId/:Studio/:RegId')
     .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudioAndReg);
 
+app.route('/getstudentpreferenceforedit/:StudentId/:Studio/:RegId')
+        .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudioAndRegForEdit);
 app.route('/getstudentpreference/:StudentId/:Studio/')
     .get(users.requiresLogin, preferences.getPreferenceByStudentAndStudio);
 
 app.route('/findstudentpreference/:StudentId/:RegId/')
     .get(users.requiresLogin, preferences.getPreferenceByStudentAndReg);
+
+app.route('/findstudentpreferencebyreg/:StudentId/:RegId/')
+        .get(users.requiresLogin, preferences.getPreferenceByStudentIdAndReg4);
 
  app.route('/getstudentpreference/:StudentId')
     .get(users.requiresLogin, preferences.getPreferenceByStudentId)

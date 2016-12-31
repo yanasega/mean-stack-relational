@@ -49,7 +49,8 @@ exports.runAlgorithem = function(req, res) {
     };
 
     PythonShell.run('algoritm.py', options, function (err, results) {
-        if (err) {return res.status(500).send({status:500, message:'internal error: ' + err}); }
+        if (err) {console.log(err);return res.status(500).send({status:500, message:'internal error: ' + err}); }
+        //console.log(results);
         return res.jsonp(results);
     });
 

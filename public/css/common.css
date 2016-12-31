@@ -75,6 +75,9 @@ select {
 .dropdown-menu {
   text-align: : right!important;
 }
+.studio-frame{
+  height: 400px;
+}
 /*added manualy*/
 .content {
     margin-top:3em;
