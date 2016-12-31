@@ -73,10 +73,13 @@
    <div ng-show="serverError">
      <p class="alert alert-danger text-white" style="font-size:1.2em; text-align:center" ng-show="serverError" >{{"התרחשה שגיאה בשרת"}}</p>
    </div>
+   <div ng-show="algoError">
+     <p class="alert alert-danger text-white" style="font-size:1.2em; text-align:center" ng-show="algoError" >{{"התרחשה שגיאה באלגוריתם"}}</p>
+   </div>
 
 <!--</div>-->
 
-<div ng-show="!assign && !dataError && !serverError" style = "text-align:center">
+<div ng-show="!assign && !dataError && !serverError && !algoError"  style = "text-align:center">
   <span>
   <p class="alert alert-info">השיבוץ התעדכן בהצלחה!</p>
   <a ui-sref="ViewPreviousAssignment">צפייה בשיבוצים קודמים</a>
@@ -94,7 +97,7 @@
 </div>
 
 
-  <div class= "row" style ="float:right" ng-show = "addstudflag && assign && !findall && !serverError && !dataError">
+  <div class= "row" style ="float:right" ng-show = "addstudflag && assign && !findall && !serverError && !dataError && !algoError">
      <form class="form-vertical" data-ng-submit="AddStudent()">
             <div class="controls" style="padding-right:30px">
                <div class="control-group col-md-3">

@@ -20,6 +20,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.alertEmptyStudents = false;
     $scope.dataError = false;
     $scope.serverError = false;
+    $scope.algoError = false;
 
 
 
@@ -88,6 +89,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.init = function (){
       $scope.missingStatusOK = false;
         $scope.missingStatus = false;
+        $scope.algoError = false;
      //check if all drop d is Chosen
      if($scope.ChosenYear == "choose year.." || $scope.ChosenSemester == "choose semester.." ){
          alert("בחר שנה וסמסטר");
@@ -383,6 +385,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     }
 
     $scope.runAlgo = function(){
+        //$scope.emptyStudio();
+        //$scope.getStudios();
+        $scope.studios.forEach(function(studio){
+          $scope.models.studioLists[studio.id] = [[],[],[],[],[],[],[],[],[],[],[]];
+        }, this);
         $scope.missingStatusOK = false;
         $scope.missingStatus = false;
         $scope.findall = true;
@@ -398,7 +405,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             console.log(respData);
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
-            if(respData != null && !respData[0].includes("The Solver status")){
+            if(respData != null && !respData[0].includes("no success")){
             respData[0].forEach(function(studio) {
                 if (studio.hasOwnProperty('id_list')){
                     studio.id_list.forEach(function(student) {
@@ -430,11 +437,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             }, this);
             $scope.loading = true;
             $scope.findall = false;
-            $scope.serverError = false;
+            $scope.algoError = false;
           }
           else{
             $scope.findall = false;
-            $scope.serverError = true;
+            $scope.algoError = true;
           }
         }).error(function (respData) {
                $scope.status = "There was an error while running the algorithem.";

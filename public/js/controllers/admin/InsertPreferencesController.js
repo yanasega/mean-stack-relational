@@ -38,7 +38,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             $scope.error = "התרחשה שגיאה בעת טעינת הנתונים";
         });
         $scope.findOne();
-        
+
     }
 
 
@@ -46,10 +46,16 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
         Students.get({
             studentId: $scope.global.user.id
         }, function(student) {
+          if (student.CurrentYear != '6'){
             $scope.student = student;
+          }
+          else{
+            $scope.RegOpen = true;
+            $scope.error = "הנך מוגדר כסטודנט שסיים את התואר ולכן אינך יכול להזין העדפות";
+          }
         }, function(err){
             $scope.RegOpen = true;
-            $scope.error = "פרטייך לא נמצאו במסד הנתונים - התרחשה שגיאה בעת טעינת הנתונים";            
+            $scope.error = "פרטייך לא נמצאו במסד הנתונים - התרחשה שגיאה בעת טעינת הנתונים";
         });
     };
 
@@ -69,19 +75,19 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
                 studios.forEach(function(studio) {
                     if(studio.RelevantYears == '3,4'&& studio.Semester == $scope.student.Semester && studio.IsActive){
                         $scope.studios.push(studio);
-                    }                  
+                    }
                 }, this);
             }
         },function (err) {
             $scope.RegOpen = true;
-            $scope.error = "התרחשה שגיאה בעת טעינת קבוצות הסטודיו.";  
+            $scope.error = "התרחשה שגיאה בעת טעינת קבוצות הסטודיו.";
         });
 
-        
-    }
-    
 
-    $scope.updateStudent = function(){      
+    }
+
+
+    $scope.updateStudent = function(){
         //update student
         var student = $scope.student;
         student.Generalaverage = $scope.average;
@@ -101,7 +107,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             $scope.getStudios();
         }, function (err) {
             $scope.RegOpen = true;
-            $scope.error = "התרחשה שגיאה בעת שמירת הנתונים.";          
+            $scope.error = "התרחשה שגיאה בעת שמירת הנתונים.";
         });
     }
 
@@ -125,7 +131,7 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
             }, function (error) {
                 $scope.error = "התרחשה שגיאה בעת שמירת הנתונים";
             });
-        });         
+        });
 
     }
 
@@ -134,22 +140,18 @@ angular.module('mean.system').controller('InsertPreferencesController', ['$scope
 
 }]).filter('arrayDiff', function() {
     return function(array, diff) {
-      var i, item, 
+      var i, item,
           newArray = [],
           exception = Array.prototype.slice.call(arguments, 2);
-      
+
       for(i = 0; i < array.length; i++) {
         item = array[i];
         if(diff.indexOf(item) < 0 || exception.indexOf(item) >= 0) {
           newArray.push(item);
         }
       }
-      
+
       return newArray;
-      
+
     };
   });
-
-
-
-

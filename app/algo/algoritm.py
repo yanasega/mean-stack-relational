@@ -563,8 +563,9 @@ class Algorithm:
 			final_solution.append({"errors": self.errors, "no_preferences": self.remark})
 
 			#pprint.pprint(final_solution)
-			print json.dumps(final_solution)
-			return json.dumps(final_solution)
+			#print json.dumps(final_solution)
+			#return json.dumps(final_solution)
+			return json.dumps('no success - The Solver status is ')
 
 		except Exception as e:
 			self.errors['run_algorithm'] = str(e)
