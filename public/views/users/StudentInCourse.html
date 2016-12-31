@@ -66,11 +66,16 @@
       </table>
     </div>
     <div class="control-group" collapse="!isCollapsed">
+      <br>
+
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+
+        <span class="spinner-huge-wave-out" style="width:20px; height:20px; margin-left: 800px; margin-top: -35px;" ng-show="runspinner" ></span>
+        <br>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true && changeMandatory == false" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false && changeMandatory == true" >{{"השינויים התרחשו בהצלחה"}}</p>
   </div>
 
   </form>
@@ -110,8 +115,10 @@
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+        <br>
+
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true && changeMandatoryChoice == false" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false && changeMandatoryChoice == true" >{{"השינויים התרחשו בהצלחה"}}</p>
   </div>
 
   </form>
@@ -152,8 +159,10 @@
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+        <br>
+
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true && changeDesignChoice == false" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false && changeDesignChoice == true" >{{"השינויים התרחשו בהצלחה"}}</p>
   </div>
 
   </form>
@@ -210,10 +219,12 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+      <br>
+
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true && changeProjectsChoice == false" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false && changeProjectsChoice == true" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true && changeProjectsChoice == false" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false && changeProjectsChoice == true" >{{"הקורס הוסר בהצלחה"}}</p>
 		</div>
 	</form>
 </div>
@@ -253,8 +264,9 @@
         <div class="controls">
           <input type="submit" class="btn btn-success" value="שמור">
         </div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false" >{{"השינויים התרחשו בהצלחה"}}</p>
+        <br>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="updateerror == true && changeGeneralChoice == false" >{{"התרחשה שגיאה בעת ביצוע שינויים"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="updateerror == false && changeGeneralChoice == true" >{{"השינויים התרחשו בהצלחה"}}</p>
   </div>
 
   </form>
@@ -309,10 +321,12 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+      <br>
+
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true && changeFreeChoice == false" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false && changeFreeChoice == true" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true && changeFreeChoice == false " >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false && changeFreeChoice == true " >{{"הקורס הוסר בהצלחה"}}</p>
     </div>
 	</form>
 </div>
@@ -367,10 +381,12 @@
 			<div class="controls">
 				<input type="submit" class="btn btn-success" value="שמור">
 			</div>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true" >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false" >{{"קורס חדש התווסף בהצלחה"}}</p>
-      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
-      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false" >{{"הקורס הוסר בהצלחה"}}</p>
+      <br>
+      
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="adderror == true && changExtraChoice == false " >{{"התרחשה שגיאה בעת הוספת קורס חדש"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="adderror == false && changExtraChoice == true" >{{"קורס חדש התווסף בהצלחה"}}</p>
+      <p class="alert alert-danger text-white" style="font-size:large" ng-show="delerror == true && changExtraChoice == false" >{{"התרחשה שגיאה בעת הסרת הקורס"}}</p>
+      <p class="alert alert-success text-white" style="font-size:large" ng-show="delerror == false && changExtraChoice == true" >{{"הקורס הוסר בהצלחה"}}</p>
 		</div>
 	</form>
 </div>

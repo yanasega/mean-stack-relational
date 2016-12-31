@@ -52,11 +52,11 @@ exports.getmycourses =  function(req, res){
         if(!studentincourse) {
             return res.jsonp(null);
         } else {
-            return res.jsonp(studentincourse);          
+            return res.jsonp(studentincourse);
         }
     }).catch(function(err){
-        return res.status(500).send({status:500, message:'internal error: ' + err});  
-    });   
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+    });
 }
 
 /**
@@ -104,6 +104,7 @@ exports.update = function(req, res) {
  * Delete an studio
  */
 exports.destroy = function(req, res) {
+
     // create a new variable to hold the article that was placed on the req object.
     var studentincourse = req.studentincourse;
     studentincourse.destroy().then(function(){
