@@ -5,7 +5,8 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.status = null;
     $scope.error = null;
     $scope.showuser = false;
-    $scope.preferences = [];
+    //$scope.preferences = [];
+    $scope.preferences = null;
     $scope.studentinstudio = [];
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
@@ -109,6 +110,46 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             studentId: $stateParams.studentId
         }, function(student) {
             $scope.student = student;
+            $http.get('/getallstudentpreference/' + $scope.student.id).success(function(respData){
+            respData.forEach(function(preference) {
+                    if($scope.preferences == null){
+                        $scope.preferences = {};
+                    }
+                    if ($scope.preferences[preference.IdR]){
+
+                        $scope.preferences[preference.IdR].push(preference); 
+                    }
+                    else{
+                        $scope.preferences[preference.IdR] = [];
+                        $scope.preferences[preference.IdR].push(preference); 
+                        
+                    }
+    
+            }, this);
+
+            Studios.query(function (studios) {
+                $scope.studios = studios;
+                angular.forEach($scope.preferences,function(value,key){
+                    
+                    $scope.preferences[key].forEach(function(preference) {
+                        $scope.studios.forEach(function(studio) {
+                            if(studio.id == preference.IdS){
+                                preference.IdS = studio.Name;
+                            }
+                        }, this);
+                    }, this);
+
+                });           
+            }, function (err) {
+                $scope.showpref = true;       
+                $scope.loaderror = true;
+            });  
+
+            $scope.showpref = true; 
+        }).error(function(err){
+            $scope.showpref = true;         
+            $scope.loaderror = true;           
+        })
         },function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
@@ -175,23 +216,25 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             $scope.showuser = true;
         });
 
-        Preferences.query(function(preferences) {
-            preferences.forEach(function(preference) {
-                if (preference.Id == $stateParams.studentId){
-                    $scope.preferences.push(preference); 
-                }
-            }, this);
-            $scope.preferences.forEach(function(preference) {
-                $scope.studios.forEach(function(studio) {
-                    if(studio.id == preference.IdS){
-                        preference.IdS = studio.Name;
-                    }
-                }, this);
-            }, this);
-        }, function (params) {
-            $scope.loaderror = true;
-            $scope.showuser = true;
-        });
+        
+
+        // Preferences.query(function(preferences) {
+        //     preferences.forEach(function(preference) {
+        //         if (preference.Id == $stateParams.studentId){
+        //             $scope.preferences.push(preference); 
+        //         }
+        //     }, this);
+        //     $scope.preferences.forEach(function(preference) {
+        //         $scope.studios.forEach(function(studio) {
+        //             if(studio.id == preference.IdS){
+        //                 preference.IdS = studio.Name;
+        //             }
+        //         }, this);
+        //     }, this);
+        // }, function (params) {
+        //     $scope.loaderror = true;
+        //     $scope.showuser = true;
+        // });
     };
 
     $scope.find = function() {

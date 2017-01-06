@@ -67,6 +67,18 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                 user.currentyear = null;
                 $scope.status = "לא ניתן ליצור משתמש. תעודת הזהות אינה נמצאת במערכת.";           
             }
+        }, function(err){
+            user.firstname = null;
+            user.lastname = null;
+            user.email = null;
+            user.id = null;
+            user.gender = null;
+            user.semester = null;
+            user.generalaverage = null;
+            user.laststudiograde = null;
+            user.password = null;
+            user.currentyear = null;
+            $scope.status = "יצירת משתמש נכשלה. ייתכן כי משתמש זה כבר קיים במערכת.";  
         });
     };
 

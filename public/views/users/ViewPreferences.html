@@ -37,7 +37,7 @@
                             <th>דירוג</th>
                         </thead>
                         <tbody  >
-                        <tr ng-repeat="p in pref" >
+                        <tr ng-repeat="p in pref | orderBy:'Rate'" >
                             <td>{{p.StudentYear}}</td>
                             <td>{{p.createdAt | date : "dd.MM.y"}}</td>
                             <td ng-if = "p.Semester =='winter'" >{{"חורף"}}</td>
