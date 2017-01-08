@@ -41,7 +41,7 @@ class Algorithm:
 
 		except Exception as e:
 			self.errors['get_preferences'] = 'database error: ' + str(e)
-			# print e
+			print json.dumps('no success - error in function get_preferences')
 
 	def get_information_student(self, year, semester, num_of_studio, rates):
 
@@ -92,6 +92,10 @@ class Algorithm:
 				if id_student not in rates:
 					self.remark.append(id_student)
 					num_of_students -= 1
+				elif len(rates[id_student]) < num_of_studio:
+					self.remark.append(id_student)
+					rates.pop(id_student, None)
+					num_of_students -= 1
 				else:
 					sum_general_average += general_average
 					sum_studio_average  += studio_average
@@ -135,7 +139,7 @@ class Algorithm:
 		except Exception as e:
 			self.errors['get_information_student-calculation'] = str(e)
 			self.db.close()
-			# print e
+			print json.dumps('no success - error in function get_information_student')
 
 	def update_preferences_by_conditions(self, rates, year, semester):
 
@@ -290,7 +294,7 @@ class Algorithm:
 		except Exception as e:
 			self.errors['update_preferences_by_conditions'] = 'database error: ' + str(e)
 			self.db.close()
-			# print e
+			print json.dumps('no success - error in function update_preferences_by_conditions')
 
 	def get_studio_id(self, year, semester):
 
@@ -329,7 +333,7 @@ class Algorithm:
 		except Exception as e:
 			self.errors['get_studio_id'] = 'database error: ' + str(e)
 			self.db.close()
-			print e
+			print json.dumps('no success - error in function get_studio_id')
 
 	def run_algorithm(self, year, semester, num_studios, rates, original_rates, list_id_studio, dic_studio):
 
@@ -341,7 +345,7 @@ class Algorithm:
 			# list of general_average : [[id1,grade1],[id2,grade2],...]
 			if result is None:
 				self.errors['run_algorithm'] = 'no results from get_information_student'
-				return json.dumps('no success - no data from result in run_algorithm')
+				print json.dumps('no success - no data from result in run_algorithm')
 			general_average = result[0]
 			studio_average  = result[1]
 			lb_female       = result[2] - 2
@@ -487,7 +491,7 @@ class Algorithm:
 			# if the status is not optimal - the solver don't succesed
 			solver_status = LpStatus[prob.status]
 			if solver_status != 'Optimal' and solver_status != 'Undefined':
-				return json.dumps('no success - The Solver status is ' + solver_status)
+				print json.dumps('no success - The Solver status is ' + solver_status)
 			"""
 			Optimal - Optimal solution exists and is found.
 			Not Solved - Is the default setting before a problem has been solved.
@@ -563,13 +567,12 @@ class Algorithm:
 			final_solution.append({"errors": self.errors, "no_preferences": self.remark})
 
 			#pprint.pprint(final_solution)
-			#print json.dumps(final_solution)
+			print json.dumps(final_solution)
 			#return json.dumps(final_solution)
-			return json.dumps('no success - The Solver status is ')
 
 		except Exception as e:
 			self.errors['run_algorithm'] = str(e)
-			print e
+			print json.dumps('no success - error in function run_algorithm')
 
 	def sort_records(self, year, semester):
 
@@ -581,7 +584,7 @@ class Algorithm:
 			# receive from db
 			dic_studio  = self.get_studio_id(year, semester)
 			if len(dic_studio) == 0:
-				return json.dumps('no success - no data from Studio table')
+				print json.dumps('no success - no data from Studio table')
 			list_studio = dic_studio.values()
 
 			# create list of all the active studios
@@ -590,7 +593,7 @@ class Algorithm:
 
 			preferences_dic = self.get_preferences(year, semester)
 			if len(preferences_dic) == 0:
-				return json.dumps('no success - not able to get preferences from table')
+				print json.dumps('no success - not able to get preferences from table')
 			# duplicate dictionaries of all rates per student
 			# original_rates - for return the original prefernce of the
 			# student in the solution
@@ -638,6 +641,7 @@ class Algorithm:
 		except Exception as e:
 			self.errors['sort_records'] = str(e)
 			self.db.close()
+			print json.dumps('no success - error in function sort_records')
 
 		return result
 		
@@ -645,5 +649,5 @@ if __name__ == '__main__':
 
 	# initialize object from type Algorithm
 	algorithm = Algorithm()
-	#x = algorithm.sort_records(5, 'winter')
+	#x = algorithm.sort_records(3, 'spring')
 	x = algorithm.sort_records(int(sys.argv[1]), sys.argv[2])

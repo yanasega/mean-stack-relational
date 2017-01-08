@@ -95,7 +95,7 @@
                               ng-class="{'selected': models.selected === item}"
                               dnd-dragend = "changePrefrenceEdit(item)"
                               >
-                              {{item.FirstName + " " + item.LastName + " " + item.Preference}}
+                              <a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference + " " + "(" + item.CurrentYear+ ")"}}</a>
                              <div ng-if ="tooltip == true">
                                <table id = "studentinfoTable" class="table table-hover" border="2px">
                                  <tr>
@@ -159,6 +159,8 @@
                          <th>ממוצע בסטודיו</th>
                          <th>נשים %</th>
                          <th>גברים %</th>
+                         <th>ג'</th>
+                          <th>ד'</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -167,6 +169,8 @@
                           <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage| number:1}}</td>
                           <td id = "female" ng-init="">{{studio.female}}</td>
                           <td id = "male" ng-init="">{{studio.male}}</td>
+                          <td id = "3" ng-init="">{{studio.third}}</td>
+                          <td id = "4" ng-init="">{{studio.forth}}</td>
                         </tr>
                       </tbody>
                     </table>

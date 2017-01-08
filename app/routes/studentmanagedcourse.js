@@ -10,11 +10,11 @@ module.exports = function(app) {
 // Article Routes
 app.route('/studentmanagedcourse')
     .get(studentinmanagedcourse.all)
-    .post(users.requiresLogin, studentinmanagedcourse.create)
-    .put(users.requiresLogin, studentinmanagedcourse.update);
+    .post(studentinmanagedcourse.create)
+    .put(studentinmanagedcourse.update);
 
 app.route('/studentmanagedcourse/:studentmanagedcourseId')
-    .delete(users.requiresLogin, studentinmanagedcourse.destroy)
+    .delete(studentinmanagedcourse.destroy)
 
 app.route('/getstudentmanagedcourse/:userId')
     .get(studentinmanagedcourse.getmycourses);

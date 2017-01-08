@@ -273,6 +273,10 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
         //$scope.loading = true;
     };
 
+    $scope.openSud = function(stud){
+        console.log(stud);
+        $window.open('viewstudents/' +stud);
+    }
 
     $scope.findAssignments = function (){
         Assignments.query(function(assignments) {
@@ -303,6 +307,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             var GAverage = 0;
             var SAverage = 0;
          $scope.studios.forEach(function(studio) {
+            studio.third = 0;
+            studio.forth = 0;
             count = 0;
             Male = 0;
             female = 0;
@@ -320,6 +326,13 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 else{
                     Male+=1;
                 }
+                if(student.CurrentYear == '3')
+                {
+                    studio.third +=1;
+                }
+                else{
+                    studio.forth+=1;
+                }
             }
             }, this);
             if(count != 0){
@@ -335,6 +348,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             studio.female = "";
             studio.male = "";
             studio.count = "";
+            studio.forth = "";
+            studio.third = "";
             }
 
         }, this);
@@ -405,7 +420,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             console.log(respData);
             $scope.models.studioLists[0] = [];
             //set each studio and students in studio
-            if(respData != null && !respData[0].includes("no success")){
+            //console.log(isNaN(parseFloat([{me:"you"}])));
+            if(respData != null && isNaN(parseFloat(respData[0])) && !respData[0].includes("no success")){
             respData[0].forEach(function(studio) {
                 if (studio.hasOwnProperty('id_list')){
                     studio.id_list.forEach(function(student) {
