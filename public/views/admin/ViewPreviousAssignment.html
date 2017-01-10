@@ -2,12 +2,16 @@
 	<br>
 		<p style = "font-size:2em">שיבוצים קודמים</p>
 		<hr>
+        <p class ="alert alert-danger" ng-show = "AssError" style = "font-size:1.2em" >התרחשה שגיאה בעת הצגת השיבוץ</p>
+
         <table class = "table">
             <thead>
                 <tr>
                 <th>תאריך יצירה</th>
                 <th>שנים</th>
                 <th>סמסטר</th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <!--<th></th>-->
                 </tr>
@@ -20,6 +24,8 @@
             <td ng-if="ass.Semester == 'spring'">{{"אביב"}}</td>
             <td><a class="btn btn-info" ui-sref="viewFullAssignment({assignmentId : ass.id})"><i class="fa fa-eye"></i> טעינה</a>
             <a class="btn btn-default btn-sm" ui-sref="editAssignment({assignmentId : ass.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
+           <td ng-if="ass.IsShow">השיבוץ מוצג</td>
+           <td ng-if="!ass.IsShow"><a href="" ng-click = "updateAssignments(ass)" >הצג לסטודנטים</a></td>
             </tr>
             </tbody>
 

@@ -296,7 +296,29 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
           }
     }
 
+    $scope.updateAssignments = function (assigment){
+            Assignments.get({
+                assignmentId: assigment.id
+            }, function(ass) {
+                ass.IsShow = true;
+                if (!ass.updated) {
+                    ass.updated = [];
+                }
+                ass.updated.push(new Date().getTime());
+                ass.$update(function() {
+                    $scope.AssError = false;
+                    $scope.findAssignments();
+                }, function (params) {
+                    $scope.AssError = true;
+                });
+            }, function (err){
+                $scope.AssError = false;
+            }, function(err){
+                $scope.AssError = false;
+            });
 
+    };
+	
     $scope.ChosenYear = "choose year..";
     $scope.ChosenSemester = "choose semester..";
 
@@ -473,7 +495,8 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
             var assignment = new Assignments({
                 Year: $scope.ChosenYear,
                 Semester: $scope.ChosenSemester,
-                IdR: respData.id
+                IdR: respData.id,
+				IsShow: false
             })
             assignment.$save(function(response){
                 var ass = response;

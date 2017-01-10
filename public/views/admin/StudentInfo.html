@@ -103,7 +103,7 @@
         
 </div>
 
-<p ng-show = "showuser == true" style = "font-size:1.5em"> 
+<!--<p ng-show = "showuser == true" style = "font-size:1.5em"> 
     <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
     היסטוריית העדפות</p>
 <hr ng-show = "showuser == true">
@@ -134,4 +134,53 @@
        <p class="alert alert-info" ng-show="!preferences.length">סטודנט זה טרם הזין העדפות</p>
         
 
+</div>-->
+<p ng-show = "showuser == true" style = "font-size:1.5em"> 
+    <i ng-click="isCollapsed2 = !isCollapsed2" ng-class="isCollapsed2? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+    היסטוריית העדפות</p>
+<hr ng-show = "showuser == true">
+<div collapse="!isCollapsed2">
+    <p class="alert alert-info" ng-show="!preferences">סטודנט זה טרם הזין העדפות</p>
+   <table class = "table table-striped" >
+      <thead>
+            <tr>
+               <th></th>
+                <th></th>
+            </tr>
+      </thead>
+     <tbody ng-repeat="pref in preferences" style="color:black">
+        <tr >
+            <td  style=" width: 10px;" ng-click="isCollapsed = !isCollapsed"><i  ng-class="isCollapsed? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i></td>
+            <td style = "font-size:20px">{{pref[0].createdAt | date : "dd.MM.y"}}</td>
+            <!--<div ng-show = "isRegOpen(pref[0].IdR)">-->
+            <!--</div>-->
+        </tr>
+       <tr >
+           <td colspan="6">
+               <div collapse = "!isCollapsed">
+                    <table class="table !important" ng-show="pref.length">
+                        <thead>
+                            <th >שנת לימוד</th>
+                            <th>תאריך</th>
+                            <th>סמסטר</th>
+                            <th>סטודיו</th>
+                            <th>דירוג</th>
+                        </thead>
+                        <tbody  >
+                        <tr ng-repeat="p in pref | orderBy:'Rate'" >
+                            <td>{{p.StudentYear}}</td>
+                            <td>{{p.createdAt | date : "dd.MM.y"}}</td>
+                            <td ng-if = "p.Semester =='winter'" >{{"חורף"}}</td>
+                            <td ng-if = "p.Semester !='winter'" >{{"אביב"}}</td>
+                            <td>{{p.IdS}}</td>
+                            <td>{{p.Rate}}</td>
+ 
+                        </tr>
+                        </tbody>
+                    </table>
+               </div>
+           </td>
+       </tr>
+     </tbody>
+   </table>
 </div>

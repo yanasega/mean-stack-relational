@@ -52,6 +52,7 @@ exports.update = function(req, res) {
     // create a new variable to hold the article that was placed on the req object.
     var assignment = req.assignment;
     assignment.updateAttributes({
+		IsShow: req.body.IsShow
     }).then(function(a){
         return res.jsonp(a);
     }).catch(function(err){

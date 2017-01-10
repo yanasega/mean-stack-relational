@@ -159,8 +159,8 @@
                          <th>ממוצע בסטודיו</th>
                          <th>נשים %</th>
                          <th>גברים %</th>
-                         <th>ג'</th>
-                          <th>ד'</th>
+                         <th ng-if="ChosenYear != '5'">ג'</th>
+                          <th ng-if="ChosenYear != '5'">ד'</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -169,8 +169,8 @@
                           <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage| number:1}}</td>
                           <td id = "female" ng-init="">{{studio.female}}</td>
                           <td id = "male" ng-init="">{{studio.male}}</td>
-                          <td id = "3" ng-init="">{{studio.third}}</td>
-                          <td id = "4" ng-init="">{{studio.forth}}</td>
+                          <td ng-if="ChosenYear != '5'" id = "3" ng-init="">{{studio.third}}</td>
+                          <td ng-if="ChosenYear != '5'" id = "4" ng-init="">{{studio.forth}}</td>
                         </tr>
                       </tbody>
                     </table>
