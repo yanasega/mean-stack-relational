@@ -122,11 +122,11 @@
       <div class="col-sm-8" style="padding-bottom:10px">
             <div class = "col-sm-6"  ng-repeat= "studio in studios">
               <div class ="row">
-                <div class="col-sm-2" style="padding-top:7px; padding-left:45px;float: right;">
+                <div class="col-sm-4" style="padding-top:7px;padding-right: 34px;">
                   <span class="badge" >{{studio.count}}</span><br>
                 </div>
-                <div class="col-sm-10">
-                  <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
+                <div class="col-sm-8">
+                  <h5 style="text-align:right;"><b> {{studio.Name}}</b></h5>
                 </div>
               </div>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:300px; width:300px">
@@ -140,7 +140,10 @@
                               dnd-dragend = "changePrefrence(item)"
 
                               >
-                              <a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference + " " + "(" + item.CurrentYear+ ")"}}</a>
+                              <div class = "row">
+                                <span  ng-if ="item.CurrentYear" class = "col-sm-2" >{{"(" + item.CurrentYear+ ")"}}</span>
+                                <span  class = "col-sm-10"><a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference }}</a></span>
+                              </div>
                               <div ng-if ="tooltip == true">
                                <table id = "studentinfoTable" class="table table-hover" border="2px">
                                  <tr>
@@ -225,7 +228,7 @@
       </div>
       <div class="col-sm-4">
         <h3 style="margin-top:0px">רשימת סטודנטים</h3>
-            <div style= "overflow:hidden; overflow-y:scroll; height:600px">
+            <div style= "overflow:hidden; overflow-y:scroll; height:600px;">
               <div class="simpleDemo">
                     <ul dnd-list="models.studioLists[0]">
                           <li ng-repeat="item in models.studioLists[0]"
