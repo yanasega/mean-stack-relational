@@ -112,9 +112,18 @@ exports.all = function(req, res) {
 };
 
 exports.getmyassigments = function(req,res){
-     db.StudentInStudio.findAll({where: {IdStudent: req.StudentId}}).then(function(studentinstudio){
-        return res.jsonp(studentinstudio);
+    db.Assignment.findAll({where: {IsShow: true}}).then(function(assigments){
+        var arr = [];
+        for(var i = 0; i < assigments.length;i++){
+            arr[i] = assigments[i].id;
+        }
+
+        db.StudentInStudio.findAll({where: {IdStudent: req.StudentId, AId:{$in: arr }}}).then(function(studentinstudio){
+            return res.jsonp(studentinstudio);
+        }).catch(function(err){
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+        });  
     }).catch(function(err){
-       return res.status(500).send({status:500, message:'internal error: ' + err});
-    });  
+        return res.status(500).send({status:500, message:'internal error: ' + err});
+    })
 }

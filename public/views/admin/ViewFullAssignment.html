@@ -51,11 +51,11 @@
     <div class="row">
             <div class = "col-sm-4 studio-frame"  ng-repeat= "studio in studios">
               <div class ="row">
-                <div class="col-sm-2" style="padding-top:7px; padding-left:45px">
+                <div class="col-sm-4" style="padding-top:7px;padding-right: 34px;">
                   <span class="badge" >{{studio.count}}</span><br>
                 </div>
-                <div class="col-sm-10">
-                  <h5 style="text-align:right; padding-right:50px"><b> {{studio.Name}}</b></h5>
+                <div class="col-sm-8">
+                  <h5 style="text-align:right;"><b> {{studio.Name}}</b></h5>
                 </div>
               </div>
                   <div class="simpleDemo" style= "overflow:hidden; overflow-y:scroll; height:200px; width:300px" >
@@ -67,8 +67,10 @@
                               dnd-selected="models.selected = item"
 
                                >
-                              <a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference + " " + "(" + item.CurrentYear+ ")"}}</a>
-
+                              <div class = "row">
+                                <span  ng-if ="item.CurrentYear" class = "col-sm-2" >{{"(" + item.CurrentYear+ ")"}}</span>
+                                <span  class = "col-sm-10"><a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference }}</a></span>
+                              </div>
                           </li>
                         </ul>
                     </div>
@@ -80,8 +82,8 @@
                          <th>ממוצע בסטודיו</th>
                          <th>נשים %</th>
                          <th>גברים %</th>
-                         <th ng-if = "ChosenYear != '5'">ג'</th>
-                          <th ng-if = "ChosenYear != '5'">ד'</th>
+                         <th ng-if="ChosenYear != '5'">ג'</th>
+                          <th ng-if="ChosenYear != '5'">ד'</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -90,8 +92,8 @@
                           <td id = "AverageGradeinstudio" ng-init="">{{studio.SAverage| number:1}}</td>
                           <td id = "female" ng-init="">{{studio.female}}</td>
                           <td id = "male" ng-init="">{{studio.male}}</td>
-                          <td ng-if = "ChosenYear != '5'" id = "3" ng-init="">{{studio.third}}</td>
-                          <td  ng-if = "ChosenYear != '5'" id = "4" ng-init="">{{studio.forth}}</td>
+                          <td ng-if="ChosenYear != '5'" id = "3" ng-init="">{{studio.third}}</td>
+                          <td ng-if="ChosenYear != '5'" id = "4" ng-init="">{{studio.forth}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -118,7 +120,6 @@
                             ng-model="models.studioLists[studio.id]"
                              >
                             {{item.FirstName + " " + item.LastName}}
-
                          </li>
                       </ul>
 	                 </div>
@@ -157,7 +158,6 @@
                             dnd-selected="models.selected = item"
                              >
                            {{item.FirstName + " " + item.LastName}}
-
                          </li>
                    </ul>
 	            </div>

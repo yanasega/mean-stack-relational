@@ -5,8 +5,10 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
     $scope.status = null;
     $scope.error = null;
     $scope.showuser = false;
+
     //$scope.preferences = [];
     $scope.preferences = null;
+
     $scope.studentinstudio = [];
     $scope.studentincourse = [];
     $scope.years = {"3": 3, "4":4, "5":5};
@@ -60,16 +62,17 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             }).success(function (response, status) {
                     $scope.TzFile = response[0].filename;
                     $http.get('/insertTz/' + $scope.TzFile).success(function(respData){
-                        if (respData == 'done'){
+                        console.log(respData);
+                        if (respData == null){
                             $scope.error = null;
-                            $scope.fileerror = true;
+                            $scope.fileerror = false;
                             $scope.status = "הקובץ נטען בהצלחה";
                             $scope.Ids = null;
                             Tzs.query(function(tzs) {
                                 $scope.tzs = tzs;
                             },function (err) {
                                 $scope.status = null;
-                                $scope.fileerror = false;
+                                $scope.fileerror = true;
 
                                 $scope.error = "הייתה שגיאה בעת טעינת תעודת הזהות: " + $scope.tz;
                                 $scope.tz = null;
@@ -79,7 +82,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
                         else{
                             $scope.Ids = null;
                             $scope.status = null;
-                            $scope.fileerror = false;
+                            $scope.fileerror = true;
                             $scope.error = "התרחשה שגיאה בזמן טעינה.";
                         }
                     })
@@ -87,7 +90,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             ).error(function (errorResponse) {
                 $scope.Ids = null;
                 $scope.status = null;
-                $scope.fileerror = false;
+                $scope.fileerror = true;
                 $scope.error = "התרחשה שגיאה בעת הטענת הקובץ.";
                 }
             );
@@ -150,6 +153,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             $scope.showpref = true;         
             $scope.loaderror = true;           
         })
+
         },function (params) {
             $scope.loaderror = true;
             $scope.showuser = true;
@@ -216,25 +220,7 @@ angular.module('mean.system').controller('StudentsController', ['$scope', '$reso
             $scope.showuser = true;
         });
 
-        
 
-        // Preferences.query(function(preferences) {
-        //     preferences.forEach(function(preference) {
-        //         if (preference.Id == $stateParams.studentId){
-        //             $scope.preferences.push(preference); 
-        //         }
-        //     }, this);
-        //     $scope.preferences.forEach(function(preference) {
-        //         $scope.studios.forEach(function(studio) {
-        //             if(studio.id == preference.IdS){
-        //                 preference.IdS = studio.Name;
-        //             }
-        //         }, this);
-        //     }, this);
-        // }, function (params) {
-        //     $scope.loaderror = true;
-        //     $scope.showuser = true;
-        // });
     };
 
     $scope.find = function() {

@@ -10,13 +10,13 @@ module.exports = function(app) {
 // Article Routes
 app.route('/studentincourse')
     .get(studentincourse.all)
-    .post(users.requiresLogin, studentincourse.create)
-    .put(users.requiresLogin, studentincourse.update);
+    .post(studentincourse.create)
+    .put( studentincourse.update);
 app.route('/getstudentincourse/:userId')
     .get(studentincourse.getmycourses);
 app.route('/getstudentincourse/:courseId/:userId')
-    .get(users.requiresLogin, studentincourse.find)
-    .put(users.requiresLogin, studentincourse.update);
+    .get(studentincourse.find)
+    .put(studentincourse.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 
 

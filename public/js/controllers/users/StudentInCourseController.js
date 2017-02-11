@@ -103,6 +103,7 @@ angular.module('mean.system').controller('StudentInCourseController', ['$scope',
                     }
                 }, this);
             }).error( function (err){
+                console.log(err);
                 $scope.loaderror = true;
                 $scope.showcourse = true;
             })

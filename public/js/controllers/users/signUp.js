@@ -25,7 +25,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                         studentUpdated.IsValid = false;
                         studentUpdated.Generalaverage = user.generalaverage;
                         studentUpdated.LastStudioGrade = user.laststudiograde;
-                        studentUpdated.CurrentYear = user.currentyear ;                     
+                        studentUpdated.CurrentYear = user.currentyear ;
                         if (!studentUpdated.updated) {
                             studentUpdated.updated = [];
                         }
@@ -65,7 +65,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
                 user.laststudiograde = null;
                 user.password = null;
                 user.currentyear = null;
-                $scope.status = "לא ניתן ליצור משתמש. תעודת הזהות אינה נמצאת במערכת.";           
+                $scope.status = "לא ניתן ליצור משתמש. תעודת הזהות אינה נמצאת במערכת.";
             }
         }, function(err){
             user.firstname = null;
@@ -79,6 +79,7 @@ angular.module('mean.auth').controller('signUp', ['$scope', '$window', 'Global',
             user.password = null;
             user.currentyear = null;
             $scope.status = "יצירת משתמש נכשלה. ייתכן כי משתמש זה כבר קיים במערכת.";  
+
         });
     };
 
