@@ -18,7 +18,11 @@ app.route('/registrations/:registrationId')
 app.route('/getregistration')
     .get(users.requiresLogin, registrations.getmax);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
-
+app.route('/downloadprefs/:registrationId')
+    .get(users.requiresLogin, registrations.downloadprefs);
+app.route('/deletedownload/:path')
+    .get(users.requiresLogin, registrations.deletefile);
 // Note: the registrations.registration function will be called everytime then it will call the next function.
 app.param('registrationId', registrations.registration);
+app.param('path', registrations.path);
 };

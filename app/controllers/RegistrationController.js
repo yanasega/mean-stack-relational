@@ -5,13 +5,23 @@
  */
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
-
+var exec = require('child_process').exec;
+var fs = require('fs'),
+    path = require('path');
+var PythonShell = require('python-shell');
+var escapeJSON = require('escape-json-node');
+var mime = require('mime');
+//var csv = require('csv');
 /**
  * Find registration by id
  * Note: This is called every time that the parameter :articleId is used in a URL. 
  * Its purpose is to preload the article on the req object then call the next function. 
  */
 
+exports.path = function(req, res, next, id) {
+    req.deletepath = id;
+    return next();
+};
 
 exports.getmax = function(req, res, next) {
     db.Registration.max('id').then(
@@ -113,6 +123,37 @@ exports.all = function(req, res) {
      return res.status(500).send({status:500, message:'internal error: ' + err});
     });
 };
+
+exports.downloadprefs = function(req, res){
+    console.log("Download Activeted.");
+    var dirString = path.dirname(fs.realpathSync(__filename));
+
+    var options = {
+        mode: 'json',
+        pythonPath: 'python',
+        scriptPath: dirString + '//..//algo',
+        args: [11]
+    };
+
+    PythonShell.run('export_preferences.py', options, function (err, results) {
+        if (err) {console.log(err);return res.status(500).send({status:500, message:'internal error: ' + err}); }
+        var file = dirString + '\\..\\algo\\' + results[0] + '.csv';
+
+        var filename = path.basename(file);
+        var mimetype = mime.lookup(file);
+
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+        return res.jsonp(results + '.csv');
+
+    });
+
+}
+
+exports.deletefile = function(req,res){
+    fs.unlinkSync("public//uploads//"+req.deletepath);
+    return res.jsonp("success");
+}
 
 /**
  * Article authorizations routing middleware
