@@ -21,7 +21,7 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
     $scope.dataError = false;
     $scope.serverError = false;
     $scope.algoError = false;
-
+    $scope.dowloaderror = false;
 
 
 
@@ -716,5 +716,22 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 $scope.status = "There was an error in registration data.";
                 $scope.serverError = true;
              });
+    }
+
+    $scope.DownloadAss = function (AssId){
+        $http.get('/downloadass/' + AssId).success(function(respData){
+            console.log(respData);
+            if (respData.indexOf("no success creating the file") == -1){
+                $window.location = 'uploads/' + respData.replace(/['"]+/g, '');
+                // $http.get('/deletedownload/' + a).success(function(resp){
+
+                // })
+            }
+            else{
+                $scope.dowloaderror = true;
+            }
+        }).error(function (errorResponse) {
+            $scope.dowloaderror = true;
+        });
     }
 }]);

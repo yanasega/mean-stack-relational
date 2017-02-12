@@ -132,7 +132,7 @@ exports.downloadprefs = function(req, res){
         mode: 'json',
         pythonPath: 'python',
         scriptPath: dirString + '//..//algo',
-        args: [11]
+        args: [req.registration.id]
     };
 
     PythonShell.run('export_preferences.py', options, function (err, results) {

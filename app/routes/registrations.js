@@ -17,7 +17,6 @@ app.route('/registrations/:registrationId')
     .put(users.requiresLogin, registrations.update);
 app.route('/getregistration')
     .get(users.requiresLogin, registrations.getmax);
-    // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
 app.route('/downloadprefs/:registrationId')
     .get(users.requiresLogin, registrations.downloadprefs);
 app.route('/deletedownload/:path')

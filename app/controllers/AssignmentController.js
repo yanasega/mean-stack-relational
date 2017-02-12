@@ -5,7 +5,12 @@
  */
 var StandardError = require('standard-error');
 var db = require('../../config/sequelize');
-
+var exec = require('child_process').exec;
+var fs = require('fs'),
+    path = require('path');
+var PythonShell = require('python-shell');
+var escapeJSON = require('escape-json-node');
+var mime = require('mime');
 /**
  * Find assignment by id
  * Note: This is called every time that the parameter :articleId is used in a URL. 
@@ -104,6 +109,32 @@ exports.all = function(req, res) {
     });
 };
 
+exports.downloadass = function(req, res){
+    console.log("Download Activeted.");
+    var dirString = path.dirname(fs.realpathSync(__filename));
+
+    var options = {
+        mode: 'json',
+        pythonPath: 'python',
+        scriptPath: dirString + '//..//algo',
+        args: [req.assignment.id]
+    };
+    console.log(req.assignment.id);
+    console.log("blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    PythonShell.run('export_assignment.py', options, function (err, results) {
+        if (err) {console.log(err);return res.status(500).send({status:500, message:'internal error: ' + err}); }
+        var file = dirString + '\\..\\algo\\' + results[0] + '.csv';
+
+        var filename = path.basename(file);
+        var mimetype = mime.lookup(file);
+
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+        return res.jsonp(results + '.csv');
+
+    });
+
+}
 /**
  * Article authorizations routing middleware
  */

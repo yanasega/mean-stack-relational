@@ -109,7 +109,6 @@ angular.module('mean.system').controller('RegistrationController', ['$scope', '$
     $scope.DownloadPref = function (regId){
         var a = null;
         $http.get('/downloadprefs/' + regId).success(function(respData){
-            console.log(respData.indexOf("no success creating the file"));
             if (respData.indexOf("no success creating the file") == -1){
                 $window.location = 'uploads/' + respData.replace(/['"]+/g, '');
                 // $http.get('/deletedownload/' + a).success(function(resp){

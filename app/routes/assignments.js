@@ -16,7 +16,8 @@ app.route('/assignments/:assignmentId')
     .get(assignments.show)
     .put(users.requiresLogin, assignments.update);
     // .put(users.requiresLogin, articles.hasAuthorization, articles.update)
-
+app.route('/downloadass/:assignmentId')
+    .get(users.requiresLogin, assignments.downloadass);
 
 // Note: the assignments.assignment function will be called everytime then it will call the next function.
 app.param('assignmentId', assignments.assignment);
