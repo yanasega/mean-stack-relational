@@ -14,7 +14,9 @@ module.exports = function(sequelize, DataTypes) {
             CurrentYear : DataTypes.INTEGER,
 			IsValid : DataTypes.BOOLEAN,
 			Generalaverage: DataTypes.DOUBLE,
-			LastStudioGrade: DataTypes.DOUBLE
+			LastStudioGrade: DataTypes.DOUBLE,
+			Urban : DataTypes.BOOLEAN,
+			Integrative : DataTypes.BOOLEAN
         },{
             associate: function(models) {
 				Student.belongsTo(models.User, {foreignKey: 'id'});

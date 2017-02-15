@@ -106,7 +106,9 @@ footer p {
 .red{
     color: red;
 }
-
+.orange{
+    color: orange;
+}
 
 /**
  * For the correct positioning of the placeholder element, the dnd-list and

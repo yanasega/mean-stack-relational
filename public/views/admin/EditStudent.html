@@ -33,6 +33,22 @@
 					<option value="">בחר סטאטוס</option>
 				</select>
 			</div>
+			<br>
+			<label class="control-label" style="float: right" for="graduationform">השלים סטודיו עירוני?</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="student.Urban" ng-options="status for status in statuses" required>
+					<option value="">בחר סטאטוס</option>
+				</select>
+			</div>
+			<br>
+			<label class="control-label" style="float: right" for="graduationform">השלים סטודיו אינטגרטיבי?</label>
+			<div class="controls">
+				<!--<input type="text" data-ng-model="instructor" id="instructor" required>-->
+                <select type="string" data-ng-model="student.Integrative" ng-options="status for status in statuses" required>
+					<option value="">בחר סטאטוס</option>
+				</select>
+			</div>
             <br>
 		<div class="control-group">
 			<div class="controls">

@@ -141,8 +141,15 @@
 
                               >
                               <div class = "row">
-                                <span  ng-if ="item.CurrentYear" class = "col-sm-2" >{{"(" + item.CurrentYear+ ")"}}</span>
-                                <span  class = "col-sm-10"><a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference }}</a></span>
+                               <span class = "col-sm-6">
+                                 <div class = "row">
+                                  <span  ng-if ="item.CurrentYear" class = "col-sm-4" >{{"(" + item.CurrentYear+ ")"}}</span>
+                                  <span  ng-if ="item.Urban" class = "col-sm-4" ><div class="green">ע'</div></span>
+                                  <span  ng-if ="item.Integrative" class = "col-sm-4" ><div class="orange">א'</div></span>
+                                 </div>
+                               </span>
+
+                                <span  class = "col-sm-6"><a ng-if = "item" href="" ng-click = "openSud(item.id)">{{item.FirstName + " " + item.LastName + " " + item.Preference }}</a></span>
                               </div>
                               <div ng-if ="tooltip == true">
                                <table id = "studentinfoTable" class="table table-hover" border="2px">

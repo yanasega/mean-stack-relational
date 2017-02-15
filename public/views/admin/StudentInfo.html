@@ -12,14 +12,16 @@
     <thead>
         <tr>
         <th>ת"ז</th>
-        <th>שם פרטי</th>
+        <th>שם</th>
         <th>שם משפחה</th>
         <th>דוא"ל</th>
         <th>מין</th>
         <th>שנה</th>
         <th>ממוצע כללי</th>
         <th>ממוצע סטודיו</th>
-        <th>מצב טופס גמר</th>
+        <th>טופס גמר</th>
+        <th>עירוני</th>
+        <th>אינטגרטיבי</th>
         <th></th>
         <th></th>
         </tr>
@@ -37,6 +39,8 @@
     <td>{{student.LastStudioGrade}}</td>  
     <td ng-if="student.IsValid == false">{{"טרם הושלם"}}</td>
     <td ng-if="student.IsValid == true">{{"הושלם"}}</td>     
+    <td  style="text-align: center !important;"> <i ng-class="student.Urban? 'fa fa-check-circle-o green' : 'fa fa-times-circle-o red'" aria-hidden="true"></i></td>
+    <td style="text-align: center !important;"> <i ng-class="student.Integrative? 'fa fa-check-circle-o green' : 'fa fa-times-circle-o red'" aria-hidden="true"></i></td>    
     <td><a class="btn btn-default btn-sm" ui-sref="editStudent({studentId : student.id})"><i class="fa fa-pencil"></i> עריכה</a></td>
     <td><a class="btn btn-danger" ng-click=removeView(stud)><i class="fa fa-trash-o fa-lg"></i> מחיקה</a></td>
     </tr>
