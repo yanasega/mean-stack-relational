@@ -11,6 +11,7 @@ var fs = require('fs'),
 var PythonShell = require('python-shell');
 var escapeJSON = require('escape-json-node');
 var mime = require('mime');
+var forEach = require('async-foreach').forEach;
 /**
  * Find assignment by id
  * Note: This is called every time that the parameter :articleId is used in a URL. 
@@ -30,6 +31,10 @@ exports.assignment = function(req, res, next, id) {
     });
 };
 
+exports.setAssId = function(req, res, next, id) {
+    req.AssId = id;
+    return next();
+};
 /**
  * Create a registration
  */
@@ -48,6 +53,57 @@ exports.create = function(req, res) {
 
     });
 };
+
+exports.saveUrbanInteg = function(req, res) {
+        db.StudentInStudio.findAll({where: {AId: req.AssId}}).then(function(sis){
+                if(sis) {
+                    
+                    forEach(sis, function(item, index, arr) {
+                    
+                    
+                    // for(var i = 0; i < sis.length;i++){
+                        var sis_var = item;
+                        db.Studio.find({where: {id: sis_var.Studio}}).then(function(studio){
+                            if(studio) {
+                                
+                                if(studio.Subject == '2'){
+                                    db.Student.find({where: {Id: sis_var.IdStudent}}).then(function(student){
+                                        if(student) {
+                                            student.updateAttributes({
+                                                Urban:true
+                                            }).catch(function(err){
+                                                return res.status(500).send({status:500, message:'internal error: ' + err});
+                                            });
+                                        }
+                                    }).catch(function(err){
+                                        return res.status(500).send({status:500, message:'internal error: ' + err});
+                                    });
+                                }
+                                if(studio.Subject == '7'){
+                                    db.Student.find({where: {Id: sis_var.IdStudent}}).then(function(student){
+                                        if(student) { 
+                                            console.log(sis_var.IdStudent); 
+                                            student.updateAttributes({
+                                                Integrative:true
+                                            }).catch(function(err){
+                                                return res.status(500).send({status:500, message:'internal error: ' + err});
+                                            });
+                                        }
+                                    }).catch(function(err){
+                                        return res.status(500).send({status:500, message:'internal error: ' + err});
+                                    });
+                                }
+                            }
+                        }).catch(function(err){
+                            return res.status(500).send({status:500, message:'internal error: ' + err});
+                        });
+                    // }
+                    });
+                }
+                }).catch(function(err){
+                    return res.status(500).send({status:500, message:'internal error: ' + err});
+                });
+}
 
 /**
  * Update a assignment

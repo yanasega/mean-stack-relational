@@ -19,6 +19,9 @@ app.route('/assignments/:assignmentId')
 app.route('/downloadass/:assignmentId')
     .get(users.requiresLogin, assignments.downloadass);
 
+app.route('/assignment/:assId')
+    .post(assignments.saveUrbanInteg);
 // Note: the assignments.assignment function will be called everytime then it will call the next function.
 app.param('assignmentId', assignments.assignment);
+app.param('assId', assignments.setAssId);
 };

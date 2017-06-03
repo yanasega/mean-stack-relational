@@ -307,6 +307,11 @@ angular.module('mean.system').controller('CreateNewAssignmentController', ['$sco
                 ass.updated.push(new Date().getTime());
                 ass.$update(function() {
                     $scope.AssError = false;
+                    $http.post('/assignment/' + assigment.id ).success(function(ass){
+
+                    }).error(function (ass) {
+                             $scope.AssError = true;
+                    });
                     $scope.findAssignments();
                 }, function (params) {
                     $scope.AssError = true;
