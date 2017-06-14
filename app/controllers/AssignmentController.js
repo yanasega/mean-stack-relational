@@ -171,7 +171,7 @@ exports.downloadass = function(req, res){
 
     var options = {
         mode: 'json',
-        pythonPath: 'python',
+        pythonPath: 'C:\\Program Files (x86)\\Python27\\python',
         scriptPath: dirString + '//..//algo',
         args: [req.assignment.id]
     };
